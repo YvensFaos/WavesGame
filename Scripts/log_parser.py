@@ -146,7 +146,7 @@ def extract_movement(faction_lines: list[Any], model, output_list):
 
 
 def extract_attempts_data(faction_lines: list[Any], model, output_list):
-    attempts = file_utils.find_lines_containing_string("attempts", faction_lines)
+    attempts = file_utils.find_lines_containing_string("attempts:", faction_lines)
     avg_attempts = 0
     num_attempts = len(attempts)
     for attempt in attempts:
