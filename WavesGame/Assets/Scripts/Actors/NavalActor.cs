@@ -56,6 +56,20 @@ namespace Actors
 
                 var ratio = GetHealthRatio();
                 healthBar.SetFillFactor(ratio, 1 - ratio);
+                AnimateDamage();
+            }
+            else
+            {
+                AnimateDamage(true);
+            }
+
+            return destroyed;
+        }
+
+        public void AnimateDamage(bool miss = false)
+        {
+            if (miss)
+            {
                 damageParticles.gameObject.SetActive(true);
                 damageParticles.Play();
             }
@@ -64,8 +78,16 @@ namespace Actors
                 missParticles.gameObject.SetActive(true);
                 missParticles.Play();
             }
+        }
 
-            return destroyed;
+        /// <summary>
+        /// Used by the DeathRecordEntry class and other mechanisms that might need to immediate
+        /// destroy an actor instead of relying on the damage (non-deterministic) system.
+        /// </summary>
+        public void DestroyActorImmediate()
+        {
+            if (markedForDeath) return;
+            DestroyActor();
         }
 
         protected override void DestroyActor()
@@ -117,7 +139,7 @@ namespace Actors
             return new MovementRecordEntry(name, moveTo.Index());
         }
 
-        private void RecordDamage(float damage)
+        private void RecordDamage(int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(new DamageRecordEntry(name, damage));

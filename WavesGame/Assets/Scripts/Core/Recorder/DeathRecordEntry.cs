@@ -7,6 +7,7 @@
  */
 
 using System;
+using UUtils;
 
 namespace Core.Recorder
 {
@@ -16,6 +17,34 @@ namespace Core.Recorder
         public DeathRecordEntry(string actorId) : base(actorId)
         {
             type = WavesRecordEntryType.Death;
+        }
+
+        public override void PerformEntry()
+        {
+            DebugUtils.DebugLogMsg($"DeathRecordEntry: {ActorID} is destroyed.", DebugUtils.DebugType.Temporary);
+            var levelController = LevelController.GetSingleton();
+            var navalActor = levelController.GetNavalActorWithId(ActorID);
+            navalActor.DestroyActorImmediate();
+        }
+        
+        /// <summary>
+        /// Returns a DeathRecordEntry built from a string in the format "DEAD;[actorId]".
+        /// If the format does not comply, then the method returns null.
+        /// </summary>
+        /// <param name="entryString"></param>
+        /// <returns></returns>
+        public static DeathRecordEntry MakeRecordEntryFromString(string entryString)
+        {
+            // DEAD;Target
+            var parts = entryString.Split(";");
+            if (parts.Length < 2)
+            {
+                return null;
+            }
+
+            var actorId = parts[1];
+
+            return new DeathRecordEntry(actorId);
         }
     }
 }

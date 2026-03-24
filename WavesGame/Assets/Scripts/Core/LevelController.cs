@@ -53,6 +53,9 @@ namespace Core
         private LevelGoal levelGoal;
 
         [SerializeField, Scene] private string nextLevelName;
+        
+        [Header("Controllers")]
+        [SerializeField] private bool recordLevel;
 
         [Header("References")] [SerializeField]
         private RectTransform actorTurnsHolder;
@@ -67,6 +70,7 @@ namespace Core
         private bool _endTurn;
         private bool _finishedLevel;
         private bool _hasScheduler;
+        private bool _levelRunning;
         private LlmLevelScheduler _scheduler;
         private WavesRecorder _recorder;
 
@@ -91,7 +95,8 @@ namespace Core
         {
             //Wait for one frame for all elements to be initialized
             yield return null;
-
+            _levelRunning = true;
+            
             UnityEngine.Random.InitState(randomSeed);
             var recorderInfo = "";
             if (_hasScheduler)
@@ -105,15 +110,12 @@ namespace Core
                     yield break;
                 }
 
-                recorderInfo = _scheduler.GetCurrentScheduleInfo();
-            }
-            else
-            {
-                recorderInfo = GetLevelRecordingName();
+                recorderInfo += _scheduler.GetCurrentScheduleInfo();
             }
 
-            if (WavesRecorder.TryToGetSingleton(out _recorder))
+            if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
             {
+                recorderInfo += GetLevelRecordingName();
                 DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
                 _recorder.StartRecording(recorderInfo);
             }
@@ -231,6 +233,12 @@ namespace Core
             FinishLevel(victory);
         }
 
+        public void StopLevel()
+        {
+            StopCoroutine(_levelCoroutine);
+            _levelRunning = false;
+        }
+        
         /// <summary>
         /// Allows the LevelController to continue.
         /// </summary>
@@ -265,6 +273,17 @@ namespace Core
             }
 
             return levelActors.Count;
+        }
+
+        public void MoveActor(NavalShip navalShip, Vector2Int moveTo)
+        {
+            if (GridManager.GetSingleton().CheckGridPosition(moveTo, out var gridUnit))
+            {
+                navalShip.MoveTo(gridUnit, finalGridUnit =>
+                {
+                    
+                });
+            }
         }
 
         private void AddLevelActorToTurnBar(NavalShip navalShip)
@@ -335,6 +354,8 @@ namespace Core
 
         private void FinishLevel(bool win)
         {
+            //Does not finish the level if the level controller is not controlling the game.
+            if (!_levelRunning) return;
             //Prevents finishing the level more than once
             if (_finishedLevel) return;
             _finishedLevel = true;
@@ -443,6 +464,16 @@ namespace Core
         {
             if (!logLevel) return;
             _logger.AddLine($"[{callerName}];TIME {{{timeInfo}}}");
+        }
+
+        public NavalShip GetNavalShipWithId(string actorId)
+        {
+            return levelNavalActors.Find(actor => actor.name.Equals(actorId) && actor is NavalShip) as NavalShip;
+        }
+
+        public NavalActor GetNavalActorWithId(string actorId)
+        {
+            return levelNavalActors.Find(actor => actor.name.Equals(actorId) && actor);
         }
 
         public string GetNextLevelName() => nextLevelName;
