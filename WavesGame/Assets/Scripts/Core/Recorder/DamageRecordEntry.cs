@@ -33,7 +33,7 @@ namespace Core.Recorder
             var levelController = LevelController.GetSingleton();
             var navalActor = levelController.GetNavalActorWithId(ActorID);
             if (navalActor == null) return;
-            navalActor.TakeDamage(_damage);
+            navalActor.TakeDirectDamage(_damage);
         }
 
         public float Damage => _damage;

@@ -66,6 +66,15 @@ namespace Actors
             return destroyed;
         }
 
+        public void TakeDirectDamage(int damage)
+        {
+            //TODO replace MaxValue with some more controlled value
+            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            base.TakeDamage(damage);
+            var ratio = GetHealthRatio();
+            healthBar.SetFillFactor(ratio, 1 - ratio);
+        }
+
         public void AnimateDamage(bool miss = false)
         {
             if (miss)
