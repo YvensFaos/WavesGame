@@ -267,7 +267,13 @@ namespace Core
                     var damage = navalShip.CalculateDamage();
                     if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
                     {
-                        wavesRecorder.RecordNewEntry(new AttackRecordEntry(_selectedActor.gameObject.name, targetActor.GetUnit().Index(), damage));
+                        var attackRecordEntry = new AttackRecordEntry(_selectedActor.gameObject.name, targetActor.GetUnit().Index(),
+                            damage);
+                        if (targetActor is WaveActor)
+                        {
+                            attackRecordEntry.AppendComment($"Attacked a wave");
+                        }
+                        wavesRecorder.RecordNewEntry(attackRecordEntry);
                     }
                     targetActor.TakeDamage(damage);
                     attackHappened = true;

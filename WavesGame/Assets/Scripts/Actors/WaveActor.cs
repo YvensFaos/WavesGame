@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Recorder;
 using Grid;
 using NaughtyAttributes;
 using UnityEngine;
@@ -54,6 +55,8 @@ namespace Actors
         {
             DebugUtils.DebugLogMsg($"Wave actor {name} was attacked with {damage}.", DebugUtils.DebugType.Verbose);
             var destroyed = base.TakeDamage(damage);
+            RecordDamage(damage);
+            
             if (damage <= 0) return false;
             if (damageParticles != null)
             {
@@ -67,6 +70,12 @@ namespace Actors
                 if (unit.ActorsCount() > 0)
                 {
                     unit.DamageActors(damage);
+                    var enumerator = unit.GetActorEnumerator();
+                    while (enumerator.MoveNext())
+                    {
+                        RecordAttack(enumerator.Current, damage);
+                    }
+                    enumerator.Dispose();
                 }
                 else
                 {
@@ -78,6 +87,28 @@ namespace Actors
                 }
             });
             return destroyed;
+        }
+
+        /// <summary>
+        /// Plays the effects of an wave attack at this actor, but without causing real damage.
+        /// </summary>
+        public void PlayCinematicDamage()
+        {
+            if (damageParticles != null)
+            {
+                damageParticles.Play();
+            }
+            
+            var attackArea = GridManager.GetSingleton()
+                .GetGridUnitsForMoveType(waveDirection, GetUnit().Index(), areaOfEffect);
+            attackArea.ForEach(unit =>
+            {
+                var unitTransform = unit.transform;
+                var particles = Instantiate(damageParticles, unitTransform.position, unitTransform.rotation);
+                particles.Play();
+                var totalTime = particles.main.duration;
+                Destroy(particles.gameObject, totalTime);
+            });
         }
 
         public List<GridUnit> GetUnitsAffectedByWaveAttack()
@@ -98,6 +129,23 @@ namespace Actors
             //Gets a random position from the list of pushable spaces.
             var pushTo = RandomHelper<GridUnit>.GetRandomFromList(pushUnblockedArea);
             return new GridStepEffectResult(false, pushTo, true, waveDamage);
+        }
+        
+        private void RecordDamage(int damage)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DamageRecordEntry(name, damage));
+        }
+
+        private void RecordAttack(GridActor targetActor, int damage)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), damage);
+            if (targetActor is WaveActor)
+            {
+                attackRecordEntry.AppendComment($"Attacked a wave");
+            }
+            recorder.RecordNewEntry(attackRecordEntry);
         }
 
         public float GetDamage() => waveDamage;

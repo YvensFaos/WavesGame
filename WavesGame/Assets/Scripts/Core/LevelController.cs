@@ -472,14 +472,51 @@ namespace Core
             _logger.AddLine($"[{callerName}];TIME {{{timeInfo}}}");
         }
 
+        #if UNITY_EDITOR
+        [Button("Prepare for Recording Level")]
+        private void PrepareForRecording()
+        {
+            var recorders = FindObjectsByType<WavesRecorder>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            if (recorders is not { Length: > 0 }) return;
+            var recorder = recorders[0];
+            recorder.gameObject.SetActive(true);
+            recordLevel = true;
+            
+            var recordPlayer = FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            if (recordPlayer is not { Length: > 0 }) return;
+            var player = recordPlayer[0];
+            player.gameObject.SetActive(false);
+        }
+        
+        [Button("Prepare for Player Level Record")]
+        private void PrepareForPlayingRecord()
+        {
+            var recordPlayer = FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            if (recordPlayer is not { Length: > 0 }) return;
+            var player = recordPlayer[0];
+            player.gameObject.SetActive(true);
+            recordLevel = false;
+            
+            var recorders = FindObjectsByType<WavesRecorder>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            if (recorders is not { Length: > 0 }) return;
+            var recorder = recorders[0];
+            recorder.gameObject.SetActive(false);
+        }
+        #endif
+        
         public NavalShip GetNavalShipWithId(string actorId)
         {
-            return levelNavalActors.Find(actor => actor.name.Equals(actorId) && actor is NavalShip) as NavalShip;
+            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId) && actor is NavalShip) as NavalShip;
         }
 
         public NavalActor GetNavalActorWithId(string actorId)
         {
-            return levelNavalActors.Find(actor => actor.name.Equals(actorId) && actor);
+            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId));
+        }
+
+        public GridActor GetActorWithId(string actorId)
+        {
+            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId));
         }
 
         public string GetNextLevelName() => nextLevelName;
