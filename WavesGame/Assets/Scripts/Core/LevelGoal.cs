@@ -155,12 +155,12 @@ namespace Core
 
             return CheckGoal();
 
-            void UpdateFactionCount(AIBaseShip aiBaseShip)
+            void UpdateFactionCount(NavalShip otherNavalShip)
             {
-                var faction = aiBaseShip.GetFaction();
+                var faction = otherNavalShip.GetFaction();
                 _availableFactions[faction]--;
                 DebugUtils.DebugLogMsg(
-                    $"Naval Ship was an AI Ship {aiBaseShip.name} from the {faction} faction. Remaining: {_availableFactions[faction]}.",
+                    $"Naval Ship was an AI Ship {otherNavalShip.name} from the {faction} faction. Remaining: {_availableFactions[faction]}.",
                     DebugUtils.DebugType.System);
             }
         }
@@ -296,14 +296,12 @@ namespace Core
                         var llmInfo = "";
                         var aiShip = enemyFactionShips.Find(ship => ship.Two.Equals(enumerator.Current.Key));
 
-                        if (aiShip is { One: LlmAINavalShip llmNavalShip })
+                        llmInfo = aiShip switch
                         {
-                            llmInfo = $"[{llmNavalShip.GetLlmInfo()}]";
-                        }
-                        else if (aiShip is { One: AIBaseShip aiShipNavalShip })
-                        {
-                            llmInfo = $"[{aiShipNavalShip.name}]";
-                        }
+                            { One: LlmAINavalShip llmNavalShip } => $"[{llmNavalShip.GetLlmInfo()}]",
+                            { One: AIBaseShip aiShipNavalShip } => $"[{aiShipNavalShip.name}]",
+                            _ => llmInfo
+                        };
 
                         message += $"{enumerator.Current.Key}{llmInfo} x ";
                     }
