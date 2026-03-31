@@ -47,15 +47,15 @@ namespace Core
         [SerializeField, ReadOnly] private List<ActorTurnUI> actorTurnUIs;
         [SerializeField] private bool initiativeBased = true;
         [SerializeField] private int randomSeed = 6;
-        [SerializeField] private bool logLevel = false;
+        [SerializeField] private bool logLevel;
 
         [Header("Level Specific")] [SerializeField]
         private LevelGoal levelGoal;
 
         [SerializeField, Scene] private string nextLevelName;
-        
-        [Header("Controllers")]
-        [SerializeField] private bool recordLevel;
+
+        [Header("Controllers")] [SerializeField]
+        private bool recordLevel;
 
         [Header("References")] [SerializeField]
         private RectTransform actorTurnsHolder;
@@ -73,6 +73,12 @@ namespace Core
         private bool _levelRunning;
         private LlmLevelScheduler _scheduler;
         private WavesRecorder _recorder;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            AssessUtils.CheckRequirement(ref levelGoal, this);
+        }
 
         private void Start()
         {
@@ -96,7 +102,7 @@ namespace Core
             //Wait for one frame for all elements to be initialized
             yield return null;
             _levelRunning = true;
-            
+
             UnityEngine.Random.InitState(randomSeed);
             var recorderInfo = "";
             if (_hasScheduler)
@@ -118,8 +124,9 @@ namespace Core
                 recorderInfo += GetLevelRecordingName();
                 DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
                 _recorder.StartRecording(recorderInfo);
+                _recorder.RecordNewEntry(new GoalRecordEntry(levelGoal));
             }
-            
+
             //Wait for one more frame to destroy the unused LLM actors replaced by Utility Agent AIs, if any
             yield return null;
 
@@ -135,7 +142,7 @@ namespace Core
             if (logLevel)
             {
                 var logFileName = $"{levelGoal.GetLevelMessage()}-{TimestampHelper.GetSimplifiedTimestamp()}";
-                _logger.StartNewLogFile(logFileName);    
+                _logger.StartNewLogFile(logFileName);
             }
 
             //Roll initiatives and order turns
@@ -238,7 +245,7 @@ namespace Core
             StopCoroutine(_levelCoroutine);
             _levelRunning = false;
         }
-        
+
         /// <summary>
         /// Allows the LevelController to continue.
         /// </summary>
@@ -279,10 +286,7 @@ namespace Core
         {
             if (GridManager.GetSingleton().CheckGridPosition(moveTo, out var gridUnit))
             {
-                navalShip.MoveTo(gridUnit, finalGridUnit =>
-                {
-                    
-                });
+                navalShip.MoveTo(gridUnit, _ => { });
             }
         }
 
@@ -404,8 +408,11 @@ namespace Core
 
         private string GetLevelRecordingName()
         {
-            return $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
+            return
+                $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
         }
+
+        #region Logging
 
         public void AddInfoLog(string info, string callerName = "")
         {
@@ -472,7 +479,9 @@ namespace Core
             _logger.AddLine($"[{callerName}];TIME {{{timeInfo}}}");
         }
 
-        #if UNITY_EDITOR
+        #endregion
+
+#if UNITY_EDITOR
         [Button("Prepare for Recording Level")]
         private void PrepareForRecording()
         {
@@ -481,32 +490,35 @@ namespace Core
             var recorder = recorders[0];
             recorder.gameObject.SetActive(true);
             recordLevel = true;
-            
-            var recordPlayer = FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+            var recordPlayer =
+                FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (recordPlayer is not { Length: > 0 }) return;
             var player = recordPlayer[0];
             player.gameObject.SetActive(false);
         }
-        
+
         [Button("Prepare for Player Level Record")]
         private void PrepareForPlayingRecord()
         {
-            var recordPlayer = FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var recordPlayer =
+                FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (recordPlayer is not { Length: > 0 }) return;
             var player = recordPlayer[0];
             player.gameObject.SetActive(true);
             recordLevel = false;
-            
+
             var recorders = FindObjectsByType<WavesRecorder>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (recorders is not { Length: > 0 }) return;
             var recorder = recorders[0];
             recorder.gameObject.SetActive(false);
         }
-        #endif
-        
+#endif
+
         public NavalShip GetNavalShipWithId(string actorId)
         {
-            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId) && actor is NavalShip) as NavalShip;
+            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId) && actor is NavalShip) as
+                NavalShip;
         }
 
         public NavalActor GetNavalActorWithId(string actorId)
@@ -520,6 +532,8 @@ namespace Core
         }
 
         public string GetNextLevelName() => nextLevelName;
+
+        public LevelGoal GetLevelGoal() => levelGoal;
 
         // ReSharper disable once NotDisposedResourceIsReturned
         public List<NavalActor>.Enumerator GetNavalActorsEnumerator() => levelNavalActors.GetEnumerator();

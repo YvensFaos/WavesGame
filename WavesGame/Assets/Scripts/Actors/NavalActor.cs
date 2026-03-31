@@ -95,13 +95,13 @@ namespace Actors
         /// </summary>
         public void DestroyActorImmediate()
         {
-            if (markedForDeath) return;
+            if (MarkedForDeath) return;
             DestroyActor();
         }
 
         protected override void DestroyActor()
         {
-            markedForDeath = true;
+            MarkedForDeath = true;
             StartCoroutine(DestroyCoroutine());
             NotifyLevelController();
         }

@@ -29,6 +29,37 @@ namespace Core
         Custom
     }
 
+    public static class LevelGoalTypeExtension
+    {
+        public static string LevelGoalTypeToString(LevelGoalType levelGoalType)
+        {
+            return levelGoalType switch
+            {
+                LevelGoalType.DestroyAllTargets => "Destroy All Targets",
+                LevelGoalType.DestroyAllEnemies => "Destroy All Enemies",
+                LevelGoalType.SurviveForTurns => "Survive For Turns",
+                LevelGoalType.DestroySpecificEnemy => "Destroy Specific Enemy",
+                LevelGoalType.AIWars => "AI Wars",
+                LevelGoalType.Custom => "Custom",
+                _ => throw new ArgumentOutOfRangeException(nameof(levelGoalType), levelGoalType, null)
+            };
+        }
+
+        public static LevelGoalType LevelGoalTypeFromString(string levelGoalType)
+        {
+            return levelGoalType switch
+            {
+                "Destroy All Targets" => LevelGoalType.DestroyAllTargets,
+                "Destroy All Enemies" => LevelGoalType.DestroyAllEnemies,
+                "Survive For Turns" => LevelGoalType.SurviveForTurns,
+                "Destroy Specific Enemy" => LevelGoalType.DestroySpecificEnemy,
+                "AI Wars" => LevelGoalType.AIWars,
+                "Custom" => LevelGoalType.Custom,
+                _ => throw new ArgumentOutOfRangeException(nameof(levelGoalType), levelGoalType, null)
+            };
+        }
+    }
+
     [Serializable]
     public class AIShipFactionPair : Pair<NavalShip, Faction>
     {
@@ -39,7 +70,7 @@ namespace Core
 
     public class LevelGoal : MonoBehaviour
     {
-        public LevelGoalType type;
+        [SerializeField] private LevelGoalType type;
         [SerializeField] private NavalActor destroyTarget;
         [SerializeField] private int surviveForTurns;
         [SerializeField] private int maxLlmTurns;
@@ -98,19 +129,19 @@ namespace Core
             turnNumber = 0;
         }
 
-        private void IncreaseFactionCount(AIBaseShip aiShip)
+        private void IncreaseFactionCount(NavalShip navalShip)
         {
-            var faction = aiShip.GetFaction();
-            enemyFactionShips.Add(new AIShipFactionPair(aiShip, faction));
+            var faction = navalShip.GetFaction();
+            enemyFactionShips.Add(new AIShipFactionPair(navalShip, faction));
             if (!_availableFactions.TryAdd(faction, 1))
             {
                 _availableFactions[faction]++;
             }
         }
 
-        public void RemoveFactionCount(AIBaseShip aiShip)
+        public void RemoveFactionCount(NavalShip navalShip)
         {
-            var faction = aiShip.GetFaction();
+            var faction = navalShip.GetFaction();
             if (_availableFactions.ContainsKey(faction))
             {
                 _availableFactions[faction]--;
@@ -274,10 +305,10 @@ namespace Core
             switch (type)
             {
                 case LevelGoalType.DestroyAllTargets:
-                    message = "Destroy All Targets";
+                    message = LevelGoalTypeExtension.LevelGoalTypeToString(type);
                     break;
                 case LevelGoalType.DestroyAllEnemies:
-                    message = "Destroy All Enemies";
+                    message = LevelGoalTypeExtension.LevelGoalTypeToString(type);
                     break;
                 case LevelGoalType.SurviveForTurns:
                     message = $"Survive For {surviveForTurns} Turns";
@@ -310,7 +341,7 @@ namespace Core
                     message = message[..^2];
                     break;
                 case LevelGoalType.Custom:
-                    message = $"Custom Goal";
+                    message = LevelGoalTypeExtension.LevelGoalTypeToString(type);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -321,6 +352,13 @@ namespace Core
 
         //TODO for the custom type, create a sort of prefab with script checker.
 
+        public LevelGoalType Type() => type;
+        
+        public void SetTypeViaString(string stringType)
+        {
+            type = LevelGoalTypeExtension.LevelGoalTypeFromString(stringType);
+        }
+        
         public Faction GetWinnerFaction() => _winnerFaction;
     }
 }

@@ -27,7 +27,7 @@ namespace Grid
         [SerializeField] private bool blockGridUnit;
         [SerializeField] private bool hasStepEffect;
 
-        protected bool markedForDeath;
+        protected bool MarkedForDeath;
 
         protected virtual void Start()
         {
@@ -53,7 +53,7 @@ namespace Grid
 
         protected virtual void DestroyActor()
         {
-            markedForDeath = true;
+            MarkedForDeath = true;
             DebugUtils.DebugLogMsg($"Destroying actor {name}.", DebugUtils.DebugType.System);
             currentUnit.RemoveActor(this);
             Destroy(gameObject);
@@ -121,11 +121,11 @@ namespace Grid
             }
             return 1.0f;
         }
-        public bool IsMarkedForDeath() => markedForDeath;
+        public bool IsMarkedForDeath() => MarkedForDeath;
         
         public override string ToString()
         {
-            return $"{name} -> position=[{currentUnit.Index().x}, {currentUnit.Index().y}]; maxHealth={maxHealth}; currentHealth={currentHealth}; ratio={GetHealthRatio()}; blockGridUnit={blockGridUnit}; hasStepEffect={hasStepEffect}; markedForDeath={markedForDeath}";
+            return $"{name} -> position=[{currentUnit.Index().x}, {currentUnit.Index().y}]; maxHealth={maxHealth}; currentHealth={currentHealth}; ratio={GetHealthRatio()}; blockGridUnit={blockGridUnit}; hasStepEffect={hasStepEffect}; markedForDeath={MarkedForDeath}";
         }
     }
 }

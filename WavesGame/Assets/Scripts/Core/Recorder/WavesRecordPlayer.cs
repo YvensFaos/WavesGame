@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the Creative Commons Attribution 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using UUtils;
 using UUtils.GameRecorder;
 
@@ -12,6 +20,7 @@ namespace Core.Recorder
             {
                 LevelController.GetSingleton().StopLevel();
             }
+
             base.Start();
         }
 
@@ -25,7 +34,7 @@ namespace Core.Recorder
         {
             var parts = entryText.Split(";");
             var entryType = parts[0];
-            ActorRecordEntry entry = null;
+            RecordEntry entry = null;
             try
             {
                 switch (entryType)
@@ -36,15 +45,19 @@ namespace Core.Recorder
                         break;
                     case "ATTK":
                         entry = AttackRecordEntry.MakeRecordEntryFromString(entryText);
-                        if(entry == null) throw new EntryConversionException(entryText, typeof(AttackRecordEntry));
+                        if (entry == null) throw new EntryConversionException(entryText, typeof(AttackRecordEntry));
                         break;
                     case "DAMG":
                         entry = DamageRecordEntry.MakeRecordEntryFromString(entryText);
-                        if(entry == null) throw new EntryConversionException(entryText, typeof(DamageRecordEntry));
+                        if (entry == null) throw new EntryConversionException(entryText, typeof(DamageRecordEntry));
                         break;
                     case "DEAD":
                         entry = DeathRecordEntry.MakeRecordEntryFromString(entryText);
-                        if(entry == null) throw new EntryConversionException(entryText, typeof(DeathRecordEntry));
+                        if (entry == null) throw new EntryConversionException(entryText, typeof(DeathRecordEntry));
+                        break;
+                    case "GOAL":
+                        entry = GoalRecordEntry.MakeRecordEntryFromString(entryText);
+                        if (entry == null) throw new EntryConversionException(entryText, typeof(GoalRecordEntry));
                         break;
                 }
             }

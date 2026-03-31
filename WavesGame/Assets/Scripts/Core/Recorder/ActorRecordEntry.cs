@@ -32,8 +32,6 @@ namespace Core.Recorder
             return "";
         }
 
-        public abstract void PerformEntry();
-
         public sealed override string ToString()
         {
             var commentLine = string.IsNullOrEmpty(_comment) ? "" : $";[{_comment}]";
