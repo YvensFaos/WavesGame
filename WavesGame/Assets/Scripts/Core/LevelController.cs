@@ -362,6 +362,18 @@ namespace Core
             }
         }
 
+        /// <summary>
+        /// Used to force a finish level screen for Player Level Recording.
+        /// </summary>
+        public void ForceFinishLevel()
+        {
+            _finishedLevel = true;
+            StopCoroutine(_levelCoroutine);
+            CursorController.GetSingleton().FinishLevel();
+            endLevelPanelUI.gameObject.SetActive(true);
+            endLevelPanelUI.OpenEndLevelPanel(true);
+        }
+
         private void FinishLevel(bool win)
         {
             //Does not finish the level if the level controller is not controlling the game.
@@ -380,6 +392,7 @@ namespace Core
             {
                 if (_recorder != null)
                 {
+                    _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(), levelGoal.GetWinnerFaction()));
                     DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
                     _recorder.Stop();
                 }

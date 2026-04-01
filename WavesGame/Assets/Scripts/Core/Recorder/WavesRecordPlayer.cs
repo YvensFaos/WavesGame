@@ -59,6 +59,10 @@ namespace Core.Recorder
                         entry = GoalRecordEntry.MakeRecordEntryFromString(entryText);
                         if (entry == null) throw new EntryConversionException(entryText, typeof(GoalRecordEntry));
                         break;
+                    case "OVER":
+                        entry = EndGameRecordEntry.MakeRecordEntryFromString(entryText);
+                        if (entry == null) throw new EntryConversionException(entryText, typeof(EndGameRecordEntry));
+                        break;
                 }
             }
             catch (EntryConversionException entryConversionException)

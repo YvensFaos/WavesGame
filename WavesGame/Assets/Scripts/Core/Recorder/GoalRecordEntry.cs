@@ -49,9 +49,9 @@ namespace Core.Recorder
                 return null;
             }
 
-            var actorId = parts[1];
+            var levelGoalMessage = parts[1];
 
-            return new GoalRecordEntry(actorId);
+            return new GoalRecordEntry(levelGoalMessage);
         }
     }
 }
