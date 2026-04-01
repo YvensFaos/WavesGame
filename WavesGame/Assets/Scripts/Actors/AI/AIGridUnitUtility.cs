@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Actors.AI.LlmAI;
 using Core;
 using Grid;
 using UnityEngine;
@@ -48,10 +49,11 @@ namespace Actors.AI
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
-                    case AINavalShip ally when ally.GetFaction().Equals(faction):
+                    case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         utility += genes.friendliness;
                         break;
-                    case AINavalShip:
+                    case LlmAINavalShip:
+                    case AIBaseShip:
                     case NavalShip:
                         //If there is an enemy there, then the AI cannot move there
                         utility = float.MinValue;
@@ -91,10 +93,16 @@ namespace Actors.AI
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
-                    case AINavalShip ally when ally.GetFaction().Equals(faction):
+                    case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         utility += genes.friendliness;
                         break;
-                    case AINavalShip enemyAI:
+                    case LlmAINavalShip ally when ally.GetFaction().Equals(faction):
+                        utility += genes.friendliness;
+                        break;
+                    case LlmAINavalShip enemyAI:
+                        utility += AttackUtility(enemyAI, aiNavalShip, genes);
+                        break;
+                    case AIBaseShip enemyAI:
                         utility += AttackUtility(enemyAI, aiNavalShip, genes);
                         break;
                     case NavalShip navalShip:
@@ -143,10 +151,10 @@ namespace Actors.AI
                     case NavalTarget:
                         utility += distanceFactor * genes.targetInterest;
                         break;
-                    case AINavalShip ally when ally.GetFaction().Equals(faction):
+                    case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         utility += distanceFactor * (2.0f - aiNavalShip.GetHealthRatio()) * genes.friendliness;
                         break;
-                    case AINavalShip enemyAI:
+                    case AIBaseShip enemyAI:
                         utility += distanceFactor * AttackUtility(enemyAI, aiNavalShip, genes);
                         break;
                     case NavalShip navalShip:
@@ -183,10 +191,10 @@ namespace Actors.AI
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
-                    case AINavalShip ally when ally.GetFaction().Equals(faction):
+                    case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         //Possibly aiming at an ally has no impact in the utility
                         break;
-                    case AINavalShip enemyAI:
+                    case AIBaseShip enemyAI:
                         utility += AttackUtility(enemyAI, aiNavalShip, genes);
                         break;
                     case NavalShip navalShip:
@@ -226,10 +234,10 @@ namespace Actors.AI
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
-                    case AINavalShip ally when ally.GetFaction().Equals(faction):
+                    case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         utility = float.MinValue;
                         break;
-                    case AINavalShip enemyAI:
+                    case AIBaseShip enemyAI:
                         utility += AttackUtility(enemyAI, aiNavalShip, genes);
                         break;
                     case NavalShip navalShip:
@@ -327,13 +335,13 @@ namespace Actors.AI
                     //Utility is equal the likeliness of attacking a target
                     actorInWaveRangeUtility += genes.targetInterest;
                     break;
-                case AINavalShip ally when ally.GetFaction().Equals(faction):
+                case AIBaseShip ally when ally.GetFaction().Equals(faction):
                     //Generates negative utility for hitting an ally
                     actorInWaveRangeUtility -= genes.friendliness;
                     //Negate the hit enemy flag so to prevent waves that only hit allies from having a positive utility
                     hitEnemy = false;
                     break;
-                case AINavalShip enemyAI:
+                case AIBaseShip enemyAI:
                     //2.0f instead of 1.0f, so enemies with full health (1.0f) still generate positive utility
                     actorInWaveRangeUtility = genes.aggressiveness * (2.0f - enemyAI.GetHealthRatio());
                     break;

@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UUtils;
 
@@ -67,7 +68,7 @@ namespace Grid
         {
             _actors.Remove(actor);
             actor.SetUnit(null);
-            if (_actors.Count == 0)
+            if (IsEmpty())
             {
                 UpdateType(originalType);
             }
@@ -79,6 +80,11 @@ namespace Grid
                     UpdateType(originalType);
                 }
             }
+        }
+
+        public bool IsEmpty()
+        {
+            return _actors.Count == 0;
         }
 
         private void UpdateType(GridUnitType type)
@@ -102,6 +108,38 @@ namespace Grid
             var current = enumerator.Current;
             enumerator.Dispose();
             return current;
+        }
+
+        public bool HasActorOfType<T>() where T : GridActor
+        {
+            var enumerator = _actors.GetEnumerator();
+            var hasActorOfType = false;
+            while (enumerator.MoveNext())
+            {
+                var enumeratorCurrent = enumerator.Current;
+                if (enumeratorCurrent is T)
+                {
+                    hasActorOfType = true;
+                }
+            }
+            enumerator.Dispose();
+            return hasActorOfType;
+        }
+
+        public bool GetFirstActorOfType<T>(out T firstActor) where T : GridActor
+        {
+            var enumerator = _actors.GetEnumerator();
+            var hasActorOfType = false;
+            firstActor  = null;
+            while (enumerator.MoveNext())
+            {
+                var enumeratorCurrent = enumerator.Current;
+                if (enumeratorCurrent is not T actor) continue;
+                hasActorOfType = true;
+                firstActor = actor;
+            }
+            enumerator.Dispose();
+            return hasActorOfType;
         }
 
         public List<GridActor> GetHasStepEffectActors()
@@ -133,6 +171,27 @@ namespace Grid
         public override string ToString()
         {
             return $"{name} {Index()}";
+        }
+
+        public string GetStringInfo()
+        {
+            var info = $"[{index.x}, {index.y}] = ";
+            if (_actors.Count == 0)
+            {
+                info += "EMPTY";
+            }
+            else
+            {
+                // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+                foreach (var actor in _actors)
+                {
+                    info += $"[{actor.ToString()}]";
+                }
+            }
+
+            info += "]";
+    
+            return info;
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
- * 
+ *
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
  * or see the LICENSE file in the root directory of this repository.
@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using Core;
+using Core.Recorder;
 using Grid;
 using UI;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace Actors
         [SerializeField] private ParticleSystem destroyParticles;
         [SerializeField] private NavalActorType navalType;
         [SerializeField] private FillBar healthBar;
+        protected int internalID;
 
         protected virtual void Awake()
         {
@@ -32,7 +34,7 @@ namespace Actors
         protected override void Start()
         {
             base.Start();
-            LevelController.GetSingleton().AddLevelActor(this);
+            internalID = LevelController.GetSingleton().AddLevelActor(this);
         }
 
         public override bool TakeDamage(int damage)
@@ -43,8 +45,40 @@ namespace Actors
             if (damage > 0)
             {
                 destroyed = base.TakeDamage(damage);
+                if (destroyed)
+                {
+                    RecordDeath();
+                }
+                else
+                {
+                    RecordDamage(damage);
+                }
+
                 var ratio = GetHealthRatio();
                 healthBar.SetFillFactor(ratio, 1 - ratio);
+                AnimateDamage();
+            }
+            else
+            {
+                AnimateDamage(true);
+            }
+
+            return destroyed;
+        }
+
+        public void TakeDirectDamage(int damage)
+        {
+            //TODO replace MaxValue with some more controlled value
+            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            base.TakeDamage(damage);
+            var ratio = GetHealthRatio();
+            healthBar.SetFillFactor(ratio, 1 - ratio);
+        }
+
+        public void AnimateDamage(bool miss = false)
+        {
+            if (miss)
+            {
                 damageParticles.gameObject.SetActive(true);
                 damageParticles.Play();
             }
@@ -53,12 +87,21 @@ namespace Actors
                 missParticles.gameObject.SetActive(true);
                 missParticles.Play();
             }
-            return destroyed;
+        }
+
+        /// <summary>
+        /// Used by the DeathRecordEntry class and other mechanisms that might need to immediate
+        /// destroy an actor instead of relying on the damage (non-deterministic) system.
+        /// </summary>
+        public void DestroyActorImmediate()
+        {
+            if (MarkedForDeath) return;
+            DestroyActor();
         }
 
         protected override void DestroyActor()
         {
-            markedForDeath = true;
+            MarkedForDeath = true;
             StartCoroutine(DestroyCoroutine());
             NotifyLevelController();
         }
@@ -87,18 +130,52 @@ namespace Actors
                 currentUnit.RemoveActor(this);
                 removal = true;
             }
-            catch(NullReferenceException e)
+            catch (NullReferenceException e)
             {
-                DebugUtils.DebugLogErrorMsg($"NullReference while destroying NavalActor. Unit: {currentUnit}. Actor: {this}.");
+                DebugUtils.DebugLogErrorMsg(
+                    $"NullReference while destroying NavalActor. Unit: {currentUnit}. Actor: {this}.");
                 DebugUtils.DebugLogException(e);
-                
             }
+
             if (!removal) yield break;
             yield return new WaitForSeconds(totalTime);
             DebugUtils.DebugLogMsg($"Destroy {name} game object!", DebugUtils.DebugType.Verbose);
             Destroy(gameObject);
         }
 
+        protected MovementRecordEntry MakeNewMovementEntry(GridUnit moveTo)
+        {
+            return new MovementRecordEntry(name, moveTo.Index());
+        }
+
+        private void RecordDamage(int damage)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DamageRecordEntry(name, damage));
+        }
+
+        private void RecordDeath()
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DeathRecordEntry(name));
+        }
+
+        protected void RecordMovement(GridUnit moveTo)
+        {
+            RecordMovement(MakeNewMovementEntry(moveTo));
+        }
+
+        protected static void RecordMovement(MovementRecordEntry entry)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(entry);
+        }
+
         public NavalActorType NavalType => navalType;
+        
+        public override string ToString()
+        {
+            return $"{base.ToString()}; navalType=[{navalType}]";
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace Actors
         public override bool TakeDamage(int damage)
         {
             var damageTaken = damage - stats.sturdiness.Two;
-            DebugUtils.DebugLogMsg($"{name} attacked with {damage}. Sturdiness is {stats.sturdiness}. Damage taken was {damageTaken}.", DebugUtils.DebugType.Temporary);
+            DebugUtils.DebugLogMsg($"{name} attacked with {damage}. {stats.sturdiness}. Damage taken was {damageTaken}.", DebugUtils.DebugType.Verbose);
             return base.TakeDamage(damageTaken);
         }
 
@@ -31,5 +31,10 @@ namespace Actors
         }
 
         public NavalActorStats GetStats() => stats;
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}; stats={stats}";
+        }
     }
 }

@@ -8,19 +8,15 @@
 
 using System.Collections;
 using Core;
-using Unity.Collections;
 using UnityEngine;
 using UUtils;
 
 namespace Actors.AI
 {
-    public class AINavalShip : NavalShip
+    public class AINavalShip : AIBaseShip
     {
         [SerializeField] private AIGenesSO genesData;
-        [SerializeField] private AIFaction faction;
-        
-        [Header("Score")]
-        [SerializeField, ReadOnly] private int kills;
+        [SerializeField] private int overrideInitiative;
 
         private AIBrain _brain;
         private bool _calculatingAction;
@@ -31,49 +27,40 @@ namespace Actors.AI
             _brain = new AIBrain(this, navalCannon.GetCannonSo);
         }
 
-        public override void StartTurn()
+        protected override void Start()
         {
-            base.StartTurn();
-            CursorController.GetSingleton().ToggleActive(false);
-            StartCoroutine(TurnAI());
+            base.Start();
+            UpdateName();
         }
 
-        public override void EndTurn()
-        {
-            base.EndTurn();
-            CursorController.GetSingleton().ToggleActive(true);
-        }
-
-        private void FinishAITurn()
-        {
-            LevelController.GetSingleton().EndTurnForCurrentActor();
-            DebugUtils.DebugLogMsg($"{name} has finished its turn.", DebugUtils.DebugType.System);
-        }
-
-        private IEnumerator TurnAI()
+        protected override IEnumerator TurnAI()
         {
             yield return new WaitForSeconds(0.05f);
 
+            LevelController.GetSingleton().AddInfoLog($"Start turn", name);
             var canCalculateMove = _brain.CalculateMovement(currentUnit.Index(), stepsAvailable, out var chosenAction);
+            LevelController.GetSingleton().AddInfoLog($"Can calculate move: {canCalculateMove}", name);
             
-            //TODO change this so we can give it a time after the attack before ending the turn.
+            yield return new WaitForSeconds(0.25f);
             if (canCalculateMove)
             {
                 _calculatingAction = true;
                 var attacked = false;
                 DebugUtils.DebugLogMsg($"{name} has selected action {chosenAction}.", DebugUtils.DebugType.System);
+                LevelController.GetSingleton().AddInfoLog($"Chosen action: {chosenAction}", name);
                 MoveTo(chosenAction.GetUnit(), unit =>
                 {
-                    //Use all actions
                     while (TryToAct())
                     {
                         var canCalculateAction = _brain.CalculateAction(unit.Index(), out chosenAction);
+                        LevelController.GetSingleton().AddInfoLog($"Can calculate action: {canCalculateAction}", name);
                         if (!canCalculateAction) continue;
                         var targetUnit = chosenAction.GetUnit();
                         if(targetUnit.ActorsCount() <= 0) continue;
                         DebugUtils.DebugLogMsg($"{name} attacks {chosenAction}!", DebugUtils.DebugType.System);
                         var damage = CalculateDamage();
                         kills = targetUnit.DamageActors(damage);
+                        LevelController.GetSingleton().AddAttackLog(chosenAction.GetUnit().Index(), this, name);
                         attacked = true;
                     }
 
@@ -89,12 +76,24 @@ namespace Actors.AI
             }
             else
             {
+                LevelController.GetSingleton().AddInfoLog($"Cannot calculate - random movement!", name);
                 var moveTo = AIBrain.GenerateRandomMovement(currentUnit.Index(), stepsAvailable);
-                MoveTo(moveTo, unit => { FinishAITurn(); }, true);
+                MoveTo(moveTo, _ => { FinishAITurn(); }, true);
             }
         }
 
-        public AIFaction GetFaction() => faction;
+        private void UpdateName()
+        {
+            var internalIDStr = internalID.ToString();
+            var factionName = GetFaction().name;
+            name = $"AIAgent|Utility|{genesData.name}|{factionName}|{internalIDStr}";
+        }
+
+        public override string ToString()
+        {
+            return $"Utility-{genesData.name}";
+        }
+
         public AIGenesSO GetGenesData() => genesData;
     }
 }

@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1601717614429036195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1043754721070107645}
+  - component: {fileID: 4897635577557534976}
+  m_Layer: 1
+  m_Name: LevelScheduler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1043754721070107645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601717614429036195}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4897635577557534976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601717614429036195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241ee422b41a4c67bc343bd335b4bafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmLevelScheduler
+  callers: []
+  schedules:
+  - {fileID: 11400000, guid: 45a1d14bd4d0f482b8fc78abd4b93c78, type: 2}
+  - {fileID: 11400000, guid: d849ab6a899ac4be99d5f9f74009982c, type: 2}
+  - {fileID: 11400000, guid: ec08cef08a6b04874ac3b1c4c1279379, type: 2}
+  - {fileID: 11400000, guid: 8d31ec61fdf704575aa2918690b455b4, type: 2}
+  - {fileID: 11400000, guid: 5dbfa46f6f16543a0bafc00ae4bd9a4d, type: 2}
+  - {fileID: 11400000, guid: 9c505b92c6b104b0bb69bb047b175af8, type: 2}
+  - {fileID: 11400000, guid: 8943908c2e231457bbce6c45ed575d0a, type: 2}
+  - {fileID: 11400000, guid: 2bf4cb5d78e8448dbaffacb0f72a1ec3, type: 2}
+  - {fileID: 11400000, guid: cdd625f2e309c40cd8b94de9a125fabf, type: 2}
+  - {fileID: 11400000, guid: 5b0df10be5d0d447584c578b63e2d5c7, type: 2}
+  currentSchedule: {fileID: 0}
+  internalCounter: 0
+  internalRepetition: 0

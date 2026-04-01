@@ -13,13 +13,29 @@ namespace Core
 {
     public class GameManager : StrongSingleton<GameManager>
     {
-        [SerializeField]
-        private GameManagerSettings gameManagerSettings;
+        [SerializeField] private GameManagerSettings gameManagerSettings;
 
         protected override void Awake()
         {
             base.Awake();
+            if (MarkedToDie) return;
             DebugUtils.enabledDebugTypes = gameManagerSettings.enabledDebugTypes;
+            DebugUtils.enabledDebugLogTypes = gameManagerSettings.enabledDebugLogTypes;
+        }
+
+        private void Start()
+        {
+            if (MarkedToDie) return;
+            if (!gameManagerSettings.logToFile) return;
+            var logName = $"{gameManagerSettings.logName}-{TimestampHelper.GetSimplifiedTimestamp()}";
+            DebugUtils.LogToFile(logName);
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (!gameManagerSettings.logToFile) return;
+            if (MarkedToDie) return;
+            DebugUtils.CloseLog();
         }
 
         private void OnValidate()
