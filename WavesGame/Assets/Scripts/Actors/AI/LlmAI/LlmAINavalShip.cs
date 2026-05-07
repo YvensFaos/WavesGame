@@ -360,6 +360,11 @@ namespace Actors.AI.LlmAI
         {
             llmCaller = caller;
         }
+
+        public void ChangeBasePrompt(LlmPromptSo promptSo)
+        {
+            basePrompt = promptSo;
+        }
         
         public int OverrideInitiative => overrideInitiative;
     }

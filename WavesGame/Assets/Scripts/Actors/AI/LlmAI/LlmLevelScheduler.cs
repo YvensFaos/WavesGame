@@ -71,6 +71,11 @@ namespace Actors.AI.LlmAI
                 foreach (var llmAINavalShip in factionLlmActors)
                 {
                     llmAINavalShip.SetCaller(pair.Caller);
+                    var prompt = pair.GetPromptSo();
+                    if (prompt != null)
+                    {
+                        llmAINavalShip.ChangeBasePrompt(prompt);
+                    }
                     llmAINavalShip.UpdateName();
                 }
             }

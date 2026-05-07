@@ -12,9 +12,10 @@ namespace Actors.AI.LlmAI
     {
         [SerializeField, ReadOnly] private LlmCallerObject caller;
         [SerializeField] private bool matchModel;
-        
-        [Header("For Custom LLM Type and Regular AIs")]
-        [SerializeField] private AIBaseShip aiBaseShipPrefab;
+        [SerializeField] private LlmPromptSo promptSo;
+
+        [Header("For Custom LLM Type and Regular AIs")] [SerializeField]
+        private AIBaseShip aiBaseShipPrefab;
 
         public FactionLlmPair(Faction one, LlmModelPairSo two) : base(one, two)
         {
@@ -31,6 +32,7 @@ namespace Actors.AI.LlmAI
                 {
                     return call.GetLlmType().Equals(llmType) && call.GetLlmModel().Equals(llmModel);
                 }
+
                 return call.GetLlmType().Equals(llmType);
             });
             if (!string.IsNullOrEmpty(llmModel))
@@ -43,9 +45,12 @@ namespace Actors.AI.LlmAI
 
         public AIBaseShip AIBaseShipPrefab => aiBaseShipPrefab;
 
+        public LlmPromptSo GetPromptSo() => promptSo;
+
         public override string ToString()
         {
-            return Two.modelPair.ToString();
+            var promptName = promptSo == null ? "" : $"-{promptSo.name}";
+            return $"{Two.modelPair}{promptName}";
         }
     }
 }
