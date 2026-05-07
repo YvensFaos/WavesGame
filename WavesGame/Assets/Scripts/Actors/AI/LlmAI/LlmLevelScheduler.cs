@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using Core.Recorder;
 using FALLA;
 using Grid;
 using NaughtyAttributes;
@@ -95,6 +96,11 @@ namespace Actors.AI.LlmAI
                 }
             }
 
+            if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
+            {
+                wavesRecorder.StartRecording($"{currentSchedule}-{internalRepetition}");
+            }
+            
             return true;
         }
 
@@ -123,6 +129,11 @@ namespace Actors.AI.LlmAI
             {
                 DebugUtils.DebugLogMsg($"Finished level, DRAW!", DebugUtils.DebugType.System);
                 LevelController.GetSingleton().AddInfoLog($"DRAW!", "LevelGoal");
+            }
+            
+            if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
+            {
+                wavesRecorder.Stop();
             }
             
             DelayHelper.Delay(this, 5.0f, SceneLoader.ResetCurrentScene);
