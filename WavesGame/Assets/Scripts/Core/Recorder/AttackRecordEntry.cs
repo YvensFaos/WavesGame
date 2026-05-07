@@ -34,7 +34,7 @@ namespace Core.Recorder
 
         public override void PerformEntry()
         {
-            DebugUtils.DebugLogMsg($"AttackRecordEntry: {ActorID} attacks at {_attackPosition}. Recorded damage: {_damage}.", DebugUtils.DebugType.Temporary);
+            DebugUtils.DebugLogMsg($"AttackRecordEntry: {ActorID} attacks at {_attackPosition}. Recorded damage: {_damage}.", DebugUtils.DebugType.Verbose);
             // Animate attack at given position. Animate only. Damage is handled by the DAMG entry.
             if (!GridManager.GetSingleton().CheckGridPosition(_attackPosition, out var attackGridPosition)) return;
             var actorsCount = attackGridPosition.ActorsCount();

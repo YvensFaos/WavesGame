@@ -8,6 +8,7 @@
 
 using System.Collections;
 using Core;
+using Core.Recorder;
 using UnityEngine;
 using UUtils;
 
@@ -59,6 +60,18 @@ namespace Actors.AI
                         if(targetUnit.ActorsCount() <= 0) continue;
                         DebugUtils.DebugLogMsg($"{name} attacks {chosenAction}!", DebugUtils.DebugType.System);
                         var damage = CalculateDamage();
+                        
+                        if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
+                        {
+                            var attackRecordEntry = new AttackRecordEntry(name, targetUnit.Index(),
+                                damage);
+                            if (targetUnit.GetActor() is WaveActor)
+                            {
+                                attackRecordEntry.AppendComment($"Attacked a wave");
+                            }
+                            wavesRecorder.RecordNewEntry(attackRecordEntry);
+                        }
+                        
                         kills = targetUnit.DamageActors(damage);
                         LevelController.GetSingleton().AddAttackLog(chosenAction.GetUnit().Index(), this, name);
                         attacked = true;
