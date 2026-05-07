@@ -1,0 +1,850 @@
+﻿2026-05-07 17:20:36;[SYSTEM];[LevelController];INFO Level starts with 6 actors.
+2026-05-07 17:20:36;[SYSTEM];[LevelController];INFO Grid size is 20 by 19.
+2026-05-07 17:20:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:20:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3025
+2026-05-07 17:20:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1840}
+2026-05-07 17:20:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:20:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (7,5) to get closer to enemy Red at (7,12) for next turn.]}
+2026-05-07 17:20:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;False;False
+2026-05-07 17:20:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {7, 5}
+2026-05-07 17:20:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:20:40;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:20:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3051
+2026-05-07 17:20:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":4949}
+2026-05-07 17:20:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:20:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile left to (9,13) to approach enemy without entering wave tile; no attack possible.]}
+2026-05-07 17:20:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;False;False
+2026-05-07 17:20:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 13}
+2026-05-07 17:20:47;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:20:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:20:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;3023
+2026-05-07 17:20:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1866}
+2026-05-07 17:20:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:20:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (10,6) to get within range of enemy at (7,5) or (7,6).]}
+2026-05-07 17:20:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:20:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 6}
+2026-05-07 17:20:52;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (7, 5).
+2026-05-07 17:20:52;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:20:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:20:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3040
+2026-05-07 17:20:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2981}
+2026-05-07 17:20:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:20:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile up to (12, 13) to get range for attacking enemy at (12, 9)]}
+2026-05-07 17:20:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:20:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {12, 13}
+2026-05-07 17:20:57;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (12, 9).
+2026-05-07 17:20:57;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:20:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:20:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2973
+2026-05-07 17:21:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1847}
+2026-05-07 17:21:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:21:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Moved 2 tiles to (9,6) to get closer to enemy at (7,12) but still out of range; no attack possible.]}
+2026-05-07 17:21:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;False;False
+2026-05-07 17:21:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {9, 6}
+2026-05-07 17:21:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:21:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:21:02;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;3011
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":2940}
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Moved 2 tiles down closer to enemy ship at (7,5) for attack range]}
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;True;False
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {7, 10}
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Cannot reach target at GridTile(Clone) (7, 5).
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:21:05;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:21:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3002
+2026-05-07 17:21:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":2067}
+2026-05-07 17:21:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:21:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (9,5) to get within range of enemy at (7,12) and attack.]}
+2026-05-07 17:21:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:21:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {9, 5}
+2026-05-07 17:21:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (7, 12).
+2026-05-07 17:21:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:21:10;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:21:11;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3034
+2026-05-07 17:21:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":4522}
+2026-05-07 17:21:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:21:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 9, 11 to get within attack range of enemy at 9, 5]}
+2026-05-07 17:21:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:21:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 11}
+2026-05-07 17:21:17;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Cannot reach target at GridTile(Clone) (9, 5).
+2026-05-07 17:21:17;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:21:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:21:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2996
+2026-05-07 17:21:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1689}
+2026-05-07 17:21:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:21:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Moved 2 tiles to (10,8) to get within range of enemy at (9,11)]}
+2026-05-07 17:21:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:21:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 8}
+2026-05-07 17:21:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (9, 11).
+2026-05-07 17:21:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:21:21;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:21:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3049
+2026-05-07 17:21:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":3401}
+2026-05-07 17:21:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:21:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved up 2 tiles to [12, 15] to be within attack range of enemy at [10, 8]]}
+2026-05-07 17:21:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:21:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {12, 15}
+2026-05-07 17:21:27;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 8).
+2026-05-07 17:21:27;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:21:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:21:28;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2995
+2026-05-07 17:21:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1773}
+2026-05-07 17:21:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:21:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles east to (11,6) to get within range of enemy at (12,9).]}
+2026-05-07 17:21:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:21:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {11, 6}
+2026-05-07 17:21:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (12, 9).
+2026-05-07 17:21:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:21:31;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:21:32;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;3012
+2026-05-07 17:21:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":3059}
+2026-05-07 17:21:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:21:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Moved 3 tiles left to (4,12) to be 2 tiles right of enemy at (6,12), no attack possible]}
+2026-05-07 17:21:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;False;False
+2026-05-07 17:21:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {6, 12}
+2026-05-07 17:21:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:21:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:21:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3024
+2026-05-07 17:21:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1856}
+2026-05-07 17:21:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:21:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (11,5) to get within range 2 of enemy at (12,9).]}
+2026-05-07 17:21:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:21:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {11, 5}
+2026-05-07 17:21:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (12, 9).
+2026-05-07 17:21:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:21:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:21:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3024
+2026-05-07 17:21:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":1904}
+2026-05-07 17:21:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:21:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile up to (9,12) to get 2 tiles distance to enemy at (10,8)]}
+2026-05-07 17:21:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:21:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 12}
+2026-05-07 17:21:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Cannot reach target at GridTile(Clone) (10, 8).
+2026-05-07 17:21:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:21:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:21:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;3021
+2026-05-07 17:21:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1901}
+2026-05-07 17:21:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:21:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (8,8) to get within range 2 of enemy at (9,7) and attack.]}
+2026-05-07 17:21:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:21:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {8, 8}
+2026-05-07 17:21:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];ATTK {9, 7}
+2026-05-07 17:21:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TRGT WAVE
+2026-05-07 17:21:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Attacked succeeded at GridTile(Clone) (9, 7). Kill count = 0.
+2026-05-07 17:21:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:21:51;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:21:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3059
+2026-05-07 17:21:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2462}
+2026-05-07 17:21:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:21:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 3 tiles up to (12,12) to get within attack range of target at (12,9)]}
+2026-05-07 17:21:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:21:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {12, 12}
+2026-05-07 17:21:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (12, 9).
+2026-05-07 17:21:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:21:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:21:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;3013
+2026-05-07 17:21:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1856}
+2026-05-07 17:21:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:21:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles south to (11,8) to get within range of enemy at (12,12)]}
+2026-05-07 17:21:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:21:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {11, 8}
+2026-05-07 17:22:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (12, 12).
+2026-05-07 17:22:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:22:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:22:02;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;3026
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":1327}
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Moved 3 tiles right to (9,12) and within attack range of enemy at (11,5)]}
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;True;False
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {9, 12}
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Cannot reach target at GridTile(Clone) (11, 5).
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:22:03;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:22:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3029
+2026-05-07 17:22:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1869}
+2026-05-07 17:22:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:22:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (9,5) to get within range of enemy at (6,12)]}
+2026-05-07 17:22:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:22:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {9, 5}
+2026-05-07 17:22:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (6, 12).
+2026-05-07 17:22:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:22:08;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:22:09;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3025
+2026-05-07 17:22:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":4111}
+2026-05-07 17:22:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:22:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile up to (9, 11) for distance 2 to enemy at (9, 9), then attack.]}
+2026-05-07 17:22:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:22:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 11}
+2026-05-07 17:22:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];ATTK {9, 9}
+2026-05-07 17:22:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:22:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:22:15;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;3008
+2026-05-07 17:22:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1921}
+2026-05-07 17:22:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:22:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (9,7) to get within range of enemy at (9,11).]}
+2026-05-07 17:22:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:22:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {9, 7}
+2026-05-07 17:22:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (9, 11).
+2026-05-07 17:22:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:22:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:22:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3040
+2026-05-07 17:22:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":6230}
+2026-05-07 17:22:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:22:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile left to (11,12) to get within attack range of enemy at (11,8)]}
+2026-05-07 17:22:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:22:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {11, 12}
+2026-05-07 17:22:27;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (11, 8).
+2026-05-07 17:22:27;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:22:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:22:28;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;3032
+2026-05-07 17:22:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1886}
+2026-05-07 17:22:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:22:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles to (9,8) to get within range 2 of enemy at (9,11)]}
+2026-05-07 17:22:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:22:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {9, 8}
+2026-05-07 17:22:32;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (9, 11).
+2026-05-07 17:22:32;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:22:32;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:22:33;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;3032
+2026-05-07 17:22:34;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":1626}
+2026-05-07 17:22:34;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:22:34;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Moved 3 tiles down to (6,9) to attack enemy at (9,7) within range 2]}
+2026-05-07 17:22:34;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;True;False
+2026-05-07 17:22:34;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {6, 9}
+2026-05-07 17:22:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Cannot reach target at GridTile(Clone) (9, 7).
+2026-05-07 17:22:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:22:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:22:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3008
+2026-05-07 17:22:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1905}
+2026-05-07 17:22:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:22:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Moved 2 tiles to (7,5) to get within range of enemy at (6,9)]}
+2026-05-07 17:22:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:22:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {7, 5}
+2026-05-07 17:22:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (6, 9).
+2026-05-07 17:22:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:22:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:22:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3004
+2026-05-07 17:22:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":1576}
+2026-05-07 17:22:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:22:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile up to (9,12) to get within attack range of enemy at (9,8)]}
+2026-05-07 17:22:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:22:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 12}
+2026-05-07 17:22:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Cannot reach target at GridTile(Clone) (9, 8).
+2026-05-07 17:22:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:22:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:22:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;3001
+2026-05-07 17:22:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1998}
+2026-05-07 17:22:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:22:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (7,6) to get within range of enemy at (6,9)]}
+2026-05-07 17:22:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:22:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {7, 6}
+2026-05-07 17:22:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (6, 9).
+2026-05-07 17:22:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:22:49;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:22:50;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3036
+2026-05-07 17:22:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2843}
+2026-05-07 17:22:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:22:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile down to (11,11) to approach enemies for future attack]}
+2026-05-07 17:22:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;False;False
+2026-05-07 17:22:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {11, 11}
+2026-05-07 17:22:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:22:54;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:22:55;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;3019
+2026-05-07 17:22:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1759}
+2026-05-07 17:22:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:22:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles to (7,8) to get within range of enemy at (6,9)]}
+2026-05-07 17:22:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:22:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {7, 8}
+2026-05-07 17:22:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];ATTK {6, 9}
+2026-05-07 17:22:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TRGT LLM {ENEMY}
+2026-05-07 17:22:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Attacked succeeded at GridTile(Clone) (6, 9). Kill count = 0.
+2026-05-07 17:23:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:23:00;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:23:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;2965
+2026-05-07 17:23:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":1827}
+2026-05-07 17:23:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:23:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Moved 1 tile left to (5,9) to get within attack range of enemy at (7,8).]}
+2026-05-07 17:23:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;True;False
+2026-05-07 17:23:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {5, 9}
+2026-05-07 17:23:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Cannot reach target at GridTile(Clone) (7, 8).
+2026-05-07 17:23:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:23:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:23:05;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3007
+2026-05-07 17:23:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":2316}
+2026-05-07 17:23:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:23:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles east to (9,5) to get within range of enemy at (9,12) or (11,11).]}
+2026-05-07 17:23:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:23:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {9, 5}
+2026-05-07 17:23:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (9, 12).
+2026-05-07 17:23:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:23:08;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:23:10;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3038
+2026-05-07 17:23:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":4577}
+2026-05-07 17:23:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:23:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile down to (9,11) to be within attack range 1-2 of enemy at (9,5)]}
+2026-05-07 17:23:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:23:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 11}
+2026-05-07 17:23:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Cannot reach target at GridTile(Clone) (9, 5).
+2026-05-07 17:23:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:23:15;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:23:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;3000
+2026-05-07 17:23:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1794}
+2026-05-07 17:23:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:23:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (9,6) to get within range of enemy at (9,11)]}
+2026-05-07 17:23:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:23:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {9, 6}
+2026-05-07 17:23:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (9, 11).
+2026-05-07 17:23:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:23:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:23:21;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3014
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1946}
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 2 tiles to [9,11] for attack range on enemy at [9,5] and [9,6]]}
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {9, 11}
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (9, 5).
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:23:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:23:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2981
+2026-05-07 17:23:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1634}
+2026-05-07 17:23:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:23:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles to (9,8) to get within range 2 of enemy at (9,11)]}
+2026-05-07 17:23:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:23:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {9, 8}
+2026-05-07 17:23:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (9, 11).
+2026-05-07 17:23:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:23:27;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:23:28;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;2994
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":2217}
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Moved 2 tiles right to (7,9) to get attack range on enemy fleet at (9,8)]}
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;True;False
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {7, 9}
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Cannot reach target at GridTile(Clone) (9, 8).
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:23:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:23:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3015
+2026-05-07 17:23:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1946}
+2026-05-07 17:23:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:23:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (7,5) to get within range 2 of enemy Red at (5,9)]}
+2026-05-07 17:23:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:23:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {7, 5}
+2026-05-07 17:23:35;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (5, 9).
+2026-05-07 17:23:35;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:23:35;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:23:36;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3011
+2026-05-07 17:23:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":1372}
+2026-05-07 17:23:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:23:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile down to (9, 12) to get within attack range of enemy at (9, 8)]}
+2026-05-07 17:23:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:23:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 12}
+2026-05-07 17:23:38;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];ATTK {9, 10}
+2026-05-07 17:23:38;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:23:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:23:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;3008
+2026-05-07 17:23:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1829}
+2026-05-07 17:23:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:23:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move to (7,6) to get within range 2 of enemy at (5,9) with health 8.]}
+2026-05-07 17:23:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:23:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {7, 6}
+2026-05-07 17:23:42;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (5, 9).
+2026-05-07 17:23:42;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:23:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:23:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3022
+2026-05-07 17:23:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1499}
+2026-05-07 17:23:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:23:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 left to (10,11) to prepare for attacks near enemy green ships.]}
+2026-05-07 17:23:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;False;False
+2026-05-07 17:23:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 11}
+2026-05-07 17:23:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:23:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:23:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2982
+2026-05-07 17:23:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1908}
+2026-05-07 17:23:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:23:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles to (7,8) to get within range of enemy at (5,9)]}
+2026-05-07 17:23:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:23:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {7, 8}
+2026-05-07 17:23:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (5, 9).
+2026-05-07 17:23:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:23:50;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:23:51;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;2948
+2026-05-07 17:23:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":1484}
+2026-05-07 17:23:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:23:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Moved 2 tiles up to (5,7) to get within 1 tile min attack range of target (7,9)]}
+2026-05-07 17:23:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;True;False
+2026-05-07 17:23:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {5, 7}
+2026-05-07 17:23:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Cannot reach target at GridTile(Clone) (7, 9).
+2026-05-07 17:23:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:23:54;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:23:55;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;2963
+2026-05-07 17:23:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":2237}
+2026-05-07 17:23:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:23:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (5,5) to get within range 2 of Red at (5,7).]}
+2026-05-07 17:23:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:23:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {5, 5}
+2026-05-07 17:23:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];ATTK {5, 7}
+2026-05-07 17:23:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TRGT LLM {ENEMY}
+2026-05-07 17:23:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Attacked succeeded at GridTile(Clone) (5, 7). Kill count = 0.
+2026-05-07 17:24:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:24:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:24:02;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;3000
+2026-05-07 17:24:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":1826}
+2026-05-07 17:24:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:24:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 2 tiles up to (9,10) to get within attack range of enemy at (7,8)]}
+2026-05-07 17:24:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:24:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 10}
+2026-05-07 17:24:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Cannot reach target at GridTile(Clone) (7, 8).
+2026-05-07 17:24:05;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:24:05;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:24:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2950
+2026-05-07 17:24:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":4043}
+2026-05-07 17:24:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:24:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (5,6) to get within range 2 of Red ship at (5,7) and attack it.]}
+2026-05-07 17:24:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:24:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {5, 6}
+2026-05-07 17:24:12;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (5, 7).
+2026-05-07 17:24:12;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:24:12;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:24:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3010
+2026-05-07 17:24:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1604}
+2026-05-07 17:24:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:24:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 3 tiles up to (10, 8) to get within range 1-2 of enemy at (7, 8)]}
+2026-05-07 17:24:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:24:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 10}
+2026-05-07 17:24:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (7, 8).
+2026-05-07 17:24:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:24:15;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:24:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2982
+2026-05-07 17:24:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":2357}
+2026-05-07 17:24:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:24:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move to (8,8) to get closer to enemy at (9,10) within range 2.]}
+2026-05-07 17:24:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:24:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {8, 8}
+2026-05-07 17:24:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (9, 10).
+2026-05-07 17:24:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:24:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Start turn;5,5
+2026-05-07 17:24:21;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];PRPT Prompt_2;2979
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TIME {"request":1556}
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"attempts":1}
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];RESN {"reasoning":Move 2 tiles up to (5,5) to reach attack range of enemy at (5,5)]}
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Flags;True;True;False
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];MOVE {5, 5}
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];ATTK {5, 5}
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];TRGT LLM {ENEMY}
+2026-05-07 17:24:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Attacked succeeded at GridTile(Clone) (5, 5). Kill count = 0.
+2026-05-07 17:24:24;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Finish turn
+2026-05-07 17:24:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:24:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;3006
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1630}
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (5,7) to attack enemy Red at range 1.]}
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {5, 7}
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];ATTK {5, 7}
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TRGT LLM {ENEMY}
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];INFO Destroyed
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|2];DATA {"internalWrongMovementCount":4,"internalWrongAttackCount":6,"internalTotalRequestCount":8,"internalMovementAttemptCount":8,"internalAttackAttemptCount":7,"internalFaultyMessageCount":0,"averageRequestTime":2004.5,"averageRequestTimeCount":8,"maxRequestTime":3059,"minRequest":1327,"averageAttempts":1,"kills":0}
+2026-05-07 17:24:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Attacked succeeded at GridTile(Clone) (5, 7). Kill count = 1.
+2026-05-07 17:24:28;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:24:28;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:24:29;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;2979
+2026-05-07 17:24:32;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":3002}
+2026-05-07 17:24:32;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:24:32;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Move 1 tile down to (9,9) to open attack range to enemy at (8,8)]}
+2026-05-07 17:24:32;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:24:32;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 9}
+2026-05-07 17:24:33;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];ATTK {8, 8}
+2026-05-07 17:24:33;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TRGT LLM {ENEMY}
+2026-05-07 17:24:33;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Attacked succeeded at GridTile(Clone) (8, 8). Kill count = 0.
+2026-05-07 17:24:35;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:24:35;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:24:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2963
+2026-05-07 17:24:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1849}
+2026-05-07 17:24:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:24:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles east to (7,6) to get within range of enemy Red at (9,9)]}
+2026-05-07 17:24:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:24:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {7, 6}
+2026-05-07 17:24:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (9, 9).
+2026-05-07 17:24:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:24:39;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:24:40;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3023
+2026-05-07 17:24:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1613}
+2026-05-07 17:24:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:24:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile down to (10, 11) to reduce distance to enemies on waves for attack.]}
+2026-05-07 17:24:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;False;False
+2026-05-07 17:24:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 11}
+2026-05-07 17:24:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:24:43;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:24:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2963
+2026-05-07 17:24:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1675}
+2026-05-07 17:24:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:24:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move to (7,8) to get within range 2 of enemy at (9,9) and attack.]}
+2026-05-07 17:24:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:24:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {7, 8}
+2026-05-07 17:24:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (9, 9).
+2026-05-07 17:24:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:24:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:24:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;2976
+2026-05-07 17:24:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1809}
+2026-05-07 17:24:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:24:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Moved 2 tiles to (7,5) to get within range of enemy at (9,9)]}
+2026-05-07 17:24:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:24:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {7, 5}
+2026-05-07 17:24:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (9, 9).
+2026-05-07 17:24:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:24:51;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:24:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;2979
+2026-05-07 17:24:55;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":2313}
+2026-05-07 17:24:55;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:24:55;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile up to (9,8) to get 2 tiles distance from enemy at (7,8)]}
+2026-05-07 17:24:55;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:24:55;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 8}
+2026-05-07 17:24:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];ATTK {7, 8}
+2026-05-07 17:24:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TRGT LLM {ENEMY}
+2026-05-07 17:24:56;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Attacked succeeded at GridTile(Clone) (7, 8). Kill count = 0.
+2026-05-07 17:24:57;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:24:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:24:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2951
+2026-05-07 17:25:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1683}
+2026-05-07 17:25:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:25:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (9,6) to get within range 2 of enemy at (9,8)]}
+2026-05-07 17:25:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:25:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {9, 6}
+2026-05-07 17:25:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];ATTK {9, 8}
+2026-05-07 17:25:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TRGT LLM {ENEMY}
+2026-05-07 17:25:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Attacked succeeded at GridTile(Clone) (9, 8). Kill count = 0.
+2026-05-07 17:25:03;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:25:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:25:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;3031
+2026-05-07 17:25:06;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1743}
+2026-05-07 17:25:06;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:25:06;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile down to [10,11] to attack enemy at [9,10] within range 1-2]}
+2026-05-07 17:25:06;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:25:06;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 11}
+2026-05-07 17:25:07;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (9, 10).
+2026-05-07 17:25:07;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:25:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:25:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2936
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":1716}
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles to (9,8) to attack enemy Red at (9,8) from range 1.]}
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {9, 8}
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];ATTK {9, 8}
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TRGT LLM {ENEMY}
+2026-05-07 17:25:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Attacked succeeded at GridTile(Clone) (9, 8). Kill count = 0.
+2026-05-07 17:25:12;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:25:12;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:25:13;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;2972
+2026-05-07 17:25:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1652}
+2026-05-07 17:25:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:25:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (9,5) to get within range of enemy Red at (9,8)]}
+2026-05-07 17:25:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:25:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {9, 5}
+2026-05-07 17:25:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (9, 8).
+2026-05-07 17:25:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:25:16;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:25:17;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;2961
+2026-05-07 17:25:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":1987}
+2026-05-07 17:25:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:25:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 1 tile down to (9,7) to reach attack range of enemy at (9,5).]}
+2026-05-07 17:25:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:25:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 7}
+2026-05-07 17:25:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];ATTK {9, 5}
+2026-05-07 17:25:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TRGT LLM {ENEMY}
+2026-05-07 17:25:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Attacked succeeded at GridTile(Clone) (9, 5). Kill count = 0.
+2026-05-07 17:25:21;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:25:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:25:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2911
+2026-05-07 17:25:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1879}
+2026-05-07 17:25:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:25:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move to (10,6) to get closer to enemy at (10,12) within attack range.]}
+2026-05-07 17:25:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:25:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 6}
+2026-05-07 17:25:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (10, 12).
+2026-05-07 17:25:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:25:25;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:25:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2989
+2026-05-07 17:25:28;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1565}
+2026-05-07 17:25:28;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:25:28;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile down to [10, 11], within attack range of enemy at [10, 6]]}
+2026-05-07 17:25:28;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:25:28;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 11}
+2026-05-07 17:25:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 6).
+2026-05-07 17:25:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:25:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Start turn;5,5
+2026-05-07 17:25:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];PRPT Prompt_2;2897
+2026-05-07 17:25:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];TIME {"request":2196}
+2026-05-07 17:25:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"attempts":1}
+2026-05-07 17:25:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];RESN {"reasoning":Move 2 tiles to (9,8) to get within range of enemy at (10,6) and attack.]}
+2026-05-07 17:25:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Flags;True;True;False
+2026-05-07 17:25:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];MOVE {9, 8}
+2026-05-07 17:25:34;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 6).
+2026-05-07 17:25:34;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Finish turn
+2026-05-07 17:25:34;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-07 17:25:35;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_2;2922
+2026-05-07 17:25:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1565}
+2026-05-07 17:25:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-07 17:25:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move 2 tiles to (11,5) to get within range of enemy at (10,6)]}
+2026-05-07 17:25:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-07 17:25:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {11, 5}
+2026-05-07 17:25:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];ATTK {10, 6}
+2026-05-07 17:25:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TRGT LLM {ALLY}
+2026-05-07 17:25:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Attacked succeeded at GridTile(Clone) (10, 6). Kill count = 0.
+2026-05-07 17:25:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-07 17:25:40;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:25:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;2943
+2026-05-07 17:25:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":4582}
+2026-05-07 17:25:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:25:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 2 tiles down to [9,5] to get within attack range of enemy at [9,8]]}
+2026-05-07 17:25:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;True;False
+2026-05-07 17:25:46;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {9, 5}
+2026-05-07 17:25:47;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];ATTK {9, 8}
+2026-05-07 17:25:47;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TRGT LLM {ENEMY}
+2026-05-07 17:25:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];INFO Destroyed
+2026-05-07 17:25:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|6];DATA {"internalWrongMovementCount":1,"internalWrongAttackCount":8,"internalTotalRequestCount":11,"internalMovementAttemptCount":11,"internalAttackAttemptCount":10,"internalFaultyMessageCount":0,"averageRequestTime":1873.364,"averageRequestTimeCount":11,"maxRequestTime":2357,"minRequest":1634,"averageAttempts":1,"kills":0}
+2026-05-07 17:25:47;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Attacked succeeded at GridTile(Clone) (9, 8). Kill count = 1.
+2026-05-07 17:25:48;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:25:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:25:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2937
+2026-05-07 17:25:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":2193}
+2026-05-07 17:25:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:25:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (12,6) to get within range of enemy at (11,5) and attack.]}
+2026-05-07 17:25:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:25:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {12, 6}
+2026-05-07 17:25:53;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];ATTK {11, 5}
+2026-05-07 17:25:53;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TRGT LLM {ALLY}
+2026-05-07 17:25:53;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Destroyed
+2026-05-07 17:25:53;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"internalWrongMovementCount":1,"internalWrongAttackCount":8,"internalTotalRequestCount":12,"internalMovementAttemptCount":12,"internalAttackAttemptCount":11,"internalFaultyMessageCount":0,"averageRequestTime":1891,"averageRequestTimeCount":12,"maxRequestTime":2316,"minRequest":1565,"averageAttempts":1,"kills":0}
+2026-05-07 17:25:53;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Attacked succeeded at GridTile(Clone) (11, 5). Kill count = 1.
+2026-05-07 17:25:54;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:25:54;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:25:55;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2937
+2026-05-07 17:25:58;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2263}
+2026-05-07 17:25:58;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:25:58;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile up to (10,11) to get near wave for positioning; no immediate attack]}
+2026-05-07 17:25:58;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;False;False
+2026-05-07 17:25:58;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 11}
+2026-05-07 17:25:59;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:25:59;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Start turn;5,5
+2026-05-07 17:26:00;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];PRPT Prompt_2;2889
+2026-05-07 17:26:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];TIME {"request":2642}
+2026-05-07 17:26:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"attempts":1}
+2026-05-07 17:26:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];RESN {"reasoning":Moved 3 tiles left to (6,6) closer to enemy ship at (12,6)]}
+2026-05-07 17:26:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Flags;True;False;False
+2026-05-07 17:26:03;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];MOVE {8, 6}
+2026-05-07 17:26:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Finish turn
+2026-05-07 17:26:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:26:05;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2912
+2026-05-07 17:26:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1800}
+2026-05-07 17:26:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:26:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (10,6) to get within range 2 of enemy at (8,6) with health 1.]}
+2026-05-07 17:26:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:26:07;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 6}
+2026-05-07 17:26:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];ATTK {8, 6}
+2026-05-07 17:26:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TRGT LLM {ENEMY}
+2026-05-07 17:26:08;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];INFO Destroyed
+2026-05-07 17:26:08;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|5];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":5,"internalTotalRequestCount":13,"internalMovementAttemptCount":13,"internalAttackAttemptCount":11,"internalFaultyMessageCount":0,"averageRequestTime":3027.923,"averageRequestTimeCount":13,"maxRequestTime":4949,"minRequest":1372,"averageAttempts":1,"kills":1}
+2026-05-07 17:26:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Attacked succeeded at GridTile(Clone) (8, 6). Kill count = 1.
+2026-05-07 17:26:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:26:10;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:26:11;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2892
+2026-05-07 17:26:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2150}
+2026-05-07 17:26:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:26:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 3 tiles up to (10,9) for cannon attack range 2 against enemy at (10,6)]}
+2026-05-07 17:26:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:26:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 9}
+2026-05-07 17:26:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 6).
+2026-05-07 17:26:15;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:26:15;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:26:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2870
+2026-05-07 17:26:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":2150}
+2026-05-07 17:26:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:26:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles east to (12,6) to get closer to enemy at (10,12) for future attacks.]}
+2026-05-07 17:26:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;False;False
+2026-05-07 17:26:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {12, 6}
+2026-05-07 17:26:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:26:19;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:26:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2892
+2026-05-07 17:26:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1964}
+2026-05-07 17:26:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:26:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile up to (10,11) to check attack possibility on enemy at (12,6)]}
+2026-05-07 17:26:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;False;False
+2026-05-07 17:26:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 11}
+2026-05-07 17:26:24;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:26:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:26:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2862
+2026-05-07 17:26:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":2194}
+2026-05-07 17:26:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:26:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (10,6) to get within range 2 of Red at (10,12).]}
+2026-05-07 17:26:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:26:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 6}
+2026-05-07 17:26:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (10, 12).
+2026-05-07 17:26:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:26:29;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:26:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2892
+2026-05-07 17:26:31;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1557}
+2026-05-07 17:26:31;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:26:31;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 3 tiles up to (10, 9) to attack enemy at (10, 6) within range 2 and min 1.]}
+2026-05-07 17:26:31;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:26:31;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 9}
+2026-05-07 17:26:33;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 6).
+2026-05-07 17:26:33;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:26:33;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:26:34;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2870
+2026-05-07 17:26:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1876}
+2026-05-07 17:26:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:26:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (10,8) to get closer to Red enemy at (10,12) for next turn.]}
+2026-05-07 17:26:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;False;False
+2026-05-07 17:26:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 8}
+2026-05-07 17:26:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:26:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:26:38;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2892
+2026-05-07 17:26:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2470}
+2026-05-07 17:26:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:26:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile up to (10,11) to get in range 1 tile away from enemy at (10,8)]}
+2026-05-07 17:26:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:26:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 11}
+2026-05-07 17:26:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 8).
+2026-05-07 17:26:42;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:26:42;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:26:43;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2866
+2026-05-07 17:26:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1833}
+2026-05-07 17:26:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:26:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles down to (10,10) to get within range of Red ship at (10,12)]}
+2026-05-07 17:26:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:26:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 10}
+2026-05-07 17:26:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];ATTK {10, 12}
+2026-05-07 17:26:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TRGT LLM {ENEMY}
+2026-05-07 17:26:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Attacked succeeded at GridTile(Clone) (10, 12). Kill count = 0.
+2026-05-07 17:26:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:26:48;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:26:49;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2875
+2026-05-07 17:26:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":3198}
+2026-05-07 17:26:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:26:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved up 1 tile to (10, 13) to attack enemy at (10, 10) within range 2]}
+2026-05-07 17:26:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:26:52;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 13}
+2026-05-07 17:26:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 10).
+2026-05-07 17:26:53;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:26:53;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:26:54;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2877
+2026-05-07 17:26:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1663}
+2026-05-07 17:26:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:26:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles south to (10,12) to get within range 2 of Red at (10,13)]}
+2026-05-07 17:26:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:26:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 12}
+2026-05-07 17:26:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (10, 13).
+2026-05-07 17:26:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:26:58;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:26:59;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2875
+2026-05-07 17:27:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2352}
+2026-05-07 17:27:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:27:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile down to (10,14) to get within attack range of enemy at (10,12)]}
+2026-05-07 17:27:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:27:01;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 14}
+2026-05-07 17:27:02;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];ATTK {10, 12}
+2026-05-07 17:27:02;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TRGT LLM {ENEMY}
+2026-05-07 17:27:02;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Attacked succeeded at GridTile(Clone) (10, 12). Kill count = 0.
+2026-05-07 17:27:04;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:27:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:27:05;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2884
+2026-05-07 17:27:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1767}
+2026-05-07 17:27:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:27:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 2 tiles to (10,10) to get within range 2 of enemy at (10,14)]}
+2026-05-07 17:27:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:27:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 10}
+2026-05-07 17:27:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];ATTK {10, 14}
+2026-05-07 17:27:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TRGT LLM {ENEMY}
+2026-05-07 17:27:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Attacked succeeded at GridTile(Clone) (10, 14). Kill count = 0.
+2026-05-07 17:27:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:27:09;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:27:11;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2885
+2026-05-07 17:27:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2103}
+2026-05-07 17:27:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:27:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile up to (10,13) to shoot enemy at (10,12) within range 1 no attack possible from 10,14]}
+2026-05-07 17:27:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;False;False
+2026-05-07 17:27:13;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 13}
+2026-05-07 17:27:14;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:27:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:27:15;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2876
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":2164}
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 1 tile down to (10,13) to be adjacent to Red ship at (10,13) for attack.]}
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 13}
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (10, 13).
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:27:17;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:27:18;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2876
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1575}
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 10,12 to reach attack range 1 tile away from enemy Green at 10,12]}
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 12}
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 12).
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:27:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:27:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2876
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1823}
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 1 tile down to (10,13) to be adjacent to enemy Red ship at (10,13) for attack.]}
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 13}
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (10, 13).
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:27:22;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:27:23;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2876
+2026-05-07 17:27:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":2752}
+2026-05-07 17:27:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:27:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 down to (10,12) to attack enemy at (10,12) within range 1, then no attack possible]}
+2026-05-07 17:27:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;False;False
+2026-05-07 17:27:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 12}
+2026-05-07 17:27:26;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:27:26;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:27:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2876
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":2065}
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 1 tile down to (10,13) to be adjacent to enemy Red ship at (10,13) and attack.]}
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 13}
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (10, 13).
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:27:29;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:27:30;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2876
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":6513}
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 10,12 adjacent to enemy at 10,12 for valid attack range 1 away]}
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 12}
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Cannot reach target at GridTile(Clone) (10, 12).
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
+2026-05-07 17:27:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-05-07 17:27:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_2;2876
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1881}
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move 1 tile down to (10,13) to be adjacent to enemy Red ship at (10,13) for attack.]}
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {10, 13}
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (10, 13).
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-05-07 17:27:40;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Start turn;5,5
+2026-05-07 17:27:41;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];PRPT Prompt_2;2876
+2026-05-07 17:27:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TIME {"request":1858}
+2026-05-07 17:27:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"attempts":1}
+2026-05-07 17:27:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];RESN {"reasoning":Moved 1 tile down to [10,14] for attack range on enemy at [10,12]]}
+2026-05-07 17:27:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Flags;True;True;False
+2026-05-07 17:27:43;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];MOVE {10, 14}
+2026-05-07 17:27:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];ATTK {10, 12}
+2026-05-07 17:27:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];TRGT LLM {ENEMY}
+2026-05-07 17:27:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Destroyed
+2026-05-07 17:27:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"internalWrongMovementCount":4,"internalWrongAttackCount":15,"internalTotalRequestCount":23,"internalMovementAttemptCount":23,"internalAttackAttemptCount":21,"internalFaultyMessageCount":0,"averageRequestTime":1993.957,"averageRequestTimeCount":23,"maxRequestTime":4043,"minRequest":1663,"averageAttempts":1,"kills":0}
+2026-05-07 17:27:44;[SYSTEM];[LevelGoal];INFO Faction Red won.
+2026-05-07 17:27:44;[SYSTEM];[LevelGoal];INFO Logging remaining ships. Count: 6.
+2026-05-07 17:27:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"internalWrongMovementCount":4,"internalWrongAttackCount":15,"internalTotalRequestCount":23,"internalMovementAttemptCount":23,"internalAttackAttemptCount":21,"internalFaultyMessageCount":0,"averageRequestTime":1993.957,"averageRequestTimeCount":23,"maxRequestTime":4043,"minRequest":1663,"averageAttempts":1,"kills":0}
+2026-05-07 17:27:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];DATA {"internalWrongMovementCount":4,"internalWrongAttackCount":14,"internalTotalRequestCount":23,"internalMovementAttemptCount":23,"internalAttackAttemptCount":16,"internalFaultyMessageCount":0,"averageRequestTime":2549.652,"averageRequestTimeCount":23,"maxRequestTime":6513,"minRequest":1499,"averageAttempts":1,"kills":0}
+2026-05-07 17:27:44;[SYSTEM];[LevelController];INFO Level finished.
+2026-05-07 17:27:44;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Attacked succeeded at GridTile(Clone) (10, 12). Kill count = 1.
+2026-05-07 17:27:44;[SYSTEM];[LevelGoal];INFO LLM GPT|gpt-4.1-mini won.
+2026-05-07 17:27:45;[SYSTEM];[LLMAgent|GPT|gpt-4.1-mini|Red|3];INFO Finish turn
