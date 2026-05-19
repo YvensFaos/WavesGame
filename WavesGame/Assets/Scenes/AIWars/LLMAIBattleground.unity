@@ -5295,6 +5295,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &689982185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 689982186}
+  - component: {fileID: 689982187}
+  m_Layer: 0
+  m_Name: LLMCaller OpenRouter Qwen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &689982186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689982185}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921509605}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &689982187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689982185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77501d2c63d1401bb3dc598096653b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FALLA.LlmCallerObject
+  apiKeyFile: llm_api_keys.json
+  llmType: 6
+  llmModel: qwen3.6-27b
+  llmTypeKeyPairs:
+  - type: 6
+    key: openRouter
 --- !u!1 &784855912
 GameObject:
   m_ObjectHideFlags: 0
@@ -5696,15 +5746,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1003885215729636235, guid: 236a62911965b4ca6966aac75829e79a, type: 3}
       propertyPath: orthographic size
-      value: 3.2375002
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1003885215729636235, guid: 236a62911965b4ca6966aac75829e79a, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.1520087
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1003885215729636235, guid: 236a62911965b4ca6966aac75829e79a, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.6948969
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1003885215729636235, guid: 236a62911965b4ca6966aac75829e79a, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
@@ -6112,6 +6162,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6313822201612237470, guid: 324f7bb7f338d4dd2a43746c472fcbd6, type: 3}
   m_PrefabInstance: {fileID: 510691199}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1889342884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889342885}
+  - component: {fileID: 1889342886}
+  m_Layer: 0
+  m_Name: LLMCaller Gemma
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1889342885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889342884}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921509605}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889342886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889342884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77501d2c63d1401bb3dc598096653b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FALLA.LlmCallerObject
+  apiKeyFile: llm_api_keys.json
+  llmType: 0
+  llmModel: gemma-4-26b-a4b-it
+  llmTypeKeyPairs:
+  - type: 0
+    key: gemini
 --- !u!1 &1921509604
 GameObject:
   m_ObjectHideFlags: 0
@@ -6142,6 +6242,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2097152312}
+  - {fileID: 1889342885}
+  - {fileID: 689982186}
   - {fileID: 893963838}
   - {fileID: 27660123}
   - {fileID: 784855914}
@@ -6503,12 +6605,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4897635577557534976, guid: f16b438cfe22941e2b6280db3ad0ece3, type: 3}
       propertyPath: schedules.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4897635577557534976, guid: f16b438cfe22941e2b6280db3ad0ece3, type: 3}
       propertyPath: 'schedules.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 35a7fea6fde18469aaecb8c3251a3f20, type: 2}
+      objectReference: {fileID: 11400000, guid: 93c01ff2d10884ad88061112e446704e, type: 2}
     - target: {fileID: 4897635577557534976, guid: f16b438cfe22941e2b6280db3ad0ece3, type: 3}
       propertyPath: 'schedules.Array.data[1]'
       value: 
