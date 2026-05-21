@@ -1,0 +1,277 @@
+﻿2026-05-20 10:57:25;[SYSTEM];[LevelController];INFO Level starts with 6 actors.
+2026-05-20 10:57:25;[SYSTEM];[LevelController];INFO Grid size is 20 by 19.
+2026-05-20 10:57:25;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Start turn;5,5
+2026-05-20 10:57:26;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];PRPT Prompt_4;4319
+2026-05-20 10:57:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TIME {"request":1840}
+2026-05-20 10:57:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"attempts":1}
+2026-05-20 10:57:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];RESN {"reasoning":Attack the wave tile at (9,7) to extend shot northward toward enemy cluster. The ~V wave will redirect my attack upward, potentially hitting enemies at (9,12) or positioning for next turn's assault on the three Red ships clustered around y=12-13.]}
+2026-05-20 10:57:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Flags;False;True;False
+2026-05-20 10:57:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];ATTK {9, 7}
+2026-05-20 10:57:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TRGT WAVE
+2026-05-20 10:57:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Attacked succeeded at GridTile(Clone) (9, 7). Kill count = 0.
+2026-05-20 10:57:29;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Finish turn
+2026-05-20 10:57:29;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 10:57:30;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4341
+2026-05-20 11:01:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":251463}
+2026-05-20 11:01:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 11:01:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":Move towards the enemy cluster to close the distance and prepare for future attacks.]}
+2026-05-20 11:01:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;True;False;False
+2026-05-20 11:01:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];MOVE {9, 11}
+2026-05-20 11:01:44;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn
+2026-05-20 11:01:44;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Start turn;5,5
+2026-05-20 11:01:45;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];PRPT Prompt_4;4307
+2026-05-20 11:01:49;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];TIME {"request":3885}
+2026-05-20 11:01:49;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];DATA {"attempts":1}
+2026-05-20 11:01:49;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];RESN {"reasoning":No immediate attack available. Moving to (10, 6) positions me closer to the enemy cluster (9, 11), (7, 12), (12, 12) while staying safe. From (10, 6), I can evaluate wave-extension tactics via the ~V at (9, 7) or ~^ at (10, 11) to threaten enemies next turn. This move reduces distance to priority targets and sets up offensive positioning.]}
+2026-05-20 11:01:49;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Flags;True;False;False
+2026-05-20 11:01:49;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];MOVE {10, 6}
+2026-05-20 11:01:50;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Finish turn
+2026-05-20 11:01:50;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 11:01:51;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4317
+2026-05-20 11:04:51;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":179712}
+2026-05-20 11:04:51;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 11:04:51;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Move to (10, 12) to use wave at (10, 11) for extended attack on enemy at (10, 6)]}
+2026-05-20 11:04:51;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;True;False
+2026-05-20 11:04:51;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {10, 12}
+2026-05-20 11:04:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-05-20 11:04:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 11:04:53;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];INFO Start turn;5,5
+2026-05-20 11:04:54;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];PRPT Prompt_4;4267
+2026-05-20 11:04:55;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];TIME {"request":1786}
+2026-05-20 11:04:55;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];DATA {"attempts":1}
+2026-05-20 11:04:55;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];RESN {"reasoning":No immediate attack available. Moving to (9, 6) positions me adjacent to the wave at (9, 7). From (9, 6), I can attack the wave ~V at (9, 7), which will extend my shot northward to hit the enemy at (9, 11). This sets up a high-probability wave-extended attack next turn while closing distance to the enemy cluster.]}
+2026-05-20 11:04:55;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];INFO Flags;True;False;False
+2026-05-20 11:04:55;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];MOVE {9, 6}
+2026-05-20 11:04:57;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];INFO Finish turn
+2026-05-20 11:04:57;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 11:04:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4281
+2026-05-20 11:06:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":72645}
+2026-05-20 11:06:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 11:06:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Move to (9, 12) to use the wave at (10, 11) to extend an attack Northward to hit the enemy at (10, 6).]}
+2026-05-20 11:06:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 11:06:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {9, 12}
+2026-05-20 11:06:12;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];ATTK {10, 11}
+2026-05-20 11:06:12;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TRGT WAVE
+2026-05-20 11:06:12;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-05-20 11:06:14;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 11:06:14;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Start turn;5,5
+2026-05-20 11:06:15;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];PRPT Prompt_4;4294
+2026-05-20 11:06:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TIME {"request":2224}
+2026-05-20 11:06:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"attempts":1}
+2026-05-20 11:06:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];RESN {"reasoning":Attack the wave tile at (9,7) to extend shot northward toward enemy cluster. The ~V wave will redirect my attack upward, potentially hitting the enemy at (9,11) or (9,12). This is a high-value wave-extension tactic that leverages the wave mechanic to damage priority targets without moving into danger.]}
+2026-05-20 11:06:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Flags;False;True;False
+2026-05-20 11:06:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];ATTK {9, 7}
+2026-05-20 11:06:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TRGT WAVE
+2026-05-20 11:06:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Attacked succeeded at GridTile(Clone) (9, 7). Kill count = 0.
+2026-05-20 11:06:18;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Finish turn
+2026-05-20 11:06:18;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 11:06:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4260
+2026-05-20 11:08:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":111433}
+2026-05-20 11:08:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 11:08:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":Move to (9, 8) to bring the low-health enemy at (9, 6) into range (distance 2) for a direct attack.]}
+2026-05-20 11:08:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;True;True;False
+2026-05-20 11:08:11;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];MOVE {9, 8}
+2026-05-20 11:08:13;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];ATTK {9, 6}
+2026-05-20 11:08:13;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TRGT LLM {ENEMY}
+2026-05-20 11:08:13;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Attacked succeeded at GridTile(Clone) (9, 6). Kill count = 0.
+2026-05-20 11:08:14;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn
+2026-05-20 11:08:14;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Start turn;5,5
+2026-05-20 11:08:15;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];PRPT Prompt_4;4282
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];TIME {"request":1923}
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];DATA {"attempts":1}
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];RESN {"reasoning":Attack the wave at (9,7) to extend shot toward enemy at (9,8). This is a wave-extension tactic that hits the priority target. The wave ~V at (9,7) is within my attack range (offset 1, range 2 from position 10,6), and attacking it will extend my damage to the enemy ship at (9,8) directly behind it.]}
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Flags;False;True;False
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];ATTK {9, 7}
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];TRGT WAVE
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];INFO Destroyed
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|3];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":1,"internalMovementAttemptCount":1,"internalAttackAttemptCount":0,"internalFaultyMessageCount":0,"averageRequestTime":1786,"averageRequestTimeCount":1,"maxRequestTime":1786,"minRequest":1786,"averageAttempts":1,"kills":0}
+2026-05-20 11:08:17;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Attacked succeeded at GridTile(Clone) (9, 7). Kill count = 0.
+2026-05-20 11:08:19;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Finish turn
+2026-05-20 11:08:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 11:08:20;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4256
+2026-05-20 11:09:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":92864}
+2026-05-20 11:09:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 11:09:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Use wave at (10, 11) to extend attack to enemy at (10, 6)]}
+2026-05-20 11:09:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;False;True;False
+2026-05-20 11:09:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-05-20 11:09:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 11:09:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 11:09:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4260
+2026-05-20 11:12:56;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":182040}
+2026-05-20 11:12:56;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 11:12:56;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Move to (9, 11) to close distance and use wave (10, 11) to attack enemy at (10, 6)]}
+2026-05-20 11:12:56;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 11:12:56;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {9, 11}
+2026-05-20 11:12:57;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-05-20 11:12:57;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 11:12:57;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Start turn;5,5
+2026-05-20 11:12:58;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];PRPT Prompt_4;4315
+2026-05-20 11:13:00;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TIME {"request":1783}
+2026-05-20 11:13:00;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"attempts":1}
+2026-05-20 11:13:00;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];RESN {"reasoning":Attack the wave tile at (9,7) to extend shot toward enemy at (9,8). The wave ~V points downward, allowing me to hit the adjacent enemy Red ship directly. This is a high-priority target at full health. After attacking, reposition to (9,6) to maintain pressure and stay in range for follow-up attacks.]}
+2026-05-20 11:13:00;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Flags;True;True;False
+2026-05-20 11:13:00;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];MOVE {9, 6}
+2026-05-20 11:13:01;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Cannot reach target at GridTile(Clone) (9, 7).
+2026-05-20 11:13:01;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Finish turn
+2026-05-20 11:13:01;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 11:13:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4258
+2026-05-20 11:17:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":240319}
+2026-05-20 11:17:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 11:17:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":An enemy is already within attack range (distance 2), so I will attack it directly without unnecessary movement.]}
+2026-05-20 11:17:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;True;True;False
+2026-05-20 11:17:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];MOVE {9, 8}
+2026-05-20 11:17:03;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];ATTK {9, 6}
+2026-05-20 11:17:03;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TRGT LLM {ENEMY}
+2026-05-20 11:17:03;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Attacked succeeded at GridTile(Clone) (9, 6). Kill count = 0.
+2026-05-20 11:17:04;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn
+2026-05-20 11:17:04;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Start turn;5,5
+2026-05-20 11:17:06;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];PRPT Prompt_4;4298
+2026-05-20 11:17:07;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];TIME {"request":1658}
+2026-05-20 11:17:07;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];DATA {"attempts":1}
+2026-05-20 11:17:07;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];RESN {"reasoning":Attack the Wave tile at (9,7) to extend shot toward enemy at (9,8). This is a wave-extension tactic that hits the high-priority enemy Red ship. After attack, move to (10,7) to maintain positioning and prepare for follow-up attacks on the clustered enemies.]}
+2026-05-20 11:17:07;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Flags;True;True;False
+2026-05-20 11:17:07;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];MOVE {10, 7}
+2026-05-20 11:17:08;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Cannot reach target at GridTile(Clone) (9, 7).
+2026-05-20 11:17:08;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Finish turn
+2026-05-20 11:17:08;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 11:17:09;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4281
+2026-05-20 11:20:07;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":178220}
+2026-05-20 11:20:07;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 11:20:07;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Move to (10, 9) to bring the enemy ship at (10, 7) into the optimal attack range (distance 2) and attack it.]}
+2026-05-20 11:20:07;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;True;False
+2026-05-20 11:20:07;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {10, 9}
+2026-05-20 11:20:09;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Cannot reach target at GridTile(Clone) (10, 7).
+2026-05-20 11:20:09;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 11:20:09;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 11:20:10;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4245
+2026-05-20 11:23:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":200890}
+2026-05-20 11:23:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 11:23:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Moving to (10, 9) to bring the enemy at (10, 7) into the optimal attack range (distance 2) for a direct strike.]}
+2026-05-20 11:23:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 11:23:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {10, 9}
+2026-05-20 11:23:33;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];ATTK {10, 7}
+2026-05-20 11:23:33;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TRGT LLM {ENEMY}
+2026-05-20 11:23:33;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Attacked succeeded at GridTile(Clone) (10, 7). Kill count = 0.
+2026-05-20 11:23:34;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 11:23:34;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Start turn;5,5
+2026-05-20 11:23:35;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];PRPT Prompt_4;4318
+2026-05-20 11:23:37;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TIME {"request":1829}
+2026-05-20 11:23:37;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"attempts":1}
+2026-05-20 11:23:37;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];RESN {"reasoning":Enemy at (9,8) is in valid attack range (Manhattan distance 2, offset 1). This is a high-priority target with full health. Attack immediately to deal damage and reduce enemy threat. No movement needed as target is already in range.]}
+2026-05-20 11:23:37;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Flags;False;True;False
+2026-05-20 11:23:37;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];ATTK {9, 8}
+2026-05-20 11:23:37;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TRGT LLM {ENEMY}
+2026-05-20 11:23:37;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Attacked succeeded at GridTile(Clone) (9, 8). Kill count = 0.
+2026-05-20 11:23:39;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Finish turn
+2026-05-20 11:23:39;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 11:23:40;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4323
+2026-05-20 11:25:27;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":106722}
+2026-05-20 11:25:27;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 11:25:27;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":Move to (10, 8) to close distance to enemy at (10, 7) and perform a direct attack.]}
+2026-05-20 11:25:27;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;True;True;False
+2026-05-20 11:25:27;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];MOVE {10, 8}
+2026-05-20 11:25:28;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Cannot reach target at GridTile(Clone) (10, 7).
+2026-05-20 11:25:28;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn
+2026-05-20 11:25:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Start turn;5,5
+2026-05-20 11:25:29;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];PRPT Prompt_4;4315
+2026-05-20 11:25:31;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];TIME {"request":2658}
+2026-05-20 11:25:31;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];DATA {"attempts":1}
+2026-05-20 11:25:31;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];RESN {"reasoning":Enemy at (10,9) is in valid attack range (offset 1, range 2). This is the highest priority target with full health. Attack immediately to deal damage and reduce enemy threat.]}
+2026-05-20 11:25:31;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Flags;False;True;False
+2026-05-20 11:25:31;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];ATTK {10, 9}
+2026-05-20 11:25:31;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];TRGT LLM {ENEMY}
+2026-05-20 11:25:31;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Attacked succeeded at GridTile(Clone) (10, 9). Kill count = 0.
+2026-05-20 11:25:33;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Finish turn
+2026-05-20 11:25:33;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 11:25:34;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4288
+2026-05-20 11:28:59;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":205081}
+2026-05-20 11:28:59;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 11:28:59;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Use wave at (10, 11) to extend attack and hit enemy at (10, 7)]}
+2026-05-20 11:28:59;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;True;False
+2026-05-20 11:28:59;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {10, 12}
+2026-05-20 11:29:00;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-05-20 11:29:00;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 11:29:00;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 11:29:01;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4320
+2026-05-20 11:31:16;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":134883}
+2026-05-20 11:31:16;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 11:31:16;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Move to (9, 8) to bring both enemies into attack range (distance 2), then attack the enemy at (10, 7).]}
+2026-05-20 11:31:16;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 11:31:16;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {9, 8}
+2026-05-20 11:31:17;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];ATTK {10, 7}
+2026-05-20 11:31:17;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TRGT LLM {ENEMY}
+2026-05-20 11:31:17;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Attacked succeeded at GridTile(Clone) (10, 7). Kill count = 0.
+2026-05-20 11:31:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 11:31:19;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Start turn;5,5
+2026-05-20 11:31:20;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];PRPT Prompt_4;4339
+2026-05-20 11:31:22;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TIME {"request":2623}
+2026-05-20 11:31:22;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"attempts":1}
+2026-05-20 11:31:22;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];RESN {"reasoning":Enemy at (9,8) is in valid attack range (1 tile away, within 2-tile range). This is a VALID target and must be prioritized. Direct attack with no movement needed. After attack, reposition to (10,6) to maintain distance and prepare for next engagement.]}
+2026-05-20 11:31:22;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Flags;False;True;False
+2026-05-20 11:31:22;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];ATTK {9, 8}
+2026-05-20 11:31:22;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TRGT LLM {ENEMY}
+2026-05-20 11:31:22;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Attacked succeeded at GridTile(Clone) (9, 8). Kill count = 0.
+2026-05-20 11:31:24;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Finish turn
+2026-05-20 11:31:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 11:31:25;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4205
+2026-05-20 11:34:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":156963}
+2026-05-20 11:34:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 11:34:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":Move to (11, 6) to bring both enemies into attack range, then prioritize destroying the low-health enemy at (10, 7).]}
+2026-05-20 11:34:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;True;True;False
+2026-05-20 11:34:02;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];MOVE {11, 6}
+2026-05-20 11:34:04;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];ATTK {10, 7}
+2026-05-20 11:34:04;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TRGT LLM {ENEMY}
+2026-05-20 11:34:04;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];INFO Destroyed
+2026-05-20 11:34:04;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|2];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":4,"internalMovementAttemptCount":2,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":2531,"averageRequestTimeCount":4,"maxRequestTime":3885,"minRequest":1658,"averageAttempts":1,"kills":0}
+2026-05-20 11:34:04;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Attacked succeeded at GridTile(Clone) (10, 7). Kill count = 1.
+2026-05-20 11:34:05;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn
+2026-05-20 11:34:05;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 11:34:06;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4245
+2026-05-20 11:37:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":227639}
+2026-05-20 11:37:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 11:37:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Move to (10, 9) to close the distance to the enemy ship at (9, 6).]}
+2026-05-20 11:37:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;False;False
+2026-05-20 11:37:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {10, 9}
+2026-05-20 11:37:55;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 11:37:55;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 11:37:57;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4244
+2026-05-20 11:40:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":147525}
+2026-05-20 11:40:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 11:40:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Move to (10,7) to maintain attack range on enemy Green at (9,6), then move to (12,8) to evade counter-attack due to low health.]}
+2026-05-20 11:40:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 11:40:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {10, 7}
+2026-05-20 11:40:26;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];ATTK {9, 6}
+2026-05-20 11:40:26;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TRGT LLM {ENEMY}
+2026-05-20 11:40:26;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Attacked succeeded at GridTile(Clone) (9, 6). Kill count = 0.
+2026-05-20 11:40:27;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 11:40:27;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Start turn;5,5
+2026-05-20 11:40:28;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];PRPT Prompt_4;4393
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TIME {"request":1999}
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"attempts":1}
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];RESN {"reasoning":I am at (9,6) with 1 health - critical situation. Enemy at (10,7) has only 1 health and is within my attack range (Manhattan distance 2, offset 1). This is a valid target I can eliminate immediately. After destroying this weakened enemy, I will reposition to maintain distance from the two remaining stronger enemies at (11,6) and (10,12).]}
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Flags;False;True;False
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];ATTK {10, 7}
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];TRGT LLM {ENEMY}
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Destroyed
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":5,"internalMovementAttemptCount":5,"internalAttackAttemptCount":5,"internalFaultyMessageCount":0,"averageRequestTime":147596.6,"averageRequestTimeCount":5,"maxRequestTime":200890,"minRequest":72645,"averageAttempts":1,"kills":0}
+2026-05-20 11:40:30;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Attacked succeeded at GridTile(Clone) (10, 7). Kill count = 1.
+2026-05-20 11:40:32;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Finish turn
+2026-05-20 11:40:32;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 11:40:33;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4261
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":69038}
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":Direct attack on enemy ship at (9, 6) to eliminate it and win the game.]}
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;False;True;False
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];ATTK {9, 6}
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TRGT LLM {ENEMY}
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];INFO Destroyed
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":6,"internalMovementAttemptCount":1,"internalAttackAttemptCount":6,"internalFaultyMessageCount":0,"averageRequestTime":2049.667,"averageRequestTimeCount":6,"maxRequestTime":2623,"minRequest":1783,"averageAttempts":1,"kills":1}
+2026-05-20 11:41:42;[SYSTEM];[LevelGoal];INFO Faction Red won.
+2026-05-20 11:41:42;[SYSTEM];[LevelGoal];INFO Logging remaining ships. Count: 6.
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":6,"internalMovementAttemptCount":5,"internalAttackAttemptCount":5,"internalFaultyMessageCount":0,"averageRequestTime":155989.7,"averageRequestTimeCount":6,"maxRequestTime":251463,"minRequest":69038,"averageAttempts":1,"kills":1}
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Claude|claude-haiku-4-5-20251001|Green|4];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":6,"internalMovementAttemptCount":1,"internalAttackAttemptCount":6,"internalFaultyMessageCount":0,"averageRequestTime":2049.667,"averageRequestTimeCount":6,"maxRequestTime":2623,"minRequest":1783,"averageAttempts":1,"kills":1}
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":4,"internalTotalRequestCount":5,"internalMovementAttemptCount":4,"internalAttackAttemptCount":4,"internalFaultyMessageCount":0,"averageRequestTime":176703.2,"averageRequestTimeCount":5,"maxRequestTime":227639,"minRequest":92864,"averageAttempts":1,"kills":0}
+2026-05-20 11:41:42;[SYSTEM];[LevelController];INFO Level finished.
+2026-05-20 11:41:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Attacked succeeded at GridTile(Clone) (9, 6). Kill count = 1.
+2026-05-20 11:41:42;[SYSTEM];[LevelGoal];INFO LLM Gemma|gemma-4-26b-a4b-it won.
+2026-05-20 11:41:43;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn

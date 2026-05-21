@@ -1,0 +1,330 @@
+﻿2026-05-20 19:46:08;[SYSTEM];[LevelController];INFO Level starts with 6 actors.
+2026-05-20 19:46:08;[SYSTEM];[LevelController];INFO Grid size is 20 by 19.
+2026-05-20 19:46:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-20 19:46:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_4;4309
+2026-05-20 19:46:11;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1775}
+2026-05-20 19:46:11;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-20 19:46:11;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":No enemy is in direct attack range. Moving to (10,7) positions me to attack the wave at (9,7) next turn, which extends to hit enemy at (7,12) via wave path. This sets up a future high-probability attack.]}
+2026-05-20 19:46:11;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;False;False
+2026-05-20 19:46:11;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {10, 7}
+2026-05-20 19:46:13;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-20 19:46:13;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 19:46:14;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4342
+2026-05-20 19:48:36;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":141686}
+2026-05-20 19:48:36;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 19:48:36;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":Move to (10, 12) to close distance and use the wave at (10, 11) to extend the attack to the enemy at (10, 7).]}
+2026-05-20 19:48:36;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;True;True;False
+2026-05-20 19:48:36;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];MOVE {10, 12}
+2026-05-20 19:48:37;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-05-20 19:48:37;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn
+2026-05-20 19:48:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 19:48:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4289
+2026-05-20 19:48:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":2113}
+2026-05-20 19:48:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 19:48:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":No enemies in direct attack range. Move south to (12,5) to close distance with enemies at (12,12) and (10,12), positioning for next turn's attack.]}
+2026-05-20 19:48:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;True;False;False
+2026-05-20 19:48:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];MOVE {12, 5}
+2026-05-20 19:48:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
+2026-05-20 19:48:41;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 19:48:42;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4299
+2026-05-20 19:52:15;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":213407}
+2026-05-20 19:52:15;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 19:52:15;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Wave-extended attack on enemy at (10, 7) using the upward wave at (10, 11)]}
+2026-05-20 19:52:15;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;True;False
+2026-05-20 19:52:15;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {10, 13}
+2026-05-20 19:52:17;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];ATTK {10, 11}
+2026-05-20 19:52:17;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TRGT WAVE
+2026-05-20 19:52:17;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-05-20 19:52:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 19:52:19;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-05-20 19:52:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_4;4282
+2026-05-20 19:52:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1897}
+2026-05-20 19:52:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-05-20 19:52:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":No immediate targets in range. Moving to (8,6) to get closer to enemies at (10,12) and (10,13), positioning for next turn attack.]}
+2026-05-20 19:52:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-05-20 19:52:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {8, 6}
+2026-05-20 19:52:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-05-20 19:52:23;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 19:52:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4291
+2026-05-20 19:54:46;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":141644}
+2026-05-20 19:54:46;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 19:54:46;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Move to (8, 11) to enable a wave-extended attack on the enemy at (10, 7) using the wave at (10, 11).]}
+2026-05-20 19:54:46;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 19:54:46;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {8, 11}
+2026-05-20 19:54:47;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];ATTK {10, 11}
+2026-05-20 19:54:47;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TRGT WAVE
+2026-05-20 19:54:47;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-05-20 19:54:49;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 19:54:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-20 19:54:50;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_4;4289
+2026-05-20 19:54:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1545}
+2026-05-20 19:54:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-20 19:54:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Move to (10,8) to get within range of enemy at (10,12) which has only 1 health, enabling a precision kill next turn.]}
+2026-05-20 19:54:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;False;False
+2026-05-20 19:54:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {10, 8}
+2026-05-20 19:54:52;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-20 19:54:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Start turn;5,5
+2026-05-20 19:54:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];PRPT Prompt_4;4289
+2026-05-20 19:57:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];TIME {"request":147735}
+2026-05-20 19:57:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"attempts":1}
+2026-05-20 19:57:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];RESN {"reasoning":Wave-extended attack on enemy at (10, 8) using wave at (10, 11) to maintain distance and safety due to low health.]}
+2026-05-20 19:57:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Flags;False;True;False
+2026-05-20 19:57:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-05-20 19:57:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Finish turn
+2026-05-20 19:57:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 19:57:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4315
+2026-05-20 19:57:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":1704}
+2026-05-20 19:57:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 19:57:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":No immediate targets in range. Moving to (11, 5) to get closer to the low-health enemy at (10, 12) and the enemy at (8, 11), positioning for next turn's attack.]}
+2026-05-20 19:57:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;True;False;False
+2026-05-20 19:57:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];MOVE {11, 5}
+2026-05-20 19:57:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
+2026-05-20 19:57:25;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 19:57:26;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4325
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":92253}
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Wave-extended attack on enemy at (10, 8) using wave at (10, 11)]}
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;False;True;False
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];ATTK {10, 11}
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TRGT WAVE
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];INFO Destroyed
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|1];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":2,"internalTotalRequestCount":2,"internalMovementAttemptCount":1,"internalAttackAttemptCount":2,"internalFaultyMessageCount":0,"averageRequestTime":144710.5,"averageRequestTimeCount":2,"maxRequestTime":147735,"minRequest":141686,"averageAttempts":1,"kills":0}
+2026-05-20 19:58:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-05-20 19:59:00;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 19:59:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-05-20 19:59:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_4;4260
+2026-05-20 19:59:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1547}
+2026-05-20 19:59:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-05-20 19:59:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":No enemy in direct range. Move to (9,6) to get within range of enemy at (8,11) next turn, while staying safe from waves.]}
+2026-05-20 19:59:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-05-20 19:59:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {9, 6}
+2026-05-20 19:59:03;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-05-20 19:59:03;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 19:59:04;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4301
+2026-05-20 20:01:39;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":154412}
+2026-05-20 20:01:39;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 20:01:39;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Move to (10, 10) to bring the nearest enemy (10, 8) into the optimal attack range (Manhattan distance of 2).]}
+2026-05-20 20:01:39;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 20:01:39;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {10, 10}
+2026-05-20 20:01:41;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Cannot reach target at GridTile(Clone) (10, 8).
+2026-05-20 20:01:41;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 20:01:41;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-20 20:01:42;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_4;4259
+2026-05-20 20:01:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1905}
+2026-05-20 20:01:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-20 20:01:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Cannot attack any enemy directly from current position (range 2, offset 1). Move to (10,9) to get enemy at (10,12) within attack range (Manhattan distance 3, but offset 1 means range 2 from offset, so distance 3 is valid). Attack enemy at (10,12).]}
+2026-05-20 20:01:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-05-20 20:01:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {10, 9}
+2026-05-20 20:01:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (10, 12).
+2026-05-20 20:01:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-20 20:01:45;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 20:01:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4262
+2026-05-20 20:01:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":1511}
+2026-05-20 20:01:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 20:01:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":No immediate targets in range. Moving to (11, 6) to get closer to enemies at (10,12) and (10,13), positioning for next turn attack.]}
+2026-05-20 20:01:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;True;False;False
+2026-05-20 20:01:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];MOVE {11, 6}
+2026-05-20 20:01:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
+2026-05-20 20:01:48;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 20:01:49;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4325
+2026-05-20 20:03:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":122803}
+2026-05-20 20:03:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 20:03:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Wave-extended attack on enemy at (10, 9) using wave at (10, 11)]}
+2026-05-20 20:03:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;True;False
+2026-05-20 20:03:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {10, 13}
+2026-05-20 20:03:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];ATTK {10, 11}
+2026-05-20 20:03:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TRGT WAVE
+2026-05-20 20:03:53;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-05-20 20:03:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 20:03:54;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-05-20 20:03:55;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_4;4245
+2026-05-20 20:03:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1364}
+2026-05-20 20:03:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-05-20 20:03:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":No immediate attack possible. Moving to (10,7) to get closer to enemy at (10,12) and (10,13), positioning for next turn attack.]}
+2026-05-20 20:03:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-05-20 20:03:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {10, 7}
+2026-05-20 20:03:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-05-20 20:03:58;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 20:03:59;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4290
+2026-05-20 20:07:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":232826}
+2026-05-20 20:07:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 20:07:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Move to (11, 10) to bring enemy (10, 9) into attack range while avoiding the wave at (10, 11).]}
+2026-05-20 20:07:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;True;True;False
+2026-05-20 20:07:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];MOVE {11, 10}
+2026-05-20 20:07:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];ATTK {10, 9}
+2026-05-20 20:07:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TRGT LLM {ENEMY}
+2026-05-20 20:07:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Attacked succeeded at GridTile(Clone) (10, 9). Kill count = 0.
+2026-05-20 20:07:55;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 20:07:55;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-20 20:07:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_4;4312
+2026-05-20 20:07:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1478}
+2026-05-20 20:07:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-20 20:07:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Immediate attack on low-health enemy at (11,10) within range and offset. No movement needed.]}
+2026-05-20 20:07:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;False;True;False
+2026-05-20 20:07:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];ATTK {11, 10}
+2026-05-20 20:07:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TRGT LLM {ENEMY}
+2026-05-20 20:07:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Attacked succeeded at GridTile(Clone) (11, 10). Kill count = 0.
+2026-05-20 20:07:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-20 20:07:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 20:08:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4266
+2026-05-20 20:08:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":1338}
+2026-05-20 20:08:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 20:08:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":No immediate attack possible. Move to (11,8) to get within range of the low-health enemy at (11,10) for next turn, while staying safe from waves.]}
+2026-05-20 20:08:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;True;False;False
+2026-05-20 20:08:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];MOVE {11, 8}
+2026-05-20 20:08:03;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
+2026-05-20 20:08:03;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 20:08:04;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4360
+2026-05-20 20:10:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":134112}
+2026-05-20 20:10:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 20:10:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Wave-extended attack on enemy at (10, 9) using wave at (10, 11)]}
+2026-05-20 20:10:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;False;True;False
+2026-05-20 20:10:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];ATTK {10, 11}
+2026-05-20 20:10:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TRGT WAVE
+2026-05-20 20:10:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-05-20 20:10:20;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 20:10:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-05-20 20:10:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_4;4208
+2026-05-20 20:10:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1754}
+2026-05-20 20:10:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-05-20 20:10:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":Move to (10,8) to get within range of enemy at (11,10) for next turn, while avoiding the wave at (9,7). No immediate attack possible.]}
+2026-05-20 20:10:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-05-20 20:10:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {10, 8}
+2026-05-20 20:10:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-05-20 20:10:24;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Start turn;5,5
+2026-05-20 20:10:25;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];PRPT Prompt_4;4417
+2026-05-20 20:12:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TIME {"request":115927}
+2026-05-20 20:12:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"attempts":1}
+2026-05-20 20:12:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];RESN {"reasoning":Direct attack on low-health enemy (10, 9) which is within range.]}
+2026-05-20 20:12:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Flags;False;True;False
+2026-05-20 20:12:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];ATTK {10, 9}
+2026-05-20 20:12:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];TRGT LLM {ENEMY}
+2026-05-20 20:12:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Attacked succeeded at GridTile(Clone) (10, 9). Kill count = 0.
+2026-05-20 20:12:22;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Finish turn
+2026-05-20 20:12:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-20 20:12:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_4;4278
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1467}
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Immediate attack on low-health enemy at (11,10) within range, then move to (10,10) for better positioning]}
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;False;True;False
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];ATTK {11, 10}
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TRGT LLM {ENEMY}
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];INFO Destroyed
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|5];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":4,"internalMovementAttemptCount":3,"internalAttackAttemptCount":4,"internalFaultyMessageCount":0,"averageRequestTime":161202.3,"averageRequestTimeCount":4,"maxRequestTime":232826,"minRequest":115927,"averageAttempts":1,"kills":0}
+2026-05-20 20:12:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Attacked succeeded at GridTile(Clone) (11, 10). Kill count = 1.
+2026-05-20 20:12:26;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-20 20:12:26;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 20:12:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4196
+2026-05-20 20:12:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":1319}
+2026-05-20 20:12:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 20:12:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":Immediate attack on neutral target (🎯) at (12,9) which is within range 2 and outside offset 1. No movement needed.]}
+2026-05-20 20:12:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;False;True;False
+2026-05-20 20:12:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];ATTK {12, 9}
+2026-05-20 20:12:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TRGT TARGET
+2026-05-20 20:12:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Attacked succeeded at GridTile(Clone) (12, 9). Kill count = 1.
+2026-05-20 20:12:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
+2026-05-20 20:12:30;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 20:12:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4361
+2026-05-20 20:14:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":141146}
+2026-05-20 20:14:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 20:14:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Wave-extended attack on low-health enemy (10, 9) and enemy (10, 8) via wave at (10, 11)]}
+2026-05-20 20:14:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;False;True;False
+2026-05-20 20:14:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];ATTK {10, 11}
+2026-05-20 20:14:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TRGT WAVE
+2026-05-20 20:14:52;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-05-20 20:14:54;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 20:14:54;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-05-20 20:14:55;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_4;4148
+2026-05-20 20:14:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1575}
+2026-05-20 20:14:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-05-20 20:14:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":No enemy in direct range. Move to (9,8) to get within range of the enemy at (10,13) next turn, while avoiding the wave at (9,7).]}
+2026-05-20 20:14:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-05-20 20:14:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {9, 8}
+2026-05-20 20:14:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-05-20 20:14:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-05-20 20:14:59;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_4;4222
+2026-05-20 20:15:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1731}
+2026-05-20 20:15:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-05-20 20:15:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Cannot attack enemy directly (range 4). Move to (10,10) to get within range 2 of enemy at (10,13) next turn, while avoiding waves.]}
+2026-05-20 20:15:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;False;False
+2026-05-20 20:15:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {10, 10}
+2026-05-20 20:15:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-05-20 20:15:01;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 20:15:02;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4201
+2026-05-20 20:15:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":1412}
+2026-05-20 20:15:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 20:15:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":No immediate attack possible. Moving to (11,9) to close distance with enemy at (10,13) and prepare for next turn attack.]}
+2026-05-20 20:15:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;True;False;False
+2026-05-20 20:15:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];MOVE {11, 9}
+2026-05-20 20:15:05;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
+2026-05-20 20:15:05;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 20:15:06;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4351
+2026-05-20 20:18:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":193310}
+2026-05-20 20:18:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 20:18:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Move to (11, 11) to bring both (10, 10) and (11, 9) into attack range, then attack the low-health enemy at (10, 10).]}
+2026-05-20 20:18:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;True;False
+2026-05-20 20:18:19;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {11, 11}
+2026-05-20 20:18:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];ATTK {10, 10}
+2026-05-20 20:18:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TRGT LLM {ENEMY}
+2026-05-20 20:18:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Destroyed
+2026-05-20 20:18:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":6,"internalMovementAttemptCount":4,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":1650.167,"averageRequestTimeCount":6,"maxRequestTime":1905,"minRequest":1467,"averageAttempts":1,"kills":1}
+2026-05-20 20:18:21;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Attacked succeeded at GridTile(Clone) (10, 10). Kill count = 1.
+2026-05-20 20:18:23;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 20:18:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-05-20 20:18:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_4;4199
+2026-05-20 20:18:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1600}
+2026-05-20 20:18:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-05-20 20:18:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":No immediate attack possible. Moving to (10, 8) to get within range of enemy at (11, 11) for next turn, while staying safe from waves.]}
+2026-05-20 20:18:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-05-20 20:18:25;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {10, 8}
+2026-05-20 20:18:26;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-05-20 20:18:26;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 20:18:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4234
+2026-05-20 20:18:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":1515}
+2026-05-20 20:18:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 20:18:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":Enemy Red is at (11,11), which is exactly 2 tiles away (Manhattan distance) from my position at (11,9). This is within my attack range and outside my offset of 1. I can attack immediately without moving.]}
+2026-05-20 20:18:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;False;True;False
+2026-05-20 20:18:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];ATTK {11, 11}
+2026-05-20 20:18:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TRGT LLM {ENEMY}
+2026-05-20 20:18:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Attacked succeeded at GridTile(Clone) (11, 11). Kill count = 0.
+2026-05-20 20:18:30;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
+2026-05-20 20:18:30;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Start turn;5,5
+2026-05-20 20:18:32;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];PRPT Prompt_4;4290
+2026-05-20 20:21:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TIME {"request":179298}
+2026-05-20 20:21:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"attempts":1}
+2026-05-20 20:21:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];RESN {"reasoning":Move to (10, 10) to bring both enemies into optimal attack range (distance 2), then focus fire on (11, 9).]}
+2026-05-20 20:21:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Flags;True;True;False
+2026-05-20 20:21:31;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];MOVE {10, 10}
+2026-05-20 20:21:32;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];ATTK {11, 9}
+2026-05-20 20:21:32;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];TRGT LLM {ENEMY}
+2026-05-20 20:21:32;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Attacked succeeded at GridTile(Clone) (11, 9). Kill count = 0.
+2026-05-20 20:21:34;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Finish turn
+2026-05-20 20:21:34;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-05-20 20:21:35;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_4;4253
+2026-05-20 20:21:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1465}
+2026-05-20 20:21:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-05-20 20:21:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":Enemy at (10,10) is in direct attack range (Manhattan distance 2) and is a valid target. Attacking now is the highest priority.]}
+2026-05-20 20:21:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;False;True;False
+2026-05-20 20:21:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];ATTK {10, 10}
+2026-05-20 20:21:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TRGT LLM {ENEMY}
+2026-05-20 20:21:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Attacked succeeded at GridTile(Clone) (10, 10). Kill count = 0.
+2026-05-20 20:21:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-05-20 20:21:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Start turn;5,5
+2026-05-20 20:21:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];PRPT Prompt_4;4259
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TIME {"request":1314}
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"attempts":1}
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];RESN {"reasoning":Enemy at (10,10) is within direct attack range (Manhattan distance 2, offset 1). Immediate attack to destroy low-health enemy.]}
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Flags;False;True;False
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];ATTK {10, 10}
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];TRGT LLM {ENEMY}
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];INFO Destroyed
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":7,"internalMovementAttemptCount":4,"internalAttackAttemptCount":7,"internalFaultyMessageCount":0,"averageRequestTime":153761.3,"averageRequestTimeCount":7,"maxRequestTime":213407,"minRequest":92253,"averageAttempts":1,"kills":0}
+2026-05-20 20:21:40;[SYSTEM];[LevelGoal];INFO Faction Green won.
+2026-05-20 20:21:40;[SYSTEM];[LevelGoal];INFO Logging remaining ships. Count: 6.
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":8,"internalMovementAttemptCount":5,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":1528.25,"averageRequestTimeCount":8,"maxRequestTime":2113,"minRequest":1314,"averageAttempts":1,"kills":0}
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":7,"internalMovementAttemptCount":6,"internalAttackAttemptCount":1,"internalFaultyMessageCount":0,"averageRequestTime":1600.286,"averageRequestTimeCount":7,"maxRequestTime":1897,"minRequest":1364,"averageAttempts":1,"kills":0}
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|Gemma|gemma-4-26b-a4b-it|Red|6];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":7,"internalMovementAttemptCount":4,"internalAttackAttemptCount":7,"internalFaultyMessageCount":0,"averageRequestTime":153761.3,"averageRequestTimeCount":7,"maxRequestTime":213407,"minRequest":92253,"averageAttempts":1,"kills":0}
+2026-05-20 20:21:40;[SYSTEM];[LevelController];INFO Level finished.
+2026-05-20 20:21:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Attacked succeeded at GridTile(Clone) (10, 10). Kill count = 1.
+2026-05-20 20:21:40;[SYSTEM];[LevelGoal];INFO LLM DeepSeek|deepseek-chat won.
+2026-05-20 20:21:42;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|2];INFO Finish turn
