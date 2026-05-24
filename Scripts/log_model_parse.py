@@ -28,6 +28,7 @@ def main():
     avg_ally = 0
     avg_target = 0
     avg_wave = 0
+    avg_atta = 0
 
     for file in files:
         lines_model = file_utils.find_lines_containing_string(model, file)
@@ -54,11 +55,12 @@ def main():
         l_failed_movement, l_movement = log_parser.extract_movement(lines_model, model, [])
         num_failed_movements += l_failed_movement
         avg_movements += l_movement
-        l_enemy, l_ally, l_target, l_wave = log_parser.extract_target_data(lines_model, model, [])
+        l_enemy, l_ally, l_target, l_wave, l_atta = log_parser.extract_target_data(lines_model, model, [])
         avg_enemy += l_enemy
         avg_ally += l_ally
         avg_target += l_target
         avg_wave += l_wave
+        avg_atta += l_atta
         print("=" * 40)
 
     print(f"Matching files found: {matching_files_count}")
@@ -121,7 +123,7 @@ def main():
     print("model;avg_battle_duration;avg_prompt;avg_req;max_req;min_req;num_req;attempts;num_attempts;"
           "total_faulty_message;total_internal_attack_attempts;total_internal_wrong_attack;total_success_attacks;percentage_success_attacks;"
           "total_internal_wrong_movements;total_internal_movement_attempts;total_success_movements;percentage_success_movements;num_failed_movements;"
-          "avg_movements;avg_enemy;avg_ally;avg_target;avg_wave;avg_atta")
+          "avg_movements;avg_enemy;avg_ally;avg_target;avg_wave;avg_atta;")
     print(';'.join(output_lines))
 
 if __name__ == "__main__":
