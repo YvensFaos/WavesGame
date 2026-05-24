@@ -99,12 +99,13 @@ namespace Actors.AI
         {
             var internalIDStr = internalID.ToString();
             var factionName = GetFaction().name;
-            name = $"AIAgent-Utility-{genesData.name}-{factionName}-{internalIDStr}";
+            name = $"AIAgent-Utility-{genesData.name}|{factionName}|{internalIDStr}";
         }
 
         public override string ToString()
         {
-            return $"Utility-{genesData.name}";
+            var factionName = GetFaction().name;
+            return $"Utility-{genesData.name}|{factionName}|";
         }
 
         public AIGenesSO GetGenesData() => genesData;
