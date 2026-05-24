@@ -1,0 +1,191 @@
+﻿MOVE;AIAgent-Utility-RandomGenes-Green-7;(9, 5)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(10, 5)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(10, 6)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 11);9;[Attacked a wave]
+DAMG;Wave N;9
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(12, 6)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 11)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 10)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(7, 6)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(7, 5)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(7, 4)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(7, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(8, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(9, 12)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(10, 11);9;[Attacked a wave]
+DAMG;Wave N;9
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(10, 6)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(10, 7)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(10, 8)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(10, 9)
+ATTK;AIAgent-Utility-RandomGenes-Green-7;(12, 9);9
+DEAD;Target
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 13)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 11)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 12);[Moved by wave effect!]
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(12, 6)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(13, 6)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(13, 7)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(10, 9);9
+DAMG;AIAgent-Utility-RandomGenes-Green-7;7
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(7, 4)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(8, 4)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(8, 3)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(10, 11);9;[Attacked a wave]
+DAMG;Wave N;9
+DAMG;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;7
+ATTK;Wave N;(10, 12);9
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(10, 9)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(11, 9)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(11, 8)
+ATTK;AIAgent-Utility-RandomGenes-Green-7;(11, 10);9
+DAMG;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;7
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 11)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 12);[Moved by wave effect!]
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(13, 7)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(13, 8)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(13, 9)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(13, 10)
+ATTK;AIAgent-Utility-RandomGenes-Green-9;(11, 10);9
+DAMG;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;7
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 8);9
+DAMG;AIAgent-Utility-RandomGenes-Green-7;7
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(8, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(9, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(10, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(10, 4)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(10, 11);9;[Attacked a wave]
+DAMG;Wave N;9
+DAMG;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;7
+ATTK;Wave N;(10, 12);9
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(11, 8)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(12, 8)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(13, 8)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(13, 9)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(13, 10)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(12, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 9)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(10, 4)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 4)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(13, 9)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(13, 10)
+MOVE;AIAgent-Utility-RandomGenes-Green-7;(13, 11)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 12)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(13, 11);9
+DEAD;AIAgent-Utility-RandomGenes-Green-7
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(12, 10)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(11, 10)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(10, 10)
+MOVE;AIAgent-Utility-RandomGenes-Green-9;(9, 10)
+ATTK;AIAgent-Utility-RandomGenes-Green-9;(9, 12);9
+DAMG;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;7
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(10, 9)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(9, 10);9
+DAMG;AIAgent-Utility-RandomGenes-Green-9;7
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 3)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(9, 10);9
+DAMG;AIAgent-Utility-RandomGenes-Green-9;7
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 11)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 10)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(9, 10);9
+DEAD;AIAgent-Utility-RandomGenes-Green-9
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(10, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 8)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(13, 3)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(13, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(13, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 8)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(13, 8)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(13, 7)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(13, 6)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(13, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 3)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 2)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(9, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(10, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(11, 12)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(11, 11)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(13, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 8)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(13, 6)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 6)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 6)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 5)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(13, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(14, 2)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(11, 11)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(11, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(12, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(13, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 8)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 7)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 6)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 6)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(11, 5)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 5)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(13, 5)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(14, 5)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(14, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(13, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 1)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(13, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(12, 10)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(12, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(12, 8)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 6)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 5)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 4)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 3)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 1);9
+DAMG;AIAgent-Utility-RandomGenes-Green-8;7
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(14, 5)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(14, 4)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(14, 3)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(14, 2)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(12, 1)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(11, 1)
+MOVE;AIAgent-Utility-RandomGenes-Green-8;(10, 1)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(12, 8)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(11, 8)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(11, 9)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(11, 10)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|5;(10, 11);9;[Attacked a wave]
+DAMG;Wave N;9
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(12, 3)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(11, 3)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 3)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|3;(10, 1);9
+DAMG;AIAgent-Utility-RandomGenes-Green-8;7
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(14, 2)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(13, 2)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 2)
+MOVE;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(12, 1)
+ATTK;LLMAgent|DeepSeek|deepseek-v4-flash|Red|1;(10, 1);9
+DEAD;AIAgent-Utility-RandomGenes-Green-8
