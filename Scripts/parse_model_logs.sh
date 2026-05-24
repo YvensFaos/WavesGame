@@ -16,12 +16,22 @@ fi
 # Create output folder if it doesn't exist
 mkdir -p "$OUTPUT_FOLDER"
 
-models=("deepseek-chat" "deepseek-reasoner"
-"claude-haiku-4-5-20251001" "claude-sonnet-4-5-20250929"
-"gemini-2.5-flash-lite" "gemini-2.5-flash"
-"gpt-4.1-mini" "gpt-4.1" "o4-mini"
-"magistral-small-2509" "ministral-3b-2512" "deepseek-v4-flash"
-"gemma-4-26b-a4b-it" "qwen3.6-flash")
+models=(
+"deepseek-chat"
+"deepseek-reasoner"
+"deepseek-v4-flash"
+"claude-haiku-4-5-20251001"
+"claude-sonnet-4-5-20250929"
+"gemini-2.5-flash-lite"
+"gemini-2.5-flash"
+"gpt-4.1-mini"
+"gpt-4.1"
+"o4-mini"
+"magistral-small-2509"
+"ministral-3b-2512"
+"gemma-4-26b-a4b-it"
+"qwen3.6-flash"
+)
 
 for model in "${models[@]}"; do
     echo -e "Processing: $model"

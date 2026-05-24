@@ -176,7 +176,7 @@ def extract_request_data(faction_lines: list[Any], model, output_list):
         min_req = min(min_req, float(request_time))
     num_req = len(requests) if len(requests) > 0 else 1
     avg_req /= num_req
-    print(f"Average {model} request = {avg_req:.2f} ({num_req} requests)")
+    print(f"Average {model} request = {avg_req:.2f} ({num_req} {'request' if num_req == 1 else 'requests'}))")
     print(f"Max {model} request = {max_req:.2f}")
     print(f"Min {model} request = {min_req:.2f}")
     output_list.append(f"{avg_req:.2f}")
@@ -203,6 +203,7 @@ def extract_target_data(process_lines: list[Any], model, output_list):
     ally_targets =   len(file_utils.find_lines_containing_string("ALLY", all_targets))
     target_targets = len(file_utils.find_lines_containing_string("TARGET", all_targets))
     wave_targets = len(file_utils.find_lines_containing_string("WAVE", all_targets))
+    all_attacks = enemy_targets + ally_targets + wave_targets + target_targets
     print(f"Enemies targeted by {model} = {enemy_targets:.2f}")
     output_list.append(f"{enemy_targets:.2f}")
     print(f"Allies targeted by {model} = {ally_targets:.2f}")
@@ -211,7 +212,9 @@ def extract_target_data(process_lines: list[Any], model, output_list):
     output_list.append(f"{target_targets:.2f}")
     print(f"Waves targeted by {model} = {wave_targets:.2f}")
     output_list.append(f"{wave_targets:.2f}")
-    return enemy_targets, ally_targets, target_targets, wave_targets
+    print(f"Total attacks by {model} = {all_attacks:.2f}")
+    output_list.append(f"{all_attacks:.2f}")
+    return enemy_targets, ally_targets, target_targets, wave_targets, all_attacks
 
 def parse_duration_seconds(lines: list[str], output_list):
     first_line = lines[0]
@@ -296,7 +299,7 @@ def main():
                    "% failed moves; total_internal_moves; total_internal_wrong_moves; total_internal_success_moves; %internal_failed_moves; %internal_success_moves;"
                    "attack_attempts; attack_internal_attempts; success_attack_attempts; %success_attempts; %failed_attempts;"
                    "total_internal_wrong_attacks; total_internal_success_attack; total_attacks; %success_attacks; %failed_attacks; "
-                    "%faulty_messages; enemy_targets; ally_targets; target_targets; target_waves;")
+                    "%faulty_messages; enemy_targets; ally_targets; target_targets; target_waves;all_attacks;")
 
     print(f"filename; initial time; seconds; RED model; GREEN model; win/draw; total moves; move ratio;{faction_line}{faction_line}")
     print(';'.join(output_line))
