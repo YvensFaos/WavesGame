@@ -78,7 +78,7 @@ def main():
     total_faulty_message /= matching_files_count
     total_internal_attack_attempts /= matching_files_count
     total_internal_wrong_attack /= matching_files_count
-    total_success_attacks = total_internal_wrong_attack - total_internal_attack_attempts
+    total_success_attacks = total_internal_attack_attempts - total_internal_wrong_attack
     percentage_success_attacks = total_success_attacks / total_internal_attack_attempts if total_internal_attack_attempts > 0 else 0
     total_internal_wrong_movements /= matching_files_count
     total_internal_movement_attempts /= matching_files_count
@@ -90,6 +90,7 @@ def main():
     avg_ally /= matching_files_count
     avg_target /= matching_files_count
     avg_wave /= matching_files_count
+    avg_atta = avg_enemy + avg_ally + avg_target + avg_wave
 
     output_lines.append(f"{avg_battle_duration:.2f}")
     output_lines.append(f"{avg_prompt:.2f}")
@@ -114,12 +115,13 @@ def main():
     output_lines.append(f"{avg_ally:.2f}")
     output_lines.append(f"{avg_target:.2f}")
     output_lines.append(f"{avg_wave:.2f}")
+    output_lines.append(f"{avg_atta:.2f}")
     print("=" * 40)
     print("CSV line")
     print("model;avg_battle_duration;avg_prompt;avg_req;max_req;min_req;num_req;attempts;num_attempts;"
           "total_faulty_message;total_internal_attack_attempts;total_internal_wrong_attack;total_success_attacks;percentage_success_attacks;"
           "total_internal_wrong_movements;total_internal_movement_attempts;total_success_movements;percentage_success_movements;num_failed_movements;"
-          "avg_movements;avg_enemy;avg_ally;avg_target;avg_wave")
+          "avg_movements;avg_enemy;avg_ally;avg_target;avg_wave;avg_atta")
     print(';'.join(output_lines))
 
 if __name__ == "__main__":
