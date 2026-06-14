@@ -342,8 +342,10 @@ namespace Core
             }
 
             var actorTurnUI = actorTurnUIs.Find(turnUI => turnUI.NavalShip.Equals(navalShip));
+            if (actorTurnUI == null) return;
             if (actorTurnUIs == null) return;
             actorTurnUIs.Remove(actorTurnUI);
+            if (actorTurnUI.gameObject == null) return;
             Destroy(actorTurnUI.gameObject);
         }
 
