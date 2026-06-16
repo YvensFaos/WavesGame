@@ -1,0 +1,1719 @@
+﻿2026-06-12 10:35:23;[SYSTEM];[LevelController];INFO Level starts with 6 actors.
+2026-06-12 10:35:23;[SYSTEM];[LevelController];INFO Grid size is 20 by 19.
+2026-06-12 10:35:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:35:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4312
+2026-06-12 10:35:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":981}
+2026-06-12 10:35:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:35:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Wave tile at (9,7) is a direct extension to enemy at (7,12) within range 2 and offset 1. Moving to (9,6) places you adjacent to the wave, enabling a wave-extended attack on the enemy at (7,12) this turn.]}
+2026-06-12 10:35:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:35:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {9, 6}
+2026-06-12 10:35:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (7, 12).
+2026-06-12 10:35:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:35:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:35:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:35:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (11, 14) - U = -1.96
+2026-06-12 10:35:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:35:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:35:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4293
+2026-06-12 10:35:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":820}
+2026-06-12 10:35:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:35:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate enemy in attack range, but wave at (10,11) can extend attack to (11,14) if moved to (10,6) or (11,6). Prioritize moving to (11,6) to line up a wave-extended shot on (11,14) next turn.]}
+2026-06-12 10:35:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:35:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 6}
+2026-06-12 10:35:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:35:30;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:35:30;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:35:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (12, 12) - U = -1.96
+2026-06-12 10:35:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:35:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:35:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4261
+2026-06-12 10:35:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":883}
+2026-06-12 10:35:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:35:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(9, 5)` positions the ship to use the wave at `(10, 11)` (~^) to extend range and attack the enemy at `(7, 12)` or `(12, 12)` next turn. This leverages wave advantage to prioritize high-value targets while maintaining mobility.]}
+2026-06-12 10:35:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;False;False
+2026-06-12 10:35:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {9, 5}
+2026-06-12 10:35:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:35:35;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:35:35;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:35:35;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (7, 14) - U = 0
+2026-06-12 10:35:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:35:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:35:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4260
+2026-06-12 10:35:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":905}
+2026-06-12 10:35:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:35:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Moving to `(10, 7)` places the ship adjacent to the `~V` wave tile, enabling a wave-extended attack on the enemy at `(12, 12)` (directly behind the wave). This maximizes precision against the highest-priority target while leveraging waves for range advantage.]}
+2026-06-12 10:35:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:35:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {10, 7}
+2026-06-12 10:35:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (12, 12).
+2026-06-12 10:35:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:35:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:35:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:35:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (9, 14) - U = -1.96
+2026-06-12 10:35:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:35:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:35:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4295
+2026-06-12 10:35:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1067}
+2026-06-12 10:35:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:35:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on enemy at (12,12) via (10,11) wave tile. Moving to (10,6) positions ship to line up shot through the ~^ wave, extending range to (12,12) while avoiding immediate danger from other enemies.]}
+2026-06-12 10:35:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:35:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 6}
+2026-06-12 10:35:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (12, 12).
+2026-06-12 10:35:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:35:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:35:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:35:46;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (12, 15) - U = 0
+2026-06-12 10:35:48;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:35:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:35:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4301
+2026-06-12 10:35:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":6741}
+2026-06-12 10:35:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:35:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (9,7) is within attack range (offset=1, range=2) and can extend shot to (7,14) or (9,14) if attacking next turn. Prioritize attacking (9,7) to leverage wave for immediate damage to two high-health enemies (7,14) and (9,14).]}
+2026-06-12 10:35:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;False;True;False
+2026-06-12 10:35:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];ATTK {9, 7}
+2026-06-12 10:35:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TRGT WAVE
+2026-06-12 10:35:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Attacked succeeded at GridTile(Clone) (9, 7). Kill count = 0.
+2026-06-12 10:35:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:35:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:35:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:35:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 14) - U = 0
+2026-06-12 10:35:59;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:35:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:36:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4256
+2026-06-12 10:36:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":870}
+2026-06-12 10:36:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:36:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Moving to (11, 7) positions the ship to attack the enemy at (12, 15) via wave extension (via ~^ at (10, 11)), extending range to cover the target while maintaining offset. This maximizes precision against the highest-priority enemy (no immediate counter threat).]}
+2026-06-12 10:36:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:36:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {11, 7}
+2026-06-12 10:36:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (12, 15).
+2026-06-12 10:36:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:36:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:36:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:36:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (8, 15) - U = 0
+2026-06-12 10:36:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:36:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:36:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4300
+2026-06-12 10:36:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":946}
+2026-06-12 10:36:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:36:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) (`~^`) extends attack range to (12,15) enemy, which is within range (Manhattan distance 2) and offset-compliant (1 tile away). Prioritize this wave-extended shot to eliminate a high-value target immediately.]}
+2026-06-12 10:36:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;False;True;False
+2026-06-12 10:36:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (12, 15).
+2026-06-12 10:36:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:36:06;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:36:06;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:36:06;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (13, 14) - U = 0
+2026-06-12 10:36:07;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:36:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:36:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4310
+2026-06-12 10:36:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1323}
+2026-06-12 10:36:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:36:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (9,7) is within range of current position (9,5) with offset 1 and range 2, but no enemy is directly in range. Moving to (10,7) positions the ship to attack the enemy at (8,15) via wave extension next turn (range 2 + wave offset). This maximizes precision and leverages wave advantage for a high-probability hit on a critical target.]}
+2026-06-12 10:36:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;False;False
+2026-06-12 10:36:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 7}
+2026-06-12 10:36:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:36:12;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:36:12;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:36:12;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (6, 13) - U = 0
+2026-06-12 10:36:14;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:36:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:36:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4279
+2026-06-12 10:36:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":946}
+2026-06-12 10:36:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:36:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Wave tile at (9,7) is a direct extension to the enemy at (6,13) via Manhattan distance 2 (via wave). Moving to (10,7) places you adjacent to the wave, enabling a wave-extended attack on (6,13) this turn. This maximizes precision against the highest-priority enemy while avoiding unnecessary movement.]}
+2026-06-12 10:36:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:36:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {10, 7}
+2026-06-12 10:36:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (6, 13).
+2026-06-12 10:36:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:36:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:36:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:36:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (10, 15) - U = -1.96
+2026-06-12 10:36:18;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:36:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:36:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4246
+2026-06-12 10:36:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":2366}
+2026-06-12 10:36:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:36:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to (13, 14) and (10, 15) within offset 1 and range 2. Moving to (11, 7) positions me to attack (13, 14) via wave extension this turn, prioritizing the enemy at (13, 14) (highest ratio: 1).]}
+2026-06-12 10:36:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:36:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 7}
+2026-06-12 10:36:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (13, 14).
+2026-06-12 10:36:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:36:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:36:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:36:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (15, 15) - U = 0
+2026-06-12 10:36:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:36:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:36:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4284
+2026-06-12 10:36:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1076}
+2026-06-12 10:36:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:36:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 6)` positions to use the wave at `(10, 11)` (~^) to extend range and target `(10, 15)` (high-priority enemy). This maximizes precision by leveraging wave advantage while maintaining mobility for future engagements.]}
+2026-06-12 10:36:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:36:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 6}
+2026-06-12 10:36:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 15).
+2026-06-12 10:36:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:36:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:36:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:36:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 13) - U = 0
+2026-06-12 10:36:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:36:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:36:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4229
+2026-06-12 10:36:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1997}
+2026-06-12 10:36:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:36:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 11)` (wave tile `~^`) will extend my attack range to `(15, 15)` (enemy Red) via wave offset, maximizing precision against the highest-priority target while leveraging waves for advantage.]}
+2026-06-12 10:36:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:36:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {10, 11}
+2026-06-12 10:36:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (15, 15).
+2026-06-12 10:36:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:36:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:36:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:36:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (10, 12) - U = -1.96
+2026-06-12 10:36:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:36:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:36:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4258
+2026-06-12 10:36:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":879}
+2026-06-12 10:36:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:36:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to include enemy at (10, 12) within 2 tiles (offset 1, range 2). Moving to (11, 8) positions me to attack (10, 12) directly on the next turn, maximizing precision against the high-priority enemy.]}
+2026-06-12 10:36:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:36:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 8}
+2026-06-12 10:36:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:36:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:36:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:36:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (16, 14) - U = 0
+2026-06-12 10:36:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:36:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:36:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4282
+2026-06-12 10:36:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":2330}
+2026-06-12 10:36:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:36:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) extends attack range to (16, 14) enemy, which is within range after moving to (11, 7) to line up shot. This maximizes precision against the highest-priority target (16, 14).]}
+2026-06-12 10:36:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:36:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 7}
+2026-06-12 10:36:46;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (16, 14).
+2026-06-12 10:36:46;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:36:46;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:36:46;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:36:46;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (6, 13) - U = 0
+2026-06-12 10:36:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:36:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4265
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":825}
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend attack range to `(10, 12)` (enemy Red) this turn, maximizing precision against the highest-priority target.]}
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {10, 11}
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (10, 12).
+2026-06-12 10:36:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:36:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:36:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:36:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (10, 15) - U = 0
+2026-06-12 10:36:52;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:36:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4274
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":582}
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Directly attack the low-health target (12,9) within immediate range (offset=1, range=2). This maximizes damage output against a vulnerable enemy while maintaining precision.]}
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;False;True;False
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];ATTK {12, 9}
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TRGT TARGET
+2026-06-12 10:36:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Attacked succeeded at GridTile(Clone) (12, 9). Kill count = 1.
+2026-06-12 10:36:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:36:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:36:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:36:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (16, 13) - U = 0
+2026-06-12 10:36:56;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:36:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:36:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4203
+2026-06-12 10:37:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":3716}
+2026-06-12 10:37:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:37:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to (16, 13) and (10, 15), both enemy ships. Moving to (12, 5) positions me to attack (16, 13) via wave extension this turn, while (10, 15) remains in range for next turn.]}
+2026-06-12 10:37:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:37:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {12, 5}
+2026-06-12 10:37:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (16, 13).
+2026-06-12 10:37:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:37:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:37:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:37:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (7, 13) - U = -1.985
+2026-06-12 10:37:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:37:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:37:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4274
+2026-06-12 10:37:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1206}
+2026-06-12 10:37:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:37:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Moving to (10, 9) positions me to attack the enemy at (10, 15) via wave extension (via ~^ at (10, 11)), extending range to 3 tiles and ensuring a high-probability hit on a critical target. This leverages wave advantage while maintaining precision.]}
+2026-06-12 10:37:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:37:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {10, 9}
+2026-06-12 10:37:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (10, 15).
+2026-06-12 10:37:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:37:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:37:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:37:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (9, 13) - U = -1.985
+2026-06-12 10:37:10;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:37:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:37:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4307
+2026-06-12 10:37:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1663}
+2026-06-12 10:37:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:37:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on (9, 13) via (10, 11) wave tile to maximize damage on a high-priority enemy (ratio:1, health:15). Movement to (10, 11) positions ship to shoot through the wave, extending range to cover the enemy while avoiding immediate danger.]}
+2026-06-12 10:37:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:37:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:37:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (9, 13).
+2026-06-12 10:37:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:37:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:37:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:37:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (18, 14) - U = 0
+2026-06-12 10:37:15;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:37:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:37:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4309
+2026-06-12 10:37:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":702}
+2026-06-12 10:37:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:37:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave-extended attack on (9,13) via (10,11) wave tile to maximize damage on a high-priority enemy (ratio:1, health:15). Movement to (10,5) positions ship to line up shot through the wave, ensuring immediate attack opportunity next turn.]}
+2026-06-12 10:37:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:37:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 5}
+2026-06-12 10:37:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (9, 13).
+2026-06-12 10:37:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:37:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:37:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:37:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 13) - U = 0
+2026-06-12 10:37:20;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:37:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:37:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4320
+2026-06-12 10:37:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":754}
+2026-06-12 10:37:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:37:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Attacking the wave tile (10,11) extends range to (9,13) and (18,14), allowing a direct hit on both high-priority Red enemies (health 15 each). This maximizes damage output while maintaining precision.]}
+2026-06-12 10:37:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;False;True;False
+2026-06-12 10:37:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];ATTK {10, 11}
+2026-06-12 10:37:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TRGT WAVE
+2026-06-12 10:37:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-12 10:37:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:37:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:37:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:37:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (9, 16) - U = 0
+2026-06-12 10:37:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:37:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:37:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4307
+2026-06-12 10:37:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":955}
+2026-06-12 10:37:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:37:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 11)` (wave tile `~^`) will extend my attack range to `(18, 14)` (enemy Red) and `(9, 16)` (enemy Red) due to wave offset. This maximizes precision against high-priority targets while leveraging waves for tactical advantage.]}
+2026-06-12 10:37:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:37:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:37:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (18, 14).
+2026-06-12 10:37:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:37:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:37:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:37:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (18, 17) - U = 0
+2026-06-12 10:37:30;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:37:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:37:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4316
+2026-06-12 10:37:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":972}
+2026-06-12 10:37:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:37:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 7)` (wave tile `~V`) will extend attack range to `(9, 16)` enemy, maximizing precision against the highest-priority target (Red at (9, 16)). Wave utilization ensures a guaranteed hit.]}
+2026-06-12 10:37:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:37:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 7}
+2026-06-12 10:37:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (9, 16).
+2026-06-12 10:37:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:37:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:37:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:37:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 10) - U = 0
+2026-06-12 10:37:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:37:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:37:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4293
+2026-06-12 10:37:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1155}
+2026-06-12 10:37:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:37:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Wave tile at (10,11) (`~^`) extends attack range to (10,10) enemy Red (5,10) within offset 1 and range 2. This is the optimal move to prioritize the highest-priority target while leveraging wave advantage.]}
+2026-06-12 10:37:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:37:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {10, 11}
+2026-06-12 10:37:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];ATTK {10, 10}
+2026-06-12 10:37:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:37:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:37:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:37:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (10, 17) - U = 0
+2026-06-12 10:37:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:37:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:37:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4308
+2026-06-12 10:37:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":776}
+2026-06-12 10:37:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:37:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Moving to (10, 8) positions me to attack the enemy at (10, 17) via wave extension (via ~^ at (10, 11)), extending range to 3 tiles and maximizing precision against a high-priority target. This leverages waves for advantage while maintaining direct engagement with a critical enemy.]}
+2026-06-12 10:37:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:37:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 8}
+2026-06-12 10:37:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (10, 17).
+2026-06-12 10:37:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:37:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:37:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:37:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (17, 16) - U = 0
+2026-06-12 10:37:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:37:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:37:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4264
+2026-06-12 10:37:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":977}
+2026-06-12 10:37:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:37:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":The enemy at (10, 17) is the closest and most vulnerable target. Moving to (10, 8) places you in direct attack range (offset 1, range 2) to hit it while also positioning to use the wave at (10, 11) for a potential follow-up shot next turn. This maximizes precision and leverage against the highest-priority target.]}
+2026-06-12 10:37:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:37:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 8}
+2026-06-12 10:37:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 17).
+2026-06-12 10:37:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:37:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:37:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:37:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 9) - U = 0
+2026-06-12 10:37:51;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:37:51;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:37:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4330
+2026-06-12 10:37:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1786}
+2026-06-12 10:37:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:37:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Wave at (10,11) extends attack range to (10,17) where the enemy at (10,17) is within range. This is a high-probability, precision strike against a critical target.]}
+2026-06-12 10:37:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:37:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {10, 11}
+2026-06-12 10:37:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (10, 17).
+2026-06-12 10:37:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:37:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:37:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:37:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (10, 16) - U = 0
+2026-06-12 10:37:56;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:37:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:37:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4294
+2026-06-12 10:37:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":998}
+2026-06-12 10:37:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:37:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to (10, 16) enemy, which is within range (Manhattan distance 5, offset 1). Moving to (10, 11) positions the ship to attack the enemy at (10, 16) on the next turn.]}
+2026-06-12 10:37:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:37:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:38:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:38:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:38:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:38:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (18, 16) - U = 0
+2026-06-12 10:38:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:38:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:38:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4291
+2026-06-12 10:38:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1216}
+2026-06-12 10:38:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:38:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) allows extending attack range to (18, 16) enemy (offset +2 tiles). Moving to (10, 11) positions ship to attack (18, 16) next turn with wave extension, maximizing damage on high-health target.]}
+2026-06-12 10:38:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;False;False
+2026-06-12 10:38:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:38:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:38:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:38:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:38:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 8) - U = 0
+2026-06-12 10:38:06;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:38:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:38:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4304
+2026-06-12 10:38:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":891}
+2026-06-12 10:38:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:38:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Moving to (11, 12) positions me to attack the enemy at (10, 16) via wave extension (via ~^ at (10, 11)), extending range to include it in my attack area. This maximizes damage output against a high-priority target while avoiding unnecessary movement.]}
+2026-06-12 10:38:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:38:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {11, 12}
+2026-06-12 10:38:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (10, 16).
+2026-06-12 10:38:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:38:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:38:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:38:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (10, 13) - U = -3.402823E+38
+2026-06-12 10:38:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: True
+2026-06-12 10:38:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];ATTK {11, 12}
+2026-06-12 10:38:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];TRGT LLM {ENEMY}
+2026-06-12 10:38:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4309
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":660}
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Directly attack the enemy at (10, 13) within range (Manhattan distance 2, offset 1). No movement is needed to secure a high-priority hit.]}
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;False;True;False
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];ATTK {10, 13}
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TRGT LLM {ENEMY}
+2026-06-12 10:38:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Attacked succeeded at GridTile(Clone) (10, 13). Kill count = 0.
+2026-06-12 10:38:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:38:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:38:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:38:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (16, 16) - U = 0
+2026-06-12 10:38:18;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:38:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4298
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":785}
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Targeting the low-health enemy at (10, 13) via wave extension (via (10, 11) wave). Moving to (10, 11) positions the ship to attack (10, 13) with wave amplification, maximizing damage output against the weakened enemy while avoiding immediate threats.]}
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 13).
+2026-06-12 10:38:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:38:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:38:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:38:20;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (1, 7) - U = 0
+2026-06-12 10:38:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:38:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:38:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4372
+2026-06-12 10:38:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":741}
+2026-06-12 10:38:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:38:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Target the low-health enemy at (10,13) directly (range 2, offset 1). Moving to (11,12) places you in optimal attack range without risking waves or allies.]}
+2026-06-12 10:38:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:38:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {11, 12}
+2026-06-12 10:38:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];ATTK {10, 13}
+2026-06-12 10:38:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TRGT LLM {ENEMY}
+2026-06-12 10:38:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Attacked succeeded at GridTile(Clone) (10, 13). Kill count = 0.
+2026-06-12 10:38:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:38:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:38:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:38:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (11, 14) - U = 0
+2026-06-12 10:38:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: True
+2026-06-12 10:38:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];ATTK {11, 12}
+2026-06-12 10:38:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];TRGT LLM {ENEMY}
+2026-06-12 10:38:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:38:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4306
+2026-06-12 10:38:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1328}
+2026-06-12 10:38:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:38:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) is adjacent to my position, allowing a wave-extended attack on the low-health enemy at (11,14) (ratio 0.066) next turn. Moving to (10,10) positions me to shoot directly at (11,14) from the wave, maximizing damage before it can counterattack.]}
+2026-06-12 10:38:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:38:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 10}
+2026-06-12 10:38:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:38:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:38:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:38:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (17, 16) - U = 0
+2026-06-12 10:38:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:38:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:38:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4299
+2026-06-12 10:38:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":954}
+2026-06-12 10:38:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:38:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave-extended attack on the low-health enemy at (11, 14) via the wave at (10, 11) (~^) to maximize damage and exploit its vulnerability. Moving to (10, 11) positions the ship to attack the enemy at (11, 14) next turn with wave extension.]}
+2026-06-12 10:38:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;False;False
+2026-06-12 10:38:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:38:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:38:35;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:38:35;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:38:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (1, 6) - U = 0
+2026-06-12 10:38:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:38:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:38:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4360
+2026-06-12 10:38:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1762}
+2026-06-12 10:38:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:38:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Target the low-health enemy at (11, 14) directly in range (offset=1, range=2). Moving to (11, 13) ensures we can attack again next turn without repositioning, while (11, 14) is already optimal for immediate strike.]}
+2026-06-12 10:38:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:38:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {11, 13}
+2026-06-12 10:38:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (11, 14).
+2026-06-12 10:38:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:38:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:38:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:38:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (12, 15) - U = 0
+2026-06-12 10:38:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:38:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:38:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4328
+2026-06-12 10:38:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":726}
+2026-06-12 10:38:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:38:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on the low-health enemy at (12, 15) via the wave at (10, 11) to maximize damage and exploit its weak health (1/15). Moving to (11, 12) ensures optimal positioning for the wave extension while avoiding immediate danger.]}
+2026-06-12 10:38:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:38:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 12}
+2026-06-12 10:38:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (12, 15).
+2026-06-12 10:38:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:38:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:38:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:38:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (18, 14) - U = 0
+2026-06-12 10:38:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:38:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:38:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4299
+2026-06-12 10:38:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1533}
+2026-06-12 10:38:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:38:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Targeting the low-health enemy at (12,15) via wave extension: moving to (10,11) places the wave tile (~^) directly behind you, allowing a wave-extended attack to hit (12,15) within range 2 while avoiding immediate danger. This maximizes precision against the vulnerable target.]}
+2026-06-12 10:38:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:38:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:38:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (12, 15).
+2026-06-12 10:38:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:38:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:38:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:38:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (2, 8) - U = 0.1
+2026-06-12 10:38:52;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: True
+2026-06-12 10:38:52;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];ATTK {3, 9}
+2026-06-12 10:38:52;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];TRGT TARGET
+2026-06-12 10:38:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:38:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4303
+2026-06-12 10:38:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":920}
+2026-06-12 10:38:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:38:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Target `(12, 15)` is within attack range (Manhattan distance 2) and has low health (1). Moving to `(12, 14)` places me in optimal range to attack it immediately, maximizing precision and minimizing counterattacks. No wave extension is needed here.]}
+2026-06-12 10:38:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:38:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {12, 14}
+2026-06-12 10:38:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (12, 15).
+2026-06-12 10:38:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:38:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:38:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:38:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (13, 17) - U = 0
+2026-06-12 10:38:59;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:38:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:39:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4345
+2026-06-12 10:39:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":894}
+2026-06-12 10:39:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:39:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10, 11) allows extending attack range to (13, 17) enemy (low health, high priority). Moving to (11, 11) positions me to attack (13, 17) via wave extension this turn.]}
+2026-06-12 10:39:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:39:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 11}
+2026-06-12 10:39:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (13, 17).
+2026-06-12 10:39:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:39:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:39:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:39:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (17, 13) - U = 0
+2026-06-12 10:39:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:39:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:39:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4299
+2026-06-12 10:39:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1362}
+2026-06-12 10:39:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:39:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 9)` will position me to use the wave at `(10, 11)` (~^) to extend my shot to `(17, 13)` (high-health enemy) this turn. This leverages waves for a direct hit while avoiding unnecessary movement.]}
+2026-06-12 10:39:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:39:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 9}
+2026-06-12 10:39:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (17, 13).
+2026-06-12 10:39:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:39:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:39:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:39:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 8) - U = 0
+2026-06-12 10:39:10;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:39:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:39:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4349
+2026-06-12 10:39:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1391}
+2026-06-12 10:39:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:39:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":No immediate valid attack range, but moving to (13, 16) positions to use the wave at (10, 11) (~^) to extend range and target the low-health enemy at (13, 17). This maximizes precision against the weakest enemy while leveraging wave advantage.]}
+2026-06-12 10:39:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:39:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {13, 16}
+2026-06-12 10:39:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (13, 17).
+2026-06-12 10:39:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:39:14;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:39:14;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:39:15;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (11, 17) - U = 0
+2026-06-12 10:39:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:39:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:39:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4311
+2026-06-12 10:39:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1123}
+2026-06-12 10:39:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:39:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend attack range to `(17, 13)` (high-priority enemy) this turn due to wave amplification. This is the optimal move to secure a hit before enemy retaliation.]}
+2026-06-12 10:39:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:39:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:39:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (17, 13).
+2026-06-12 10:39:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:39:20;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:39:20;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:39:20;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (18, 12) - U = 0
+2026-06-12 10:39:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:39:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:39:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4327
+2026-06-12 10:39:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1577}
+2026-06-12 10:39:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:39:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave-extended attack on low-health enemy (11,17) via (10,11) wave tile. Moving to (10,11) positions me to shoot through the wave and hit the vulnerable enemy.]}
+2026-06-12 10:39:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:39:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:39:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (11, 17).
+2026-06-12 10:39:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:39:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:39:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:39:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 5) - U = 0
+2026-06-12 10:39:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:39:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:39:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4290
+2026-06-12 10:39:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1199}
+2026-06-12 10:39:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:39:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":No immediate valid attack range, but moving to `(14, 16)` positions me to use the wave at `(10, 11)` (~^) to extend range and attack the low-health enemy at `(11, 17)` next turn. This leverages waves for precision while avoiding unnecessary movement.]}
+2026-06-12 10:39:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;False;False
+2026-06-12 10:39:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {14, 16}
+2026-06-12 10:39:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:39:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:39:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:39:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (11, 17) - U = 0
+2026-06-12 10:39:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:39:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:39:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4312
+2026-06-12 10:39:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":857}
+2026-06-12 10:39:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:39:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate attack range, but moving to `(11, 11)` positions me to use the wave at `(10, 11)` (~^) to extend attack range to `(11, 17)` (low-health enemy). This maximizes precision against the weakest target while avoiding unnecessary movement.]}
+2026-06-12 10:39:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:39:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 11}
+2026-06-12 10:39:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (11, 17).
+2026-06-12 10:39:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:39:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:39:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:39:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (18, 14) - U = 0
+2026-06-12 10:39:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:39:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:39:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4316
+2026-06-12 10:39:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1832}
+2026-06-12 10:39:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:39:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Targeting the low-health enemy at (11, 17) via wave extension: moving to (10, 11) (wave tile) to extend range and attack the enemy at (11, 17) (ratio 0.06666667, highest priority). This leverages the wave to maximize damage output while avoiding unnecessary movement.]}
+2026-06-12 10:39:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:39:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:39:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (11, 17).
+2026-06-12 10:39:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:39:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:39:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:39:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 5) - U = 0
+2026-06-12 10:39:43;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:39:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:39:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4280
+2026-06-12 10:39:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1704}
+2026-06-12 10:39:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:39:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":Wave-extended attack on the low-health enemy at (11,17) via the wave at (10,11) to maximize damage and reduce its health to 0. Movement to (14,15) ensures we line up the shot while avoiding immediate danger.]}
+2026-06-12 10:39:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:39:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {14, 15}
+2026-06-12 10:39:46;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-12 10:39:46;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:39:46;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:39:46;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:39:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (11, 17) - U = 0
+2026-06-12 10:39:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:39:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:39:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4310
+2026-06-12 10:39:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":664}
+2026-06-12 10:39:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:39:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) can extend attack range to (11,17) enemy (low health, high priority). Moving to (10,11) positions ship to shoot through wave, maximizing damage on critical target.]}
+2026-06-12 10:39:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:39:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:39:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (11, 17).
+2026-06-12 10:39:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:39:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:39:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:39:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (17, 16) - U = 0
+2026-06-12 10:39:52;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:39:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:39:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4312
+2026-06-12 10:39:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1038}
+2026-06-12 10:39:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:39:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Target the low-health enemy at (11, 17) via wave extension. Moving to (10, 11) positions the ship to attack through the wave at (10, 11) (~^) and extend range to (11, 17). This maximizes precision while leveraging waves for an effective strike.]}
+2026-06-12 10:39:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:39:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:39:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (11, 17).
+2026-06-12 10:39:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:39:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:39:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:39:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 7) - U = 0
+2026-06-12 10:39:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:39:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:39:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4310
+2026-06-12 10:39:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":738}
+2026-06-12 10:39:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:39:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":No immediate valid attack range, but moving to `(14, 17)` positions the ship to use the wave at `(10, 11)` (~^) to extend range and target the low-health enemy at `(11, 17)` (ratio 0.066) next turn. This leverages waves for a high-priority kill.]}
+2026-06-12 10:39:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;False;False
+2026-06-12 10:39:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {14, 17}
+2026-06-12 10:40:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:40:00;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:40:00;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:40:00;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (8, 17) - U = 0
+2026-06-12 10:40:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:40:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:40:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4295
+2026-06-12 10:40:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":629}
+2026-06-12 10:40:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:40:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 9)` will position the ship to attack the low-health enemy at `(8, 17)` via wave extension (via `(10, 11)` wave). This leverages the wave to extend range and prioritizes destroying the weakest enemy.]}
+2026-06-12 10:40:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:40:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 9}
+2026-06-12 10:40:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (8, 17).
+2026-06-12 10:40:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:40:05;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:40:05;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:40:06;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (15, 17) - U = 0
+2026-06-12 10:40:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:40:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:40:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4328
+2026-06-12 10:40:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":756}
+2026-06-12 10:40:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:40:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Targeting the low-health enemy at (8, 17) via wave extension: moving to (10, 11) positions the ship to attack through the wave (~^) and extend range to (8, 17) (Manhattan distance 2, offset 1). This maximizes damage output against the vulnerable enemy while avoiding immediate threats.]}
+2026-06-12 10:40:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:40:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:40:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (8, 17).
+2026-06-12 10:40:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:40:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:40:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:40:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 10) - U = 0
+2026-06-12 10:40:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:40:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Start turn;5,5
+2026-06-12 10:40:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];PRPT Prompt_4;4220
+2026-06-12 10:40:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];TIME {"request":1617}
+2026-06-12 10:40:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"attempts":1}
+2026-06-12 10:40:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];RESN {"reasoning":No immediate valid attack range, but moving to `(13, 17)` positions the ship to extend attack range via the wave at `(10, 11)` (~^) to target the low-health enemy at `(8, 17)`. This maximizes precision by leveraging wave extension to hit the critical target before it can retaliate.]}
+2026-06-12 10:40:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Flags;True;True;False
+2026-06-12 10:40:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];MOVE {13, 17}
+2026-06-12 10:40:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Cannot reach target at GridTile(Clone) (8, 17).
+2026-06-12 10:40:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Finish turn
+2026-06-12 10:40:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:40:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:40:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (8, 17) - U = 0
+2026-06-12 10:40:18;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:40:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:40:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4327
+2026-06-12 10:40:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":771}
+2026-06-12 10:40:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:40:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on the low-health enemy at (8, 17) by moving to (10, 11) to extend range via the wave (~^) and attack from offset 1 (directly targeting the wave tile). This maximizes precision against the vulnerable enemy while avoiding unnecessary movement.]}
+2026-06-12 10:40:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:40:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:40:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (8, 17).
+2026-06-12 10:40:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:40:21;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:40:21;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:40:21;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (14, 16) - U = 0
+2026-06-12 10:40:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: True
+2026-06-12 10:40:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];INFO Destroyed
+2026-06-12 10:40:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|5];DATA {"internalWrongMovementCount":2,"internalWrongAttackCount":14,"internalTotalRequestCount":19,"internalMovementAttemptCount":18,"internalAttackAttemptCount":17,"internalFaultyMessageCount":0,"averageRequestTime":1178.316,"averageRequestTimeCount":19,"maxRequestTime":1997,"minRequest":738,"averageAttempts":1,"kills":0}
+2026-06-12 10:40:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];ATTK {13, 17}
+2026-06-12 10:40:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];TRGT LLM {ENEMY}
+2026-06-12 10:40:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:40:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4312
+2026-06-12 10:40:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":879}
+2026-06-12 10:40:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:40:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 11)` positions me to use the wave at `(10, 11)` (~^) to extend range and attack the low-health enemy at `(8, 17)` (ratio 0.066) next turn. This leverages wave advantage for precision targeting.]}
+2026-06-12 10:40:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;False;False
+2026-06-12 10:40:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 11}
+2026-06-12 10:40:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:40:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:40:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:40:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 10) - U = 0
+2026-06-12 10:40:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:40:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:40:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:40:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (10, 17) - U = 0
+2026-06-12 10:40:30;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:40:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:40:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4317
+2026-06-12 10:40:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1105}
+2026-06-12 10:40:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:40:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to (10, 10) positions the ship to use the wave at (10, 11) to extend range and target the low-health enemy at (10, 17) next turn. This leverages wave advantage for precision.]}
+2026-06-12 10:40:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:40:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 10}
+2026-06-12 10:40:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:40:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:40:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:40:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (13, 14) - U = 0
+2026-06-12 10:40:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:40:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:40:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4311
+2026-06-12 10:40:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":714}
+2026-06-12 10:40:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:40:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Target (10, 17) is the only low-health enemy (ratio 0.066) and can be attacked via wave extension through (10, 11) wave tile. Moving to (10, 11) positions us to attack (10, 17) this turn by leveraging the wave's extension.]}
+2026-06-12 10:40:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:40:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:40:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 17).
+2026-06-12 10:40:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:40:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:40:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:40:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 10) - U = 0
+2026-06-12 10:40:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:40:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:40:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:40:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (8, 16) - U = 0
+2026-06-12 10:40:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:40:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:40:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4312
+2026-06-12 10:40:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":828}
+2026-06-12 10:40:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:40:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 12)` will position me to attack the enemy at `(8, 16)` via wave extension (via `(10, 11)` wave). This maximizes precision against the low-health target while avoiding unnecessary movement.]}
+2026-06-12 10:40:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:40:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 12}
+2026-06-12 10:40:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (8, 16).
+2026-06-12 10:40:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:40:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:40:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:40:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (13, 12) - U = 0
+2026-06-12 10:40:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: True
+2026-06-12 10:40:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];ATTK {11, 12}
+2026-06-12 10:40:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];TRGT LLM {ENEMY}
+2026-06-12 10:40:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:40:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4306
+2026-06-12 10:40:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":968}
+2026-06-12 10:40:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:40:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) is adjacent to my current position, allowing a wave-extended attack on the low-health enemy at (8, 16) (range 2 + wave offset). This maximizes damage against the vulnerable target while avoiding unnecessary movement.]}
+2026-06-12 10:40:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;False;True;False
+2026-06-12 10:40:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (8, 16).
+2026-06-12 10:40:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:40:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:40:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:40:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 11) - U = 0
+2026-06-12 10:40:52;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:40:53;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:40:53;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:40:53;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (8, 13) - U = 0
+2026-06-12 10:40:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:40:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:40:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4346
+2026-06-12 10:41:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":3741}
+2026-06-12 10:41:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:41:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Directly attack the high-health enemy at (13, 12) within range (offset=1, range=2) to maximize damage output and reduce enemy strength. No movement is needed to secure this priority target.]}
+2026-06-12 10:41:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;False;True;False
+2026-06-12 10:41:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];ATTK {13, 12}
+2026-06-12 10:41:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TRGT LLM {ENEMY}
+2026-06-12 10:41:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Attacked succeeded at GridTile(Clone) (13, 12). Kill count = 0.
+2026-06-12 10:41:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:41:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:41:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:41:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (12, 13) - U = 0
+2026-06-12 10:41:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: True
+2026-06-12 10:41:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];ATTK {11, 12}
+2026-06-12 10:41:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];TRGT LLM {ENEMY}
+2026-06-12 10:41:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:41:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4313
+2026-06-12 10:41:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1065}
+2026-06-12 10:41:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:41:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10,11) is adjacent to my current position, but since it's a wave, it doesn’t block movement. Moving to (11,11) positions me to attack the enemy at (12,13) via wave extension (range 2 + wave offset). This is the most efficient way to target the high-health enemy (8/15) while avoiding immediate danger.]}
+2026-06-12 10:41:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:41:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 11}
+2026-06-12 10:41:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (12, 13).
+2026-06-12 10:41:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:41:07;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:41:07;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:41:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (2, 11) - U = 0
+2026-06-12 10:41:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:41:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:41:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:41:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (9, 11) - U = -3.96
+2026-06-12 10:41:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: True
+2026-06-12 10:41:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];ATTK {10, 12}
+2026-06-12 10:41:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];TRGT LLM {ENEMY}
+2026-06-12 10:41:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:41:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4367
+2026-06-12 10:41:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1394}
+2026-06-12 10:41:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:41:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) (`~^`) extends attack range to (12,13) enemy (health:8). Moving to (11,11) positions me to attack (12,13) via wave extension, maximizing damage on low-health target while avoiding excess movement.]}
+2026-06-12 10:41:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:41:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 11}
+2026-06-12 10:41:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (12, 13).
+2026-06-12 10:41:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:41:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:41:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:41:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (12, 16) - U = 0
+2026-06-12 10:41:18;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:41:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:41:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4373
+2026-06-12 10:41:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1260}
+2026-06-12 10:41:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:41:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave-extended attack on (9,11) via (10,11) wave tile to maximize damage on low-health enemy (health:1). Movement to (10,11) positions ship to exploit wave range while avoiding immediate counterattacks.]}
+2026-06-12 10:41:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:41:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:41:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (9, 11).
+2026-06-12 10:41:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:41:21;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:41:21;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:41:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (2, 10) - U = 0
+2026-06-12 10:41:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:41:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Start turn
+2026-06-12 10:41:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate move: True
+2026-06-12 10:41:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Chosen action: (9, 12) - U = -3.402823E+38
+2026-06-12 10:41:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|7];INFO Can calculate action: False
+2026-06-12 10:41:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:41:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4292
+2026-06-12 10:41:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1419}
+2026-06-12 10:41:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:41:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 12)` will position me to attack the low-health enemy at `(9, 12)` (range 1, offset 1) while also setting up a wave-extended shot on `(12, 16)` via `(10, 11)` wave next turn. This prioritizes both direct engagement and strategic positioning.]}
+2026-06-12 10:41:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:41:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 12}
+2026-06-12 10:41:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:41:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:41:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:41:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (10, 16) - U = 0
+2026-06-12 10:41:30;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:41:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:41:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4332
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1202}
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave-extended attack on the low-health enemy at (9, 12) by moving to (10, 11) to align with the wave tile (~^) and extend range to hit them directly. This maximizes damage output against the critical target with minimal risk.]}
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];ATTK {9, 12}
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TRGT LLM {ENEMY}
+2026-06-12 10:41:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Attacked succeeded at GridTile(Clone) (9, 12). Kill count = 1.
+2026-06-12 10:41:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:41:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:41:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:41:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (2, 9) - U = 0
+2026-06-12 10:41:35;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:41:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:41:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4266
+2026-06-12 10:41:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":2323}
+2026-06-12 10:41:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:41:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on the low-health enemy at (10, 16) via the wave at (10, 11) to maximize damage and reduce their health to 0 before they can counterattack. Moving to (10, 11) positions the ship directly above the wave to extend range and ensure a hit.]}
+2026-06-12 10:41:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:41:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:41:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (10, 16).
+2026-06-12 10:41:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:41:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:41:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:41:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (10, 15) - U = 0
+2026-06-12 10:41:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:41:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:41:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4250
+2026-06-12 10:41:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":656}
+2026-06-12 10:41:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:41:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave at (10,11) extends attack range to (10,9) where enemy Red (health:15) is located. This maximizes precision against the high-health target while leveraging wave advantage.]}
+2026-06-12 10:41:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:41:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 10}
+2026-06-12 10:41:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 9).
+2026-06-12 10:41:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:41:43;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:41:43;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:41:43;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (2, 7) - U = 0
+2026-06-12 10:41:44;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:41:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:41:46;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4263
+2026-06-12 10:41:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1160}
+2026-06-12 10:41:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:41:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) allows extending attack range to (2,7) enemy (15 HP) via Manhattan distance of 3 (1→2, 1→7→11) with offset 1, maximizing precision against high-value target.]}
+2026-06-12 10:41:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:41:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:41:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (2, 7).
+2026-06-12 10:41:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:41:48;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:41:48;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:41:48;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (9, 17) - U = 0
+2026-06-12 10:41:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:41:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:41:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4263
+2026-06-12 10:41:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":843}
+2026-06-12 10:41:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:41:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend attack range to `(2,7)` (enemy Red health:15) via wave extension, maximizing precision against the high-health target. This leverages waves for tactical advantage while maintaining mobility.]}
+2026-06-12 10:41:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:41:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:41:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (2, 7).
+2026-06-12 10:41:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:41:53;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:41:53;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:41:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (2, 7) - U = 0
+2026-06-12 10:41:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:41:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:41:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4265
+2026-06-12 10:41:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1043}
+2026-06-12 10:41:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:41:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 11)` positions me to use the wave at `(10, 11)` (~^) to extend my attack range and target the low-health enemy at `(2, 7)` next turn. This maximizes precision against the weaker enemy while avoiding unnecessary movement.]}
+2026-06-12 10:41:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:41:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 11}
+2026-06-12 10:41:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:41:58;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:41:58;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:41:58;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (8, 17) - U = 0
+2026-06-12 10:41:59;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:41:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:42:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4269
+2026-06-12 10:42:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1048}
+2026-06-12 10:42:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:42:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) is your current position, but the adjacent wave `~V` at (9, 7) can be used to extend range to the enemy at (2, 7) this turn. Moving to (9, 11) will position you to attack (2, 7) via wave extension, maximizing damage on the low-health enemy.]}
+2026-06-12 10:42:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:42:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {9, 11}
+2026-06-12 10:42:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (2, 7).
+2026-06-12 10:42:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:42:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:42:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:42:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 5) - U = 0
+2026-06-12 10:42:05;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:42:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:42:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4263
+2026-06-12 10:42:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":985}
+2026-06-12 10:42:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:42:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend my attack range to `(3,5)` (low-health enemy) by leveraging the wave offset. This maximizes precision against the priority target while avoiding unnecessary movement.]}
+2026-06-12 10:42:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:42:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:42:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (3, 5).
+2026-06-12 10:42:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:42:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:42:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:42:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (8, 14) - U = 0
+2026-06-12 10:42:10;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:42:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:42:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4265
+2026-06-12 10:42:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":949}
+2026-06-12 10:42:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:42:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 11)` positions the ship to use the wave at `(10, 11)` (~^) to extend range and attack the low-health enemy at `(8, 14)` (within wave-extended range). This leverages waves for a high-probability hit while avoiding unnecessary movement.]}
+2026-06-12 10:42:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:42:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 11}
+2026-06-12 10:42:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (8, 14).
+2026-06-12 10:42:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:42:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:42:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:42:14;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 4) - U = 0
+2026-06-12 10:42:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:42:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:42:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4269
+2026-06-12 10:42:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":846}
+2026-06-12 10:42:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:42:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate enemy in attack range, but attacking the wave tile (10,11) extends range to (5,4) enemy (15 HP) via wave offset. This maximizes damage output against the high-health target while maintaining precision.]}
+2026-06-12 10:42:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:42:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:42:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (5, 4).
+2026-06-12 10:42:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:42:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:42:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:42:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (7, 16) - U = 0
+2026-06-12 10:42:21;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:42:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:42:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4263
+2026-06-12 10:42:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1257}
+2026-06-12 10:42:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:42:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Target (5,4) is within range if we move to (11,12) or (12,12) to line up a direct attack. Moving to (11,12) places us adjacent to the wave at (10,11) (~^) to extend our shot to (5,4) this turn via wave extension. This maximizes damage to the low-health enemy while avoiding unnecessary movement.]}
+2026-06-12 10:42:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:42:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 12}
+2026-06-12 10:42:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (5, 4).
+2026-06-12 10:42:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:42:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:42:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:42:25;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 5) - U = 0
+2026-06-12 10:42:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:42:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:42:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4261
+2026-06-12 10:42:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":730}
+2026-06-12 10:42:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:42:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend attack range to `(4,5)` (low-health enemy) via wave extension, maximizing damage against the vulnerable target.]}
+2026-06-12 10:42:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:42:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:42:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (4, 5).
+2026-06-12 10:42:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:42:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:42:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:42:30;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (6, 14) - U = 0
+2026-06-12 10:42:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:42:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:42:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4280
+2026-06-12 10:42:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":2409}
+2026-06-12 10:42:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:42:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to (4, 5) enemy (15 HP). Moving to (11, 11) positions me to attack the wave tile directly, enabling a precision hit on the high-health enemy.]}
+2026-06-12 10:42:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:42:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 11}
+2026-06-12 10:42:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-12 10:42:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:42:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:42:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:42:36;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 7) - U = 0
+2026-06-12 10:42:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:42:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:42:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4281
+2026-06-12 10:42:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":572}
+2026-06-12 10:42:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:42:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on (5,7) via (10,11) wave tile to maximize damage on low-health enemy (health:15). Movement to (10,11) positions ship to use wave for extended range.]}
+2026-06-12 10:42:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:42:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:42:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (5, 7).
+2026-06-12 10:42:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:42:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:42:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:42:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (5, 15) - U = 0
+2026-06-12 10:42:43;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:42:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:42:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4263
+2026-06-12 10:42:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":2351}
+2026-06-12 10:42:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:42:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave at (10,11) allows extending attack range to (5,7) enemy (15 HP) via diagonal wave path. Moving to (10,10) positions ship to shoot through wave, maximizing precision on high-value target while avoiding immediate danger.]}
+2026-06-12 10:42:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:42:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 10}
+2026-06-12 10:42:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (5, 7).
+2026-06-12 10:42:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:42:48;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:42:48;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:42:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (6, 8) - U = -1.87
+2026-06-12 10:42:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: True
+2026-06-12 10:42:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];ATTK {7, 9}
+2026-06-12 10:42:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];TRGT TARGET
+2026-06-12 10:42:51;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:42:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4272
+2026-06-12 10:42:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":811}
+2026-06-12 10:42:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:42:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 12)` will position me to attack the low-health enemy at `(6, 8)` via wave extension (via `(10, 11)` wave). This maximizes precision by leveraging waves to extend range and prioritize the weakened enemy.]}
+2026-06-12 10:42:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:42:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 12}
+2026-06-12 10:42:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (6, 8).
+2026-06-12 10:42:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:42:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:42:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:42:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (7, 15) - U = 0
+2026-06-12 10:42:56;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:42:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:42:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4273
+2026-06-12 10:42:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":652}
+2026-06-12 10:42:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:42:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 11)` (wave tile `~^`) extends range to `(7, 15)` (low-health enemy). This maximizes precision by leveraging wave extension to target the weaker enemy first.]}
+2026-06-12 10:42:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:42:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:42:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (7, 15).
+2026-06-12 10:42:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:42:59;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:42:59;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:43:00;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (6, 6) - U = -1.995
+2026-06-12 10:43:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:43:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:43:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4280
+2026-06-12 10:43:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1073}
+2026-06-12 10:43:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:43:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) (`~^`) extends attack range to include enemy at (7,15) (Manhattan distance 5, but wave allows effective range extension). Prioritize attacking (7,15) via wave extension to maximize damage on low-health target.]}
+2026-06-12 10:43:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:43:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:43:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (7, 15).
+2026-06-12 10:43:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:43:05;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:43:05;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:43:05;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (7, 12) - U = 0
+2026-06-12 10:43:07;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:43:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:43:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4256
+2026-06-12 10:43:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":866}
+2026-06-12 10:43:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:43:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave-extended attack on the low-health enemy at (7, 12) by moving to (10, 11) to line up a shot through the wave at (10, 11) (~^) and attack next turn.]}
+2026-06-12 10:43:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:43:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:43:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (7, 12).
+2026-06-12 10:43:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:43:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:43:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:43:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 7) - U = 0
+2026-06-12 10:43:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:43:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:43:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4249
+2026-06-12 10:43:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":941}
+2026-06-12 10:43:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:43:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) is your current position (`~^`), which can extend your attack range to (9,7) by attacking the wave. This would allow a direct hit on the low-health enemy at (4,7) (range 2, offset 1). Prioritize this wave-extended attack to eliminate the vulnerable target.]}
+2026-06-12 10:43:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;False;True;False
+2026-06-12 10:43:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (9, 7).
+2026-06-12 10:43:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:43:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:43:13;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:43:14;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (5, 12) - U = 0
+2026-06-12 10:43:15;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:43:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:43:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4265
+2026-06-12 10:43:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":793}
+2026-06-12 10:43:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:43:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to (5, 7) and (5, 12). Attacking (5, 7) (high-health enemy) is optimal via wave extension.]}
+2026-06-12 10:43:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:43:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:43:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (5, 7).
+2026-06-12 10:43:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:43:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:43:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:43:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 7) - U = 0
+2026-06-12 10:43:18;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:43:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:43:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4249
+2026-06-12 10:43:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1108}
+2026-06-12 10:43:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:43:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10, 11) is your current position, so moving away to reposition for a wave-extended attack on the low-health enemy at (5, 12) (health: 8). This will allow you to attack from (10, 10) or (11, 10) next turn, extending range via the wave.]}
+2026-06-12 10:43:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:43:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 10}
+2026-06-12 10:43:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (10, 10).
+2026-06-12 10:43:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:43:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:43:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:43:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (5, 11) - U = 0
+2026-06-12 10:43:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:43:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:43:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4281
+2026-06-12 10:43:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1038}
+2026-06-12 10:43:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:43:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to (5, 7) enemy (1 tile offset from wave, 2 tiles total range). Attacking this low-health enemy (health: 15) is optimal for precision kill.]}
+2026-06-12 10:43:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:43:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:43:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (5, 7).
+2026-06-12 10:43:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:43:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:43:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:43:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 9) - U = 0
+2026-06-12 10:43:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:43:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:43:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4290
+2026-06-12 10:43:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1044}
+2026-06-12 10:43:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:43:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) (`~^`) extends attack range to (5,9) and (5,11). Moving to (10,11) allows a wave-extended shot on the low-health enemy at (5,11) (health:8) while also threatening the higher-health enemy at (5,9). This maximizes damage output with minimal movement risk.]}
+2026-06-12 10:43:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:43:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:43:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (5, 11).
+2026-06-12 10:43:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:43:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:43:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:43:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (4, 10) - U = 0
+2026-06-12 10:43:34;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:43:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:43:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4265
+2026-06-12 10:43:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1710}
+2026-06-12 10:43:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:43:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 11)` positions me to use the wave at `(10, 11)` (~^) to extend my attack range to `(5, 9)` (enemy Red health:15) next turn. This maximizes precision by targeting the high-health enemy while avoiding unnecessary movement.]}
+2026-06-12 10:43:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;False;False
+2026-06-12 10:43:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 11}
+2026-06-12 10:43:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:43:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:43:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:43:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 12) - U = 0
+2026-06-12 10:43:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:43:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:43:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4270
+2026-06-12 10:43:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1032}
+2026-06-12 10:43:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:43:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 9)` places the enemy at `(5, 12)` within attack range (Manhattan distance 2) and avoids wave interference. This directly enables a priority target kill.]}
+2026-06-12 10:43:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:43:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 9}
+2026-06-12 10:43:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (5, 12).
+2026-06-12 10:43:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:43:44;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:43:44;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:43:44;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (4, 7) - U = 0
+2026-06-12 10:43:46;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:43:46;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:43:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4263
+2026-06-12 10:43:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1014}
+2026-06-12 10:43:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:43:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave at (10,11) is adjacent; moving to (10,10) positions me to attack the low-health enemy at (4,7) via wave extension (offset 1, range 2 extends to (4,7) through wave). This maximizes damage on a priority target while avoiding immediate danger.]}
+2026-06-12 10:43:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:43:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 10}
+2026-06-12 10:43:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (4, 7).
+2026-06-12 10:43:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:43:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:43:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:43:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 13) - U = 0
+2026-06-12 10:43:52;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:43:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:43:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4272
+2026-06-12 10:43:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1239}
+2026-06-12 10:43:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:43:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 11)` positions me to attack the low-health enemy at `(4, 7)` via wave extension (via `(10, 11)` wave) while also keeping the high-health enemy at `(4, 13)` in range for next turn. This maximizes precision and leverage of waves for tactical advantage.]}
+2026-06-12 10:43:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:43:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 11}
+2026-06-12 10:43:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:43:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:43:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:43:56;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (2, 7) - U = 0
+2026-06-12 10:43:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:43:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:43:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4273
+2026-06-12 10:43:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":994}
+2026-06-12 10:43:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:43:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend my attack range to `(2, 7)` (low-health enemy) this turn due to wave amplification. This prioritizes precision against the weaker target while leveraging waves for tactical advantage.]}
+2026-06-12 10:43:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:43:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:44:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (2, 7).
+2026-06-12 10:44:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:44:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:44:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:44:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (4, 10) - U = 0
+2026-06-12 10:44:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:44:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:44:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4263
+2026-06-12 10:44:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1226}
+2026-06-12 10:44:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:44:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 10)` will line up with the wave at `(10, 11)` (~^) to extend attack range to `(4, 10)` (enemy Red) in the next turn, maximizing precision against the high-health target.]}
+2026-06-12 10:44:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:44:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 10}
+2026-06-12 10:44:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:44:07;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:44:07;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:44:07;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (2, 10) - U = 0
+2026-06-12 10:44:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:44:09;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:44:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4273
+2026-06-12 10:44:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":4794}
+2026-06-12 10:44:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:44:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate enemy in attack range, but moving to `(11, 11)` positions me to use the wave at `(10, 11)` (~^) to extend a shot to the low-health enemy at `(2, 10)` (range 3 via wave). This maximizes precision against the weaker target while avoiding direct engagement with the stronger enemy.]}
+2026-06-12 10:44:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:44:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 11}
+2026-06-12 10:44:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (2, 10).
+2026-06-12 10:44:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:44:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:44:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:44:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 12) - U = 0
+2026-06-12 10:44:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:44:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:44:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4274
+2026-06-12 10:44:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1764}
+2026-06-12 10:44:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:44:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) allows extending attack range to (3,12) enemy (15 HP). Moving to (10,11) positions ship to shoot through wave, maximizing damage on high-value target.]}
+2026-06-12 10:44:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:44:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:44:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (3, 12).
+2026-06-12 10:44:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:44:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:44:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:44:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (4, 10) - U = 0
+2026-06-12 10:44:25;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:44:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:44:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4249
+2026-06-12 10:44:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":12217}
+2026-06-12 10:44:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:44:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 12)` positions me to use the wave at `(10, 11)` (~^) to extend my attack range to `(3, 12)` (enemy Red health:15) in the next turn. This maximizes precision against the high-health target while avoiding unnecessary movement.]}
+2026-06-12 10:44:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;False;False
+2026-06-12 10:44:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 12}
+2026-06-12 10:44:39;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:44:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:44:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:44:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 10) - U = 0
+2026-06-12 10:44:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:44:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:44:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4250
+2026-06-12 10:44:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1136}
+2026-06-12 10:44:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:44:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) is adjacent to my current position, allowing a wave-extended attack on the high-health enemy at (3,10) next turn. Moving to (11,12) positions me to attack the wave and extend range to the enemy at (4,10) this turn (if possible) while avoiding immediate danger.]}
+2026-06-12 10:44:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:44:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 12}
+2026-06-12 10:44:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (4, 10).
+2026-06-12 10:44:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:44:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:44:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:44:45;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (3, 9) - U = 0
+2026-06-12 10:44:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:44:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:44:48;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4261
+2026-06-12 10:44:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1762}
+2026-06-12 10:44:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:44:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 11)` (wave tile `~^`) will extend attack range to `(3, 9)` and `(3, 10)`, allowing a wave-assisted hit on the low-health enemy at `(3, 9)` (health 8) while maximizing precision against the high-health target at `(3, 10)`.]}
+2026-06-12 10:44:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:44:49;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:44:51;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (3, 9).
+2026-06-12 10:44:51;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:44:51;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:44:51;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:44:51;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (2, 9) - U = 0
+2026-06-12 10:44:53;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:44:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:44:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4279
+2026-06-12 10:44:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":930}
+2026-06-12 10:44:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:44:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Attacking the wave tile (~^) at (10, 11) extends my range to potentially hit the enemy at (2, 9) or (3, 9) due to wave amplification. The enemy at (3, 9) is weaker (health: 8) and prioritized for destruction. This move maximizes precision while leveraging waves for tactical advantage.]}
+2026-06-12 10:44:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;False;True;False
+2026-06-12 10:44:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];ATTK {10, 11}
+2026-06-12 10:44:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TRGT WAVE
+2026-06-12 10:44:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-12 10:44:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:44:56;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:44:56;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:44:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (3, 7) - U = 0
+2026-06-12 10:44:58;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:44:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:44:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4260
+2026-06-12 10:45:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1382}
+2026-06-12 10:45:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:45:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend my attack range to `(2,9)` (enemy Red) by leveraging the wave offset. This maximizes precision against the low-health target while avoiding direct wave hazards elsewhere.]}
+2026-06-12 10:45:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:45:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:45:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (2, 9).
+2026-06-12 10:45:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:45:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:45:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:45:02;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 11) - U = 0
+2026-06-12 10:45:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:45:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:45:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4280
+2026-06-12 10:45:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1398}
+2026-06-12 10:45:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:45:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10,11) (`~^`) extends attack range to (3,11) enemy (Red, health:15). Moving to (10,11) places me directly behind the wave, maximizing the wave’s effect for a direct hit on the high-health target.]}
+2026-06-12 10:45:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:45:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:45:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (3, 11).
+2026-06-12 10:45:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:45:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:45:08;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:45:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (3, 4) - U = 0
+2026-06-12 10:45:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:45:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:45:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4265
+2026-06-12 10:45:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1047}
+2026-06-12 10:45:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:45:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(11, 11)` positions me to attack the enemy at `(3, 11)` via wave extension (via `(10, 11)` wave). This maximizes precision by leveraging the wave to extend range and target the high-health enemy.]}
+2026-06-12 10:45:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:45:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {11, 11}
+2026-06-12 10:45:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (3, 11).
+2026-06-12 10:45:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:45:14;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:45:14;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:45:15;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 14) - U = 0
+2026-06-12 10:45:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:45:17;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:45:18;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4269
+2026-06-12 10:45:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1767}
+2026-06-12 10:45:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:45:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 9)` will position the ship to attack the enemy at `(3, 4)` via wave extension (via `(10, 11) ~^` wave) in the next turn, maximizing precision against the low-health target.]}
+2026-06-12 10:45:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:45:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 9}
+2026-06-12 10:45:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:45:20;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:45:20;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:45:21;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (4, 6) - U = 0
+2026-06-12 10:45:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:45:23;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:45:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4263
+2026-06-12 10:45:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":3490}
+2026-06-12 10:45:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:45:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend my attack range to `(3, 14)` (enemy Red) by leveraging the wave offset. This maximizes damage on the high-health target while avoiding direct conflict with the low-health ship.]}
+2026-06-12 10:45:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:45:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:45:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (3, 14).
+2026-06-12 10:45:28;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:45:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:45:28;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:45:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (3, 14) - U = 0
+2026-06-12 10:45:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:45:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:45:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4265
+2026-06-12 10:45:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1490}
+2026-06-12 10:45:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:45:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 11)` (wave tile `~^`) will extend my attack range to `(3,14)` (enemy Red) by leveraging the wave offset. This maximizes precision against the high-health target while avoiding unnecessary movement.]}
+2026-06-12 10:45:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:45:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:45:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (3, 14).
+2026-06-12 10:45:32;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:45:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:45:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:45:32;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (4, 7) - U = 0
+2026-06-12 10:45:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:45:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:45:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4249
+2026-06-12 10:45:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":1158}
+2026-06-12 10:45:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:45:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":No immediate enemy in attack range, but wave at (10,11) can extend attack to (4,7) via diagonal wave path. Moving to (9,10) positions ship to shoot through wave and target the low-health enemy at (4,7) with high probability.]}
+2026-06-12 10:45:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:45:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {9, 10}
+2026-06-12 10:45:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (4, 7).
+2026-06-12 10:45:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:45:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:45:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:45:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 14) - U = 0
+2026-06-12 10:45:38;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:45:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:45:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4282
+2026-06-12 10:45:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1192}
+2026-06-12 10:45:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:45:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Target `(5, 14)` is in direct range (Manhattan distance 2, offset 1) and has full health. Moving to `(11, 13)` positions me to attack `(5, 14)` this turn while also setting up a wave extension on `(10, 11)` for future attacks on `(4, 7)`.]}
+2026-06-12 10:45:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:45:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 13}
+2026-06-12 10:45:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (5, 14).
+2026-06-12 10:45:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:45:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:45:42;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:45:43;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (4, 8) - U = 0
+2026-06-12 10:45:44;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:45:44;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:45:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4289
+2026-06-12 10:45:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":7758}
+2026-06-12 10:45:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:45:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10,11) (`~^`) extends attack range to (5,14) enemy (Red, health:15). Moving to (10,11) places you directly on the wave to maximize shot extension, ensuring a guaranteed hit on the high-health target.]}
+2026-06-12 10:45:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:45:52;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:45:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (5, 14).
+2026-06-12 10:45:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:45:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:45:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:45:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (5, 14) - U = 0
+2026-06-12 10:45:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:45:55;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:45:56;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4287
+2026-06-12 10:45:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":863}
+2026-06-12 10:45:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:45:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 13)` positions me to use the wave at `(10, 11)` (`~^`) to extend my attack range to the enemy at `(4, 8)` (low-health target) next turn. This leverages waves for a precision strike while avoiding unnecessary movement.]}
+2026-06-12 10:45:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:45:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 13}
+2026-06-12 10:45:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:45:58;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:45:58;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:45:58;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (6, 8) - U = -1.995
+2026-06-12 10:46:00;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:00;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Start turn;5,5
+2026-06-12 10:46:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];PRPT Prompt_4;4261
+2026-06-12 10:46:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];TIME {"request":768}
+2026-06-12 10:46:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"attempts":1}
+2026-06-12 10:46:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];RESN {"reasoning":Wave tile at (10,11) allows extending attack range to (5,14) enemy (15 HP). Moving to (10,11) positions me to shoot through the wave, maximizing damage on priority target.]}
+2026-06-12 10:46:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Flags;True;True;False
+2026-06-12 10:46:02;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];MOVE {10, 11}
+2026-06-12 10:46:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Cannot reach target at GridTile(Clone) (5, 14).
+2026-06-12 10:46:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Finish turn
+2026-06-12 10:46:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:04;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (7, 14) - U = 0
+2026-06-12 10:46:05;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:05;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:06;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4287
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":849}
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Attacking the wave tile `(10, 11)` (`~^`) extends my range to `(6,8)` (low-health enemy) via wave offset, maximizing damage output against the vulnerable target while avoiding direct engagement with the full-health enemy at `(7,14)`. This leverages waves for precision while maintaining mobility for future repositioning.]}
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;False;True;False
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];ATTK {10, 11}
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TRGT WAVE
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];INFO Destroyed
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|6];DATA {"internalWrongMovementCount":8,"internalWrongAttackCount":38,"internalTotalRequestCount":47,"internalMovementAttemptCount":45,"internalAttackAttemptCount":40,"internalFaultyMessageCount":0,"averageRequestTime":1847.17,"averageRequestTimeCount":47,"maxRequestTime":12217,"minRequest":652,"averageAttempts":1,"kills":1}
+2026-06-12 10:46:07;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-12 10:46:08;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:46:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:46:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:46:09;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (5, 9) - U = 0
+2026-06-12 10:46:10;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:10;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:10;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (7, 13) - U = -1.995
+2026-06-12 10:46:12;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4305
+2026-06-12 10:46:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1173}
+2026-06-12 10:46:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Target the enemy at (7, 13) directly by moving to (11, 13) to bring it within attack range (Manhattan distance 2, offset 1). This prioritizes immediate destruction of the high-health enemy while avoiding unnecessary movement.]}
+2026-06-12 10:46:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:46:14;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 13}
+2026-06-12 10:46:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (7, 13).
+2026-06-12 10:46:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:46:15;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:46:15;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:46:15;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (6, 8) - U = -1.995
+2026-06-12 10:46:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (8, 15) - U = 0
+2026-06-12 10:46:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4297
+2026-06-12 10:46:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1205}
+2026-06-12 10:46:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(12, 13)` positions me to use the wave at `(10, 11)` (~^) to extend my attack range to the enemy at `(6, 8)` (low-health target) on the next turn. This leverages waves for a high-probability strike while avoiding unnecessary movement.]}
+2026-06-12 10:46:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:46:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {12, 13}
+2026-06-12 10:46:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:46:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:46:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:46:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (7, 10) - U = -3.99
+2026-06-12 10:46:25;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:25;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:25;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:25;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (10, 15) - U = -1.995
+2026-06-12 10:46:26;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4295
+2026-06-12 10:46:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1081}
+2026-06-12 10:46:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on the low-health enemy at (7, 10) by moving to (10, 11) to align with the wave (~^) and extend range to hit it directly. This maximizes precision against the vulnerable target while avoiding unnecessary movement.]}
+2026-06-12 10:46:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:46:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:46:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (7, 10).
+2026-06-12 10:46:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:46:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:46:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:46:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (8, 12) - U = -1.995
+2026-06-12 10:46:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:31;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (10, 17) - U = 0
+2026-06-12 10:46:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:34;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4295
+2026-06-12 10:46:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1773}
+2026-06-12 10:46:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate valid attack range, but moving to `(10, 13)` positions the ship to use the wave at `(10, 11)` (~^) to extend range and attack the high-health enemy at `(10, 17)` on the next turn. This leverages waves for a precision strike on a critical target.]}
+2026-06-12 10:46:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:46:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 13}
+2026-06-12 10:46:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:46:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:46:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:46:37;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (9, 13) - U = -1.995
+2026-06-12 10:46:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (9, 16) - U = 0
+2026-06-12 10:46:41;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:41;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:42;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4288
+2026-06-12 10:46:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1488}
+2026-06-12 10:46:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10, 11) allows extending attack range to (9, 13) enemy (current health 8). Moving to (10, 11) positions ship to attack via wave, maximizing precision against the low-health target while avoiding excess movement.]}
+2026-06-12 10:46:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:46:43;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:46:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];ATTK {9, 13}
+2026-06-12 10:46:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TRGT LLM {ENEMY}
+2026-06-12 10:46:45;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Attacked succeeded at GridTile(Clone) (9, 13). Kill count = 0.
+2026-06-12 10:46:47;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:46:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:46:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:46:47;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (10, 11) - U = -3.995
+2026-06-12 10:46:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:49;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (8, 16) - U = 0
+2026-06-12 10:46:50;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:50;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:51;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4216
+2026-06-12 10:46:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1232}
+2026-06-12 10:46:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate enemy in range, but wave at (10,11) (`~^`) can extend attack range to (8,16) by positioning diagonally. Moving to (11,12) will line up a wave-assisted shot on the enemy at (8,16) next turn.]}
+2026-06-12 10:46:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;False;False
+2026-06-12 10:46:53;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 12}
+2026-06-12 10:46:54;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:46:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Start turn
+2026-06-12 10:46:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate move: True
+2026-06-12 10:46:54;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Chosen action: (11, 9) - U = -1.995
+2026-06-12 10:46:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|9];INFO Can calculate action: False
+2026-06-12 10:46:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:46:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:46:55;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (11, 16) - U = 0
+2026-06-12 10:46:57;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:46:57;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:46:58;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4284
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1174}
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave-extended attack on the low-health enemy at (10,12) via the wave at (10,11) to maximize damage before repositioning for the high-health target at (11,16).]}
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 12}
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];ATTK {10, 11}
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TRGT WAVE
+2026-06-12 10:46:59;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-12 10:47:01;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:47:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:47:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:47:01;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (13, 17) - U = 0
+2026-06-12 10:47:03;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:47:03;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:47:04;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4260
+2026-06-12 10:47:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":5876}
+2026-06-12 10:47:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:47:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Wave tile at (10, 11) (`~^`) extends attack range to (13, 17) enemy, placing it within range (Manhattan distance 2) while maintaining offset (1). This is the optimal move to secure a direct hit on the low-health enemy.]}
+2026-06-12 10:47:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:47:10;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {11, 11}
+2026-06-12 10:47:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-12 10:47:11;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:47:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:47:11;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:47:12;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (13, 17) - U = 0
+2026-06-12 10:47:12;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:47:12;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:47:13;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4225
+2026-06-12 10:47:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1792}
+2026-06-12 10:47:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:47:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 11)` (wave tile `~^`) extends range to `(13, 17)` by 1 tile, allowing a wave-assisted attack on the enemy ship. This maximizes precision and leverage against the low-health target.]}
+2026-06-12 10:47:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:47:15;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:47:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (13, 17).
+2026-06-12 10:47:16;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:47:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:47:16;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:47:17;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (10, 17) - U = 0
+2026-06-12 10:47:19;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:47:19;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:47:20;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4243
+2026-06-12 10:47:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1103}
+2026-06-12 10:47:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:47:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate enemy in attack range, but (10,11) is a wave tile (~^) that extends range to (10,17) enemy. Moving to (10,11) allows a wave-extended attack on the low-health enemy (10,17) this turn.]}
+2026-06-12 10:47:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:47:21;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:47:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (10, 17).
+2026-06-12 10:47:22;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:47:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:47:22;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:47:23;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (11, 17) - U = 0
+2026-06-12 10:47:24;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:47:24;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:47:25;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4243
+2026-06-12 10:47:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":825}
+2026-06-12 10:47:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:47:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":No immediate enemy in attack range, but moving to `(10, 11)` (wave tile `~^`) will extend attack range to `(11, 17)` by leveraging the wave offset, allowing a direct hit on the low-health enemy. This maximizes precision and damage output.]}
+2026-06-12 10:47:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:47:26;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:47:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (11, 17).
+2026-06-12 10:47:27;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:47:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:47:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:47:27;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (11, 15) - U = -1.995
+2026-06-12 10:47:29;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:47:29;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:47:30;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4243
+2026-06-12 10:47:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1482}
+2026-06-12 10:47:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:47:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Enemy at (11,15) is within wave-extendable range via (10,11) wave tile. Moving to (10,11) positions ship to attack through wave, extending range to (11,15) and maximizing precision against the lone enemy.]}
+2026-06-12 10:47:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:47:31;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:47:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (11, 15).
+2026-06-12 10:47:33;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:47:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:47:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:47:33;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (12, 14) - U = -1.995
+2026-06-12 10:47:35;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: False
+2026-06-12 10:47:35;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Start turn;5,5
+2026-06-12 10:47:36;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];PRPT Prompt_4;4243
+2026-06-12 10:47:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];TIME {"request":1014}
+2026-06-12 10:47:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"attempts":1}
+2026-06-12 10:47:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];RESN {"reasoning":Enemy at (12,14) is within **wave-extended range** via (10,11) wave tile (~^). Moving to (10,11) positions me to attack through the wave, maximizing damage on the low-health enemy while avoiding immediate counterattacks. This directly prioritizes target destruction with precision.]}
+2026-06-12 10:47:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Flags;True;True;False
+2026-06-12 10:47:37;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];MOVE {10, 11}
+2026-06-12 10:47:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Cannot reach target at GridTile(Clone) (12, 14).
+2026-06-12 10:47:38;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Finish turn
+2026-06-12 10:47:38;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Start turn
+2026-06-12 10:47:38;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate move: True
+2026-06-12 10:47:39;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Chosen action: (12, 12) - U = -1.995
+2026-06-12 10:47:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];INFO Can calculate action: True
+2026-06-12 10:47:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];INFO Destroyed
+2026-06-12 10:47:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"internalWrongMovementCount":6,"internalWrongAttackCount":40,"internalTotalRequestCount":61,"internalMovementAttemptCount":54,"internalAttackAttemptCount":47,"internalFaultyMessageCount":0,"averageRequestTime":1244.771,"averageRequestTimeCount":61,"maxRequestTime":5876,"minRequest":572,"averageAttempts":1,"kills":0}
+2026-06-12 10:47:40;[SYSTEM];[LevelGoal];INFO Faction Red won.
+2026-06-12 10:47:40;[SYSTEM];[LevelGoal];INFO Logging remaining ships. Count: 6.
+2026-06-12 10:47:40;[SYSTEM];[LLMAgent|Mistral|ministral-3b-2512|Green|3];DATA {"internalWrongMovementCount":6,"internalWrongAttackCount":40,"internalTotalRequestCount":61,"internalMovementAttemptCount":54,"internalAttackAttemptCount":47,"internalFaultyMessageCount":0,"averageRequestTime":1244.771,"averageRequestTimeCount":61,"maxRequestTime":5876,"minRequest":572,"averageAttempts":1,"kills":0}
+2026-06-12 10:47:40;[SYSTEM];[LevelController];INFO Level finished.
+2026-06-12 10:47:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];ATTK {10, 12}
+2026-06-12 10:47:40;[SYSTEM];[AIAgent-Utility|RandomGenes|Red|8];TRGT LLM {ENEMY}
+2026-06-12 10:47:40;[SYSTEM];[LevelGoal];INFO Utility Red won.
