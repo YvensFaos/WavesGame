@@ -63,6 +63,7 @@ namespace Core
         [SerializeField] private ActorTurnUI actorTurnUIPrefab;
         [SerializeField] private EndLevelPanelUI endLevelPanelUI;
         [SerializeField] private TextMeshProUGUI levelGoalText;
+        [SerializeField] private TextMeshProUGUI turnText;
 
         private Coroutine _levelCoroutine;
         private NavalActor _currentActor;
@@ -138,6 +139,7 @@ namespace Core
             levelGoal.Initialize(levelActors);
 
             levelGoalText.text = levelGoal.GetLevelMessage();
+            turnText.text = "Turns";
 
             if (logLevel)
             {
@@ -168,6 +170,8 @@ namespace Core
             AddInfoLog($"Level starts with {levelActionableActor.Count} actors.", "LevelController");
             var gridDimensions = GridManager.GetSingleton().GetDimensions();
             AddInfoLog($"Grid size is {gridDimensions.x} by {gridDimensions.y}.", "LevelController");
+            
+            turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
 
             //Start level
             var enumerator = levelActionableActor.GetEnumerator();
@@ -217,6 +221,8 @@ namespace Core
                 //Finished going through all characters
                 levelGoal.SurvivedTurn();
                 levelGoal.NextTurn();
+                turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
+                
                 victory = levelGoal.CheckGoal();
                 gameOver = levelGoal.CheckGameOver();
                 if (victory || gameOver)
