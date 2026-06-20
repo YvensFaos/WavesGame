@@ -1,0 +1,206 @@
+﻿2026-06-20 03:19:19;[SYSTEM];[LevelController];INFO Level starts with 6 actors.
+2026-06-20 03:19:19;[SYSTEM];[LevelController];INFO Grid size is 20 by 19.
+2026-06-20 03:19:19;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Start turn;5,5
+2026-06-20 03:19:20;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];PRPT Prompt_4;4310
+2026-06-20 03:19:38;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TIME {"request":18036}
+2026-06-20 03:19:38;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];DATA {"attempts":1}
+2026-06-20 03:19:38;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];RESN {"reasoning":No immediate attack possible. Moving towards the cluster of enemy ships to position for future attacks. (10,7) is a safe move that brings the ship closer to the enemy cluster at (10,12) than other options.]}
+2026-06-20 03:19:38;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Flags;True;False;False
+2026-06-20 03:19:38;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];MOVE {10, 7}
+2026-06-20 03:19:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Finish turn
+2026-06-20 03:19:41;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Start turn
+2026-06-20 03:19:41;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Can calculate move: True
+2026-06-20 03:19:41;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Chosen action: (10, 10) - U = 50.44977
+2026-06-20 03:19:43;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Can calculate action: False
+2026-06-20 03:19:43;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Start turn;5,5
+2026-06-20 03:19:44;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];PRPT Prompt_4;4290
+2026-06-20 03:20:00;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];TIME {"request":16263}
+2026-06-20 03:20:00;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];DATA {"attempts":1}
+2026-06-20 03:20:00;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];RESN {"reasoning":Move towards the closest enemy (10,10) to prepare for an attack next turn. Moving to (11,7) reduces the Manhattan distance to (10,10) from 6 to 4, which is the maximum possible reduction in one turn. No direct or wave-extended attacks are possible this turn.]}
+2026-06-20 03:20:00;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Flags;True;False;False
+2026-06-20 03:20:00;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];MOVE {11, 7}
+2026-06-20 03:20:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Finish turn
+2026-06-20 03:20:02;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Start turn
+2026-06-20 03:20:02;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Can calculate move: True
+2026-06-20 03:20:02;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Chosen action: (12, 12) - U = 52.84976
+2026-06-20 03:20:02;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Can calculate action: False
+2026-06-20 03:20:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Start turn;5,5
+2026-06-20 03:20:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];PRPT Prompt_4;4276
+2026-06-20 03:20:22;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TIME {"request":18730}
+2026-06-20 03:20:22;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];DATA {"attempts":1}
+2026-06-20 03:20:22;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];RESN {"reasoning":Move to (9,6) to get within direct attack range of wave (10,11). Attacking wave (10,11) which is a '~^' wave will extend the shot upwards, hitting enemy (10,10).]}
+2026-06-20 03:20:22;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Flags;True;True;False
+2026-06-20 03:20:22;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];MOVE {9, 6}
+2026-06-20 03:20:24;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-20 03:20:24;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Finish turn
+2026-06-20 03:20:24;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Start turn
+2026-06-20 03:20:24;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate move: True
+2026-06-20 03:20:24;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Chosen action: (7, 12) - U = 53.04974
+2026-06-20 03:20:24;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate action: False
+2026-06-20 03:20:24;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Start turn;5,5
+2026-06-20 03:20:26;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];PRPT Prompt_4;4263
+2026-06-20 03:20:35;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TIME {"request":9225}
+2026-06-20 03:20:35;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];DATA {"attempts":1}
+2026-06-20 03:20:35;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];RESN {"reasoning":Move to (10, 8) to directly attack the closest enemy ship at (10, 10).]}
+2026-06-20 03:20:35;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Flags;True;True;False
+2026-06-20 03:20:35;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];MOVE {10, 8}
+2026-06-20 03:20:36;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];ATTK {10, 10}
+2026-06-20 03:20:36;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TRGT LLM {ENEMY}
+2026-06-20 03:20:36;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Attacked succeeded at GridTile(Clone) (10, 10). Kill count = 0.
+2026-06-20 03:20:37;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Finish turn
+2026-06-20 03:20:37;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Start turn
+2026-06-20 03:20:37;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Can calculate move: True
+2026-06-20 03:20:38;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Chosen action: (10, 10) - U = 57.01471
+2026-06-20 03:20:38;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Can calculate action: True
+2026-06-20 03:20:38;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];ATTK {10, 8}
+2026-06-20 03:20:38;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];TRGT LLM {ENEMY}
+2026-06-20 03:20:39;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Start turn;5,5
+2026-06-20 03:20:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];PRPT Prompt_4;4285
+2026-06-20 03:20:53;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];TIME {"request":12323}
+2026-06-20 03:20:53;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];DATA {"attempts":1}
+2026-06-20 03:20:53;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];RESN {"reasoning":Move to position (11,10) to bring the lowest health enemy ship at (10,10) into direct attack range (distance 1). This prioritizes eliminating a weakened enemy.]}
+2026-06-20 03:20:53;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Flags;True;True;False
+2026-06-20 03:20:53;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];MOVE {11, 10}
+2026-06-20 03:20:55;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Cannot reach target at GridTile(Clone) (10, 10).
+2026-06-20 03:20:55;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Finish turn
+2026-06-20 03:20:55;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Start turn
+2026-06-20 03:20:55;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Can calculate move: True
+2026-06-20 03:20:55;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Chosen action: (13, 10) - U = 54.27138
+2026-06-20 03:20:57;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Can calculate action: True
+2026-06-20 03:20:57;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];ATTK {11, 10}
+2026-06-20 03:20:57;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];TRGT LLM {ENEMY}
+2026-06-20 03:20:58;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Start turn;5,5
+2026-06-20 03:20:59;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];PRPT Prompt_4;4298
+2026-06-20 03:21:12;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TIME {"request":12602}
+2026-06-20 03:21:12;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];DATA {"attempts":1}
+2026-06-20 03:21:12;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];RESN {"reasoning":Move to bring the lowest health enemy into direct attack range, then attack it.]}
+2026-06-20 03:21:12;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Flags;True;True;False
+2026-06-20 03:21:12;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];MOVE {9, 9}
+2026-06-20 03:21:13;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Cannot reach target at GridTile(Clone) (10, 10).
+2026-06-20 03:21:13;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Finish turn
+2026-06-20 03:21:13;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Start turn
+2026-06-20 03:21:14;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate move: True
+2026-06-20 03:21:14;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Chosen action: (7, 12) - U = 54.76972
+2026-06-20 03:21:14;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate action: False
+2026-06-20 03:21:14;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Start turn;5,5
+2026-06-20 03:21:15;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];PRPT Prompt_4;4332
+2026-06-20 03:21:34;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TIME {"request":18699}
+2026-06-20 03:21:34;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];DATA {"attempts":1}
+2026-06-20 03:21:34;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];RESN {"reasoning":Prioritizing a direct attack on the lowest health enemy ship. Staying in current position to maintain optimal attack range. Moving to a safe adjacent tile after attack to maintain flexibility for next turn.]}
+2026-06-20 03:21:34;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Flags;False;True;False
+2026-06-20 03:21:34;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];ATTK {10, 10}
+2026-06-20 03:21:34;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TRGT LLM {ENEMY}
+2026-06-20 03:21:34;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Attacked succeeded at GridTile(Clone) (10, 10). Kill count = 0.
+2026-06-20 03:21:36;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Finish turn
+2026-06-20 03:21:36;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Start turn
+2026-06-20 03:21:36;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Can calculate move: True
+2026-06-20 03:21:36;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Chosen action: (9, 9) - U = 61.46629
+2026-06-20 03:21:37;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];INFO Can calculate action: True
+2026-06-20 03:21:37;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];ATTK {9, 7}
+2026-06-20 03:21:37;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|8];TRGT WAVE
+2026-06-20 03:21:39;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Start turn;5,5
+2026-06-20 03:21:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];PRPT Prompt_4;4349
+2026-06-20 03:21:56;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];TIME {"request":16069}
+2026-06-20 03:21:56;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];DATA {"attempts":1}
+2026-06-20 03:21:56;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];RESN {"reasoning":Prioritizing the low-health enemy. Moving to (10, 10) brings the enemy ship at (9, 9) into direct attack range (2 tiles).]}
+2026-06-20 03:21:56;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Flags;True;True;False
+2026-06-20 03:21:56;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];MOVE {10, 10}
+2026-06-20 03:21:57;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];ATTK {9, 9}
+2026-06-20 03:21:57;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];TRGT LLM {ENEMY}
+2026-06-20 03:21:57;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Attacked succeeded at GridTile(Clone) (9, 9). Kill count = 1.
+2026-06-20 03:21:58;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Finish turn
+2026-06-20 03:21:58;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Start turn
+2026-06-20 03:21:58;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Can calculate move: True
+2026-06-20 03:21:59;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Chosen action: (11, 9) - U = 54.77477
+2026-06-20 03:22:01;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];INFO Can calculate action: True
+2026-06-20 03:22:01;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];ATTK {10, 8}
+2026-06-20 03:22:01;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|9];TRGT LLM {ENEMY}
+2026-06-20 03:22:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Start turn;5,5
+2026-06-20 03:22:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];PRPT Prompt_4;4245
+2026-06-20 03:22:14;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TIME {"request":11129}
+2026-06-20 03:22:14;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];DATA {"attempts":1}
+2026-06-20 03:22:14;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];RESN {"reasoning":Move to close distance with the closest enemy and attack it directly. Enemy Red at (11,9) is 5 units away. Moving to (11,7) puts it at 2 units distance, allowing a direct attack.]}
+2026-06-20 03:22:14;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Flags;True;True;False
+2026-06-20 03:22:14;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];MOVE {11, 7}
+2026-06-20 03:22:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];ATTK {11, 9}
+2026-06-20 03:22:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TRGT LLM {ENEMY}
+2026-06-20 03:22:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Attacked succeeded at GridTile(Clone) (11, 9). Kill count = 0.
+2026-06-20 03:22:17;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Finish turn
+2026-06-20 03:22:18;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Start turn
+2026-06-20 03:22:18;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate move: True
+2026-06-20 03:22:18;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Chosen action: (10, 12) - U = 53.52975
+2026-06-20 03:22:20;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate action: True
+2026-06-20 03:22:20;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];ATTK {10, 10}
+2026-06-20 03:22:20;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];TRGT LLM {ENEMY}
+2026-06-20 03:22:21;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Start turn;5,5
+2026-06-20 03:22:22;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];PRPT Prompt_4;4277
+2026-06-20 03:22:41;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TIME {"request":18647}
+2026-06-20 03:22:41;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];DATA {"attempts":1}
+2026-06-20 03:22:41;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];RESN {"reasoning":Prioritizing destruction of the lowest-health enemy. Moving to (12, 8) allows a direct attack on the enemy at (11, 9) while also increasing distance from the higher-health enemy at (10, 12), which is a minor defensive advantage given current health.]}
+2026-06-20 03:22:41;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Flags;True;True;False
+2026-06-20 03:22:41;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];MOVE {12, 8}
+2026-06-20 03:22:42;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];ATTK {11, 9}
+2026-06-20 03:22:42;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TRGT LLM {ENEMY}
+2026-06-20 03:22:42;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Attacked succeeded at GridTile(Clone) (11, 9). Kill count = 0.
+2026-06-20 03:22:44;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Finish turn
+2026-06-20 03:22:44;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Start turn;5,5
+2026-06-20 03:22:45;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];PRPT Prompt_4;4340
+2026-06-20 03:23:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];TIME {"request":18062}
+2026-06-20 03:23:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];DATA {"attempts":1}
+2026-06-20 03:23:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];RESN {"reasoning":Move to position for a direct attack on the low-health enemy. The enemy at (11,9) has 1 health and is a priority target. Moving to (10,8) places the enemy at (11,9) at a Manhattan distance of 2, which is within the required attack range (distance 2).]}
+2026-06-20 03:23:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Flags;True;True;False
+2026-06-20 03:23:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];MOVE {10, 8}
+2026-06-20 03:23:04;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];ATTK {11, 9}
+2026-06-20 03:23:04;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];TRGT LLM {ENEMY}
+2026-06-20 03:23:04;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Attacked succeeded at GridTile(Clone) (11, 9). Kill count = 1.
+2026-06-20 03:23:06;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Finish turn
+2026-06-20 03:23:06;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Start turn;5,5
+2026-06-20 03:23:07;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];PRPT Prompt_4;4180
+2026-06-20 03:23:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TIME {"request":9491}
+2026-06-20 03:23:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];DATA {"attempts":1}
+2026-06-20 03:23:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];RESN {"reasoning":Move closer to the enemy and use a wave tile to extend the attack range, hitting the enemy ship.]}
+2026-06-20 03:23:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Flags;True;True;False
+2026-06-20 03:23:16;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];MOVE {11, 10}
+2026-06-20 03:23:18;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];ATTK {10, 11}
+2026-06-20 03:23:18;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TRGT WAVE
+2026-06-20 03:23:18;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-20 03:23:20;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Finish turn
+2026-06-20 03:23:20;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Start turn
+2026-06-20 03:23:20;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate move: True
+2026-06-20 03:23:20;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Chosen action: (10, 12) - U = 49.34316
+2026-06-20 03:23:21;[SYSTEM];[AIAgent-Utility|BigEyeGenes|Red|7];INFO Can calculate action: False
+2026-06-20 03:23:21;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Start turn;5,5
+2026-06-20 03:23:22;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];PRPT Prompt_4;4166
+2026-06-20 03:23:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TIME {"request":18030}
+2026-06-20 03:23:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];DATA {"attempts":1}
+2026-06-20 03:23:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];RESN {"reasoning":Move to (10,9) to position for a wave-extended attack. From (10,9), attack the wave at (10,11) which is a '~^' wave. This wave will extend the attack to the enemy ship at (10,12).]}
+2026-06-20 03:23:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Flags;True;True;False
+2026-06-20 03:23:40;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];MOVE {10, 9}
+2026-06-20 03:23:42;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];ATTK {10, 11}
+2026-06-20 03:23:42;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];TRGT WAVE
+2026-06-20 03:23:42;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-20 03:23:43;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];INFO Finish turn
+2026-06-20 03:23:43;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Start turn;5,5
+2026-06-20 03:23:44;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];PRPT Prompt_4;4192
+2026-06-20 03:24:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];TIME {"request":17460}
+2026-06-20 03:24:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];DATA {"attempts":1}
+2026-06-20 03:24:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];RESN {"reasoning":]}
+2026-06-20 03:24:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Flags;False;False;False
+2026-06-20 03:24:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];INFO Finish turn
+2026-06-20 03:24:02;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Start turn;5,5
+2026-06-20 03:24:03;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];PRPT Prompt_4;4246
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TIME {"request":6887}
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];DATA {"attempts":1}
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];RESN {"reasoning":Utilize wave at (10, 11) to extend attack and destroy the low-health enemy ship at (10, 12).]}
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Flags;False;True;False
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];ATTK {10, 11}
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];TRGT WAVE
+2026-06-20 03:24:10;[SYSTEM];[LevelGoal];INFO Faction Green won.
+2026-06-20 03:24:10;[SYSTEM];[LevelGoal];INFO Logging remaining ships. Count: 6.
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":2,"internalTotalRequestCount":5,"internalMovementAttemptCount":4,"internalAttackAttemptCount":5,"internalFaultyMessageCount":0,"averageRequestTime":11767.8,"averageRequestTimeCount":5,"maxRequestTime":18730,"minRequest":6887,"averageAttempts":1,"kills":0}
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|5];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":5,"internalMovementAttemptCount":4,"internalAttackAttemptCount":4,"internalFaultyMessageCount":0,"averageRequestTime":16527.4,"averageRequestTimeCount":5,"maxRequestTime":18699,"minRequest":9225,"averageAttempts":1,"kills":0}
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|6];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":5,"internalMovementAttemptCount":4,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":16035.4,"averageRequestTimeCount":5,"maxRequestTime":18062,"minRequest":12323,"averageAttempts":1,"kills":1}
+2026-06-20 03:24:10;[SYSTEM];[LevelController];INFO Level finished.
+2026-06-20 03:24:10;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-20 03:24:10;[SYSTEM];[LevelGoal];INFO LLM Gemini|gemini-2.5-flash won.
+2026-06-20 03:24:11;[SYSTEM];[LLMAgent|Gemini|gemini-2.5-flash|Green|3];INFO Finish turn
