@@ -20,7 +20,8 @@ namespace Core.Recorder
         private Vector2Int _attackPosition;
         private float _damage;
 
-        public AttackRecordEntry(string actorId, Vector2Int attackPosition, float damage) : base(actorId)
+        public AttackRecordEntry(string actorId, Vector2Int attackPosition, float damage, int turn, long timeStamp) :
+            base(actorId, WavesRecordEntryType.Attack, turn, timeStamp)
         {
             _attackPosition = attackPosition;
             _damage = damage;
@@ -34,7 +35,9 @@ namespace Core.Recorder
 
         public override void PerformEntry()
         {
-            DebugUtils.DebugLogMsg($"AttackRecordEntry: {ActorID} attacks at {_attackPosition}. Recorded damage: {_damage}.", DebugUtils.DebugType.Verbose);
+            DebugUtils.DebugLogMsg(
+                $"AttackRecordEntry: {ActorID} attacks at {_attackPosition}. Recorded damage: {_damage}.",
+                DebugUtils.DebugType.Verbose);
             // Animate attack at given position. Animate only. Damage is handled by the DAMG entry.
             if (!GridManager.GetSingleton().CheckGridPosition(_attackPosition, out var attackGridPosition)) return;
             var actorsCount = attackGridPosition.ActorsCount();
@@ -65,10 +68,13 @@ namespace Core.Recorder
             }
         }
 
-        public Vector2Int AttackPosition => _attackPosition;
-        public float Damage => _damage;
-        
+        public override string ToJson()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
+        /// TODO change this to read the entryString as JSON
         /// Returns a AttackRecordEntry built from a string in the format "ATTK;[actorId];([x], [y]);[damage]".
         /// If the format does not comply, then the method returns null.
         /// </summary>
@@ -101,7 +107,8 @@ namespace Core.Recorder
                 return null;
             }
 
-            return new AttackRecordEntry(actorId, new Vector2Int(x, y), damage);
+            //TODO update reading the turn and timeStamp
+            return new AttackRecordEntry(actorId, new Vector2Int(x, y), damage, -1, -1);
         }
     }
 }

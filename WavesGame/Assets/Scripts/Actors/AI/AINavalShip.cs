@@ -41,7 +41,7 @@ namespace Actors.AI
             LevelController.GetSingleton().AddInfoLog($"Start turn", name);
             var canCalculateMove = _brain.CalculateMovement(currentUnit.Index(), stepsAvailable, out var chosenAction);
             LevelController.GetSingleton().AddInfoLog($"Can calculate move: {canCalculateMove}", name);
-            
+
             yield return new WaitForSeconds(0.25f);
             if (canCalculateMove)
             {
@@ -57,21 +57,23 @@ namespace Actors.AI
                         LevelController.GetSingleton().AddInfoLog($"Can calculate action: {canCalculateAction}", name);
                         if (!canCalculateAction) continue;
                         var targetUnit = chosenAction.GetUnit();
-                        if(targetUnit.ActorsCount() <= 0) continue;
+                        if (targetUnit.ActorsCount() <= 0) continue;
                         DebugUtils.DebugLogMsg($"{name} attacks {chosenAction}!", DebugUtils.DebugType.System);
                         var damage = CalculateDamage();
-                        
+
                         if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
                         {
                             var attackRecordEntry = new AttackRecordEntry(name, targetUnit.Index(),
-                                damage);
+                                damage, LevelController.GetSingleton().GetTurn(),
+                                LevelController.GetSingleton().GetTimeStamp());
                             if (targetUnit.GetActor() is WaveActor)
                             {
                                 attackRecordEntry.AppendComment($"Attacked a wave");
                             }
+
                             wavesRecorder.RecordNewEntry(attackRecordEntry);
                         }
-                        
+
                         kills = targetUnit.DamageActors(damage);
                         LevelController.GetSingleton().AddAttackLog(chosenAction.GetUnit().Index(), this, name);
                         attacked = true;
@@ -79,12 +81,13 @@ namespace Actors.AI
 
                     _calculatingAction = false;
                 }, true);
-                
+
                 yield return new WaitUntil(() => !_calculatingAction);
                 if (attacked)
                 {
                     yield return new WaitForSeconds(1.25f);
                 }
+
                 FinishAITurn();
             }
             else

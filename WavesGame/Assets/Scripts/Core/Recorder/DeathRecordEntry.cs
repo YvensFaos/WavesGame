@@ -14,7 +14,7 @@ namespace Core.Recorder
     [Serializable]
     public class DeathRecordEntry : ActorRecordEntry
     {
-        public DeathRecordEntry(string actorId) : base(actorId)
+        public DeathRecordEntry(string actorId, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Death, turn, timeStamp)
         {
             type = WavesRecordEntryType.Death;
         }
@@ -26,8 +26,14 @@ namespace Core.Recorder
             var navalActor = levelController.GetNavalActorWithId(ActorID);
             navalActor.DestroyActorImmediate();
         }
-        
+
+        public override string ToJson()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
+        /// TODO change this to read the entry from a JSON.
         /// Returns a DeathRecordEntry built from a string in the format "DEAD;[actorId]".
         /// If the format does not comply, then the method returns null.
         /// </summary>
@@ -44,7 +50,7 @@ namespace Core.Recorder
 
             var actorId = parts[1];
 
-            return new DeathRecordEntry(actorId);
+            return new DeathRecordEntry(actorId, -1, -1);
         }
     }
 }

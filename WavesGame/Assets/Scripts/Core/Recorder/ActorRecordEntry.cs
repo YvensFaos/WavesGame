@@ -6,19 +6,17 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
-using UUtils.GameRecorder;
-
 namespace Core.Recorder
 {
-    public abstract class ActorRecordEntry : RecordEntry
+    public abstract class ActorRecordEntry : WavesEntry
     {
-        private readonly string _actorId;
         protected WavesRecordEntryType type;
         private string _comment;
 
-        protected ActorRecordEntry(string actorId)
+        protected ActorRecordEntry(string actorId, WavesRecordEntryType type, int turn, long timeStamp) :
+            base(WavesRecordEntryTypeTypeExtensions.WavesRecordEntryTypeToString(type), turn, timeStamp)
         {
-            _actorId = actorId;
+            ActorID = actorId;
             _comment = "";
         }
 
@@ -35,10 +33,10 @@ namespace Core.Recorder
         public sealed override string ToString()
         {
             var commentLine = string.IsNullOrEmpty(_comment) ? "" : $";[{_comment}]";
-            return $"{WavesRecordEntryTypeTypeExtensions.WavesRecordEntryTypeToString(type)};{_actorId}{Content()}{commentLine}";
+            return
+                $"{WavesRecordEntryTypeTypeExtensions.WavesRecordEntryTypeToString(type)};{ActorID}{Content()}{commentLine}";
         }
 
-        public string ActorID => _actorId;
-        public WavesRecordEntryType RecordType => type;
+        protected string ActorID { get; }
     }
 }

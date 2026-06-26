@@ -13,14 +13,14 @@ using UUtils.GameRecorder;
 
 namespace Core.Recorder
 {
-    public class EndGameRecordEntry : RecordEntry
+    public class EndGameRecordEntry : WavesEntry
     {
-        public static readonly string EndGameRecordType = "OVER";
-
+        private const string EndGameRecordType = "OVER";
         private readonly string _goalMessage;
-        private Faction _winningFaction;
+        private readonly Faction _winningFaction;
 
-        public EndGameRecordEntry(string goalMessage, Faction winningFaction)
+        public EndGameRecordEntry(string goalMessage, Faction winningFaction, int turn, long timeStamp) : base(
+            EndGameRecordType, turn, timeStamp)
         {
             _goalMessage = goalMessage;
             _winningFaction = winningFaction;
@@ -40,6 +40,12 @@ namespace Core.Recorder
             return $"{EndGameRecordType};{_goalMessage}{winningFactionEntry}";
         }
 
+        public override string ToJson()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// TODO change this to read the entry from a JSON.
         public static EndGameRecordEntry MakeRecordEntryFromString(string entryString)
         {
             // OVER;Destroy All Targets;White
@@ -59,7 +65,7 @@ namespace Core.Recorder
                 winningFaction.name = factionName;
             }
 
-            return new EndGameRecordEntry(levelGoalMessage, winningFaction);
+            return new EndGameRecordEntry(levelGoalMessage, winningFaction, -1, -1);
         }
     }
 }

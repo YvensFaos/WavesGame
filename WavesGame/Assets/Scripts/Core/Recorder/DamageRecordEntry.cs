@@ -21,7 +21,7 @@ namespace Core.Recorder
     {
         private int _damage;
 
-        public DamageRecordEntry(string actorId, int damage) : base(actorId)
+        public DamageRecordEntry(string actorId, int damage, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Damage, turn, timeStamp)
         {
             _damage = damage;
             type = WavesRecordEntryType.Damage;
@@ -54,9 +54,13 @@ namespace Core.Recorder
             }
         }
 
-        public float Damage => _damage;
-        
+        public override string ToJson()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
+        /// TODO change this to read the entry from a JSON.
         /// Returns a DamageRecordEntry built from a string in the format "DAMG;[actorId];[damage]".
         /// If the format does not comply, then the method returns null.
         /// </summary>
@@ -77,7 +81,7 @@ namespace Core.Recorder
                 return null;
             }
 
-            return new DamageRecordEntry(actorId, damage);
+            return new DamageRecordEntry(actorId, damage, -1, -1);
         }
     }
 }

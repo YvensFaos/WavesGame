@@ -143,26 +143,29 @@ namespace Actors
             Destroy(gameObject);
         }
 
-        protected MovementRecordEntry MakeNewMovementEntry(GridUnit moveTo)
+        protected MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
         {
-            return new MovementRecordEntry(name, moveTo.Index());
+            return new MovementRecordEntry(name, moveFrom.Index(), moveTo.Index(),
+                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
         }
 
         private void RecordDamage(int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DamageRecordEntry(name, damage));
+            recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp()));
         }
 
         private void RecordDeath()
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DeathRecordEntry(name));
+            recorder.RecordNewEntry(new DeathRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp()));
         }
 
-        protected void RecordMovement(GridUnit moveTo)
+        protected void RecordMovement(GridUnit moveFrom, GridUnit moveTo)
         {
-            RecordMovement(MakeNewMovementEntry(moveTo));
+            RecordMovement(MakeNewMovementEntry(moveFrom, moveTo));
         }
 
         protected static void RecordMovement(MovementRecordEntry entry)
@@ -172,7 +175,7 @@ namespace Actors
         }
 
         public NavalActorType NavalType => navalType;
-        
+
         public override string ToString()
         {
             return $"{base.ToString()}; navalType=[{navalType}]";

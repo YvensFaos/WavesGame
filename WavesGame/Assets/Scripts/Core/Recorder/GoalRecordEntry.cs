@@ -11,18 +11,18 @@ using UUtils.GameRecorder;
 
 namespace Core.Recorder
 {
-    public class GoalRecordEntry : RecordEntry
+    public class GoalRecordEntry : WavesEntry
     {
-        public static readonly string GoalRecordType = "GOAL";
+        private const string GoalRecordType = "GOAL";
 
         private readonly string _goalMessage;
 
-        public GoalRecordEntry(LevelGoal levelGoal)
+        public GoalRecordEntry(LevelGoal levelGoal) : base(GoalRecordType, -1, 0)
         {
             _goalMessage = LevelGoalTypeExtension.LevelGoalTypeToString(levelGoal.Type());
         }
 
-        public GoalRecordEntry(string levelGoalMessage)
+        private GoalRecordEntry(string levelGoalMessage) : base(GoalRecordType, -1, 0)
         {
             _goalMessage = levelGoalMessage;
         }
@@ -40,6 +40,12 @@ namespace Core.Recorder
             return $"{GoalRecordType};{_goalMessage}";
         }
 
+        public override string ToJson()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// TODO change this to read the entry from a JSON.
         public static GoalRecordEntry MakeRecordEntryFromString(string entryString)
         {
             // GOAL;Destroy All Targets

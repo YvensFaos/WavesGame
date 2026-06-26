@@ -109,7 +109,7 @@ namespace Actors
                     return false;
                 }
                 
-                StartCoroutine(MovementStepsCoroutine(steps, onFinishMoving, time));
+                StartCoroutine(MovementStepsCoroutine(currentUnit, steps, onFinishMoving, time));
             }
             else
             {
@@ -121,12 +121,13 @@ namespace Actors
             return true;
         }
 
-        private IEnumerator MovementStepsCoroutine(List<GridUnit> steps, Action<GridUnit> onFinishMoving, float time)
+        private IEnumerator MovementStepsCoroutine(GridUnit initialStep, List<GridUnit> steps, Action<GridUnit> onFinishMoving, float time)
         {
             var stepsEnumerator = steps.GetEnumerator();
             var continueSteps = true;
             var nextStep = false;
             var cumulativeDamage = 0;
+            var firstStep = initialStep;
             var finalStep = steps[^1];
             while (continueSteps && stepsEnumerator.MoveNext())
             {
@@ -134,10 +135,11 @@ namespace Actors
                 if (current == null) continue;
                 nextStep = false;
                 
-                RecordMovement(current);
+                RecordMovement(firstStep, current);
                 transform.DOMove(current.transform.position, time).OnComplete(() => { nextStep = true; });
                 yield return new WaitUntil(() => nextStep);
                 UpdateGridUnitOnMovement(current);
+                firstStep = current;
                 finalStep = current;
 
                 if (!current.HasValidActors()) continue;
@@ -161,7 +163,7 @@ namespace Actors
                     nextStep = false;
 
                     //TODO for now, it does not check for the case of multiple waves moving the ship
-                    var waveMovementEntry = MakeNewMovementEntry(moveToUnit);
+                    var waveMovementEntry = MakeNewMovementEntry(firstStep, moveToUnit);
                     waveMovementEntry.AppendComment($"Moved by wave effect!");
                     RecordMovement(waveMovementEntry);
                     transform.DOMove(moveToUnit.transform.position, time).OnComplete(() =>

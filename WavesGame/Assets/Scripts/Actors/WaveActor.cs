@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core;
 using Core.Recorder;
 using Grid;
 using NaughtyAttributes;
@@ -56,7 +57,7 @@ namespace Actors
             DebugUtils.DebugLogMsg($"Wave actor {name} was attacked with {damage}.", DebugUtils.DebugType.Verbose);
             var destroyed = base.TakeDamage(damage);
             RecordDamage(damage);
-            
+
             if (damage <= 0) return false;
             if (damageParticles != null)
             {
@@ -75,6 +76,7 @@ namespace Actors
                     {
                         RecordAttack(enumerator.Current, damage);
                     }
+
                     enumerator.Dispose();
                 }
                 else
@@ -98,7 +100,7 @@ namespace Actors
             {
                 damageParticles.Play();
             }
-            
+
             var attackArea = GridManager.GetSingleton()
                 .GetGridUnitsForMoveType(waveDirection, GetUnit().Index(), areaOfEffect);
             attackArea.ForEach(unit =>
@@ -130,30 +132,34 @@ namespace Actors
             var pushTo = RandomHelper<GridUnit>.GetRandomFromList(pushUnblockedArea);
             return new GridStepEffectResult(false, pushTo, true, waveDamage);
         }
-        
+
         private void RecordDamage(int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DamageRecordEntry(name, damage));
+            recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp()));
         }
 
         private void RecordAttack(GridActor targetActor, int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), damage);
+            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), damage,
+                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
             if (targetActor is WaveActor)
             {
                 attackRecordEntry.AppendComment($"Attacked a wave");
             }
+
             recorder.RecordNewEntry(attackRecordEntry);
         }
 
         public float GetDamage() => waveDamage;
         public GridMoveType GetWaveDirection => waveDirection;
-        
+
         public override string ToString()
         {
-            return $"{base.ToString()}; waveDirection={waveDirection}; areaOfEffect={areaOfEffect}; stepAreaDistance={stepAreaDistance}; waveDamage={waveDamage}";
+            return
+                $"{base.ToString()}; waveDirection={waveDirection}; areaOfEffect={areaOfEffect}; stepAreaDistance={stepAreaDistance}; waveDamage={waveDamage}";
         }
     }
 }

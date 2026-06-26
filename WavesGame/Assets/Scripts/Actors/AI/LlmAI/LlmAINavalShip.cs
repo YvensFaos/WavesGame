@@ -302,15 +302,17 @@ namespace Actors.AI.LlmAI
 
             yield return null;
         }
-        
+
         private void RecordAttack(GridActor targetActor, int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), damage);
+            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), damage,
+                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
             if (targetActor is WaveActor)
             {
                 attackRecordEntry.AppendComment($"Attacked a wave");
             }
+
             recorder.RecordNewEntry(attackRecordEntry);
         }
 
@@ -352,8 +354,9 @@ namespace Actors.AI.LlmAI
 
         public string GetLlmInfo()
         {
-            return llmCaller != null && llmCaller.GetLlmType() != LlmType.Custom ? 
-                $"{llmCaller.GetLlmType().ToString()}-{llmCaller.GetLlmModel()}-{basePrompt.name}" : "Utility";
+            return llmCaller != null && llmCaller.GetLlmType() != LlmType.Custom
+                ? $"{llmCaller.GetLlmType().ToString()}-{llmCaller.GetLlmModel()}-{basePrompt.name}"
+                : "Utility";
         }
 
         public void SetCaller(LlmCallerObject caller)
@@ -365,7 +368,7 @@ namespace Actors.AI.LlmAI
         {
             basePrompt = promptSo;
         }
-        
+
         public int OverrideInitiative => overrideInitiative;
     }
 }

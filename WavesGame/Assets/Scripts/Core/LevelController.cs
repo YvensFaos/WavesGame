@@ -170,7 +170,7 @@ namespace Core
             AddInfoLog($"Level starts with {levelActionableActor.Count} actors.", "LevelController");
             var gridDimensions = GridManager.GetSingleton().GetDimensions();
             AddInfoLog($"Grid size is {gridDimensions.x} by {gridDimensions.y}.", "LevelController");
-            
+
             turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
 
             //Start level
@@ -222,7 +222,7 @@ namespace Core
                 levelGoal.SurvivedTurn();
                 levelGoal.NextTurn();
                 turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
-                
+
                 victory = levelGoal.CheckGoal();
                 gameOver = levelGoal.CheckGameOver();
                 if (victory || gameOver)
@@ -400,7 +400,8 @@ namespace Core
             {
                 if (_recorder != null)
                 {
-                    _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(), levelGoal.GetWinnerFaction()));
+                    _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
+                        levelGoal.GetWinnerFaction(), GetTurn(), -1));
                     DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
                     _recorder.Stop();
                 }
@@ -555,6 +556,13 @@ namespace Core
         public string GetNextLevelName() => nextLevelName;
 
         public LevelGoal GetLevelGoal() => levelGoal;
+
+        public int GetTurn() => levelGoal.GetCurrentTurn();
+
+        public long GetTimeStamp()
+        {
+            return (long)Time.timeSinceLevelLoad;
+        }
 
         // ReSharper disable once NotDisposedResourceIsReturned
         public List<NavalActor>.Enumerator GetNavalActorsEnumerator() => levelNavalActors.GetEnumerator();

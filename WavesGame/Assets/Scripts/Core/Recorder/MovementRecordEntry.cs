@@ -15,31 +15,37 @@ namespace Core.Recorder
     [Serializable]
     public class MovementRecordEntry : ActorRecordEntry
     {
-        private Vector2Int _moveTo;
-
-        public MovementRecordEntry(string actorId, Vector2Int moveTo) : base(actorId)
+        public MovementRecordEntry(string actorId, Vector2Int moveFrom, Vector2Int moveTo, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Movement, turn, timeStamp)
         {
-            _moveTo = moveTo;
+            MoveTo = moveTo;
+            MoveFrom = moveFrom;
             type = WavesRecordEntryType.Movement;
         }
 
         protected override string Content()
         {
-            return $";{_moveTo}";
+            return $";{MoveTo}";
         }
 
         public override void PerformEntry()
         {
-            DebugUtils.DebugLogMsg($"MovementRecordEntry: {ActorID} moves to {_moveTo}.", DebugUtils.DebugType.Temporary);
+            DebugUtils.DebugLogMsg($"MovementRecordEntry: {ActorID} moves from {MoveFrom} to {MoveTo}.", DebugUtils.DebugType.Temporary);
             var levelController = LevelController.GetSingleton();
             var navalShip = levelController.GetNavalShipWithId(ActorID);
             if (navalShip == null) return;
-            levelController.MoveActor(navalShip, _moveTo);
+            levelController.MoveActor(navalShip, MoveTo);
         }
 
-        public Vector2Int MoveTo => _moveTo;
+        public override string ToJson()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector2Int MoveFrom { get; }
+        public Vector2Int MoveTo { get; }
 
         /// <summary>
+        /// TODO change this to read the entry from a JSON.
         /// Returns a MovementRecordEntry built from a string in the format "MOVE;[actorId];([x], [y])".
         /// If the format does not comply, then the method returns null.
         /// </summary>
@@ -67,7 +73,7 @@ namespace Core.Recorder
                 return null;
             }
 
-            return new MovementRecordEntry(actorId, new Vector2Int(x, y));
+            return new MovementRecordEntry(actorId, new Vector2Int(-1, -1), new Vector2Int(x, y), -1, -1);
         }
     }
 }
