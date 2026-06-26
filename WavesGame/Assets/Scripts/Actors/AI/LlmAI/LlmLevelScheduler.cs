@@ -14,6 +14,7 @@ using FALLA;
 using Grid;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UUtils;
 
 namespace Actors.AI.LlmAI
@@ -63,6 +64,7 @@ namespace Actors.AI.LlmAI
             }).ToList().FindAll(actor => actor != null);
 
             var aiFactions = currentSchedule.GetFactions();
+            var ships = new List<NavalActor>();
             foreach (var aiFaction in aiFactions)
             {
                 var factionLlmActors = llmActors.FindAll(actor => actor.GetFaction().Equals(aiFaction));
@@ -79,10 +81,12 @@ namespace Actors.AI.LlmAI
                     }
 
                     llmAINavalShip.UpdateName();
+                    ships.Add(llmAINavalShip);
                 }
             }
 
             var customFactions = currentSchedule.factionPairs.FindAll(pair => pair.Two.modelPair.One == LlmType.Custom);
+            var levelController = LevelController.GetSingleton();
             foreach (var customFaction in customFactions)
             {
                 var faction = customFaction.One;
@@ -103,16 +107,20 @@ namespace Actors.AI.LlmAI
                     unit.RemoveActor(llmFactionShip);
                     unit.AddActor(newAiBaseShip);
                     newAiBaseShip.SetInitiative(llmFactionShip.OverrideInitiative);
-                    LevelController.GetSingleton().RemoveFactionShip(llmFactionShip);
+                    levelController.RemoveFactionShip(llmFactionShip);
                     Destroy(llmFactionShip.gameObject);
+                    ships.Add(newAiBaseShip);
                 }
             }
 
             if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
             {
-                wavesRecorder.StartRecording($"{currentSchedule}-{internalRepetition}");
+                DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
+                var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
+                wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), ships, recorderFileName);
+                wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
             }
-
+            
             return true;
         }
 

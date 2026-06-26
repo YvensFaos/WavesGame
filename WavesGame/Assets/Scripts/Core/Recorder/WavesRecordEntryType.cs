@@ -15,7 +15,7 @@ namespace Core.Recorder
         Movement, Attack, Damage, Death
     }
     
-    public static class WavesRecordEntryTypeTypeExtensions
+    public static class WavesRecordEntryTypeExtensions
     {
         public static string WavesRecordEntryTypeToString(WavesRecordEntryType type)
         {

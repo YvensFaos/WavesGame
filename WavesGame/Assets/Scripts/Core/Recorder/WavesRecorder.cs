@@ -6,6 +6,9 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System.Collections.Generic;
+using Actors;
+using Actors.AI;
 using UnityEngine;
 using UUtils;
 using UUtils.GameRecorder;
@@ -17,7 +20,16 @@ namespace Core.Recorder
     {
         [SerializeField] private GameRecorder recorder;
 
-        public void StartRecording(string recordingIdentifier)
+        public void LogGameStart(string map, int randomSeed, List<NavalActor> ships, string recordingIdentifier)
+        {
+            StartRecording(recordingIdentifier);
+            //TODO make the entry for the map
+            //TODO make the entry for the settings
+            //TODO make the entry for the ships
+            
+        }
+
+        private void StartRecording(string recordingIdentifier)
         {
             recorder.StartRecording(recordingIdentifier);
         }

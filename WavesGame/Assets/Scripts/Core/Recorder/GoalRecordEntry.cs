@@ -7,7 +7,6 @@
  */
 
 using UUtils;
-using UUtils.GameRecorder;
 
 namespace Core.Recorder
 {

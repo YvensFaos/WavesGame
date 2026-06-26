@@ -47,7 +47,7 @@ namespace Actors.AI
 
         public string ToLlmString()
         {
-            return $"[{name}]; faction={GetFaction()}; currentHealth={GetCurrentHealth()}."; 
+            return $"[{name}]; faction={GetFaction()}; currentHealth={GetCurrentHealth()}.";
         }
     }
 }
