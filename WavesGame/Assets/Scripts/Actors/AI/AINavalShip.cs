@@ -16,7 +16,7 @@ namespace Actors.AI
 {
     public class AINavalShip : AIBaseShip
     {
-        [SerializeField] private AIGenesSO genesData;
+        [field: SerializeField] public AIGenesSO GenesData { get; set; }
         [SerializeField] private int overrideInitiative;
 
         private AIBrain _brain;
@@ -102,15 +102,15 @@ namespace Actors.AI
         {
             var internalIDStr = internalID.ToString();
             var factionName = GetFaction().name;
-            name = $"AIAgent-Utility|{genesData.name}|{factionName}|{internalIDStr}";
+            name = $"AIAgent-Utility|{GenesData.name}|{factionName}|{internalIDStr}";
         }
 
         public override string ToString()
         {
             var factionName = GetFaction().name;
-            return $"Utility|{genesData.name}|{factionName}|";
+            return $"Utility|{GenesData.name}|{factionName}|";
         }
 
-        public AIGenesSO GetGenesData() => genesData;
+        public AIGenesSO GetGenesData() => GenesData;
     }
 }

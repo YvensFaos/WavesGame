@@ -16,6 +16,7 @@ namespace Actors.AI.LlmAI
 
         [Header("For Custom LLM Type and Regular AIs")] [SerializeField]
         private AIBaseShip aiBaseShipPrefab;
+        [field: SerializeField] public AIGenesSO AIGenes { get; set; }
 
         public FactionLlmPair(Faction one, LlmModelPairSo two) : base(one, two)
         {
@@ -50,7 +51,8 @@ namespace Actors.AI.LlmAI
         public override string ToString()
         {
             var promptName = promptSo == null ? "" : $"-{promptSo.name}";
-            return $"{Two.modelPair}{promptName}";
+            var aiGenes = AIGenes == null ? "" : $"-{AIGenes.name}";
+            return $"{Two.modelPair}{promptName}{aiGenes}";
         }
     }
 }

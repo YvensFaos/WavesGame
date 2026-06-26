@@ -44,13 +44,14 @@ namespace Actors.AI.LlmAI
         {
             if (internalCounter >= schedules.Count)
             {
-                DebugUtils.DebugLogMsg($"Finish! All schedules done, current -> {internalCounter}.", DebugUtils.DebugType.System);
+                DebugUtils.DebugLogMsg($"Finish! All schedules done, current -> {internalCounter}.",
+                    DebugUtils.DebugType.System);
                 return false;
             }
-            
+
             currentSchedule = schedules[internalCounter];
             internalRepetition = currentSchedule.InternalRepetitionsCount;
-            
+
             var llmActors = levelActors.Select(actor =>
             {
                 if (actor is LlmAINavalShip llm)
@@ -76,10 +77,11 @@ namespace Actors.AI.LlmAI
                     {
                         llmAINavalShip.ChangeBasePrompt(prompt);
                     }
+
                     llmAINavalShip.UpdateName();
                 }
             }
-            
+
             var customFactions = currentSchedule.factionPairs.FindAll(pair => pair.Two.modelPair.One == LlmType.Custom);
             foreach (var customFaction in customFactions)
             {
@@ -89,8 +91,13 @@ namespace Actors.AI.LlmAI
                 foreach (var llmFactionShip in llmFactionShips)
                 {
                     var llmFactionTransform = llmFactionShip.transform;
-                    var newAiBaseShip = Instantiate(customFaction.AIBaseShipPrefab, llmFactionTransform.position, llmFactionTransform.rotation);
-                    
+                    var newAiBaseShip = Instantiate(customFaction.AIBaseShipPrefab, llmFactionTransform.position,
+                        llmFactionTransform.rotation);
+                    if (newAiBaseShip is AINavalShip aiBaseShip)
+                    {
+                        aiBaseShip.GenesData = customFaction.AIGenes;
+                    }
+
                     //TODO check if this works for the grid
                     var unit = llmFactionShip.GetUnit();
                     unit.RemoveActor(llmFactionShip);
@@ -105,7 +112,7 @@ namespace Actors.AI.LlmAI
             {
                 wavesRecorder.StartRecording($"{currentSchedule}-{internalRepetition}");
             }
-            
+
             return true;
         }
 
@@ -135,12 +142,12 @@ namespace Actors.AI.LlmAI
                 DebugUtils.DebugLogMsg($"Finished level, DRAW!", DebugUtils.DebugType.System);
                 LevelController.GetSingleton().AddInfoLog($"DRAW!", "LevelGoal");
             }
-            
+
             if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
             {
                 wavesRecorder.Stop();
             }
-            
+
             DelayHelper.Delay(this, 5.0f, SceneLoader.ResetCurrentScene);
         }
 
@@ -155,8 +162,8 @@ namespace Actors.AI.LlmAI
             if (internalCounter >= schedules.Count) return "no-schedule";
             var schedule = schedules[internalCounter];
             var repetition = currentSchedule.InternalRepetitionsCount;
-            
+
             return $"{schedule}-{repetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
-        } 
+        }
     }
 }

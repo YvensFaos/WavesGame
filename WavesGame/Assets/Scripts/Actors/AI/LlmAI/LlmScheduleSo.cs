@@ -54,7 +54,16 @@ namespace Actors.AI.LlmAI
                 else
                 {
                     var customPrefab = pair.AIBaseShipPrefab;
-                    str += $"{customPrefab}" + "=";
+                    if (pair.AIBaseShipPrefab is AINavalShip navalShip)
+                    {
+                        //navalShip.GenesData
+                        var genes = pair.AIGenes == null ? navalShip.GenesData.name : pair.AIGenes.name;
+                        str += $"{customPrefab.name}{genes}" + "=";
+                    }
+                    else
+                    {
+                        str += $"{customPrefab}" + "=";    
+                    }
                 }
 
             });
