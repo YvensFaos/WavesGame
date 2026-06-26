@@ -15,6 +15,8 @@ namespace Core.Recorder
         protected string eventType;
         protected int turn;
         protected long timeStamp;
+        
+        //TODO select a default static type for the debug type
 
         protected WavesEntry(string eventType, int turn, long timeStamp)
         {

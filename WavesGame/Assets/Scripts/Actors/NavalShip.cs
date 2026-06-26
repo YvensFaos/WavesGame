@@ -134,8 +134,11 @@ namespace Actors
                 var current = stepsEnumerator.Current;
                 if (current == null) continue;
                 nextStep = false;
-                
-                RecordMovement(firstStep, current);
+
+                if (firstStep != current)
+                {
+                    RecordMovement(firstStep, current);    
+                }
                 transform.DOMove(current.transform.position, time).OnComplete(() => { nextStep = true; });
                 yield return new WaitUntil(() => nextStep);
                 UpdateGridUnitOnMovement(current);

@@ -8,7 +8,6 @@
 
 using System.Collections.Generic;
 using Actors;
-using Actors.AI;
 using UnityEngine;
 using UUtils;
 using UUtils.GameRecorder;
@@ -23,10 +22,7 @@ namespace Core.Recorder
         public void LogGameStart(string map, int randomSeed, List<NavalActor> ships, string recordingIdentifier)
         {
             StartRecording(recordingIdentifier);
-            //TODO make the entry for the map
-            //TODO make the entry for the settings
-            //TODO make the entry for the ships
-            
+            RecordNewEntry(new WavesGameInfoEntry(map, randomSeed, ships));
         }
 
         private void StartRecording(string recordingIdentifier)

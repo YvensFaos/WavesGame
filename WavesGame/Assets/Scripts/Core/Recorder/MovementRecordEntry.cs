@@ -24,7 +24,7 @@ namespace Core.Recorder
 
         protected override string Content()
         {
-            return $";{MoveTo}";
+            return $";MoveFrom:{MoveFrom};MoveTo:{MoveTo}";
         }
 
         public override void PerformEntry()

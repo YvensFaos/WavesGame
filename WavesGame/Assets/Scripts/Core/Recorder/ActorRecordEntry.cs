@@ -34,7 +34,7 @@ namespace Core.Recorder
         {
             var commentLine = string.IsNullOrEmpty(_comment) ? "" : $";[{_comment}]";
             return
-                $"{WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(type)};{ActorID}{Content()}{commentLine}";
+                $"{WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(type)};turn:{turn};timeStamp:{timeStamp};{ActorID}{Content()}{commentLine}";
         }
 
         protected string ActorID { get; }
