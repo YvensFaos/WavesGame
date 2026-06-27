@@ -6,22 +6,42 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
+using Newtonsoft.Json;
+using UnityEngine;
+
 namespace Core.Recorder
 {
+    [Serializable]
+    public class ActorRecordEntryJson : WavesEntryJson
+    {
+        [SerializeField] public string actorId;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [SerializeField] public string comment;
+
+        public ActorRecordEntryJson(string actorId, string comment, string eventType, int turn, long timeStamp) : base(
+            eventType, turn,
+            timeStamp)
+        {
+            this.actorId = actorId;
+            this.comment = string.IsNullOrEmpty(comment) ? null : comment;
+        }
+    }
+
     public abstract class ActorRecordEntry : WavesEntry
     {
-        private string _comment;
+        protected string comment;
 
         protected ActorRecordEntry(string actorId, WavesRecordEntryType type, int turn, long timeStamp) :
             base(type, turn, timeStamp)
         {
             ActorID = actorId;
-            _comment = "";
+            comment = "";
         }
 
-        public void AppendComment(string comment)
+        public void AppendComment(string appendComment)
         {
-            _comment += $"{comment}";
+            comment += $"{appendComment}";
         }
 
         protected virtual string Content()
@@ -29,11 +49,10 @@ namespace Core.Recorder
             return "";
         }
 
-        public sealed override string ToString()
+        protected override string ToJson()
         {
-            var commentLine = string.IsNullOrEmpty(_comment) ? "" : $";[{_comment}]";
-            return
-                $"{WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType)};turn:{turn};timeStamp:{timeStamp};{ActorID}{Content()}{commentLine}";
+            return JsonConvert.SerializeObject(new ActorRecordEntryJson(ActorID, comment,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp));
         }
 
         protected string ActorID { get; }

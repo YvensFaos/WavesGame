@@ -106,35 +106,43 @@ namespace Core
 
             UnityEngine.Random.InitState(randomSeed);
             var recorderInfo = "";
+            levelActors = levelActors.FindAll(actor => actor != null);
+
             if (_hasScheduler)
             {
-                if (!_scheduler.SetupLevel(levelActors))
+                if (!_scheduler.CheckValidLevel())
                 {
-                    //Finished all the schedules
-                    //Should quit the game
                     AddInfoLog($"Schedule done.", "LevelController");
                     ApplicationHelper.QuitApplication();
                     yield break;
                 }
 
                 recorderInfo += _scheduler.GetCurrentScheduleInfo();
+                //Wait for one more frame to destroy the unused LLM actors replaced by Utility Agent AIs, if any
+                yield return null;
+                levelNavalActors = _scheduler.SetupLevel(levelActors);
+            }
+            else
+            {
+                //Wait for one more frame to destroy the unused LLM actors replaced by Utility Agent AIs, if any
+                yield return null;
+                levelNavalActors = levelNavalActors.FindAll(levelNavalActor => levelNavalActor != null);
             }
 
-            //Wait for one more frame to destroy the unused LLM actors replaced by Utility Agent AIs, if any
-            yield return null;
-
-            levelActors = levelActors.FindAll(actor => actor != null);
-            levelNavalActors = levelNavalActors.FindAll(levelNavalActor => levelNavalActor != null);
-            levelActionableActors = levelActionableActors.FindAll(levelActorPair => levelActorPair?.One != null);
             //Initialize level goal elements
             levelGoal.Initialize(levelActors);
+            yield return null;
             
+            levelActionableActors = levelActionableActors.FindAll(levelActorPair => levelActorPair?.One != null);
+
             if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
             {
+                //This is used when the level is being recorded for regular gaming procedures, rather than by the scheduler
                 recorderInfo += GetLevelRecordingName();
                 DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
                 var recorderFileName = $"{recorderInfo}-{TimestampHelper.GetSimplifiedTimestamp()}";
-                _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, levelNavalActors, recorderFileName);
+                _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, levelNavalActors,
+                    recorderFileName);
                 _recorder.RecordNewEntry(new GoalRecordEntry(levelGoal));
             }
 
@@ -563,7 +571,7 @@ namespace Core
         {
             return (long)Time.timeSinceLevelLoad;
         }
-        
+
         public int GetRandomSeed() => randomSeed;
 
         // ReSharper disable once NotDisposedResourceIsReturned

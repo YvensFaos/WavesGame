@@ -10,12 +10,25 @@ using System;
 using System.Linq;
 using Actors;
 using Grid;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 using Object = UnityEngine.Object;
 
 namespace Core.Recorder
 {
+    [Serializable]
+    public class DamageRecordEntryJson : ActorRecordEntryJson
+    {
+        [SerializeField] public int damage;
+
+        public DamageRecordEntryJson(string actorId, string eventType, int turn, long timeStamp, int damage,
+            string comment = "") : base(actorId, comment, eventType, turn, timeStamp)
+        {
+            this.damage = damage;
+        }
+    }
+
     [Serializable]
     public class DamageRecordEntry : ActorRecordEntry
     {
@@ -57,9 +70,11 @@ namespace Core.Recorder
             }
         }
 
-        public override string ToJson()
+        protected override string ToJson()
         {
-            throw new NotImplementedException();
+            return JsonConvert.SerializeObject(new DamageRecordEntryJson(ActorID,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Damage), turn,
+                timeStamp, _damage, comment));
         }
 
         /// <summary>

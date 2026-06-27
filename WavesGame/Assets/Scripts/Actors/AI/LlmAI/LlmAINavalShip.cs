@@ -368,6 +368,10 @@ namespace Actors.AI.LlmAI
         {
             basePrompt = promptSo;
         }
+        
+        public LlmPromptSo GetPrompt() => basePrompt;
+        
+        public LlmCallerObject GetCaller() => llmCaller;
 
         public int OverrideInitiative => overrideInitiative;
     }

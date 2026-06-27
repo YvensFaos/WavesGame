@@ -6,16 +6,29 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using Actors;
 using UnityEngine;
 using UUtils;
-using UUtils.GameRecorder;
 
 namespace Core.Recorder
 {
+    [Serializable]
+    public class EndGameRecordEntryJson : WavesEntryJson
+    {
+        [SerializeField] public string goalMessage;
+        [SerializeField] public string winningFaction;
+
+        public EndGameRecordEntryJson(string eventType, int turn, long timeStamp, string goalMessage,
+            string winningFaction) : base(eventType, turn, timeStamp)
+        {
+            this.goalMessage = goalMessage;
+            this.winningFaction = winningFaction;
+        }
+    }
+
     public class EndGameRecordEntry : WavesEntry
     {
-        private const string EndGameRecordType = "OVER";
         private readonly string _goalMessage;
         private readonly Faction _winningFaction;
 
@@ -34,15 +47,11 @@ namespace Core.Recorder
             levelController.ForceFinishLevel();
         }
 
-        public sealed override string ToString()
+        protected override string ToJson()
         {
-            var winningFactionEntry = _winningFaction != null ? $";{_winningFaction}" : "";
-            return $"{EndGameRecordType};{_goalMessage}{winningFactionEntry}";
-        }
-
-        public override string ToJson()
-        {
-            throw new System.NotImplementedException();
+            return JsonUtility.ToJson(new EndGameRecordEntryJson(
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.EndGame), turn,
+                timeStamp, _goalMessage, _winningFaction.name));
         }
 
         /// TODO change this to read the entry from a JSON.

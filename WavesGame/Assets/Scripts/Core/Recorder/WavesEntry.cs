@@ -6,17 +6,32 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
+using UnityEngine;
 using UUtils.GameRecorder;
 
 namespace Core.Recorder
 {
+    [Serializable]
+    public class WavesEntryJson
+    {
+        [SerializeField] public string eventType;
+        [SerializeField] public int turn;
+        [SerializeField] public long timeStamp;
+
+        public WavesEntryJson(string eventType, int turn, long timeStamp)
+        {
+            this.eventType = eventType;
+            this.turn = turn;
+            this.timeStamp = timeStamp;
+        }
+    }
+
     public abstract class WavesEntry : RecordEntry
     {
         protected readonly WavesRecordEntryType eventType;
         protected readonly int turn;
         protected readonly long timeStamp;
-        
-        //TODO select a default static type for the debug type
 
         protected WavesEntry(WavesRecordEntryType eventType, int turn, long timeStamp)
         {
@@ -25,6 +40,16 @@ namespace Core.Recorder
             this.timeStamp = timeStamp;
         }
 
-        public abstract string ToJson();
+        public sealed override string ToString()
+        {
+            return ToJson();
+        }
+
+        protected virtual string ToJson()
+        {
+            return JsonUtility.ToJson(
+                new WavesEntryJson(WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn,
+                    timeStamp));
+        }
     }
 }

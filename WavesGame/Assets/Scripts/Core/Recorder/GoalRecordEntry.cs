@@ -6,10 +6,24 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
+using UnityEngine;
 using UUtils;
 
 namespace Core.Recorder
 {
+    [Serializable]
+    public class GoalRecordEntryJson : WavesEntryJson
+    {
+        [SerializeField] public string goalMessage;
+
+        public GoalRecordEntryJson(string eventType, int turn, long timeStamp, string goalMessage) : base(eventType,
+            turn, timeStamp)
+        {
+            this.goalMessage = goalMessage;
+        }
+    }
+
     public class GoalRecordEntry : WavesEntry
     {
         private readonly string _goalMessage;
@@ -32,15 +46,11 @@ namespace Core.Recorder
             DebugUtils.DebugLogMsg($"Level goal changed to: {_goalMessage}.", DebugUtils.DebugType.Temporary);
         }
 
-        public sealed override string ToString()
+        protected override string ToJson()
         {
-            return
-                $"{WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Goal)};{_goalMessage}";
-        }
-
-        public override string ToJson()
-        {
-            throw new System.NotImplementedException();
+            return JsonUtility.ToJson(new GoalRecordEntryJson(
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Goal), turn, timeStamp,
+                _goalMessage));
         }
 
         /// TODO change this to read the entry from a JSON.

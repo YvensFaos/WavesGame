@@ -7,11 +7,27 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
 namespace Core.Recorder
 {
+    [Serializable]
+    public class MovementRecordEntryJson : ActorRecordEntryJson
+    {
+        [SerializeField] public SimpleVector2Int moveFrom;
+        [SerializeField] public SimpleVector2Int moveTo;
+
+        public MovementRecordEntryJson(string actorId, string eventType, int turn, long timeStamp,
+            Vector2Int moveFrom, Vector2Int moveTo, string comment = "") : base(actorId, comment, eventType, turn,
+            timeStamp)
+        {
+            this.moveFrom = new SimpleVector2Int(moveFrom);
+            this.moveTo = new SimpleVector2Int(moveTo);
+        }
+    }
+
     [Serializable]
     public class MovementRecordEntry : ActorRecordEntry
     {
@@ -37,9 +53,11 @@ namespace Core.Recorder
             levelController.MoveActor(navalShip, MoveTo);
         }
 
-        public override string ToJson()
+        protected override string ToJson()
         {
-            throw new NotImplementedException();
+            return JsonConvert.SerializeObject(new MovementRecordEntryJson(ActorID,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Movement), turn,
+                timeStamp, MoveFrom, MoveTo, comment));
         }
 
         public Vector2Int MoveFrom { get; }

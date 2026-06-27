@@ -9,11 +9,30 @@
 using System;
 using Actors;
 using Grid;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
 namespace Core.Recorder
 {
+    [Serializable]
+    public class AttackRecordEntryJson : ActorRecordEntryJson
+    {
+        [SerializeField] public string targetId;
+        [SerializeField] public SimpleVector2Int attackPosition;
+        [SerializeField] public float damage;
+
+        public AttackRecordEntryJson(string actorId, string eventType, int turn, long timeStamp,
+            string targetId, Vector2Int attackPosition, float damage, string comment = "") : base(actorId, comment,
+            eventType, turn,
+            timeStamp)
+        {
+            this.targetId = targetId;
+            this.attackPosition = new SimpleVector2Int(attackPosition);
+            this.damage = damage;
+        }
+    }
+
     [Serializable]
     public class AttackRecordEntry : ActorRecordEntry
     {
@@ -21,7 +40,8 @@ namespace Core.Recorder
         private Vector2Int _attackPosition;
         private float _damage;
 
-        public AttackRecordEntry(string actorId, Vector2Int attackPosition, string targetId, float damage, int turn, long timeStamp) :
+        public AttackRecordEntry(string actorId, Vector2Int attackPosition, string targetId, float damage, int turn,
+            long timeStamp) :
             base(actorId, WavesRecordEntryType.Attack, turn, timeStamp)
         {
             _attackPosition = attackPosition;
@@ -69,9 +89,12 @@ namespace Core.Recorder
             }
         }
 
-        public override string ToJson()
+        protected override string ToJson()
         {
-            throw new NotImplementedException();
+            //string actorId, string eventType, int turn, long timeStamp, string targetId, Vector2Int attackPosition, float damage, string comment = ""
+            return JsonConvert.SerializeObject(new AttackRecordEntryJson(ActorID,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _targetId,
+                _attackPosition, _damage, comment));
         }
 
         /// <summary>

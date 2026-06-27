@@ -23,6 +23,11 @@ namespace Actors.Cannon
             return cannonData.damage + DiceHelper.RollDiceFromString(cannonData.damageDie);
         }
 
+        public string GetCannonDataName()
+        {
+            return cannonData.name;
+        }
+        
         public override string ToString()
         {
             return $"Cannon: {cannonData}";

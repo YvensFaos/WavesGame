@@ -41,15 +41,16 @@ namespace Actors.AI.LlmAI
             callers = FindObjectsByType<LlmCallerObject>(FindObjectsSortMode.None).ToList();
         }
 
-        public bool SetupLevel(List<GridActor> levelActors)
+        public bool CheckValidLevel()
         {
-            if (internalCounter >= schedules.Count)
-            {
-                DebugUtils.DebugLogMsg($"Finish! All schedules done, current -> {internalCounter}.",
-                    DebugUtils.DebugType.System);
-                return false;
-            }
-
+            if (internalCounter < schedules.Count) return true;
+            DebugUtils.DebugLogMsg($"Finish! All schedules done, current -> {internalCounter}.",
+                DebugUtils.DebugType.System);
+            return false;
+        }
+        
+        public List<NavalActor> SetupLevel(List<GridActor> levelActors)
+        {
             currentSchedule = schedules[internalCounter];
             internalRepetition = currentSchedule.InternalRepetitionsCount;
 
@@ -59,12 +60,12 @@ namespace Actors.AI.LlmAI
                 {
                     return llm;
                 }
-
                 return null;
             }).ToList().FindAll(actor => actor != null);
 
             var aiFactions = currentSchedule.GetFactions();
             var ships = new List<NavalActor>();
+            
             foreach (var aiFaction in aiFactions)
             {
                 var factionLlmActors = llmActors.FindAll(actor => actor.GetFaction().Equals(aiFaction));
@@ -112,16 +113,14 @@ namespace Actors.AI.LlmAI
                     ships.Add(newAiBaseShip);
                 }
             }
+            ships = ships.FindAll(ship => ship != null && ship.enabled);
 
-            if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
-            {
-                DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
-                var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
-                wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), ships, recorderFileName);
-                wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
-            }
-            
-            return true;
+            if (!WavesRecorder.TryToGetSingleton(out var wavesRecorder)) return ships;
+            DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
+            var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
+            wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), ships, recorderFileName);
+            wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
+            return ships;
         }
 
         public void FinishLevel(LevelGoal levelGoal)
@@ -169,7 +168,7 @@ namespace Actors.AI.LlmAI
         {
             if (internalCounter >= schedules.Count) return "no-schedule";
             var schedule = schedules[internalCounter];
-            var repetition = currentSchedule.InternalRepetitionsCount;
+            var repetition = schedule.InternalRepetitionsCount;
 
             return $"{schedule}-{repetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
         }

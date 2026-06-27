@@ -7,10 +7,21 @@
  */
 
 using System;
+using Newtonsoft.Json;
+using UnityEngine;
 using UUtils;
 
 namespace Core.Recorder
 {
+    [Serializable]
+    public class DeathRecordEntryJson : ActorRecordEntryJson
+    {
+        public DeathRecordEntryJson(string actorId, string eventType, int turn, long timeStamp, string comment = "") :
+            base(actorId, comment, eventType, turn, timeStamp)
+        {
+        }
+    }
+
     [Serializable]
     public class DeathRecordEntry : ActorRecordEntry
     {
@@ -27,9 +38,11 @@ namespace Core.Recorder
             navalActor.DestroyActorImmediate();
         }
 
-        public override string ToJson()
+        protected override string ToJson()
         {
-            throw new NotImplementedException();
+            return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Death), turn,
+                timeStamp, comment));
         }
 
         /// <summary>
