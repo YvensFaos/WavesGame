@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
- * 
+ *
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
  * or see the LICENSE file in the root directory of this repository.
@@ -191,14 +191,16 @@ namespace Core
             var cannonData = cannon.GetCannonSo;
             _walkableUnits = GridManager.GetSingleton().GetGridUnitsForMoveType(cannonData.targetAreaType, index,
                 cannonData.area, cannonData.deadZone);
-            
+
             _walkableUnits.ForEach(unit =>
             {
                 if (unit == null)
                 {
-                    DebugUtils.DebugLogErrorMsg("Invalid unit on the list. Check if the tilemap generated the correct prefab!");
+                    DebugUtils.DebugLogErrorMsg(
+                        "Invalid unit on the list. Check if the tilemap generated the correct prefab!");
                     return;
                 }
+
                 unit.DisplayTargetingVisuals();
                 var unitActor = unit.GetActor();
                 if (unitActor == null) return;
@@ -214,13 +216,16 @@ namespace Core
             {
                 DebugUtils.DebugLogMsg("No valid walkable units available!", DebugUtils.DebugType.Error);
             }
+
             _walkableUnits?.ForEach(unit =>
             {
                 if (unit == null)
                 {
-                    DebugUtils.DebugLogErrorMsg("Invalid unit on the list. Check if the tilemap generated the correct prefab!");
+                    DebugUtils.DebugLogErrorMsg(
+                        "Invalid unit on the list. Check if the tilemap generated the correct prefab!");
                     return;
                 }
+
                 unit.HideVisuals();
                 var unitActor = unit.GetActor();
                 if (unitActor == null) return;
@@ -233,8 +238,8 @@ namespace Core
         public bool TargetSelectedGridUnit(GridUnit gridUnit)
         {
             var canTarget = _walkableUnits.Contains(gridUnit);
-            if(!canTarget) return false;
-                
+            if (!canTarget) return false;
+
             var enumerator = gridUnit.GetActorEnumerator();
             var attackHappened = false;
             while (enumerator.MoveNext())
@@ -263,19 +268,22 @@ namespace Core
                 if (navalShip.CanAct())
                 {
                     DebugUtils.DebugLogMsg($"Act upon {targetActor.name}!", DebugUtils.DebugType.Verbose);
-                    
+
                     var damage = navalShip.CalculateDamage();
                     if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
                     {
                         var attackRecordEntry = new AttackRecordEntry
-                        (_selectedActor.gameObject.name, targetActor.GetUnit().Index(),
-                            damage, LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
+                        (_selectedActor.gameObject.name, targetActor.GetUnit().Index(), targetActor.name,
+                            damage, LevelController.GetSingleton().GetTurn(),
+                            LevelController.GetSingleton().GetTimeStamp());
                         if (targetActor is WaveActor)
                         {
                             attackRecordEntry.AppendComment($"Attacked a wave");
                         }
+
                         wavesRecorder.RecordNewEntry(attackRecordEntry);
                     }
+
                     targetActor.TakeDamage(damage);
                     attackHappened = true;
                 }

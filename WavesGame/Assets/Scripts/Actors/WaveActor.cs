@@ -143,7 +143,7 @@ namespace Actors
         private void RecordAttack(GridActor targetActor, int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), damage,
+            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), targetActor.name, damage,
                 LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
             if (targetActor is WaveActor)
             {

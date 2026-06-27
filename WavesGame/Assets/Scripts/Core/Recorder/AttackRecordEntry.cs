@@ -17,25 +17,27 @@ namespace Core.Recorder
     [Serializable]
     public class AttackRecordEntry : ActorRecordEntry
     {
+        private string _targetId;
         private Vector2Int _attackPosition;
         private float _damage;
 
-        public AttackRecordEntry(string actorId, Vector2Int attackPosition, float damage, int turn, long timeStamp) :
+        public AttackRecordEntry(string actorId, Vector2Int attackPosition, string targetId, float damage, int turn, long timeStamp) :
             base(actorId, WavesRecordEntryType.Attack, turn, timeStamp)
         {
             _attackPosition = attackPosition;
+            _targetId = targetId;
             _damage = damage;
         }
 
         protected override string Content()
         {
-            return $";{_attackPosition};{_damage}";
+            return $";{_attackPosition};{_damage};{_targetId}";
         }
 
         public override void PerformEntry()
         {
             DebugUtils.DebugLogMsg(
-                $"AttackRecordEntry: {ActorID} attacks at {_attackPosition}. Recorded damage: {_damage}.",
+                $"AttackRecordEntry: {ActorID} attacks at {_attackPosition} targeting {_targetId}. Recorded damage: {_damage}.",
                 DebugUtils.DebugType.Verbose);
             // Animate attack at given position. Animate only. Damage is handled by the DAMG entry.
             if (!GridManager.GetSingleton().CheckGridPosition(_attackPosition, out var attackGridPosition)) return;
@@ -107,7 +109,7 @@ namespace Core.Recorder
             }
 
             //TODO update reading the turn and timeStamp
-            return new AttackRecordEntry(actorId, new Vector2Int(x, y), damage, -1, -1);
+            return new AttackRecordEntry(actorId, new Vector2Int(x, y), "TODO <target>", damage, -1, -1);
         }
     }
 }

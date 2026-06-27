@@ -64,6 +64,7 @@ namespace Actors.AI
                         if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
                         {
                             var attackRecordEntry = new AttackRecordEntry(name, targetUnit.Index(),
+                                targetUnit.GetActor().name,
                                 damage, LevelController.GetSingleton().GetTurn(),
                                 LevelController.GetSingleton().GetTimeStamp());
                             if (targetUnit.GetActor() is WaveActor)
