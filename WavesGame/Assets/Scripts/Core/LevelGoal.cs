@@ -362,5 +362,7 @@ namespace Core
         public Faction GetWinnerFaction() => _winnerFaction;
 
         public int GetCurrentTurn() => turnNumber;
+
+        public int GetMaxTurns() => maxLlmTurns;
     }
 }

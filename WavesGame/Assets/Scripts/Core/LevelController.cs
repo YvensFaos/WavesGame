@@ -141,7 +141,7 @@ namespace Core
                 recorderInfo += GetLevelRecordingName();
                 DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
                 var recorderFileName = $"{recorderInfo}-{TimestampHelper.GetSimplifiedTimestamp()}";
-                _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, levelNavalActors,
+                _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, -1, levelNavalActors,
                     recorderFileName);
                 _recorder.RecordNewEntry(new GoalRecordEntry(levelGoal));
             }

@@ -118,7 +118,7 @@ namespace Actors.AI.LlmAI
             if (!WavesRecorder.TryToGetSingleton(out var wavesRecorder)) return ships;
             DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
             var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
-            wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), ships, recorderFileName);
+            wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), levelController.GetLevelGoal().GetMaxTurns(), ships, recorderFileName);
             wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
             return ships;
         }
