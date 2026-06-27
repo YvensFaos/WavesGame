@@ -402,18 +402,18 @@ namespace Core
             DebugUtils.DebugLogMsg($"Level ended: {(win ? "Victory!" : "Defeat!")}", DebugUtils.DebugType.System);
             CursorController.GetSingleton().FinishLevel();
             AddInfoLog("Level finished.", "LevelController");
+            
+            if (_recorder != null)
+            {
+                _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
+                    levelGoal.GetWinnerFaction(), GetTurn(), -1));
+                DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
+                _recorder.Stop();
+            }
 
             // Delays one frame to finish writing all the necessary information on the logs and recorders.
             DelayHelper.DelayOneFrame(this, () =>
             {
-                if (_recorder != null)
-                {
-                    _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
-                        levelGoal.GetWinnerFaction(), GetTurn(), -1));
-                    DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
-                    _recorder.Stop();
-                }
-
                 if (_scheduler == null)
                 {
                     endLevelPanelUI.gameObject.SetActive(true);

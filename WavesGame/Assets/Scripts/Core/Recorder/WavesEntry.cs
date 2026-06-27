@@ -7,6 +7,7 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils.GameRecorder;
 
@@ -15,9 +16,14 @@ namespace Core.Recorder
     [Serializable]
     public class WavesEntryJson
     {
-        [SerializeField] public string eventType;
-        [SerializeField] public int turn;
-        [SerializeField] public long timeStamp;
+        [JsonProperty(Order = -2)] [SerializeField]
+        public string eventType;
+
+        [JsonProperty(Order = -1)] [SerializeField]
+        public int turn;
+
+        [JsonProperty(Order = 0)] [SerializeField]
+        public long timeStamp;
 
         public WavesEntryJson(string eventType, int turn, long timeStamp)
         {

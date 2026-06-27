@@ -12,6 +12,7 @@ using System.Linq;
 using Actors;
 using Actors.AI;
 using Actors.AI.LlmAI;
+using Core.Recorder;
 using Grid;
 using NaughtyAttributes;
 using UnityEngine;
@@ -213,12 +214,13 @@ namespace Core
                     break;
                 case LevelGoalType.AIWars:
                 {
+                    var levelController = LevelController.GetSingleton();
                     if (turnNumber >= maxLlmTurns)
                     {
                         DebugUtils.DebugLogMsg($"Draw! Max number of turns reached: {turnNumber} == {maxLlmTurns}.",
                             DebugUtils.DebugType.System);
-                        LevelController.GetSingleton().AddInfoLog($"Draw! No faction won.", "LevelGoal");
-                        LevelController.GetSingleton()
+                        levelController.AddInfoLog($"Draw! No faction won.", "LevelGoal");
+                        levelController
                             .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
                         foreach (var aiShipPair in enemyFactionShips)
                         {
@@ -250,9 +252,15 @@ namespace Core
                     if (!endLevel) return false;
 
                     _winnerFaction = aliveFaction;
-                    LevelController.GetSingleton().AddInfoLog($"Faction {_winnerFaction} won.", "LevelGoal");
-                    LevelController.GetSingleton()
+                    levelController.AddInfoLog($"Faction {_winnerFaction} won.", "LevelGoal");
+                    levelController
                         .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
+
+                    if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
+                    {
+                        wavesRecorder.RecordNewEntry(new EndGameRecordEntry(GetLevelMessage(),
+                            _winnerFaction, GetCurrentTurn(), levelController.GetTimeStamp()));
+                    }
 
                     // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
                     foreach (var aiShipPair in enemyFactionShips)
@@ -353,12 +361,12 @@ namespace Core
         //TODO for the custom type, create a sort of prefab with script checker.
 
         public LevelGoalType Type() => type;
-        
+
         public void SetTypeViaString(string stringType)
         {
             type = LevelGoalTypeExtension.LevelGoalTypeFromString(stringType);
         }
-        
+
         public Faction GetWinnerFaction() => _winnerFaction;
 
         public int GetCurrentTurn() => turnNumber;

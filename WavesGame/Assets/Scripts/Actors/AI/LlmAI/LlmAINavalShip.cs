@@ -181,6 +181,13 @@ namespace Actors.AI.LlmAI
             }
 
             DebugUtils.DebugLogMsg(actions.reasoning, DebugUtils.DebugType.System);
+
+            if (!string.IsNullOrEmpty(actions.reasoning) && WavesRecorder.TryToGetSingleton(out var wavesRecorder))
+            {
+                wavesRecorder.RecordNewEntry(new ReasoningRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+                    LevelController.GetSingleton().GetTimeStamp(), actions.reasoning));
+            }
+
             LevelController.GetSingleton().AddReasonLog(actions.reasoning, name);
 
             var shouldMove = false;
@@ -368,9 +375,9 @@ namespace Actors.AI.LlmAI
         {
             basePrompt = promptSo;
         }
-        
+
         public LlmPromptSo GetPrompt() => basePrompt;
-        
+
         public LlmCallerObject GetCaller() => llmCaller;
 
         public int OverrideInitiative => overrideInitiative;
