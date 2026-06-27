@@ -79,7 +79,7 @@ namespace Actors
             DebugUtils.DebugLogMsg(
                 $"{name} attacked with {damage}. Sturdiness is {shipData.stats.sturdiness.Two}. Damage taken was {damageTaken}.",
                 DebugUtils.DebugType.Verbose);
-            
+
             return base.TakeDamage(damageTaken);
         }
 
@@ -108,7 +108,7 @@ namespace Actors
                     onFinishMoving?.Invoke(unit);
                     return false;
                 }
-                
+
                 StartCoroutine(MovementStepsCoroutine(currentUnit, steps, onFinishMoving, time));
             }
             else
@@ -121,7 +121,8 @@ namespace Actors
             return true;
         }
 
-        private IEnumerator MovementStepsCoroutine(GridUnit initialStep, List<GridUnit> steps, Action<GridUnit> onFinishMoving, float time)
+        private IEnumerator MovementStepsCoroutine(GridUnit initialStep, List<GridUnit> steps,
+            Action<GridUnit> onFinishMoving, float time)
         {
             var stepsEnumerator = steps.GetEnumerator();
             var continueSteps = true;
@@ -137,8 +138,9 @@ namespace Actors
 
                 if (firstStep != current)
                 {
-                    RecordMovement(firstStep, current);    
+                    RecordMovement(firstStep, current);
                 }
+
                 transform.DOMove(current.transform.position, time).OnComplete(() => { nextStep = true; });
                 yield return new WaitUntil(() => nextStep);
                 UpdateGridUnitOnMovement(current);

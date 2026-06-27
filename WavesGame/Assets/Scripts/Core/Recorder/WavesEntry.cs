@@ -12,13 +12,13 @@ namespace Core.Recorder
 {
     public abstract class WavesEntry : RecordEntry
     {
-        protected string eventType;
-        protected int turn;
-        protected long timeStamp;
+        protected readonly WavesRecordEntryType eventType;
+        protected readonly int turn;
+        protected readonly long timeStamp;
         
         //TODO select a default static type for the debug type
 
-        protected WavesEntry(string eventType, int turn, long timeStamp)
+        protected WavesEntry(WavesRecordEntryType eventType, int turn, long timeStamp)
         {
             this.eventType = eventType;
             this.turn = turn;

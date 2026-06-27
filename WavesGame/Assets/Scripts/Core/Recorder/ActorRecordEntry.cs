@@ -10,11 +10,10 @@ namespace Core.Recorder
 {
     public abstract class ActorRecordEntry : WavesEntry
     {
-        protected WavesRecordEntryType type;
         private string _comment;
 
         protected ActorRecordEntry(string actorId, WavesRecordEntryType type, int turn, long timeStamp) :
-            base(WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(type), turn, timeStamp)
+            base(type, turn, timeStamp)
         {
             ActorID = actorId;
             _comment = "";
@@ -34,7 +33,7 @@ namespace Core.Recorder
         {
             var commentLine = string.IsNullOrEmpty(_comment) ? "" : $";[{_comment}]";
             return
-                $"{WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(type)};turn:{turn};timeStamp:{timeStamp};{ActorID}{Content()}{commentLine}";
+                $"{WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType)};turn:{turn};timeStamp:{timeStamp};{ActorID}{Content()}{commentLine}";
         }
 
         protected string ActorID { get; }

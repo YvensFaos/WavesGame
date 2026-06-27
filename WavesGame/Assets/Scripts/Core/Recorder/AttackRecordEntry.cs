@@ -25,7 +25,6 @@ namespace Core.Recorder
         {
             _attackPosition = attackPosition;
             _damage = damage;
-            type = WavesRecordEntryType.Attack;
         }
 
         protected override string Content()

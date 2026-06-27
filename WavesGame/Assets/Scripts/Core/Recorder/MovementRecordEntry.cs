@@ -15,11 +15,11 @@ namespace Core.Recorder
     [Serializable]
     public class MovementRecordEntry : ActorRecordEntry
     {
-        public MovementRecordEntry(string actorId, Vector2Int moveFrom, Vector2Int moveTo, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Movement, turn, timeStamp)
+        public MovementRecordEntry(string actorId, Vector2Int moveFrom, Vector2Int moveTo, int turn, long timeStamp) :
+            base(actorId, WavesRecordEntryType.Movement, turn, timeStamp)
         {
             MoveTo = moveTo;
             MoveFrom = moveFrom;
-            type = WavesRecordEntryType.Movement;
         }
 
         protected override string Content()
@@ -29,7 +29,8 @@ namespace Core.Recorder
 
         public override void PerformEntry()
         {
-            DebugUtils.DebugLogMsg($"MovementRecordEntry: {ActorID} moves from {MoveFrom} to {MoveTo}.", DebugUtils.DebugType.Temporary);
+            DebugUtils.DebugLogMsg($"MovementRecordEntry: {ActorID} moves from {MoveFrom} to {MoveTo}.",
+                DebugUtils.DebugType.Temporary);
             var levelController = LevelController.GetSingleton();
             var navalShip = levelController.GetNavalShipWithId(ActorID);
             if (navalShip == null) return;

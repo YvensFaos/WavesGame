@@ -12,16 +12,14 @@ namespace Core.Recorder
 {
     public class GoalRecordEntry : WavesEntry
     {
-        private const string GoalRecordType = "GOAL";
-
         private readonly string _goalMessage;
 
-        public GoalRecordEntry(LevelGoal levelGoal) : base(GoalRecordType, -1, 0)
+        public GoalRecordEntry(LevelGoal levelGoal) : base(WavesRecordEntryType.Goal, -1, 0)
         {
             _goalMessage = LevelGoalTypeExtension.LevelGoalTypeToString(levelGoal.Type());
         }
 
-        private GoalRecordEntry(string levelGoalMessage) : base(GoalRecordType, -1, 0)
+        private GoalRecordEntry(string levelGoalMessage) : base(WavesRecordEntryType.Goal, -1, 0)
         {
             _goalMessage = levelGoalMessage;
         }
@@ -36,7 +34,8 @@ namespace Core.Recorder
 
         public sealed override string ToString()
         {
-            return $"{GoalRecordType};{_goalMessage}";
+            return
+                $"{WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Goal)};{_goalMessage}";
         }
 
         public override string ToJson()

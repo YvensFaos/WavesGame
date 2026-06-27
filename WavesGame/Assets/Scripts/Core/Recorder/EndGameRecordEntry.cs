@@ -20,7 +20,7 @@ namespace Core.Recorder
         private readonly Faction _winningFaction;
 
         public EndGameRecordEntry(string goalMessage, Faction winningFaction, int turn, long timeStamp) : base(
-            EndGameRecordType, turn, timeStamp)
+            WavesRecordEntryType.EndGame, turn, timeStamp)
         {
             _goalMessage = goalMessage;
             _winningFaction = winningFaction;

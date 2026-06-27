@@ -14,9 +14,9 @@ namespace Core.Recorder
     [Serializable]
     public class DeathRecordEntry : ActorRecordEntry
     {
-        public DeathRecordEntry(string actorId, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Death, turn, timeStamp)
+        public DeathRecordEntry(string actorId, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Death,
+            turn, timeStamp)
         {
-            type = WavesRecordEntryType.Death;
         }
 
         public override void PerformEntry()
