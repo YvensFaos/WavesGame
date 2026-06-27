@@ -27,7 +27,7 @@ namespace Core.Recorder
 
         private void StartRecording(string recordingIdentifier)
         {
-            recorder.StartRecording(recordingIdentifier);
+            recorder.StartRecording(recordingIdentifier, ".txt");
         }
 
         public void RecordNewEntry(RecordEntry entry)
