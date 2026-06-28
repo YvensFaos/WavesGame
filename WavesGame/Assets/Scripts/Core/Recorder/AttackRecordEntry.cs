@@ -91,7 +91,6 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            //string actorId, string eventType, int turn, long timeStamp, string targetId, Vector2Int attackPosition, float damage, string comment = ""
             return JsonConvert.SerializeObject(new AttackRecordEntryJson(ActorID,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _targetId,
                 _attackPosition, _damage, comment));

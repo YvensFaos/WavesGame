@@ -219,19 +219,19 @@ namespace Actors.AI.LlmAI
             if (shouldMove)
             {
                 _internalMovementAttemptCount++;
-                yield return StartCoroutine(LlmMoveCoroutine(movement));
+                yield return StartCoroutine(LlmMoveCoroutine(movement, actions.reasoning));
             }
 
             if (shouldAttack)
             {
                 _internalAttackAttemptCount++;
-                yield return StartCoroutine(LlmAttackCoroutine(attack));
+                yield return StartCoroutine(LlmAttackCoroutine(attack, actions.reasoning));
             }
 
             if (shouldMoveAfterAttack)
             {
                 _internalMovementAttemptCount++;
-                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack));
+                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack, actions.reasoning, true));
             }
 
             FinishAITurn();
@@ -249,7 +249,7 @@ namespace Actors.AI.LlmAI
             }
         }
 
-        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition)
+        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, bool moveAfterAttack = false)
         {
             var canMove = GridManager.GetSingleton().CheckGridPosition(moveToPosition, out var moveGridUnit);
             var finishedMoving = false;
@@ -259,6 +259,7 @@ namespace Actors.AI.LlmAI
                 var moved = MoveTo(moveGridUnit, _ => { finishedMoving = true; }, true);
                 if (!moved)
                 {
+                    RecordFailedToMove(moveGridUnit.Index(), reasoning, moveAfterAttack);
                     _internalWrongMovementCount++;
                 }
             }
@@ -267,13 +268,14 @@ namespace Actors.AI.LlmAI
                 DebugUtils.DebugLogMsg($"Could not move to {moveToPosition}.", DebugUtils.DebugType.Error);
                 LevelController.GetSingleton().AddInfoLog($"Failed to move to {moveToPosition}", name);
                 finishedMoving = true;
+                RecordFailedToMove(moveToPosition, reasoning, moveAfterAttack);
                 _internalWrongMovementCount++;
             }
 
             yield return new WaitUntil(() => finishedMoving);
         }
 
-        private IEnumerator LlmAttackCoroutine(Vector2Int attackPosition)
+        private IEnumerator LlmAttackCoroutine(Vector2Int attackPosition, string reasoning)
         {
             while (TryToAct())
             {
@@ -281,6 +283,7 @@ namespace Actors.AI.LlmAI
                 if (!hasValidTarget && targetUnit.ActorsCount() <= 0)
                 {
                     LevelController.GetSingleton().AddInfoLog($"No valid target chosen", name);
+                    RecordInvalidTargetChosen(targetUnit, reasoning);
                     _internalWrongAttackCount++;
                     continue;
                 }
@@ -301,6 +304,7 @@ namespace Actors.AI.LlmAI
                 else
                 {
                     var cannotReachMsg = $"Cannot reach target at {targetUnit}.";
+                    RecordCannotReachAttack(targetUnit.GetActor(), targetUnit, reasoning);
                     DebugUtils.DebugLogMsg(cannotReachMsg, DebugUtils.DebugType.Error);
                     LevelController.GetSingleton().AddInfoLog(cannotReachMsg, name);
                     _internalWrongAttackCount++;
@@ -308,6 +312,43 @@ namespace Actors.AI.LlmAI
             }
 
             yield return null;
+        }
+
+        private void RecordInvalidTargetChosen(GridUnit targetUnit, string reasoning)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.InvalidTarget, currentUnit.Index(),
+                null, targetUnit.Index(), reasoning);
+            recorder.RecordNewEntry(invalidCannotReachEntry);
+        }
+
+        private void RecordCannotReachAttack(GridActor targetActor, GridUnit targetUnit, string reasoning)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.Attack, currentUnit.Index(),
+                targetActor, targetUnit.Index(), reasoning);
+            if (targetActor is WaveActor)
+            {
+                invalidCannotReachEntry.AppendComment($"Attacked a wave");
+            }
+
+            recorder.RecordNewEntry(invalidCannotReachEntry);
+        }
+
+        private void RecordFailedToMove(Vector2Int targetUnit, string reasoning, bool moveAfterAttack)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.Move, currentUnit.Index(),
+                null, targetUnit, reasoning);
+            if (moveAfterAttack)
+            {
+                invalidCannotReachEntry.AppendComment($"Movement after attacking.");
+            }
+
+            recorder.RecordNewEntry(invalidCannotReachEntry);
         }
 
         private void RecordAttack(GridActor targetActor, int damage)
