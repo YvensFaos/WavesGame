@@ -1,0 +1,108 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"LLMAIBattleground","randomSeed":6,"maxTurns":100,"navalActorEntryJsons":[{"name":"LLMAgent|DeepSeek|deepseek-chat|Green|3","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"","basePrompt":"Prompt_8_move_recheck","llmInfo":"DeepSeek-deepseek-chat-Prompt_8_move_recheck","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"LLMAgent|DeepSeek|deepseek-chat|Green|4","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":6},"genesData":"","basePrompt":"Prompt_8_move_recheck","llmInfo":"DeepSeek-deepseek-chat-Prompt_8_move_recheck","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"LLMAgent|DeepSeek|deepseek-chat|Green|5","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":6},"genesData":"","basePrompt":"Prompt_8_move_recheck","llmInfo":"DeepSeek-deepseek-chat-Prompt_8_move_recheck","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":10,"y":13},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"AI Wars"}
+{"eventType":"RESN","reasoning":"Move to (10,7), attack wave","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":0,"timeStamp":2}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":10,"y":5},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":0,"timeStamp":3}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":10,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":0,"timeStamp":3}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":0,"timeStamp":4}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":11,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":5}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":13},"moveTo":{"x":11,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":5}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":6}
+{"eventType":"RESN","reasoning":"Move to (13,6), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":0,"timeStamp":9}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":13,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":0,"timeStamp":9}
+{"eventType":"NVLD","type":"Attack","position":{"x":13,"y":6},"targetId":"","targetPosition":{"x":11,"y":7},"reasoning":"Move to (13,6), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":13,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":11}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":12},"moveTo":{"x":13,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":11}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":11},"moveTo":{"x":13,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":12}
+{"eventType":"ATTK","targetId":"Target","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":12}
+{"eventType":"DEAD","actorId":"Target","turn":0,"timeStamp":12}
+{"eventType":"RESN","reasoning":"Move to (8,6), no attack possible","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":0,"timeStamp":16}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":8,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":0,"timeStamp":16}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":6,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":12},"moveTo":{"x":6,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":11},"moveTo":{"x":6,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":19}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":19}
+{"eventType":"DEAD","actorId":"Target (3)","turn":0,"timeStamp":19}
+{"eventType":"RESN","reasoning":"Move to (11,9), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":1,"timeStamp":23}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":11,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":1,"timeStamp":23}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":1,"timeStamp":24}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":11,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":1,"timeStamp":24}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|7","attackPosition":{"x":11,"y":11},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":1,"timeStamp":25}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":1,"timeStamp":25}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","attackPosition":{"x":11,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":1,"timeStamp":27}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":1,"timeStamp":27}
+{"eventType":"RESN","reasoning":"Move to (13,8), no attack possible","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":31}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":6},"moveTo":{"x":13,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":31}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":7},"moveTo":{"x":13,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":32}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":10},"moveTo":{"x":14,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":33}
+{"eventType":"MOVE","moveFrom":{"x":14,"y":10},"moveTo":{"x":14,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":34}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","attackPosition":{"x":13,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":34}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":34}
+{"eventType":"RESN","reasoning":"Move to (9,8), attack wave to hit enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":1,"timeStamp":38}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":6},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":1,"timeStamp":38}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":9,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":1,"timeStamp":39}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","comment":"Moved by wave effect!","turn":1,"timeStamp":39}
+{"eventType":"NVLD","type":"Attack","position":{"x":9,"y":6},"targetId":"Wave S","targetPosition":{"x":9,"y":7},"reasoning":"Move to (9,8), attack wave to hit enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","comment":"Attacked a wave","turn":1,"timeStamp":40}
+{"eventType":"RESN","reasoning":"Move to (9,9), attack wave to hit enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":2,"timeStamp":43}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":2,"timeStamp":44}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":9,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":2,"timeStamp":44}
+{"eventType":"NVLD","type":"Attack","position":{"x":9,"y":9},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Move to (9,9), attack wave to hit enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","comment":"Attacked a wave","turn":2,"timeStamp":45}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":10,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":45}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","comment":"Moved by wave effect!","turn":2,"timeStamp":46}
+{"eventType":"RESN","reasoning":"Move to (14,9), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":2,"timeStamp":49}
+{"eventType":"NVLD","type":"Move","position":{"x":13,"y":8},"targetId":"","targetPosition":{"x":14,"y":9},"reasoning":"Move to (14,9), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":2,"timeStamp":49}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|8","attackPosition":{"x":14,"y":9},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":2,"timeStamp":49}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":49}
+{"eventType":"MOVE","moveFrom":{"x":14,"y":9},"moveTo":{"x":13,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":51}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":9},"moveTo":{"x":12,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":52}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":11,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":52}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","attackPosition":{"x":9,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":53}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":2,"timeStamp":53}
+{"eventType":"RESN","reasoning":"Move to (10,6), attack wave to hit enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":2,"timeStamp":57}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":10,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":2,"timeStamp":57}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":10},"moveTo":{"x":7,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":2,"timeStamp":58}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":2,"timeStamp":59}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","attackPosition":{"x":9,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":2,"timeStamp":59}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":2,"timeStamp":59}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":9,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":62}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":12},"moveTo":{"x":9,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":62}
+{"eventType":"RESN","reasoning":"Move to (12,9), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":65}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":8},"moveTo":{"x":12,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":65}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":12,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":66}
+{"eventType":"NVLD","type":"Attack","position":{"x":12,"y":9},"targetId":"AIAgent-Utility|RevengeUtility|Red|8","targetPosition":{"x":11,"y":9},"reasoning":"Move to (12,9), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":66}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":67}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":12,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":68}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":13,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":68}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":69}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":69}
+{"eventType":"RESN","reasoning":"Move to (9,8), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":3,"timeStamp":73}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":3,"timeStamp":73}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":9,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":3,"timeStamp":74}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","comment":"Moved by wave effect!","turn":3,"timeStamp":74}
+{"eventType":"NVLD","type":"Attack","position":{"x":9,"y":6},"targetId":"AIAgent-Utility|RevengeUtility|Red|9","targetPosition":{"x":8,"y":10},"reasoning":"Move to (9,8), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":3,"timeStamp":75}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":75}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":8,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":76}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","comment":"Attacked a wave","turn":3,"timeStamp":76}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":3,"timeStamp":76}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":3,"timeStamp":76}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":3,"timeStamp":76}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":11},"moveTo":{"x":9,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":4,"timeStamp":78}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":10},"moveTo":{"x":9,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":4,"timeStamp":79}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","comment":"Attacked a wave","turn":4,"timeStamp":79}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":4,"timeStamp":79}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":4,"timeStamp":79}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":4,"timeStamp":79}
+{"eventType":"RESN","reasoning":"Move to (10,9), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":4,"timeStamp":83}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":11,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":4,"timeStamp":84}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":4,"timeStamp":84}
+{"eventType":"NVLD","type":"Attack","position":{"x":10,"y":9},"targetId":"AIAgent-Utility|RevengeUtility|Red|7","targetPosition":{"x":9,"y":9},"reasoning":"Move to (10,9), attack enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":4,"timeStamp":85}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":8},"moveTo":{"x":12,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":86}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":86}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":87}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","comment":"Attacked a wave","turn":4,"timeStamp":87}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":4,"timeStamp":87}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","turn":4,"timeStamp":87}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|5","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":4,"timeStamp":87}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":8},"moveTo":{"x":9,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":4,"timeStamp":89}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","attackPosition":{"x":10,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":4,"timeStamp":90}
+{"eventType":"OVER","turn":4,"timeStamp":90,"goalMessage":"AI Wars = Green[DeepSeek-deepseek-chat-Prompt_8_move_recheck] x Red[Utility] ","winningFaction":"Red"}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":4,"timeStamp":90}

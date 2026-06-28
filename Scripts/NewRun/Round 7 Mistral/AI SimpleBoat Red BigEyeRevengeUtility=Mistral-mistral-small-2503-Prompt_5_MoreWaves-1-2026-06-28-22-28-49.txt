@@ -1,0 +1,122 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"LLMAIBattleground","randomSeed":6,"maxTurns":100,"navalActorEntryJsons":[{"name":"LLMAgent|Mistral|mistral-small-2503|Green|3","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"Mistral-mistral-small-2503-Prompt_5_MoreWaves","llmType":"Mistral","llmModel":"mistral-small-2503"},{"name":"LLMAgent|Mistral|mistral-small-2503|Green|4","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":6},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"Mistral-mistral-small-2503-Prompt_5_MoreWaves","llmType":"Mistral","llmModel":"mistral-small-2503"},{"name":"LLMAgent|Mistral|mistral-small-2503|Green|5","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":6},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"Mistral-mistral-small-2503-Prompt_5_MoreWaves","llmType":"Mistral","llmModel":"mistral-small-2503"},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":10,"y":13},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"AI Wars"}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (10,13) via wave at (10,11) pointing North. Propagated tile (10,12) is safe (no ally).","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":0,"timeStamp":2}
+{"eventType":"NVLD","type":"Attack","position":{"x":9,"y":5},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Wave-extended attack on enemy at (10,13) via wave at (10,11) pointing North. Propagated tile (10,12) is safe (no ally).","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Attacked a wave","turn":0,"timeStamp":2}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":9,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":2}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":13},"moveTo":{"x":9,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":3}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":12},"moveTo":{"x":9,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":3}
+{"eventType":"RESN","reasoning":"Move to (11, 6) to enable wave-extended attack on (9, 11) via wave at (10, 11) (propagates to (10, 12), but no ally there). Attack wave to hit enemy.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":0,"timeStamp":6}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":11,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":0,"timeStamp":6}
+{"eventType":"NVLD","type":"Attack","position":{"x":11,"y":6},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Move to (11, 6) to enable wave-extended attack on (9, 11) via wave at (10, 11) (propagates to (10, 12), but no ally there). Attack wave to hit enemy.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","comment":"Attacked a wave","turn":0,"timeStamp":7}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":13,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":8}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":12},"moveTo":{"x":13,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":8}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":11},"moveTo":{"x":13,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":9}
+{"eventType":"ATTK","targetId":"Target","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":9}
+{"eventType":"DEAD","actorId":"Target","turn":0,"timeStamp":9}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (9,11) via wave at (10,11) pointing North, propagating to (10,12) which is safe (no ally). Movement to (8,6) aligns for optimal attack next turn.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":0,"timeStamp":12}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":8,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":0,"timeStamp":13}
+{"eventType":"NVLD","type":"Attack","position":{"x":8,"y":6},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Wave-extended attack on enemy at (9,11) via wave at (10,11) pointing North, propagating to (10,12) which is safe (no ally). Movement to (8,6) aligns for optimal attack next turn.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","comment":"Attacked a wave","turn":0,"timeStamp":13}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":6,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":14}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":12},"moveTo":{"x":6,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":15}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":11},"moveTo":{"x":6,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":15}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":16}
+{"eventType":"DEAD","actorId":"Target (3)","turn":0,"timeStamp":16}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (9,11) via wave at (10,11) pointing North (propagates to (10,12), no ally conflict). Movement to (10,5) to enable future attacks.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":1,"timeStamp":19}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":10,"y":5},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":1,"timeStamp":19}
+{"eventType":"NVLD","type":"Attack","position":{"x":10,"y":5},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Wave-extended attack on enemy at (9,11) via wave at (10,11) pointing North (propagates to (10,12), no ally conflict). Movement to (10,5) to enable future attacks.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Attacked a wave","turn":1,"timeStamp":20}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":11},"moveTo":{"x":10,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":1,"timeStamp":21}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","comment":"Moved by wave effect!","turn":1,"timeStamp":21}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (10,12) via wave at (10,11) pointing North","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":1,"timeStamp":23}
+{"eventType":"NVLD","type":"Attack","position":{"x":11,"y":6},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Wave-extended attack on enemy at (10,12) via wave at (10,11) pointing North","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","comment":"Attacked a wave","turn":1,"timeStamp":23}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":10},"moveTo":{"x":13,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":24}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (10,12) via wave at (10,11) propagates to (10,12)","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":1,"timeStamp":27}
+{"eventType":"NVLD","type":"Attack","position":{"x":8,"y":6},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Wave-extended attack on enemy at (10,12) via wave at (10,11) propagates to (10,12)","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","comment":"Attacked a wave","turn":1,"timeStamp":27}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (10,12) using wave at (10,11) pointing North. Propagated tile (10,13) is safe (no ally). Movement to (10,6) to prepare for future engagements.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":2,"timeStamp":29}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":10,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":2,"timeStamp":30}
+{"eventType":"NVLD","type":"Attack","position":{"x":10,"y":6},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Wave-extended attack on enemy at (10,12) using wave at (10,11) pointing North. Propagated tile (10,13) is safe (no ally). Movement to (10,6) to prepare for future engagements.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Attacked a wave","turn":2,"timeStamp":30}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":9,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":31}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":12},"moveTo":{"x":9,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":32}
+{"eventType":"RESN","reasoning":"Move to position enemy into attack range and prepare for wave-extended attack next turn","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":2,"timeStamp":34}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":12,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":2,"timeStamp":34}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":9},"moveTo":{"x":12,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":36}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":12,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":36}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|4","attackPosition":{"x":12,"y":6},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":37}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":2,"timeStamp":37}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (9,13) via wave at (9,7) propagates to (9,8), which is within attack range of (8,6) with offset 1 and range 2.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":2,"timeStamp":40}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","comment":"Attacked a wave","turn":2,"timeStamp":40}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":2,"timeStamp":40}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (12,8) using wave at (9,7) with offset 1 and range 2. Propagated wave tile (9,6) is safe (no ally). Movement to (10,7) enables future attacks.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":3,"timeStamp":44}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":7},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":3,"timeStamp":45}
+{"eventType":"NVLD","type":"Attack","position":{"x":10,"y":7},"targetId":"Wave S","targetPosition":{"x":9,"y":7},"reasoning":"Wave-extended attack on enemy at (12,8) using wave at (9,7) with offset 1 and range 2. Propagated wave tile (9,6) is safe (no ally). Movement to (10,7) enables future attacks.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Attacked a wave","turn":3,"timeStamp":45}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":13},"moveTo":{"x":8,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":46}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":13},"moveTo":{"x":8,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":46}
+{"eventType":"RESN","reasoning":"Direct attack on enemy at (12,8) is within range. No wave extension needed.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":3,"timeStamp":49}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|8","attackPosition":{"x":12,"y":8},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":3,"timeStamp":49}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":49}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|4","attackPosition":{"x":12,"y":6},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":51}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":3,"timeStamp":51}
+{"eventType":"RESN","reasoning":"Wave-extended attack on low-health enemy (12,8) via wave at (9,7) which propagates south to (9,6). Enemy at (12,8) is within attack range from propagated tile (9,6).","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":3,"timeStamp":54}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","comment":"Attacked a wave","turn":3,"timeStamp":54}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":3,"timeStamp":54}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":10},"moveTo":{"x":5,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":57}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":10},"moveTo":{"x":5,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":57}
+{"eventType":"ATTK","targetId":"Target (4)","attackPosition":{"x":3,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":58}
+{"eventType":"DEAD","actorId":"Target (4)","turn":3,"timeStamp":58}
+{"eventType":"RESN","reasoning":"No immediate direct attack possible. Move to (10, 8) to enable wave-extended attack on (12, 8) next turn via ~V wave at (9, 7).","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":4,"timeStamp":61}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":10,"y":8},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":4,"timeStamp":61}
+{"eventType":"RESN","reasoning":"Direct attack on low-health enemy at (12,8) is optimal. Movement not needed as target is already in range.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":4,"timeStamp":64}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|8","attackPosition":{"x":12,"y":8},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":4,"timeStamp":64}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":64}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|3","attackPosition":{"x":10,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":67}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":4,"timeStamp":67}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (12,8) via wave at (9,7) propagates to (9,6), but no direct line. Closest valid attack is wave at (9,7) which propagates to (9,6) (no ally there). Moving to (9,6) to enable direct attack next turn.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":4,"timeStamp":70}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":6},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":4,"timeStamp":70}
+{"eventType":"RESN","reasoning":"Wave-extended attack on low-health enemy at (12,8) via wave at (9,7) (propagates to (9,6), extending attack range to hit (12,8) with offset 1 and range 2).","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":5,"timeStamp":74}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Attacked a wave","turn":5,"timeStamp":74}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":5,"timeStamp":74}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":5,"timeStamp":74}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|5","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":5,"timeStamp":74}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":12},"moveTo":{"x":8,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":5,"timeStamp":76}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":11},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":5,"timeStamp":77}
+{"eventType":"RESN","reasoning":"Direct attack on low-health enemy at (12,8) is optimal. Movement to (13,6) maintains range while positioning for future moves.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":5,"timeStamp":79}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":13,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":5,"timeStamp":79}
+{"eventType":"NVLD","type":"Attack","position":{"x":13,"y":6},"targetId":"AIAgent-Utility|RevengeUtility|Red|8","targetPosition":{"x":12,"y":8},"reasoning":"Direct attack on low-health enemy at (12,8) is optimal. Movement to (13,6) maintains range while positioning for future moves.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":5,"timeStamp":80}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":81}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":81}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|3","attackPosition":{"x":10,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":82}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":5,"timeStamp":82}
+{"eventType":"RESN","reasoning":"Wave-extended attack on low-health enemy at (11,7) using wave at (10,11) pointing North","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":5,"timeStamp":85}
+{"eventType":"NVLD","type":"Attack","position":{"x":9,"y":6},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Wave-extended attack on low-health enemy at (11,7) using wave at (10,11) pointing North","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","comment":"Attacked a wave","turn":5,"timeStamp":85}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":9},"moveTo":{"x":6,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":5,"timeStamp":86}
+{"eventType":"RESN","reasoning":"Wave-extended attack on low-health enemy at (11,7) using wave at (9,7) pointing South (propagates to (9,6), but enemy is at (11,7) which is within range after wave extension).","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":6,"timeStamp":88}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Attacked a wave","turn":6,"timeStamp":88}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":6,"timeStamp":88}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":6,"timeStamp":88}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|5","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":6,"timeStamp":88}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":6,"timeStamp":90}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":8,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":6,"timeStamp":91}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","comment":"Attacked a wave","turn":6,"timeStamp":91}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":6,"timeStamp":91}
+{"eventType":"DEAD","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|5","turn":6,"timeStamp":91}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|5","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":6,"timeStamp":91}
+{"eventType":"RESN","reasoning":"Move to position enemy into attack range and prepare for wave-extended attack next turn. Current position cannot attack any enemy directly.","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":6,"timeStamp":95}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":6},"moveTo":{"x":12,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":6,"timeStamp":95}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":6,"timeStamp":96}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":11,"y":5},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":6,"timeStamp":97}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|4","attackPosition":{"x":12,"y":6},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":6,"timeStamp":97}
+{"eventType":"DEAD","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|4","turn":6,"timeStamp":97}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":9},"moveTo":{"x":7,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":6,"timeStamp":99}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":9},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":6,"timeStamp":100}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":6,"timeStamp":100}
+{"eventType":"RESN","reasoning":"Wave-extended attack on (8,8) via (9,7) wave tile, then evade south to (10,7)","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":7,"timeStamp":103}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":8},"moveTo":{"x":9,"y":8},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":7,"timeStamp":103}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":8},"moveTo":{"x":9,"y":7},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":7,"timeStamp":104}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Moved by wave effect!","turn":7,"timeStamp":104}
+{"eventType":"NVLD","type":"Attack","position":{"x":9,"y":6},"targetId":"Wave S","targetPosition":{"x":9,"y":7},"reasoning":"Wave-extended attack on (8,8) via (9,7) wave tile, then evade south to (10,7)","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","comment":"Attacked a wave","turn":7,"timeStamp":105}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":8},"moveTo":{"x":9,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":7,"timeStamp":106}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":8},"moveTo":{"x":9,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":7,"timeStamp":106}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","comment":"Attacked a wave","turn":7,"timeStamp":107}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":7,"timeStamp":107}
+{"eventType":"OVER","turn":7,"timeStamp":107,"goalMessage":"AI Wars = Green[Mistral-mistral-small-2503-Prompt_5_MoreWaves] x Red[Utility] ","winningFaction":"Red"}
+{"eventType":"DEAD","actorId":"LLMAgent|Mistral|mistral-small-2503|Green|3","turn":7,"timeStamp":107}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Green|3","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":7,"timeStamp":107}
