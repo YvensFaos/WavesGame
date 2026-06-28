@@ -1,0 +1,94 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"LLMAIBattleground","randomSeed":6,"maxTurns":100,"navalActorEntryJsons":[{"name":"LLMAgent|GPT|o4-mini|Red|2","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":10,"y":13},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"GPT-o4-mini-Prompt_5_MoreWaves","llmType":"GPT","llmModel":"o4-mini"},{"name":"LLMAgent|GPT|o4-mini|Red|5","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":12},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"GPT-o4-mini-Prompt_5_MoreWaves","llmType":"GPT","llmModel":"o4-mini"},{"name":"LLMAgent|GPT|o4-mini|Red|6","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":12},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"GPT-o4-mini-Prompt_5_MoreWaves","llmType":"GPT","llmModel":"o4-mini"},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":6},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":6},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"AI Wars"}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":10,"y":5},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":0}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":10,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":1}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":1}
+{"eventType":"RESN","reasoning":"Closing distance toward the (10,7) enemy to enable a future attack","actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":0,"timeStamp":16}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":0,"timeStamp":17}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":19}
+{"eventType":"ATTK","targetId":"Target","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":19}
+{"eventType":"DEAD","actorId":"Target","turn":0,"timeStamp":19}
+{"eventType":"RESN","reasoning":"Move to (11,10) to bring enemy at (11,8) into range, attack it, then retreat to (11,11) to exit its counter-attack range.","actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":0,"timeStamp":36}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":0,"timeStamp":37}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":0,"timeStamp":37}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":11,"y":10},"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":0,"timeStamp":38}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|9","attackPosition":{"x":11,"y":8},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":0,"timeStamp":38}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":38}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":6,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":41}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":6},"moveTo":{"x":6,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":41}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":7},"moveTo":{"x":6,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":42}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":42}
+{"eventType":"DEAD","actorId":"Target (3)","turn":0,"timeStamp":42}
+{"eventType":"RESN","reasoning":"Move to (6,10) to bring enemy at (6,8) into range, attack it, then retreat to (6,12) to avoid counterattack.","actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":0,"timeStamp":56}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":6,"y":12},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":0,"timeStamp":56}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":12},"moveTo":{"x":6,"y":11},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":0,"timeStamp":57}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":11},"moveTo":{"x":6,"y":10},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":0,"timeStamp":57}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":6,"y":8},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":0,"timeStamp":58}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":58}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":10,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":1,"timeStamp":60}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":8},"moveTo":{"x":10,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":1,"timeStamp":60}
+{"eventType":"ATTK","targetId":"Wave N","attackPosition":{"x":10,"y":11},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","comment":"Attacked a wave","turn":1,"timeStamp":61}
+{"eventType":"DAMG","damage":9,"actorId":"Wave N","turn":1,"timeStamp":61}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":1,"timeStamp":61}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|2","attackPosition":{"x":10,"y":12},"damage":9.0,"actorId":"Wave N","turn":1,"timeStamp":61}
+{"eventType":"RESN","reasoning":"Move to (10,10) to bring enemy at (10,9) into attack range","actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":1,"timeStamp":75}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":10,"y":11},"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":1,"timeStamp":76}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|GPT|o4-mini|Red|2","comment":"Moved by wave effect!","turn":1,"timeStamp":76}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|5","attackPosition":{"x":11,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":1,"timeStamp":77}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":1,"timeStamp":77}
+{"eventType":"RESN","reasoning":"Direct attack on low-health enemy at (11,8) then reposition to safer tile","actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":1,"timeStamp":88}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|9","attackPosition":{"x":11,"y":8},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":1,"timeStamp":89}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":1,"timeStamp":89}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|6","attackPosition":{"x":6,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":91}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":1,"timeStamp":91}
+{"eventType":"RESN","reasoning":"Direct attack on closest enemy then reposition out of range","actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":1,"timeStamp":103}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":6,"y":8},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":1,"timeStamp":103}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":103}
+{"eventType":"ATTK","targetId":"Wave N","attackPosition":{"x":10,"y":11},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","comment":"Attacked a wave","turn":2,"timeStamp":106}
+{"eventType":"DAMG","damage":9,"actorId":"Wave N","turn":2,"timeStamp":106}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":2,"timeStamp":106}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|2","attackPosition":{"x":10,"y":12},"damage":9.0,"actorId":"Wave N","turn":2,"timeStamp":106}
+{"eventType":"RESN","reasoning":"Advance towards low-health enemies to close distance for next turn","actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":2,"timeStamp":126}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":2,"timeStamp":127}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|5","attackPosition":{"x":11,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":2,"timeStamp":128}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":2,"timeStamp":128}
+{"eventType":"RESN","reasoning":"Direct kill of low-health enemy at (11,8) to reduce threats, then evade to (12,10) to stay out of range of the remaining enemies","actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":2,"timeStamp":141}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|9","attackPosition":{"x":11,"y":8},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":2,"timeStamp":141}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":2,"timeStamp":141}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":8},"moveTo":{"x":5,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":143}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":8},"moveTo":{"x":5,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":143}
+{"eventType":"ATTK","targetId":"Target (4)","attackPosition":{"x":3,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":144}
+{"eventType":"DEAD","actorId":"Target (4)","turn":2,"timeStamp":144}
+{"eventType":"RESN","reasoning":"Direct attack on the low-health enemy at (5,9) to secure a kill","actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":2,"timeStamp":152}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":5,"y":9},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":2,"timeStamp":152}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":152}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":11,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":154}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":155}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|5","attackPosition":{"x":11,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":155}
+{"eventType":"DEAD","actorId":"LLMAgent|GPT|o4-mini|Red|5","turn":3,"timeStamp":155}
+{"eventType":"RESN","reasoning":"Move into 2-range to directly attack the enemy next turn","actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":3,"timeStamp":166}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":3,"timeStamp":166}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":11,"y":10},"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":3,"timeStamp":167}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|7","attackPosition":{"x":11,"y":8},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":3,"timeStamp":167}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":167}
+{"eventType":"RESN","reasoning":"Closing distance to enemy Green ship for next turn attack opportunity","actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":3,"timeStamp":179}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":10},"moveTo":{"x":7,"y":10},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":3,"timeStamp":179}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":8,"y":10},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":3,"timeStamp":180}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":9,"y":10},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":3,"timeStamp":180}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":12,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":182}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":12,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":182}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|2","attackPosition":{"x":11,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":183}
+{"eventType":"DEAD","actorId":"LLMAgent|GPT|o4-mini|Red|2","turn":4,"timeStamp":183}
+{"eventType":"RESN","reasoning":"Move to (10,9) to bring the enemy at (12,9) into range (d=2) and attack directly","actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":4,"timeStamp":194}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":10},"moveTo":{"x":10,"y":10},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":4,"timeStamp":195}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":10},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":4,"timeStamp":195}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|7","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":4,"timeStamp":196}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":196}
+{"eventType":"ATTK","targetId":"LLMAgent|GPT|o4-mini|Red|6","attackPosition":{"x":10,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":198}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":5,"timeStamp":198}
+{"eventType":"RESN","reasoning":"Direct attack on the only low-health enemy in range","actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":5,"timeStamp":205}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|7","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"LLMAgent|GPT|o4-mini|Red|6","turn":5,"timeStamp":205}
+{"eventType":"OVER","turn":5,"timeStamp":205,"goalMessage":"AI Wars = Green[Utility] x Red[GPT-o4-mini-Prompt_5_MoreWaves] ","winningFaction":"Red"}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":205}

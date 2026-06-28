@@ -1,0 +1,216 @@
+﻿2026-06-27 23:27:05;[SYSTEM];[LevelController];INFO Level starts with 6 actors.
+2026-06-27 23:27:05;[SYSTEM];[LevelController];INFO Grid size is 20 by 19.
+2026-06-27 23:27:05;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-06-27 23:27:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_5_MoreWaves;5244
+2026-06-27 23:27:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":3068}
+2026-06-27 23:27:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-06-27 23:27:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":No enemies in direct range. Move to (9,6) to get closer to enemies at (10,13) and (7,12). Attack wave at (9,7) pointing South, which propagates to (9,6) — but that's my own position after moving, so no friendly fire. However, the wave at (9,7) points South (~V), so it propagates to (9,6) which is where I moved. That would hit myself. Instead, I will not attack the wave. No valid attack available this turn.]}
+2026-06-27 23:27:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;False;False
+2026-06-27 23:27:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {9, 6}
+2026-06-27 23:27:10;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-06-27 23:27:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Start turn
+2026-06-27 23:27:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate move: True
+2026-06-27 23:27:11;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Chosen action: (9, 11) - U = 18.20716
+2026-06-27 23:27:13;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate action: False
+2026-06-27 23:27:13;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-06-27 23:27:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_5_MoreWaves;5224
+2026-06-27 23:27:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":2024}
+2026-06-27 23:27:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-06-27 23:27:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":No immediate targets in range. Move to (13,6) to get closer to enemies at (12,12) and (9,11), setting up for future attacks. No attack possible this turn.]}
+2026-06-27 23:27:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;False;False
+2026-06-27 23:27:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {13, 6}
+2026-06-27 23:27:17;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-06-27 23:27:17;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Start turn
+2026-06-27 23:27:17;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate move: True
+2026-06-27 23:27:17;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Chosen action: (13, 10) - U = 18.30357
+2026-06-27 23:27:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate action: True
+2026-06-27 23:27:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];ATTK {12, 9}
+2026-06-27 23:27:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];TRGT TARGET
+2026-06-27 23:27:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-06-27 23:27:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_5_MoreWaves;5192
+2026-06-27 23:27:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1823}
+2026-06-27 23:27:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-06-27 23:27:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":No immediate targets in range. Move to (8,6) to get closer to enemies at (9,11) and (7,12), setting up for future attacks. No attack possible this turn.]}
+2026-06-27 23:27:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-06-27 23:27:23;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {8, 6}
+2026-06-27 23:27:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-06-27 23:27:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Start turn
+2026-06-27 23:27:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate move: True
+2026-06-27 23:27:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Chosen action: (6, 10) - U = 19.24643
+2026-06-27 23:27:26;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate action: True
+2026-06-27 23:27:26;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];ATTK {7, 9}
+2026-06-27 23:27:26;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];TRGT TARGET
+2026-06-27 23:27:28;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-06-27 23:27:29;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_5_MoreWaves;5209
+2026-06-27 23:27:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1945}
+2026-06-27 23:27:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-06-27 23:27:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Move to (9,8) to get within range of enemy at (9,11). Attack enemy at (9,11) directly.]}
+2026-06-27 23:27:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;True;True;False
+2026-06-27 23:27:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];MOVE {9, 8}
+2026-06-27 23:27:32;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Cannot reach target at GridTile(Clone) (9, 11).
+2026-06-27 23:27:32;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-06-27 23:27:32;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Start turn
+2026-06-27 23:27:32;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate move: True
+2026-06-27 23:27:33;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Chosen action: (9, 8) - U = 23.42146
+2026-06-27 23:27:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate action: True
+2026-06-27 23:27:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];ATTK {9, 6}
+2026-06-27 23:27:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];TRGT LLM {ENEMY}
+2026-06-27 23:27:36;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-06-27 23:27:37;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_5_MoreWaves;5250
+2026-06-27 23:27:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":2491}
+2026-06-27 23:27:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-06-27 23:27:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":No immediate targets in range. Move to (13,7) to get closer to enemy at (13,10) and bring it into attack range (Manhattan distance 3, within range 2 with offset 1). Attack enemy at (13,10) from (13,7) since distance is 3, which is within range 2 + offset 1 = 3. Move after attack to (13,8) to reposition.]}
+2026-06-27 23:27:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;True;True;False
+2026-06-27 23:27:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];MOVE {13, 7}
+2026-06-27 23:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Cannot reach target at GridTile(Clone) (13, 10).
+2026-06-27 23:27:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-06-27 23:27:40;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Start turn
+2026-06-27 23:27:40;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate move: True
+2026-06-27 23:27:41;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Chosen action: (13, 9) - U = 24.59239
+2026-06-27 23:27:42;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate action: True
+2026-06-27 23:27:42;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];ATTK {13, 7}
+2026-06-27 23:27:42;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];TRGT LLM {ENEMY}
+2026-06-27 23:27:43;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-06-27 23:27:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_5_MoreWaves;5202
+2026-06-27 23:27:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1763}
+2026-06-27 23:27:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-06-27 23:27:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":No immediate valid enemy targets in direct range. Move to (9,5) to get within range of enemy at (9,8) next turn, while staying safe from waves.]}
+2026-06-27 23:27:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-06-27 23:27:46;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {9, 5}
+2026-06-27 23:27:47;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-06-27 23:27:47;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Start turn
+2026-06-27 23:27:47;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate move: True
+2026-06-27 23:27:48;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Chosen action: (6, 10) - U = 20.86572
+2026-06-27 23:27:48;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate action: False
+2026-06-27 23:27:48;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Start turn;5,5
+2026-06-27 23:27:49;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];PRPT Prompt_5_MoreWaves;5229
+2026-06-27 23:27:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TIME {"request":1548}
+2026-06-27 23:27:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"attempts":1}
+2026-06-27 23:27:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];RESN {"reasoning":Enemy at (9,8) is directly in range (Manhattan distance 2). Attack immediately without moving.]}
+2026-06-27 23:27:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Flags;False;True;False
+2026-06-27 23:27:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];ATTK {9, 8}
+2026-06-27 23:27:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];TRGT LLM {ENEMY}
+2026-06-27 23:27:51;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Attacked succeeded at GridTile(Clone) (9, 8). Kill count = 0.
+2026-06-27 23:27:52;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Finish turn
+2026-06-27 23:27:52;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Start turn
+2026-06-27 23:27:52;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate move: True
+2026-06-27 23:27:52;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Chosen action: (11, 7) - U = 32.44908
+2026-06-27 23:27:54;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate action: True
+2026-06-27 23:27:54;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];ATTK {9, 7}
+2026-06-27 23:27:54;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];TRGT WAVE
+2026-06-27 23:27:56;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-06-27 23:27:57;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_5_MoreWaves;5312
+2026-06-27 23:27:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1505}
+2026-06-27 23:27:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-06-27 23:27:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Immediate attack on low-health enemy at (11,7) from current position (13,7) is possible (Manhattan distance 2). No movement needed. Attack directly.]}
+2026-06-27 23:27:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;False;True;False
+2026-06-27 23:27:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];ATTK {11, 7}
+2026-06-27 23:27:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TRGT LLM {ENEMY}
+2026-06-27 23:27:58;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Attacked succeeded at GridTile(Clone) (11, 7). Kill count = 0.
+2026-06-27 23:28:00;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-06-27 23:28:00;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Start turn
+2026-06-27 23:28:00;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate move: True
+2026-06-27 23:28:00;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Chosen action: (14, 8) - U = 24.96286
+2026-06-27 23:28:02;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate action: True
+2026-06-27 23:28:02;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];ATTK {13, 7}
+2026-06-27 23:28:02;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];TRGT LLM {ENEMY}
+2026-06-27 23:28:03;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-06-27 23:28:04;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_5_MoreWaves;5237
+2026-06-27 23:28:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":2376}
+2026-06-27 23:28:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-06-27 23:28:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":Immediate wave-extended attack on low-health enemy at (11,7) via wave at (9,7) pointing South. The wave propagates to (9,6) which is within 1 tile of (11,7) after accounting for offset and range. No ally is in the propagated tile. Move to (10,6) to get into range for next turn.]}
+2026-06-27 23:28:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;True;False
+2026-06-27 23:28:06;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {10, 6}
+2026-06-27 23:28:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];ATTK {9, 7}
+2026-06-27 23:28:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TRGT WAVE
+2026-06-27 23:28:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];INFO Destroyed
+2026-06-27 23:28:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|1];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":3,"internalMovementAttemptCount":2,"internalAttackAttemptCount":2,"internalFaultyMessageCount":0,"averageRequestTime":2187,"averageRequestTimeCount":3,"maxRequestTime":3068,"minRequest":1548,"averageAttempts":1,"kills":0}
+2026-06-27 23:28:08;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Attacked succeeded at GridTile(Clone) (9, 7). Kill count = 0.
+2026-06-27 23:28:09;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-06-27 23:28:09;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Start turn
+2026-06-27 23:28:09;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate move: True
+2026-06-27 23:28:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Chosen action: (6, 10) - U = 16.57524
+2026-06-27 23:28:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate action: False
+2026-06-27 23:28:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Start turn
+2026-06-27 23:28:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate move: True
+2026-06-27 23:28:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Chosen action: (11, 5) - U = 18.10264
+2026-06-27 23:28:12;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];INFO Can calculate action: True
+2026-06-27 23:28:12;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];ATTK {10, 6}
+2026-06-27 23:28:12;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|7];TRGT LLM {ENEMY}
+2026-06-27 23:28:13;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Start turn;5,5
+2026-06-27 23:28:14;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];PRPT Prompt_5_MoreWaves;5271
+2026-06-27 23:28:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TIME {"request":1950}
+2026-06-27 23:28:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"attempts":1}
+2026-06-27 23:28:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];RESN {"reasoning":Enemy at (14,8) is in immediate attack range (Manhattan distance 1). Attack it to reduce its health. No movement needed.]}
+2026-06-27 23:28:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Flags;False;True;False
+2026-06-27 23:28:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];ATTK {14, 8}
+2026-06-27 23:28:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];TRGT LLM {ENEMY}
+2026-06-27 23:28:16;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Attacked succeeded at GridTile(Clone) (14, 8). Kill count = 0.
+2026-06-27 23:28:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Finish turn
+2026-06-27 23:28:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Start turn
+2026-06-27 23:28:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate move: True
+2026-06-27 23:28:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Chosen action: (14, 8) - U = 20.50286
+2026-06-27 23:28:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate action: True
+2026-06-27 23:28:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];INFO Destroyed
+2026-06-27 23:28:18;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|4];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":1,"internalTotalRequestCount":4,"internalMovementAttemptCount":2,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":1992.5,"averageRequestTimeCount":4,"maxRequestTime":2491,"minRequest":1505,"averageAttempts":1,"kills":0}
+2026-06-27 23:28:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];ATTK {13, 7}
+2026-06-27 23:28:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];TRGT LLM {ENEMY}
+2026-06-27 23:28:20;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-06-27 23:28:21;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_5_MoreWaves;5306
+2026-06-27 23:28:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1722}
+2026-06-27 23:28:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-06-27 23:28:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":Immediate attack on low-health enemy at (11,5) from current position (10,6) with range 2 and offset 1. Then move to (10,7) to avoid counterattack.]}
+2026-06-27 23:28:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;False;True;False
+2026-06-27 23:28:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];ATTK {11, 5}
+2026-06-27 23:28:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TRGT LLM {ENEMY}
+2026-06-27 23:28:22;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Attacked succeeded at GridTile(Clone) (11, 5). Kill count = 1.
+2026-06-27 23:28:24;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-06-27 23:28:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Start turn
+2026-06-27 23:28:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate move: True
+2026-06-27 23:28:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Chosen action: (8, 10) - U = 12.74239
+2026-06-27 23:28:26;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate action: False
+2026-06-27 23:28:26;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Start turn
+2026-06-27 23:28:26;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate move: True
+2026-06-27 23:28:26;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Chosen action: (13, 8) - U = 13.18477
+2026-06-27 23:28:27;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate action: False
+2026-06-27 23:28:27;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-06-27 23:28:28;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_5_MoreWaves;5211
+2026-06-27 23:28:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":2515}
+2026-06-27 23:28:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-06-27 23:28:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":Immediate wave-extended attack on enemy at (8,10) via wave at (9,7) pointing South. The wave propagates to (9,6) which is empty, but the enemy at (8,10) is not directly hit. Wait, recalculating: wave at (9,7) ~V points South to (9,6). That does not hit any enemy. No valid immediate attack. Move to (10,7) to get into range of enemy at (13,8) or (8,10) next turn.]}
+2026-06-27 23:28:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;True;False;False
+2026-06-27 23:28:31;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];MOVE {10, 7}
+2026-06-27 23:28:32;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-06-27 23:28:32;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Start turn
+2026-06-27 23:28:32;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate move: True
+2026-06-27 23:28:32;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Chosen action: (8, 7) - U = 19.39954
+2026-06-27 23:28:34;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate action: True
+2026-06-27 23:28:34;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];ATTK {10, 7}
+2026-06-27 23:28:34;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];TRGT LLM {ENEMY}
+2026-06-27 23:28:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Start turn
+2026-06-27 23:28:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate move: True
+2026-06-27 23:28:36;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Chosen action: (11, 9) - U = 15.34621
+2026-06-27 23:28:38;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|8];INFO Can calculate action: False
+2026-06-27 23:28:38;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Start turn;5,5
+2026-06-27 23:28:39;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];PRPT Prompt_5_MoreWaves;5206
+2026-06-27 23:28:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TIME {"request":1756}
+2026-06-27 23:28:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"attempts":1}
+2026-06-27 23:28:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];RESN {"reasoning":Enemy at (8,7) is in immediate attack range (Manhattan distance 2). Attack it directly without moving.]}
+2026-06-27 23:28:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Flags;False;True;False
+2026-06-27 23:28:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];ATTK {8, 7}
+2026-06-27 23:28:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];TRGT LLM {ENEMY}
+2026-06-27 23:28:40;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Attacked succeeded at GridTile(Clone) (8, 7). Kill count = 0.
+2026-06-27 23:28:42;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Finish turn
+2026-06-27 23:28:42;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Start turn
+2026-06-27 23:28:42;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate move: True
+2026-06-27 23:28:42;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Chosen action: (9, 8) - U = 20.99859
+2026-06-27 23:28:44;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];INFO Can calculate action: True
+2026-06-27 23:28:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];INFO Destroyed
+2026-06-27 23:28:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":6,"internalMovementAttemptCount":4,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":1992.5,"averageRequestTimeCount":6,"maxRequestTime":2515,"minRequest":1722,"averageAttempts":1,"kills":0}
+2026-06-27 23:28:44;[SYSTEM];[LevelGoal];INFO Faction Red won.
+2026-06-27 23:28:44;[SYSTEM];[LevelGoal];INFO Logging remaining ships. Count: 6.
+2026-06-27 23:28:44;[SYSTEM];[LLMAgent|DeepSeek|deepseek-chat|Green|3];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":0,"internalTotalRequestCount":6,"internalMovementAttemptCount":4,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":1992.5,"averageRequestTimeCount":6,"maxRequestTime":2515,"minRequest":1722,"averageAttempts":1,"kills":0}
+2026-06-27 23:28:44;[SYSTEM];[LevelController];INFO Level finished.
+2026-06-27 23:28:44;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];ATTK {10, 7}
+2026-06-27 23:28:44;[SYSTEM];[AIAgent-Utility|RevengeUtility|Red|9];TRGT LLM {ENEMY}
+2026-06-27 23:28:44;[SYSTEM];[LevelGoal];INFO Utility Red won.

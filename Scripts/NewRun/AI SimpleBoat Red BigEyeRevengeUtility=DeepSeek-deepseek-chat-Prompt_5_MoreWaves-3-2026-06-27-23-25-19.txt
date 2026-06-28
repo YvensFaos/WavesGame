@@ -1,0 +1,105 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"LLMAIBattleground","randomSeed":6,"maxTurns":100,"navalActorEntryJsons":[{"name":"LLMAgent|DeepSeek|deepseek-chat|Green|1","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"DeepSeek-deepseek-chat-Prompt_5_MoreWaves","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"LLMAgent|DeepSeek|deepseek-chat|Green|3","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":6},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"DeepSeek-deepseek-chat-Prompt_5_MoreWaves","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"LLMAgent|DeepSeek|deepseek-chat|Green|4","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":6},"genesData":"","basePrompt":"Prompt_5_MoreWaves","llmInfo":"DeepSeek-deepseek-chat-Prompt_5_MoreWaves","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":10,"y":13},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"AI Wars"}
+{"eventType":"RESN","reasoning":"No enemies in direct range. Move to (9,6) to get closer to enemies at (7,12), (12,12), (10,13). Attack wave at (9,7) pointing South (~V) propagates to (9,6) which is empty, so no friendly fire. This extends range but hits nothing; better to move and prepare next turn.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":0,"timeStamp":3}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":0,"timeStamp":4}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":9,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":5}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":13},"moveTo":{"x":9,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":6}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":12},"moveTo":{"x":9,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":6}
+{"eventType":"RESN","reasoning":"No immediate targets in range. Move to (13,6) to get closer to enemies at (12,12) and (9,11), setting up for future attacks. No attack possible this turn.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":13,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":13,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":11}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":12},"moveTo":{"x":13,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":12}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":11},"moveTo":{"x":13,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":12}
+{"eventType":"ATTK","targetId":"Target","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":13}
+{"eventType":"DEAD","actorId":"Target","turn":0,"timeStamp":13}
+{"eventType":"RESN","reasoning":"No immediate targets in range. Move to (8,6) to get closer to enemies at (9,11) and (7,12), setting up for future attacks. No attack possible this turn.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":0,"timeStamp":17}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":8,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":6,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":19}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":12},"moveTo":{"x":6,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":19}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":11},"moveTo":{"x":6,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":20}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":20}
+{"eventType":"DEAD","actorId":"Target (3)","turn":0,"timeStamp":20}
+{"eventType":"RESN","reasoning":"Move to (9,8) to get into range of enemy at (9,11). From (9,8), with offset 1 and range 2, I can attack (9,11) directly. After attacking, move to (8,9) to reposition away from potential counter-attacks.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":1,"timeStamp":25}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":9,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":1,"timeStamp":25}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","comment":"Moved by wave effect!","turn":1,"timeStamp":26}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":11},"moveTo":{"x":9,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":1,"timeStamp":27}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":10},"moveTo":{"x":9,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":1,"timeStamp":28}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":9},"moveTo":{"x":9,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":1,"timeStamp":28}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":1,"timeStamp":29}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":1,"timeStamp":29}
+{"eventType":"RESN","reasoning":"No immediate targets in range. Move to (13,7) to get closer to enemy at (13,10) and bring it into attack range (Manhattan distance 3, within range 2 after offset 1). Attack enemy at (13,10) from (13,7) since distance is 3, but offset is 1, so range is 2-3? Wait, range is 2, offset 1 means attackable tiles are Manhattan distance 1 or 2? Actually offset 1 means minimum distance 1, range 2 means maximum distance 2. From (13,7) to (13,10) is distance 3, too far. Move to (13,8) instead: distance to (13,10) is 2, valid. Attack (13,10).","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":34}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":6},"moveTo":{"x":13,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":34}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":7},"moveTo":{"x":13,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":35}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|8","attackPosition":{"x":13,"y":10},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":35}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":35}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","attackPosition":{"x":13,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":38}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":1,"timeStamp":38}
+{"eventType":"RESN","reasoning":"Wave-extended attack on enemy at (9,8) by shooting wave at (9,7) which propagates south to (9,8). No ally at propagated tile. Move not needed.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":1,"timeStamp":42}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","comment":"Attacked a wave","turn":1,"timeStamp":42}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":1,"timeStamp":42}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":1,"timeStamp":42}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":1,"timeStamp":42}
+{"eventType":"RESN","reasoning":"Immediate attack on adjacent enemy at (9,8) from current position (9,6) with offset 1 and range 2. No movement needed.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":2,"timeStamp":47}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|7","attackPosition":{"x":9,"y":8},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":2,"timeStamp":47}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":47}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":8},"moveTo":{"x":10,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":49}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":8},"moveTo":{"x":10,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":50}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":10,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":50}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","comment":"Attacked a wave","turn":2,"timeStamp":51}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":2,"timeStamp":51}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":2,"timeStamp":51}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":2,"timeStamp":51}
+{"eventType":"RESN","reasoning":"Enemy at (13,10) is in immediate attack range (Manhattan distance 2). Attack it now to reduce its health. No movement needed.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":2,"timeStamp":55}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|8","attackPosition":{"x":13,"y":10},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":2,"timeStamp":55}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":55}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":10},"moveTo":{"x":14,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":57}
+{"eventType":"MOVE","moveFrom":{"x":14,"y":10},"moveTo":{"x":14,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":57}
+{"eventType":"ATTK","targetId":"Target (5)","attackPosition":{"x":16,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":58}
+{"eventType":"DEAD","actorId":"Target (5)","turn":2,"timeStamp":58}
+{"eventType":"RESN","reasoning":"Immediate attack on low-health enemy at (10,6) from current position (8,6) with range 2 and offset 1. No movement needed.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":2,"timeStamp":62}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|7","attackPosition":{"x":10,"y":6},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":2,"timeStamp":62}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":2,"timeStamp":62}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":65}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":12,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":66}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":13,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":66}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","attackPosition":{"x":13,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":67}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":67}
+{"eventType":"RESN","reasoning":"Immediate attack on low-health enemy at (13,6) from current position (13,8) with range 2 and offset 1. No movement needed.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":71}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|7","attackPosition":{"x":13,"y":6},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":71}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":71}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","attackPosition":{"x":13,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":73}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|4","turn":3,"timeStamp":73}
+{"eventType":"RESN","reasoning":"Immediate wave-extended attack on low-health enemy Red at (14,9) is not possible due to range. No enemy in direct range. Move to (9,6) to get closer to enemies and set up future attacks. Attack wave at (9,7) pointing South (~V) propagates to (9,6) which is empty, safe to attack.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":3,"timeStamp":78}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":6},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":3,"timeStamp":79}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":10},"moveTo":{"x":7,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":80}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":80}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":81}
+{"eventType":"MOVE","moveFrom":{"x":14,"y":9},"moveTo":{"x":13,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":82}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":9},"moveTo":{"x":12,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":83}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":11,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":83}
+{"eventType":"RESN","reasoning":"Move to (9,8) to get within range of enemy at (8,9) with offset 1 and range 2, then attack that enemy. No immediate attack possible from current position.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":4,"timeStamp":86}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":9,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":4,"timeStamp":87}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","comment":"Moved by wave effect!","turn":4,"timeStamp":87}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":9,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":4,"timeStamp":89}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":9},"moveTo":{"x":10,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":4,"timeStamp":89}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":10,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":4,"timeStamp":90}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","comment":"Attacked a wave","turn":4,"timeStamp":90}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":4,"timeStamp":90}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":4,"timeStamp":90}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":4,"timeStamp":90}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":10,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":92}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":9,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":93}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","comment":"Attacked a wave","turn":5,"timeStamp":93}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":5,"timeStamp":93}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":5,"timeStamp":93}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":5,"timeStamp":93}
+{"eventType":"RESN","reasoning":"Move to (9,8) to get enemy at (9,9) within range (Manhattan distance 1) and attack it, eliminating a low-health threat.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":5,"timeStamp":98}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":9,"y":7},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":5,"timeStamp":98}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","comment":"Moved by wave effect!","turn":5,"timeStamp":99}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":8},"moveTo":{"x":9,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":5,"timeStamp":100}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":8},"moveTo":{"x":8,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":5,"timeStamp":100}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","comment":"Attacked a wave","turn":5,"timeStamp":101}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":5,"timeStamp":101}
+{"eventType":"OVER","turn":5,"timeStamp":101,"goalMessage":"AI Wars = Green[DeepSeek-deepseek-chat-Prompt_5_MoreWaves] x Red[Utility] ","winningFaction":"Red"}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","turn":5,"timeStamp":101}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Green|3","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":5,"timeStamp":101}
