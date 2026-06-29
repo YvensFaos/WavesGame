@@ -1,0 +1,213 @@
+﻿2026-06-28 23:59:58;[SYSTEM];[LevelController];INFO Level starts with 6 actors.
+2026-06-28 23:59:58;[SYSTEM];[LevelController];INFO Grid size is 20 by 19.
+2026-06-28 23:59:58;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Start turn
+2026-06-28 23:59:58;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate move: True
+2026-06-28 23:59:59;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Chosen action: (10, 7) - U = 16.8786
+2026-06-29 00:00:01;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate action: False
+2026-06-29 00:00:01;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Start turn;5,5
+2026-06-29 00:00:02;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];PRPT Prompt_9_post_invalids;4149
+2026-06-29 00:00:02;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];TIME {"request":636}
+2026-06-29 00:00:02;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];DATA {"attempts":1}
+2026-06-29 00:00:02;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];RESN {"reasoning":Move to (10,11), attack wave propagates to (10,12)]}
+2026-06-29 00:00:02;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Flags;True;True;False
+2026-06-29 00:00:02;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];MOVE {10, 11}
+2026-06-29 00:00:04;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-29 00:00:04;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Finish turn
+2026-06-29 00:00:04;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Start turn
+2026-06-29 00:00:04;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate move: True
+2026-06-29 00:00:04;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Chosen action: (11, 8) - U = 11.90715
+2026-06-29 00:00:06;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate action: True
+2026-06-29 00:00:06;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];ATTK {12, 9}
+2026-06-29 00:00:06;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];TRGT TARGET
+2026-06-29 00:00:07;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Start turn;5,5
+2026-06-29 00:00:09;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];PRPT Prompt_9_post_invalids;4130
+2026-06-29 00:00:09;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];TIME {"request":646}
+2026-06-29 00:00:09;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];DATA {"attempts":1}
+2026-06-29 00:00:09;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];RESN {"reasoning":Move to (11,12), attack wave (9,7)]}
+2026-06-29 00:00:09;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Flags;True;True;False
+2026-06-29 00:00:09;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];MOVE {11, 12}
+2026-06-29 00:00:10;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Cannot reach target at GridTile(Clone) (9, 7).
+2026-06-29 00:00:10;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Finish turn
+2026-06-29 00:00:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Start turn
+2026-06-29 00:00:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate move: True
+2026-06-29 00:00:10;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Chosen action: (7, 6) - U = 11.60358
+2026-06-29 00:00:11;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate action: False
+2026-06-29 00:00:11;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Start turn;5,5
+2026-06-29 00:00:12;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];PRPT Prompt_9_post_invalids;4120
+2026-06-29 00:00:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];TIME {"request":605}
+2026-06-29 00:00:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];DATA {"attempts":1}
+2026-06-29 00:00:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];RESN {"reasoning":Move to (9,12), attack wave (9,7)]}
+2026-06-29 00:00:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Flags;True;True;False
+2026-06-29 00:00:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];MOVE {9, 12}
+2026-06-29 00:00:14;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Cannot reach target at GridTile(Clone) (9, 7).
+2026-06-29 00:00:14;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Finish turn
+2026-06-29 00:00:14;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Start turn
+2026-06-29 00:00:14;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate move: True
+2026-06-29 00:00:14;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Chosen action: (9, 6) - U = 12.58215
+2026-06-29 00:00:16;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate action: False
+2026-06-29 00:00:16;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Start turn;5,5
+2026-06-29 00:00:17;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];PRPT Prompt_9_post_invalids;4106
+2026-06-29 00:00:18;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];TIME {"request":564}
+2026-06-29 00:00:18;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];DATA {"attempts":1}
+2026-06-29 00:00:18;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];RESN {"reasoning":Move to (10,9), attack wave propagates to enemy]}
+2026-06-29 00:00:18;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Flags;True;True;False
+2026-06-29 00:00:18;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];MOVE {10, 9}
+2026-06-29 00:00:19;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-29 00:00:19;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Finish turn
+2026-06-29 00:00:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Start turn
+2026-06-29 00:00:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate move: True
+2026-06-29 00:00:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Chosen action: (11, 10) - U = 31.40717
+2026-06-29 00:00:20;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate action: True
+2026-06-29 00:00:20;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];ATTK {10, 11}
+2026-06-29 00:00:20;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];TRGT WAVE
+2026-06-29 00:00:22;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Start turn;5,5
+2026-06-29 00:00:23;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];PRPT Prompt_9_post_invalids;4096
+2026-06-29 00:00:23;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];TIME {"request":587}
+2026-06-29 00:00:23;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];DATA {"attempts":1}
+2026-06-29 00:00:23;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];RESN {"reasoning":Move to (11,11), attack wave at (10,11)]}
+2026-06-29 00:00:23;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Flags;True;True;False
+2026-06-29 00:00:23;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];MOVE {11, 11}
+2026-06-29 00:00:24;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-29 00:00:24;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Finish turn
+2026-06-29 00:00:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Start turn
+2026-06-29 00:00:24;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate move: True
+2026-06-29 00:00:25;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Chosen action: (6, 8) - U = 24.81739
+2026-06-29 00:00:27;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate action: True
+2026-06-29 00:00:27;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];ATTK {7, 9}
+2026-06-29 00:00:27;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];TRGT TARGET
+2026-06-29 00:00:28;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Start turn;5,5
+2026-06-29 00:00:29;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];PRPT Prompt_9_post_invalids;4102
+2026-06-29 00:00:29;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];TIME {"request":614}
+2026-06-29 00:00:29;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];DATA {"attempts":1}
+2026-06-29 00:00:29;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];RESN {"reasoning":Move to (9,11), kill enemy dist 2]}
+2026-06-29 00:00:29;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Flags;True;True;False
+2026-06-29 00:00:29;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];MOVE {9, 11}
+2026-06-29 00:00:30;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];ATTK {9, 9}
+2026-06-29 00:00:30;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Finish turn
+2026-06-29 00:00:31;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Start turn
+2026-06-29 00:00:31;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate move: True
+2026-06-29 00:00:31;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Chosen action: (9, 6) - U = 26.19953
+2026-06-29 00:00:31;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate action: False
+2026-06-29 00:00:31;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Start turn;5,5
+2026-06-29 00:00:32;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];PRPT Prompt_9_post_invalids;4118
+2026-06-29 00:00:33;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];TIME {"request":628}
+2026-06-29 00:00:33;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];DATA {"attempts":1}
+2026-06-29 00:00:33;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];RESN {"reasoning":Move to (10,10), attack wave]}
+2026-06-29 00:00:33;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Flags;True;True;False
+2026-06-29 00:00:33;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];MOVE {10, 10}
+2026-06-29 00:00:34;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-29 00:00:34;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Finish turn
+2026-06-29 00:00:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Start turn
+2026-06-29 00:00:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate move: True
+2026-06-29 00:00:35;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Chosen action: (10, 10) - U = 38.78288
+2026-06-29 00:00:36;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate action: True
+2026-06-29 00:00:36;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];ATTK {10, 12}
+2026-06-29 00:00:36;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];TRGT LLM {ENEMY}
+2026-06-29 00:00:37;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Start turn;5,5
+2026-06-29 00:00:38;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];PRPT Prompt_9_post_invalids;4074
+2026-06-29 00:00:39;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];TIME {"request":594}
+2026-06-29 00:00:39;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];DATA {"attempts":1}
+2026-06-29 00:00:39;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];RESN {"reasoning":Move to (10,9), kill enemy dist 2]}
+2026-06-29 00:00:39;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Flags;True;True;False
+2026-06-29 00:00:39;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];MOVE {10, 9}
+2026-06-29 00:00:41;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Cannot reach target at GridTile(Clone) (10, 10).
+2026-06-29 00:00:41;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Finish turn
+2026-06-29 00:00:41;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Start turn
+2026-06-29 00:00:41;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate move: True
+2026-06-29 00:00:41;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Chosen action: (8, 9) - U = 20.28645
+2026-06-29 00:00:43;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate action: True
+2026-06-29 00:00:43;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];ATTK {10, 9}
+2026-06-29 00:00:43;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];TRGT LLM {ENEMY}
+2026-06-29 00:00:44;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Start turn;5,5
+2026-06-29 00:00:45;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];PRPT Prompt_9_post_invalids;4083
+2026-06-29 00:00:46;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];TIME {"request":661}
+2026-06-29 00:00:46;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];DATA {"attempts":1}
+2026-06-29 00:00:46;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];RESN {"reasoning":Move to (9,9), attack wave at (10,11)]}
+2026-06-29 00:00:46;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Flags;True;True;False
+2026-06-29 00:00:46;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];MOVE {9, 9}
+2026-06-29 00:00:47;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Cannot reach target at GridTile(Clone) (10, 11).
+2026-06-29 00:00:47;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Finish turn
+2026-06-29 00:00:48;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Start turn
+2026-06-29 00:00:48;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate move: True
+2026-06-29 00:00:48;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Chosen action: (10, 7) - U = 32.72003
+2026-06-29 00:00:49;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate action: True
+2026-06-29 00:00:49;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];ATTK {10, 9}
+2026-06-29 00:00:49;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];TRGT LLM {ENEMY}
+2026-06-29 00:00:51;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Start turn;5,5
+2026-06-29 00:00:52;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];PRPT Prompt_9_post_invalids;4129
+2026-06-29 00:00:52;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];TIME {"request":594}
+2026-06-29 00:00:52;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];DATA {"attempts":1}
+2026-06-29 00:00:52;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];RESN {"reasoning":Move to (11,12), attack wave]}
+2026-06-29 00:00:52;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Flags;True;True;False
+2026-06-29 00:00:52;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];MOVE {11, 12}
+2026-06-29 00:00:53;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];ATTK {10, 11}
+2026-06-29 00:00:53;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];TRGT WAVE
+2026-06-29 00:00:53;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Attacked succeeded at GridTile(Clone) (10, 11). Kill count = 0.
+2026-06-29 00:00:55;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Finish turn
+2026-06-29 00:00:55;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Start turn
+2026-06-29 00:00:55;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate move: True
+2026-06-29 00:00:55;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Chosen action: (12, 9) - U = 31.85765
+2026-06-29 00:00:57;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate action: True
+2026-06-29 00:00:57;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];INFO Destroyed
+2026-06-29 00:00:57;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|5];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":3,"internalTotalRequestCount":3,"internalMovementAttemptCount":3,"internalAttackAttemptCount":3,"internalFaultyMessageCount":0,"averageRequestTime":609,"averageRequestTimeCount":3,"maxRequestTime":646,"minRequest":587,"averageAttempts":1,"kills":0}
+2026-06-29 00:00:57;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];ATTK {10, 9}
+2026-06-29 00:00:57;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];TRGT LLM {ENEMY}
+2026-06-29 00:00:58;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Start turn
+2026-06-29 00:00:58;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate move: True
+2026-06-29 00:00:59;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Chosen action: (7, 9) - U = 24.03002
+2026-06-29 00:01:00;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate action: True
+2026-06-29 00:01:00;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];ATTK {9, 9}
+2026-06-29 00:01:00;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];TRGT LLM {ENEMY}
+2026-06-29 00:01:01;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Start turn;5,5
+2026-06-29 00:01:02;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];PRPT Prompt_9_post_invalids;4101
+2026-06-29 00:01:04;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];TIME {"request":2042}
+2026-06-29 00:01:04;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];DATA {"attempts":1}
+2026-06-29 00:01:04;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];RESN {"reasoning":Move to (10,9), attack (10,7)]}
+2026-06-29 00:01:04;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Flags;True;True;False
+2026-06-29 00:01:04;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];MOVE {10, 9}
+2026-06-29 00:01:05;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];ATTK {10, 7}
+2026-06-29 00:01:05;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];TRGT LLM {ENEMY}
+2026-06-29 00:01:05;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Attacked succeeded at GridTile(Clone) (10, 7). Kill count = 0.
+2026-06-29 00:01:06;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Finish turn
+2026-06-29 00:01:06;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Start turn
+2026-06-29 00:01:06;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate move: True
+2026-06-29 00:01:07;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Chosen action: (11, 8) - U = 24.6005
+2026-06-29 00:01:08;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate action: True
+2026-06-29 00:01:08;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];ATTK {10, 9}
+2026-06-29 00:01:08;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];TRGT LLM {ENEMY}
+2026-06-29 00:01:09;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Start turn;5,5
+2026-06-29 00:01:10;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];PRPT Prompt_9_post_invalids;4159
+2026-06-29 00:01:11;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];TIME {"request":590}
+2026-06-29 00:01:11;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];DATA {"attempts":1}
+2026-06-29 00:01:11;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];RESN {"reasoning":Move to (11,10), kill enemy dist 2]}
+2026-06-29 00:01:11;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Flags;True;True;False
+2026-06-29 00:01:11;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];MOVE {11, 10}
+2026-06-29 00:01:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];ATTK {11, 8}
+2026-06-29 00:01:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];TRGT LLM {ENEMY}
+2026-06-29 00:01:13;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Attacked succeeded at GridTile(Clone) (11, 8). Kill count = 0.
+2026-06-29 00:01:14;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Finish turn
+2026-06-29 00:01:14;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Start turn
+2026-06-29 00:01:14;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate move: True
+2026-06-29 00:01:14;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Chosen action: (12, 9) - U = 17.98333
+2026-06-29 00:01:15;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];INFO Can calculate action: True
+2026-06-29 00:01:15;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];INFO Destroyed
+2026-06-29 00:01:15;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|6];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":2,"internalTotalRequestCount":4,"internalMovementAttemptCount":4,"internalAttackAttemptCount":4,"internalFaultyMessageCount":0,"averageRequestTime":980.5,"averageRequestTimeCount":4,"maxRequestTime":2042,"minRequest":605,"averageAttempts":1,"kills":0}
+2026-06-29 00:01:15;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];ATTK {10, 9}
+2026-06-29 00:01:15;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|9];TRGT LLM {ENEMY}
+2026-06-29 00:01:16;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Start turn
+2026-06-29 00:01:16;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate move: True
+2026-06-29 00:01:16;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Chosen action: (6, 8) - U = 13.77762
+2026-06-29 00:01:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|8];INFO Can calculate action: False
+2026-06-29 00:01:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Start turn
+2026-06-29 00:01:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate move: True
+2026-06-29 00:01:18;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Chosen action: (11, 8) - U = 19.11144
+2026-06-29 00:01:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];INFO Can calculate action: True
+2026-06-29 00:01:19;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];INFO Destroyed
+2026-06-29 00:01:19;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":3,"internalTotalRequestCount":5,"internalMovementAttemptCount":5,"internalAttackAttemptCount":5,"internalFaultyMessageCount":0,"averageRequestTime":602.4,"averageRequestTimeCount":5,"maxRequestTime":636,"minRequest":564,"averageAttempts":1,"kills":0}
+2026-06-29 00:01:19;[SYSTEM];[LevelGoal];INFO Faction Green won.
+2026-06-29 00:01:19;[SYSTEM];[LevelGoal];INFO Logging remaining ships. Count: 6.
+2026-06-29 00:01:19;[SYSTEM];[LLMAgent|Mistral|mistral-small-2503|Red|2];DATA {"internalWrongMovementCount":0,"internalWrongAttackCount":3,"internalTotalRequestCount":5,"internalMovementAttemptCount":5,"internalAttackAttemptCount":5,"internalFaultyMessageCount":0,"averageRequestTime":602.4,"averageRequestTimeCount":5,"maxRequestTime":636,"minRequest":564,"averageAttempts":1,"kills":0}
+2026-06-29 00:01:19;[SYSTEM];[LevelController];INFO Level finished.
+2026-06-29 00:01:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];ATTK {11, 10}
+2026-06-29 00:01:19;[SYSTEM];[AIAgent-Utility|RevengeUtility|Green|7];TRGT LLM {ENEMY}
+2026-06-29 00:01:19;[SYSTEM];[LevelGoal];INFO Utility Green won.
