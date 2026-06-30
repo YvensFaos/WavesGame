@@ -206,7 +206,6 @@ namespace Actors
         public int Initiative { get; private set; }
         public int ActionsLeft { get; private set; }
         public Faction GetFaction() => faction;
-
         public SpriteRenderer Renderer() => spriteRenderer;
 
         public int CompareTo(NavalShip other)

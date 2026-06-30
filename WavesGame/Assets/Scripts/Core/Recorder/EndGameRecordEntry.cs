@@ -49,9 +49,10 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
+            var winningFactionName = _winningFaction != null ? _winningFaction.name : "no faction";
             return JsonUtility.ToJson(new EndGameRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.EndGame), turn,
-                timeStamp, _goalMessage, _winningFaction.name));
+                timeStamp, _goalMessage, winningFactionName));
         }
 
         /// TODO change this to read the entry from a JSON.
