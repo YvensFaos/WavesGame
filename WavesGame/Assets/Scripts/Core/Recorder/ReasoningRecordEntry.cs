@@ -19,7 +19,7 @@ namespace Core.Recorder
 
     public class ReasoningRecordEntry : ActorRecordEntry
     {
-        private string _reasoning;
+        private readonly string _reasoning;
 
         public ReasoningRecordEntry(string actorId, int turn, long timeStamp,
             string reasoning) : base(actorId, WavesRecordEntryType.Reasoning, turn, timeStamp)
@@ -36,7 +36,6 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            //string actorId, string eventType, int turn, long timeStamp, string targetId, Vector2Int attackPosition, float damage, string comment = ""
             return JsonConvert.SerializeObject(new ReasoningRecordEntryJson(ActorID,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _reasoning, comment));
         }
