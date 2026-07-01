@@ -11,16 +11,19 @@ namespace Core.Recorder
     public class InputRecordEntryJson : WavesEntryJson
     {
         [SerializeField] public string actionName;
+        [SerializeField] public string actionMap;
         [SerializeField] public string actionPhase;
         [SerializeField] public string actionValue;
         [SerializeField] public string actionDevice;
         [SerializeField] public double actionStartTime;
 
-        public InputRecordEntryJson(string actionName, string actionPhase, string actionValue, string actionDevice,
+        public InputRecordEntryJson(string actionName, string actionMap, string actionPhase, string actionValue,
+            string actionDevice,
             double actionStartTime,
             string eventType, int turn, long timeStamp) : base(eventType, turn, timeStamp)
         {
             this.actionName = actionName;
+            this.actionMap = actionMap;
             this.actionPhase = actionPhase;
             this.actionValue = actionValue;
             this.actionDevice = actionDevice;
@@ -31,6 +34,7 @@ namespace Core.Recorder
     public class InputRecordEntry : WavesEntry
     {
         private readonly string _actionName;
+        private readonly string _actionMap;
         private readonly string _actionPhase;
         private readonly string _actionValue;
         private readonly string _actionDevice;
@@ -41,6 +45,7 @@ namespace Core.Recorder
         {
             var action = actionEventPtr.action;
             _actionName = action.name;
+            _actionMap = action.actionMap.name;
             _actionPhase = action.phase.ToString();
             _actionStartTime = actionEventPtr.startTime;
 
@@ -57,7 +62,7 @@ namespace Core.Recorder
             _actionDevice = "";
             if (action.activeControl is { device: not null })
             {
-                _actionDevice = action.activeControl.device.name;    
+                _actionDevice = action.activeControl.device.name;
             }
         }
 
@@ -70,10 +75,10 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new InputRecordEntryJson(_actionName, _actionPhase, _actionValue,
-                _actionDevice, _actionStartTime, WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
-                turn,
-                timeStamp));
+            return JsonConvert.SerializeObject(new InputRecordEntryJson(_actionName, _actionMap, _actionPhase,
+                _actionValue, _actionDevice, _actionStartTime,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
+                turn, timeStamp));
         }
     }
 }
