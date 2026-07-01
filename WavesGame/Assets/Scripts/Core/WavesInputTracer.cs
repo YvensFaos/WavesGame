@@ -9,12 +9,11 @@ namespace Core
     {
         protected override void ProcessActionEventPtr(InputActionTrace.ActionEventPtr actionEventPtr)
         {
-            if (actionEventPtr.phase is not (InputActionPhase.Performed or InputActionPhase.Started)) return;
+            if (actionEventPtr.phase is not InputActionPhase.Performed) return;
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             if (!LevelController.TryToGetSingleton(out var levelController)) return;
             recorder.RecordNewEntry(new InputRecordEntry(actionEventPtr, levelController.GetTurn(), levelController
                 .GetTimeStamp()));
-
         }
     }
 }
