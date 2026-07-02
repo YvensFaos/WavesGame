@@ -1,0 +1,699 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"Level04","randomSeed":6,"maxTurns":-1,"navalActorEntryJsons":[{"name":"SimpleBoat","shipPrefabType":"NavalShip","faction":"White","shipData":"BasicShip","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":5},"genesData":"","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"SimpleBoat (2)","shipPrefabType":"NavalShip","faction":"White","shipData":"BasicShip","navalCannon":"Regular Cannon","initialPosition":{"x":11,"y":5},"genesData":"","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"Target (4)","shipPrefabType":"NavalTarget","faction":"None","shipData":"No Ship Data","navalCannon":"No Naval Cannon","initialPosition":{"x":5,"y":14},"genesData":"","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"LLMAgent|DeepSeek|deepseek-chat|Red|3","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":11,"y":13},"genesData":"","basePrompt":"Prompt_11_shorter_plus_rsn","llmInfo":"DeepSeek-deepseek-chat-Prompt_11_shorter_plus_rsn","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"LLMAgent|DeepSeek|deepseek-chat|Red|4","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":13},"genesData":"","basePrompt":"Prompt_11_shorter_plus_rsn","llmInfo":"DeepSeek-deepseek-chat-Prompt_11_shorter_plus_rsn","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"SimpleBoat (1)","shipPrefabType":"NavalShip","faction":"White","shipData":"BasicShip","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"Target (2)","shipPrefabType":"NavalTarget","faction":"None","shipData":"No Ship Data","navalCannon":"No Naval Cannon","initialPosition":{"x":13,"y":10},"genesData":"","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"LLMAgent|DeepSeek|deepseek-chat|Red|6","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":13},"genesData":"","basePrompt":"Prompt_11_shorter_plus_rsn","llmInfo":"DeepSeek-deepseek-chat-Prompt_11_shorter_plus_rsn","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"Target","shipPrefabType":"NavalTarget","faction":"None","shipData":"No Ship Data","navalCannon":"No Naval Cannon","initialPosition":{"x":12,"y":2},"genesData":"","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"Target (3)","shipPrefabType":"NavalTarget","faction":"None","shipData":"No Ship Data","navalCannon":"No Naval Cannon","initialPosition":{"x":4,"y":9},"genesData":"","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"Destroy All Enemies"}
+{"eventType":"RESN","reasoning":"Move (12,13) → Attack (11,13), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":0,"timeStamp":2}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":13},"moveTo":{"x":12,"y":13},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":0,"timeStamp":3}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":12,"y":13},"targetId":"","targetPosition":{"x":11,"y":13},"reasoning":"Move (12,13) → Attack (11,13), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":0,"timeStamp":3}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":9.07264659073553,"turn":0,"timeStamp":6}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":9.07264659073553,"turn":0,"timeStamp":6}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":9.59448852497735,"turn":0,"timeStamp":6}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":9.7608775651315227,"turn":0,"timeStamp":6}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":9.9407912777678575,"turn":0,"timeStamp":7}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":9.9407912777678575,"turn":0,"timeStamp":7}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":10.074983707163483,"turn":0,"timeStamp":7}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":10.272705812501954,"turn":0,"timeStamp":7}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":10.661237642692868,"turn":0,"timeStamp":7}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":10.840757936442969,"turn":0,"timeStamp":7}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":10.840757936442969,"turn":0,"timeStamp":7}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.185803948319517,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.185803948319517,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.380430151359178,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.380430151359178,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.519547970267013,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.519547970267013,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.696124447829789,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.696124447829789,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.891353855200578,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":11.891353855200578,"turn":0,"timeStamp":8}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":12.05596926403814,"turn":0,"timeStamp":9}
+{"eventType":"INPT","actionName":"Jump","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":12.05596926403814,"turn":0,"timeStamp":9}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":12.253596014139475,"turn":0,"timeStamp":9}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":12.522517220058944,"turn":0,"timeStamp":9}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":12.686555839813082,"turn":0,"timeStamp":9}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":12.895751419331646,"turn":0,"timeStamp":10}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":13.19558229696122,"turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":5},"moveTo":{"x":12,"y":5},"actorId":"SimpleBoat (2)","turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":5},"moveTo":{"x":13,"y":5},"actorId":"SimpleBoat (2)","turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":5},"moveTo":{"x":13,"y":4},"actorId":"SimpleBoat (2)","turn":0,"timeStamp":10}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":14.305939475714695,"turn":0,"timeStamp":11}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":14.560829214722617,"turn":0,"timeStamp":11}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":14.80297119464376,"turn":0,"timeStamp":11}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":14.995923356589628,"turn":0,"timeStamp":12}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":15.266006861987989,"turn":0,"timeStamp":12}
+{"eventType":"RESN","reasoning":"Move (9,12) → Attack (9,10), Manhattan=2, no enemy in ring, reposition toward nearest enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":14}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":13},"moveTo":{"x":9,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":15}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":19.556808308319887,"turn":0,"timeStamp":16}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":19.84126643819036,"turn":0,"timeStamp":16}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":20.20383161661448,"turn":0,"timeStamp":17}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":20.516619932488538,"turn":0,"timeStamp":17}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":20.786117698822636,"turn":0,"timeStamp":17}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":21.086607050761813,"turn":0,"timeStamp":18}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":21.402891448437003,"turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":10,"y":5},"actorId":"SimpleBoat (1)","turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":10,"y":6},"actorId":"SimpleBoat (1)","turn":0,"timeStamp":18}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":22.106193886313122,"turn":0,"timeStamp":19}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":22.886523324326845,"turn":0,"timeStamp":19}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":23.17257280278136,"turn":0,"timeStamp":20}
+{"eventType":"RESN","reasoning":"Move (7,12) → Attack (7,10), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":0,"timeStamp":22}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":13},"moveTo":{"x":7,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":0,"timeStamp":23}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":7,"y":12},"targetId":"","targetPosition":{"x":7,"y":10},"reasoning":"Move (7,12) → Attack (7,10), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","comment":"No valid targets at the attacked position.","turn":0,"timeStamp":23}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":30.385902126057772,"turn":0,"timeStamp":27}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":30.625315171200782,"turn":0,"timeStamp":27}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":30.805831032805145,"turn":0,"timeStamp":27}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":31.000094088027254,"turn":0,"timeStamp":28}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":31.272721594170434,"turn":0,"timeStamp":28}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":31.422295867290813,"turn":0,"timeStamp":28}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":31.574399953038665,"turn":0,"timeStamp":28}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":31.900112633564277,"turn":0,"timeStamp":29}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":5},"moveTo":{"x":6,"y":5},"actorId":"SimpleBoat","turn":0,"timeStamp":29}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":5},"moveTo":{"x":5,"y":5},"actorId":"SimpleBoat","turn":0,"timeStamp":29}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":5},"moveTo":{"x":5,"y":6},"actorId":"SimpleBoat","turn":0,"timeStamp":29}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":32.75586249580374,"turn":0,"timeStamp":29}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":32.936441028025,"turn":0,"timeStamp":30}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":33.2235967660672,"turn":1,"timeStamp":30}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":34.045919482217869,"turn":1,"timeStamp":31}
+{"eventType":"RESN","reasoning":"Move (13,13) → Attack (11,13), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":1,"timeStamp":32}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":13},"moveTo":{"x":13,"y":13},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":1,"timeStamp":33}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":13,"y":13},"targetId":"","targetPosition":{"x":11,"y":13},"reasoning":"Move (13,13) → Attack (11,13), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","comment":"No valid targets at the attacked position.","turn":1,"timeStamp":33}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":38.98127752658911,"turn":1,"timeStamp":36}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":39.25355270181899,"turn":1,"timeStamp":36}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":39.431321541924262,"turn":1,"timeStamp":36}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":39.673187237727689,"turn":1,"timeStamp":36}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":39.926469928497681,"turn":1,"timeStamp":37}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":40.120206008607056,"turn":1,"timeStamp":37}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":40.28647108093719,"turn":1,"timeStamp":37}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":40.8108864731912,"turn":1,"timeStamp":37}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":4},"moveTo":{"x":13,"y":5},"actorId":"SimpleBoat (2)","turn":1,"timeStamp":38}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":5},"moveTo":{"x":13,"y":6},"actorId":"SimpleBoat (2)","turn":1,"timeStamp":38}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":6},"moveTo":{"x":13,"y":7},"actorId":"SimpleBoat (2)","turn":1,"timeStamp":38}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":41.68171421889565,"turn":1,"timeStamp":38}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":41.893917936075013,"turn":1,"timeStamp":39}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":42.14643661736045,"turn":1,"timeStamp":39}
+{"eventType":"RESN","reasoning":"Move (9,11) → Attack (10,12), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":1,"timeStamp":41}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":12},"moveTo":{"x":9,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":1,"timeStamp":42}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":9,"y":11},"targetId":"","targetPosition":{"x":10,"y":12},"reasoning":"Move (9,11) → Attack (10,12), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","comment":"No valid targets at the attacked position.","turn":1,"timeStamp":42}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.00)","actionDevice":"Mouse","actionStartTime":48.719661254086532,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(3.50, -1.25)","actionDevice":"Mouse","actionStartTime":48.736270878842333,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(7.00, -3.75)","actionDevice":"Mouse","actionStartTime":48.752874743571738,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(6.75, -6.50)","actionDevice":"Mouse","actionStartTime":48.770379713678267,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(8.00, -10.50)","actionDevice":"Mouse","actionStartTime":48.786358420446049,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(6.00, -8.50)","actionDevice":"Mouse","actionStartTime":48.8032079586701,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(4.50, -7.75)","actionDevice":"Mouse","actionStartTime":48.819576965674059,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(2.50, -5.50)","actionDevice":"Mouse","actionStartTime":48.836955984588712,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(2.75, -6.75)","actionDevice":"Mouse","actionStartTime":48.852929396583932,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, -3.00)","actionDevice":"Mouse","actionStartTime":48.870288630161667,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.50, -2.50)","actionDevice":"Mouse","actionStartTime":48.8863311529567,"turn":1,"timeStamp":45}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, -1.75)","actionDevice":"Mouse","actionStartTime":48.903037533251336,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.50)","actionDevice":"Mouse","actionStartTime":48.920096708607161,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -0.50)","actionDevice":"Mouse","actionStartTime":48.937010275985813,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -0.25)","actionDevice":"Mouse","actionStartTime":48.953399772552075,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -0.25)","actionDevice":"Mouse","actionStartTime":48.9702849452442,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -0.25)","actionDevice":"Mouse","actionStartTime":48.98697197745787,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -0.50)","actionDevice":"Mouse","actionStartTime":49.003553900576662,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.25)","actionDevice":"Mouse","actionStartTime":49.019774113839958,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -5.00)","actionDevice":"Mouse","actionStartTime":49.036587205540854,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.50, -11.75)","actionDevice":"Mouse","actionStartTime":49.053459735907381,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(3.50, -13.50)","actionDevice":"Mouse","actionStartTime":49.06969638436567,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(6.00, -15.25)","actionDevice":"Mouse","actionStartTime":49.087026043765945,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(5.25, -10.75)","actionDevice":"Mouse","actionStartTime":49.102956866350723,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.50, -3.00)","actionDevice":"Mouse","actionStartTime":49.120007957884809,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, -2.00)","actionDevice":"Mouse","actionStartTime":49.13676356401993,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.25, -1.50)","actionDevice":"Mouse","actionStartTime":49.152927267627092,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.25, -1.50)","actionDevice":"Mouse","actionStartTime":49.170147816650569,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.50, -0.50)","actionDevice":"Mouse","actionStartTime":49.18656168790767,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -0.25)","actionDevice":"Mouse","actionStartTime":49.203416036150884,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.00)","actionDevice":"Mouse","actionStartTime":49.219673141982639,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-0.75, 0.25)","actionDevice":"Mouse","actionStartTime":49.286844685848337,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 1.25)","actionDevice":"Mouse","actionStartTime":49.302903749805409,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 1.50)","actionDevice":"Mouse","actionStartTime":49.320218265027506,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.75, 2.25)","actionDevice":"Mouse","actionStartTime":49.337049110763473,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-3.00, 3.50)","actionDevice":"Mouse","actionStartTime":49.353399844898377,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-5.75, 4.50)","actionDevice":"Mouse","actionStartTime":49.370963086490519,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-2.25, 1.50)","actionDevice":"Mouse","actionStartTime":49.386977468733676,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":49.536800731322728,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.50, 1.25)","actionDevice":"Mouse","actionStartTime":49.552985420945333,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-2.00, 1.50)","actionDevice":"Mouse","actionStartTime":49.569853735680226,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-2.75, 1.75)","actionDevice":"Mouse","actionStartTime":49.58624865533784,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-0.75, 0.75)","actionDevice":"Mouse","actionStartTime":49.60310661647236,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-0.50, 1.00)","actionDevice":"Mouse","actionStartTime":49.619700981449569,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-0.75, 2.25)","actionDevice":"Mouse","actionStartTime":49.636250657204073,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-0.50, 2.00)","actionDevice":"Mouse","actionStartTime":49.653478673310019,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(-0.25, 1.25)","actionDevice":"Mouse","actionStartTime":49.670447899552528,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.25)","actionDevice":"Mouse","actionStartTime":49.68700193989207,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.75)","actionDevice":"Mouse","actionStartTime":49.703628160612425,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":49.736865961138392,"turn":1,"timeStamp":46}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.50, -2.00)","actionDevice":"Mouse","actionStartTime":49.952878328273073,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(4.50, -8.25)","actionDevice":"Mouse","actionStartTime":49.970381688937778,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(11.75, -18.50)","actionDevice":"Mouse","actionStartTime":49.986827204731526,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(13.25, -19.75)","actionDevice":"Mouse","actionStartTime":50.003200498787919,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(12.75, -16.25)","actionDevice":"Mouse","actionStartTime":50.023684694810072,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(5.25, -5.50)","actionDevice":"Mouse","actionStartTime":50.036800517496886,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(2.25, -1.75)","actionDevice":"Mouse","actionStartTime":50.053125330246985,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.25, -0.75)","actionDevice":"Mouse","actionStartTime":50.070215240732068,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.00)","actionDevice":"Mouse","actionStartTime":50.1032948961074,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.75)","actionDevice":"Mouse","actionStartTime":50.119574679702055,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 1.00)","actionDevice":"Mouse","actionStartTime":50.137166763248388,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Mouse","actionStartTime":50.152877033193363,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.50)","actionDevice":"Mouse","actionStartTime":50.170357192633674,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":50.18621226772666,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.50)","actionDevice":"Mouse","actionStartTime":50.203945590415969,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.75)","actionDevice":"Mouse","actionStartTime":50.2230544637423,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.50)","actionDevice":"Mouse","actionStartTime":50.236357919697184,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.50)","actionDevice":"Mouse","actionStartTime":50.253061504103243,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":50.286226892640116,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.50, 0.75)","actionDevice":"Mouse","actionStartTime":50.303200091584586,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.50, 1.25)","actionDevice":"Mouse","actionStartTime":50.319566738966387,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.25, 3.25)","actionDevice":"Mouse","actionStartTime":50.336755811469629,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 4.00)","actionDevice":"Mouse","actionStartTime":50.353501689358382,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 4.00)","actionDevice":"Mouse","actionStartTime":50.37046067067422,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.75, 2.50)","actionDevice":"Mouse","actionStartTime":50.386460521316621,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.50, 2.00)","actionDevice":"Mouse","actionStartTime":50.403782384877559,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.50, 1.25)","actionDevice":"Mouse","actionStartTime":50.419553033396369,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 1.00)","actionDevice":"Mouse","actionStartTime":50.436562180460896,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.50)","actionDevice":"Mouse","actionStartTime":50.453660755971214,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.50)","actionDevice":"Mouse","actionStartTime":50.470406720676692,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.00)","actionDevice":"Mouse","actionStartTime":50.536239535023924,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":50.553324120439356,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.50)","actionDevice":"Mouse","actionStartTime":50.57021000480745,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":50.586994529527146,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":50.603451043658424,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.25, 0.00)","actionDevice":"Mouse","actionStartTime":50.619751418213127,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.50)","actionDevice":"Mouse","actionStartTime":50.686593109508976,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":50.70299208239885,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Look","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 0.25)","actionDevice":"Mouse","actionStartTime":50.71976977205486,"turn":1,"timeStamp":47}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":61.856208141864045,"turn":1,"timeStamp":58}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":62.246095717942808,"turn":1,"timeStamp":59}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":62.4264240078046,"turn":1,"timeStamp":59}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":62.636363469733624,"turn":1,"timeStamp":59}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":62.831845964421518,"turn":1,"timeStamp":59}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":63.027163928898517,"turn":1,"timeStamp":60}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":63.1913767340302,"turn":1,"timeStamp":60}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":63.38609913221444,"turn":1,"timeStamp":60}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":63.776965075696353,"turn":1,"timeStamp":60}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":63.972644056368154,"turn":1,"timeStamp":61}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":64.15578467035084,"turn":1,"timeStamp":61}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":65.591736409609439,"turn":1,"timeStamp":62}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":66.041161391767673,"turn":1,"timeStamp":63}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":7},"actorId":"SimpleBoat (1)","turn":1,"timeStamp":63}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":9,"y":7},"actorId":"SimpleBoat (1)","turn":1,"timeStamp":63}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":66.822000297193881,"turn":1,"timeStamp":63}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":67.003073667263379,"turn":1,"timeStamp":64}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":67.2727148560516,"turn":1,"timeStamp":64}
+{"eventType":"RESN","reasoning":"Move (7,11) → Attack (9,11) invalid, no enemy. Move (8,12) → Attack (8,10) invalid. No enemy in ring. Move (7,9) toward nearest enemy (5,6), attack [-1,-1].","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":67}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":7,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":67}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":11},"moveTo":{"x":7,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":68}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":7,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":68}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":73.166670455917483,"turn":1,"timeStamp":70}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":73.676988255814649,"turn":1,"timeStamp":70}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":73.8726505934901,"turn":1,"timeStamp":70}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":74.0804630278144,"turn":1,"timeStamp":71}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":74.35286525011179,"turn":1,"timeStamp":71}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":74.486588894476881,"turn":1,"timeStamp":71}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":74.653193559031934,"turn":1,"timeStamp":71}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":74.922498096973868,"turn":1,"timeStamp":72}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":6},"moveTo":{"x":4,"y":6},"actorId":"SimpleBoat","turn":1,"timeStamp":72}
+{"eventType":"MOVE","moveFrom":{"x":4,"y":6},"moveTo":{"x":3,"y":6},"actorId":"SimpleBoat","turn":1,"timeStamp":72}
+{"eventType":"MOVE","moveFrom":{"x":3,"y":6},"moveTo":{"x":2,"y":6},"actorId":"SimpleBoat","turn":1,"timeStamp":72}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":76.589612837036839,"turn":1,"timeStamp":73}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":77.186670990311541,"turn":1,"timeStamp":74}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":77.457916017563548,"turn":2,"timeStamp":74}
+{"eventType":"RESN","reasoning":"Move (13,14) → Attack (13,12), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":2,"timeStamp":77}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":13},"moveTo":{"x":13,"y":14},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":2,"timeStamp":77}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":13,"y":14},"targetId":"","targetPosition":{"x":13,"y":12},"reasoning":"Move (13,14) → Attack (13,12), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","comment":"No valid targets at the attacked position.","turn":2,"timeStamp":78}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":83.156700104213087,"turn":2,"timeStamp":80}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":83.39642308227485,"turn":2,"timeStamp":80}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":83.577051528031,"turn":2,"timeStamp":80}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":83.816643987200223,"turn":2,"timeStamp":80}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":84.086898015579209,"turn":2,"timeStamp":81}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":84.311827924451791,"turn":2,"timeStamp":81}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":84.597146722837351,"turn":2,"timeStamp":81}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":7},"moveTo":{"x":12,"y":7},"actorId":"SimpleBoat (2)","turn":2,"timeStamp":81}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":7},"moveTo":{"x":12,"y":8},"actorId":"SimpleBoat (2)","turn":2,"timeStamp":82}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":85.631731631408911,"turn":2,"timeStamp":82}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":85.872714426310267,"turn":2,"timeStamp":82}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":86.0860049847397,"turn":2,"timeStamp":83}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":86.264314765372546,"turn":2,"timeStamp":83}
+{"eventType":"ATTK","targetId":"Wave (5)","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"SimpleBoat (2)","comment":"Attacked a wave","turn":2,"timeStamp":83}
+{"eventType":"DAMG","damage":9,"actorId":"Wave (5)","turn":2,"timeStamp":83}
+{"eventType":"DEAD","actorId":"Target (2)","turn":2,"timeStamp":83}
+{"eventType":"ATTK","targetId":"Target (2)","attackPosition":{"x":13,"y":10},"damage":9.0,"actorId":"Wave (5)","turn":2,"timeStamp":83}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":86.515883436921285,"turn":2,"timeStamp":83}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":87.116442369122524,"turn":2,"timeStamp":84}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":87.730309528880753,"turn":2,"timeStamp":84}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":87.942163559288019,"turn":2,"timeStamp":85}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":88.153349030122627,"turn":2,"timeStamp":85}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":88.3772248258465,"turn":2,"timeStamp":85}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":88.631598893203773,"turn":2,"timeStamp":85}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":13,"y":8},"actorId":"SimpleBoat (2)","turn":2,"timeStamp":85}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":89.157315084157744,"turn":2,"timeStamp":86}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":89.3371284470486,"turn":2,"timeStamp":86}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":89.575768525333842,"turn":2,"timeStamp":86}
+{"eventType":"RESN","reasoning":"Move (9,10) → Attack (9,8), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":89}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":11},"moveTo":{"x":9,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":89}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":9,"y":10},"targetId":"","targetPosition":{"x":9,"y":8},"reasoning":"Move (9,10) → Attack (9,8), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","comment":"No valid targets at the attacked position.","turn":2,"timeStamp":90}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":95.27701420467929,"turn":2,"timeStamp":92}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":95.560808394046035,"turn":2,"timeStamp":92}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":95.757236269244459,"turn":2,"timeStamp":92}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":96.146210080449237,"turn":2,"timeStamp":93}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":96.402811231993837,"turn":2,"timeStamp":93}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":96.9577199248597,"turn":2,"timeStamp":94}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":97.303579953528242,"turn":2,"timeStamp":94}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":97.48129107139539,"turn":2,"timeStamp":94}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":97.9920751771715,"turn":2,"timeStamp":95}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":8,"y":7},"actorId":"SimpleBoat (1)","turn":2,"timeStamp":95}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":7},"moveTo":{"x":7,"y":7},"actorId":"SimpleBoat (1)","turn":2,"timeStamp":95}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":98.815814873058116,"turn":2,"timeStamp":95}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":99.088784377177944,"turn":2,"timeStamp":96}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":99.310738598287571,"turn":2,"timeStamp":96}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":99.47581784328213,"turn":2,"timeStamp":96}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"SimpleBoat (1)","turn":2,"timeStamp":96}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":96}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":99.7458840153704,"turn":2,"timeStamp":96}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":100.30288593407022,"turn":2,"timeStamp":97}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":100.57251555431867,"turn":2,"timeStamp":97}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":100.78110695144278,"turn":2,"timeStamp":97}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":101.09659169340739,"turn":2,"timeStamp":98}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":101.35297556355363,"turn":2,"timeStamp":98}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":101.63922558448394,"turn":2,"timeStamp":98}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":7},"moveTo":{"x":7,"y":6},"actorId":"SimpleBoat (1)","turn":2,"timeStamp":98}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":102.13654674781719,"turn":2,"timeStamp":99}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":102.32659490406513,"turn":2,"timeStamp":99}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":102.6122247610765,"turn":2,"timeStamp":99}
+{"eventType":"RESN","reasoning":"Move (8,9) → Attack (7,7), Manhattan=2, damage 1HP","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":101}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":9},"moveTo":{"x":8,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":102}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":8,"y":9},"targetId":"","targetPosition":{"x":7,"y":7},"reasoning":"Move (8,9) → Attack (7,7), Manhattan=2, damage 1HP","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":102}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":106.60365517638274,"turn":2,"timeStamp":103}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":106.85731430293527,"turn":2,"timeStamp":103}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":107.03942670449032,"turn":2,"timeStamp":104}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":107.27722856210312,"turn":2,"timeStamp":104}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":107.47190425856388,"turn":2,"timeStamp":104}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":107.6696090415644,"turn":2,"timeStamp":104}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":107.81921585969394,"turn":2,"timeStamp":104}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":108.05969141569221,"turn":2,"timeStamp":105}
+{"eventType":"MOVE","moveFrom":{"x":2,"y":6},"moveTo":{"x":2,"y":7},"actorId":"SimpleBoat","turn":2,"timeStamp":105}
+{"eventType":"MOVE","moveFrom":{"x":2,"y":7},"moveTo":{"x":2,"y":8},"actorId":"SimpleBoat","turn":2,"timeStamp":105}
+{"eventType":"MOVE","moveFrom":{"x":2,"y":8},"moveTo":{"x":2,"y":9},"actorId":"SimpleBoat","turn":2,"timeStamp":105}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":109.19724600590416,"turn":2,"timeStamp":106}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":109.42266447536531,"turn":2,"timeStamp":106}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":109.64685200920212,"turn":2,"timeStamp":106}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":109.84172943496378,"turn":2,"timeStamp":106}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":4,"y":9},"damage":9.0,"actorId":"SimpleBoat","turn":2,"timeStamp":107}
+{"eventType":"DEAD","actorId":"Target (3)","turn":2,"timeStamp":107}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":110.14191501791356,"turn":2,"timeStamp":107}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":111.19114459090633,"turn":2,"timeStamp":108}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":111.85307496698806,"turn":2,"timeStamp":108}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":112.01908919023117,"turn":2,"timeStamp":109}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":112.27193022941356,"turn":3,"timeStamp":109}
+{"eventType":"RESN","reasoning":"Move (13,13) → Attack (13,11), Manhattan=2, no enemy in ring, attack invalid","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":3,"timeStamp":111}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":14},"moveTo":{"x":13,"y":13},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":3,"timeStamp":112}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":116.53197989988257,"turn":3,"timeStamp":113}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":116.81589166389313,"turn":3,"timeStamp":113}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":116.99620897663408,"turn":3,"timeStamp":114}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":117.26944708626252,"turn":3,"timeStamp":114}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":117.83635496086208,"turn":3,"timeStamp":114}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":118.10721124859992,"turn":3,"timeStamp":115}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":118.37710649057408,"turn":3,"timeStamp":115}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":118.6623672383721,"turn":3,"timeStamp":115}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":118.93241099314764,"turn":3,"timeStamp":116}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":119.2626727730094,"turn":3,"timeStamp":116}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.71, -0.71)","actionDevice":"Keyboard","actionStartTime":119.33897208602866,"turn":3,"timeStamp":116}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":119.35586995576159,"turn":3,"timeStamp":116}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":119.68176381970989,"turn":3,"timeStamp":116}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":119.99741484172409,"turn":3,"timeStamp":117}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":8},"moveTo":{"x":12,"y":8},"actorId":"SimpleBoat (2)","turn":3,"timeStamp":117}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":12,"y":7},"actorId":"SimpleBoat (2)","turn":3,"timeStamp":117}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":7},"moveTo":{"x":12,"y":6},"actorId":"SimpleBoat (2)","turn":3,"timeStamp":117}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":121.15240936283953,"turn":3,"timeStamp":118}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":121.34735652970267,"turn":3,"timeStamp":118}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":121.63186170923291,"turn":3,"timeStamp":118}
+{"eventType":"RESN","reasoning":"Move (9,9) → Attack (7,9), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":121}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":10},"moveTo":{"x":9,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":121}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":9,"y":9},"targetId":"","targetPosition":{"x":7,"y":9},"reasoning":"Move (9,9) → Attack (7,9), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","comment":"No valid targets at the attacked position.","turn":3,"timeStamp":122}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":127.45243711420335,"turn":3,"timeStamp":124}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":127.73943345539737,"turn":3,"timeStamp":124}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":127.91910590787302,"turn":3,"timeStamp":125}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":128.14302426006179,"turn":3,"timeStamp":125}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":128.33912516853889,"turn":3,"timeStamp":125}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":128.95291311678011,"turn":3,"timeStamp":126}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":134.26212802453665,"turn":3,"timeStamp":131}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":135.16273941364489,"turn":3,"timeStamp":132}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":135.46212825961993,"turn":3,"timeStamp":132}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":136.00290506851161,"turn":3,"timeStamp":133}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":8,"y":6},"actorId":"SimpleBoat (1)","turn":3,"timeStamp":133}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":6},"moveTo":{"x":8,"y":7},"actorId":"SimpleBoat (1)","comment":"Moved by wave effect!","turn":3,"timeStamp":133}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":137.02254713297589,"turn":3,"timeStamp":134}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":137.27659561007749,"turn":3,"timeStamp":134}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":137.54747455575853,"turn":3,"timeStamp":134}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":137.71271087319474,"turn":3,"timeStamp":134}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","attackPosition":{"x":8,"y":9},"damage":9.0,"actorId":"SimpleBoat (1)","turn":3,"timeStamp":135}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":135}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":138.05727142057731,"turn":3,"timeStamp":135}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":138.61225585851935,"turn":3,"timeStamp":135}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":138.98911781789502,"turn":3,"timeStamp":136}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":139.18212058162317,"turn":3,"timeStamp":136}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":139.51230896657216,"turn":3,"timeStamp":136}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":139.84287540207151,"turn":3,"timeStamp":136}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":141.74816629648558,"turn":3,"timeStamp":138}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":7},"moveTo":{"x":7,"y":7},"actorId":"SimpleBoat (1)","turn":3,"timeStamp":139}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":142.48262995795812,"turn":3,"timeStamp":139}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":142.92002871862496,"turn":3,"timeStamp":140}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":143.17332983290544,"turn":3,"timeStamp":140}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":143.44229581314721,"turn":3,"timeStamp":140}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":143.712288995157,"turn":3,"timeStamp":140}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":7},"moveTo":{"x":7,"y":6},"actorId":"SimpleBoat (1)","turn":3,"timeStamp":140}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":144.31234065807075,"turn":3,"timeStamp":141}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":144.49190760526108,"turn":3,"timeStamp":141}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":144.76256886782357,"turn":3,"timeStamp":141}
+{"eventType":"RESN","reasoning":"Move (8,8) → Attack (8,6), Manhattan=2, wave hits enemy at (8,7)","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":144}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":8,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":144}
+{"eventType":"ATTK","targetId":"Wave (3)","attackPosition":{"x":8,"y":6},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","comment":"Attacked a wave","turn":3,"timeStamp":145}
+{"eventType":"DAMG","damage":9,"actorId":"Wave (3)","turn":3,"timeStamp":145}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":150.55250470148167,"turn":3,"timeStamp":147}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":150.79280340654077,"turn":3,"timeStamp":147}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":150.97218392320792,"turn":3,"timeStamp":148}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":151.21246968142805,"turn":3,"timeStamp":148}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":151.4398560274276,"turn":3,"timeStamp":148}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":151.63278712489409,"turn":3,"timeStamp":148}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":151.79745397425722,"turn":3,"timeStamp":148}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":152.06774926010985,"turn":3,"timeStamp":149}
+{"eventType":"MOVE","moveFrom":{"x":2,"y":9},"moveTo":{"x":3,"y":9},"actorId":"SimpleBoat","turn":3,"timeStamp":149}
+{"eventType":"MOVE","moveFrom":{"x":3,"y":9},"moveTo":{"x":4,"y":9},"actorId":"SimpleBoat","turn":3,"timeStamp":149}
+{"eventType":"MOVE","moveFrom":{"x":4,"y":9},"moveTo":{"x":5,"y":9},"actorId":"SimpleBoat","turn":3,"timeStamp":149}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":152.90783102129353,"turn":3,"timeStamp":150}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":153.08890613273252,"turn":3,"timeStamp":150}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":153.37291438132524,"turn":4,"timeStamp":150}
+{"eventType":"RESN","reasoning":"Move (13,14) → Attack (13,16), Manhattan=2, damage","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":4,"timeStamp":152}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":13},"moveTo":{"x":13,"y":14},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":4,"timeStamp":153}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":13,"y":14},"targetId":"","targetPosition":{"x":13,"y":16},"reasoning":"Move (13,14) → Attack (13,16), Manhattan=2, damage","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","comment":"No valid targets at the attacked position.","turn":4,"timeStamp":153}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":158.97471650413354,"turn":4,"timeStamp":156}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":159.25809313112404,"turn":4,"timeStamp":156}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":159.42583204637049,"turn":4,"timeStamp":156}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":159.61258899493259,"turn":4,"timeStamp":156}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":159.83953857290908,"turn":4,"timeStamp":156}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":160.03268875108915,"turn":4,"timeStamp":157}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":160.58864566773991,"turn":4,"timeStamp":157}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":162.74781654047547,"turn":4,"timeStamp":159}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":163.272557531629,"turn":4,"timeStamp":160}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":163.66534677820164,"turn":4,"timeStamp":160}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":13,"y":6},"actorId":"SimpleBoat (2)","turn":4,"timeStamp":160}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":6},"moveTo":{"x":13,"y":7},"actorId":"SimpleBoat (2)","turn":4,"timeStamp":161}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":7},"moveTo":{"x":13,"y":8},"actorId":"SimpleBoat (2)","turn":4,"timeStamp":161}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":164.56271052936791,"turn":4,"timeStamp":161}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":164.77262201797566,"turn":4,"timeStamp":161}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":165.07245828094892,"turn":4,"timeStamp":162}
+{"eventType":"RESN","reasoning":"Move (10,9) → Attack (8,9), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":4,"timeStamp":164}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":9},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":4,"timeStamp":164}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":10,"y":9},"targetId":"","targetPosition":{"x":8,"y":9},"reasoning":"Move (10,9) → Attack (8,9), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","comment":"No valid targets at the attacked position.","turn":4,"timeStamp":165}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":170.54757929311018,"turn":4,"timeStamp":167}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":170.80327561346348,"turn":4,"timeStamp":167}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":171.07274989038706,"turn":4,"timeStamp":168}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":171.28707279587979,"turn":4,"timeStamp":168}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":171.50809048640076,"turn":4,"timeStamp":168}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":171.80803818631102,"turn":4,"timeStamp":168}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":7,"y":7},"actorId":"SimpleBoat (1)","turn":4,"timeStamp":169}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":172.55758724993211,"turn":4,"timeStamp":169}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":172.7530397483788,"turn":4,"timeStamp":169}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":173.02294846111909,"turn":4,"timeStamp":170}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":173.23256460728589,"turn":4,"timeStamp":170}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","attackPosition":{"x":8,"y":8},"damage":9.0,"actorId":"SimpleBoat (1)","turn":4,"timeStamp":170}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":4,"timeStamp":170}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":173.53256024702569,"turn":4,"timeStamp":170}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":174.14780926858657,"turn":4,"timeStamp":171}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":174.4477306016779,"turn":4,"timeStamp":171}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":174.64961996700731,"turn":4,"timeStamp":171}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":174.95768108576885,"turn":4,"timeStamp":172}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":175.37760542723117,"turn":4,"timeStamp":172}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":175.55847429367714,"turn":4,"timeStamp":172}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":175.84320516619482,"turn":4,"timeStamp":172}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":7},"moveTo":{"x":7,"y":8},"actorId":"SimpleBoat (1)","turn":4,"timeStamp":173}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":8},"moveTo":{"x":7,"y":9},"actorId":"SimpleBoat (1)","turn":4,"timeStamp":173}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":176.71337892019073,"turn":4,"timeStamp":173}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":176.89207755358075,"turn":4,"timeStamp":173}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":177.29820948207635,"turn":4,"timeStamp":174}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":177.88346207342693,"turn":4,"timeStamp":174}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":178.170056057279,"turn":4,"timeStamp":175}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":178.33290215098532,"turn":4,"timeStamp":175}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":178.54347482786397,"turn":4,"timeStamp":175}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":178.81356664965278,"turn":4,"timeStamp":175}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":178.96346960877418,"turn":4,"timeStamp":176}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":179.1424224867078,"turn":4,"timeStamp":176}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":179.71328260944574,"turn":4,"timeStamp":176}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":9},"moveTo":{"x":5,"y":10},"actorId":"SimpleBoat","turn":4,"timeStamp":176}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":10},"moveTo":{"x":5,"y":11},"actorId":"SimpleBoat","turn":4,"timeStamp":177}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":11},"moveTo":{"x":6,"y":11},"actorId":"SimpleBoat","turn":4,"timeStamp":177}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":180.58371132236789,"turn":4,"timeStamp":177}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":181.24236532303621,"turn":4,"timeStamp":178}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":181.54388055350864,"turn":5,"timeStamp":178}
+{"eventType":"RESN","reasoning":"Move (12,14) → Attack (12,12), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":5,"timeStamp":180}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":14},"moveTo":{"x":12,"y":14},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":5,"timeStamp":181}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":12,"y":14},"targetId":"","targetPosition":{"x":12,"y":12},"reasoning":"Move (12,14) → Attack (12,12), Manhattan=2, damage enemy","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","comment":"No valid targets at the attacked position.","turn":5,"timeStamp":181}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":187.22850147532881,"turn":5,"timeStamp":184}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":187.58873564284295,"turn":5,"timeStamp":184}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":187.72280341055011,"turn":5,"timeStamp":184}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":187.99344545256463,"turn":5,"timeStamp":185}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":188.22288198102615,"turn":5,"timeStamp":185}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":188.5189705407538,"turn":5,"timeStamp":185}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":188.78861173806945,"turn":5,"timeStamp":185}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":8},"moveTo":{"x":12,"y":8},"actorId":"SimpleBoat (2)","turn":5,"timeStamp":186}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":12,"y":9},"actorId":"SimpleBoat (2)","turn":5,"timeStamp":186}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":189.67299940239172,"turn":5,"timeStamp":186}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":189.89818949793698,"turn":5,"timeStamp":187}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":190.13847635951242,"turn":5,"timeStamp":187}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":190.27537308170577,"turn":5,"timeStamp":187}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","attackPosition":{"x":10,"y":9},"damage":9.0,"actorId":"SimpleBoat (2)","turn":5,"timeStamp":187}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":187}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":190.54321948421421,"turn":5,"timeStamp":187}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":191.08362501845113,"turn":5,"timeStamp":188}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":191.35271052402095,"turn":5,"timeStamp":188}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":191.60778067316278,"turn":5,"timeStamp":188}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":191.8657970414788,"turn":5,"timeStamp":188}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":192.11928799841553,"turn":5,"timeStamp":189}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":192.38898825400975,"turn":5,"timeStamp":189}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":12,"y":10},"actorId":"SimpleBoat (2)","turn":5,"timeStamp":189}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":193.30598161951639,"turn":5,"timeStamp":190}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":193.48376259568613,"turn":5,"timeStamp":190}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":193.82784623838961,"turn":5,"timeStamp":190}
+{"eventType":"RESN","reasoning":"Move (9,9) → Attack (7,9), Manhattan=2, damage 1HP","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":193}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":9,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":193}
+{"eventType":"ATTK","targetId":"SimpleBoat (1)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":194}
+{"eventType":"DAMG","damage":7,"actorId":"SimpleBoat (1)","turn":5,"timeStamp":194}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":199.22848929552129,"turn":5,"timeStamp":196}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":199.76956759157474,"turn":5,"timeStamp":196}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":199.96287320266129,"turn":5,"timeStamp":197}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":200.22004244395066,"turn":5,"timeStamp":197}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":200.36921283497941,"turn":5,"timeStamp":197}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","attackPosition":{"x":9,"y":9},"damage":9.0,"actorId":"SimpleBoat (1)","turn":5,"timeStamp":197}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":197}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":200.60853324548225,"turn":5,"timeStamp":197}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":201.25328933962737,"turn":5,"timeStamp":198}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":201.50832803803496,"turn":5,"timeStamp":198}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":201.6732913517335,"turn":5,"timeStamp":198}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":202.1229791691585,"turn":5,"timeStamp":199}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":202.33263322489802,"turn":5,"timeStamp":199}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":202.4980602041469,"turn":5,"timeStamp":199}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":202.67849080218002,"turn":5,"timeStamp":199}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":202.9190249836829,"turn":5,"timeStamp":200}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":9},"moveTo":{"x":7,"y":10},"actorId":"SimpleBoat (1)","turn":5,"timeStamp":200}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":7,"y":11},"actorId":"SimpleBoat (1)","turn":5,"timeStamp":200}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":11},"moveTo":{"x":7,"y":12},"actorId":"SimpleBoat (1)","turn":5,"timeStamp":200}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":203.78912433798541,"turn":5,"timeStamp":200}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":203.99840281184879,"turn":5,"timeStamp":201}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":204.35797131477739,"turn":5,"timeStamp":201}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":204.80789387685945,"turn":5,"timeStamp":201}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":205.3367295168282,"turn":5,"timeStamp":202}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":205.75380365177989,"turn":5,"timeStamp":202}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":206.00848242640495,"turn":5,"timeStamp":203}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":206.2480800980702,"turn":5,"timeStamp":203}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":206.4587515933963,"turn":5,"timeStamp":203}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":206.638763243187,"turn":5,"timeStamp":203}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":206.89240763671114,"turn":5,"timeStamp":203}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":11},"moveTo":{"x":7,"y":11},"actorId":"SimpleBoat","turn":5,"timeStamp":204}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":11},"moveTo":{"x":8,"y":11},"actorId":"SimpleBoat","turn":5,"timeStamp":204}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":11},"moveTo":{"x":8,"y":10},"actorId":"SimpleBoat","turn":5,"timeStamp":204}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":207.86967718382948,"turn":5,"timeStamp":204}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":208.093508853839,"turn":5,"timeStamp":205}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":208.37808341078926,"turn":5,"timeStamp":205}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":208.53166906384286,"turn":5,"timeStamp":205}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","attackPosition":{"x":9,"y":9},"damage":9.0,"actorId":"SimpleBoat","turn":5,"timeStamp":205}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":205}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":208.82805016983184,"turn":5,"timeStamp":205}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":209.34087686415296,"turn":5,"timeStamp":206}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":209.72843154301518,"turn":5,"timeStamp":206}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":209.90875871182652,"turn":5,"timeStamp":207}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":210.13328643125715,"turn":6,"timeStamp":207}
+{"eventType":"RESN","reasoning":"Move (11,14) → Attack (9,14), Manhattan=2, damage enemy at (8,10) via wave? No, direct attack invalid. Move (12,13) → Attack (10,13), Manhattan=2, damage enemy at (8,10) via wave? No. Move (13,14) → Attack (11,14), Manhattan=2, no enemy. Move (12,15) → Attack (10,15), Manhattan=2, no enemy. Move (12,13) → Attack (10,13), Manhattan=2, no enemy. Move (11,13) → Attack (9,13), Manhattan=2, no enemy. Move (13,13) → Attack (11,13), Manhattan=2, no enemy. Move (10,14) → Attack (8,14), Manhattan=2, no enemy. Move (14,14) → Attack (12,14), Manhattan=2, no enemy. Move (12,16) → Attack (10,16), Manhattan=2, no enemy. Move (11,15) → Attack (9,15), Manhattan=2, no enemy. Move (13,15) → Attack (11,15), Manhattan=2, no enemy. Move (10,15) → Attack (8,15), Manhattan=2, no enemy. Move (14,15) → Attack (12,15), Manhattan=2, no enemy. Move (9,14) → Attack (7,14), Manhattan=2, no enemy. Move (10,13) → Attack (8,13), Manhattan=2, no enemy. Move (14,13) → Attack (12,13), Manhattan=2, no enemy. Move (15,14) → Attack (13,14), Manhattan=2, no enemy. No attack possible. Move to (11,14) closest to enemy (7,12) distance 5, attack [-1,-1].","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":6,"timeStamp":212}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":14},"moveTo":{"x":11,"y":14},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":6,"timeStamp":212}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":216.92878682463197,"turn":6,"timeStamp":214}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":217.16967909148661,"turn":6,"timeStamp":214}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":217.34940811558045,"turn":6,"timeStamp":214}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":217.57301273016492,"turn":6,"timeStamp":214}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":217.84287641220726,"turn":6,"timeStamp":214}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":218.17416235513519,"turn":6,"timeStamp":215}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":10},"moveTo":{"x":13,"y":10},"actorId":"SimpleBoat (2)","comment":"Moved by wave effect!","turn":6,"timeStamp":215}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":219.11926421269891,"turn":6,"timeStamp":216}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":219.50863611561363,"turn":6,"timeStamp":216}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":219.70340464269975,"turn":6,"timeStamp":216}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":220.01901650941,"turn":6,"timeStamp":217}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":220.2136828925286,"turn":6,"timeStamp":217}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":220.52876950870268,"turn":6,"timeStamp":217}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":10},"moveTo":{"x":14,"y":10},"actorId":"SimpleBoat (2)","turn":6,"timeStamp":217}
+{"eventType":"MOVE","moveFrom":{"x":14,"y":10},"moveTo":{"x":14,"y":11},"actorId":"SimpleBoat (2)","turn":6,"timeStamp":217}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":221.27752609047457,"turn":6,"timeStamp":218}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":221.48911281119217,"turn":6,"timeStamp":218}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":221.75767202078714,"turn":6,"timeStamp":218}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":222.28251771375653,"turn":6,"timeStamp":219}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":222.52362114790594,"turn":6,"timeStamp":219}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":222.68915893213125,"turn":6,"timeStamp":219}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":222.88647171107004,"turn":6,"timeStamp":219}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":223.13930125179468,"turn":6,"timeStamp":220}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":223.34872998736682,"turn":6,"timeStamp":220}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":223.64808883008664,"turn":6,"timeStamp":220}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":6,"y":12},"actorId":"SimpleBoat (1)","turn":6,"timeStamp":220}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":12},"moveTo":{"x":6,"y":13},"actorId":"SimpleBoat (1)","turn":6,"timeStamp":221}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":224.54900588298915,"turn":6,"timeStamp":221}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":224.84850231319433,"turn":6,"timeStamp":221}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":225.11937014074647,"turn":6,"timeStamp":222}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":225.26978789721034,"turn":6,"timeStamp":222}
+{"eventType":"ATTK","targetId":"Target (4)","attackPosition":{"x":5,"y":14},"damage":9.0,"actorId":"SimpleBoat (1)","turn":6,"timeStamp":222}
+{"eventType":"DEAD","actorId":"Target (4)","turn":6,"timeStamp":222}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":225.61381599894958,"turn":6,"timeStamp":222}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":226.305683461047,"turn":6,"timeStamp":223}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":226.63660005255952,"turn":6,"timeStamp":223}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":226.82840940335882,"turn":6,"timeStamp":223}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":227.17354206347954,"turn":6,"timeStamp":224}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":227.89384708544821,"turn":6,"timeStamp":225}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":228.20890177448746,"turn":6,"timeStamp":225}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":13},"moveTo":{"x":6,"y":14},"actorId":"SimpleBoat (1)","turn":6,"timeStamp":225}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":14},"moveTo":{"x":5,"y":14},"actorId":"SimpleBoat (1)","comment":"Moved by wave effect!","turn":6,"timeStamp":225}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":229.25935781144653,"turn":6,"timeStamp":226}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":229.43871872144518,"turn":6,"timeStamp":226}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":229.73871708559454,"turn":6,"timeStamp":226}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":230.26360469378415,"turn":6,"timeStamp":227}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":230.53653635011869,"turn":6,"timeStamp":227}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":230.71428369765636,"turn":6,"timeStamp":227}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":231.17900833665044,"turn":6,"timeStamp":228}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":231.4358162668068,"turn":6,"timeStamp":228}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":231.59887679651729,"turn":6,"timeStamp":228}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":231.76408072462073,"turn":6,"timeStamp":228}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":232.69395986007294,"turn":6,"timeStamp":229}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":8,"y":11},"actorId":"SimpleBoat","turn":6,"timeStamp":229}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":11},"moveTo":{"x":8,"y":12},"actorId":"SimpleBoat","turn":6,"timeStamp":230}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":12},"moveTo":{"x":8,"y":13},"actorId":"SimpleBoat","turn":6,"timeStamp":230}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":233.51968561229296,"turn":6,"timeStamp":230}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":233.69841907263617,"turn":6,"timeStamp":230}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":233.96959490055451,"turn":7,"timeStamp":231}
+{"eventType":"RESN","reasoning":"Move (12,14) → Attack (10,14), Manhattan=2, damage enemy at (10,14) for 1HP","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":7,"timeStamp":233}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":14},"moveTo":{"x":12,"y":14},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":7,"timeStamp":233}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":12,"y":14},"targetId":"","targetPosition":{"x":10,"y":14},"reasoning":"Move (12,14) → Attack (10,14), Manhattan=2, damage enemy at (10,14) for 1HP","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","comment":"No valid targets at the attacked position.","turn":7,"timeStamp":234}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":239.45927872695029,"turn":7,"timeStamp":236}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":239.72876693456783,"turn":7,"timeStamp":236}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":239.95534587523434,"turn":7,"timeStamp":237}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":240.11954032178619,"turn":7,"timeStamp":237}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":240.37351849465631,"turn":7,"timeStamp":237}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":240.58639296420733,"turn":7,"timeStamp":237}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":240.77903708681697,"turn":7,"timeStamp":237}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":240.9591556728119,"turn":7,"timeStamp":238}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":241.21410703429137,"turn":7,"timeStamp":238}
+{"eventType":"MOVE","moveFrom":{"x":14,"y":11},"moveTo":{"x":15,"y":11},"actorId":"SimpleBoat (2)","turn":7,"timeStamp":238}
+{"eventType":"MOVE","moveFrom":{"x":15,"y":11},"moveTo":{"x":15,"y":12},"actorId":"SimpleBoat (2)","turn":7,"timeStamp":238}
+{"eventType":"MOVE","moveFrom":{"x":15,"y":12},"moveTo":{"x":15,"y":13},"actorId":"SimpleBoat (2)","turn":7,"timeStamp":238}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":242.3085799124965,"turn":7,"timeStamp":239}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":242.50512076501036,"turn":7,"timeStamp":239}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":242.71388740709517,"turn":7,"timeStamp":239}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":243.17912581854034,"turn":7,"timeStamp":240}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":243.53876539511839,"turn":7,"timeStamp":240}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":243.92934239713941,"turn":7,"timeStamp":241}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":245.59354648794397,"turn":7,"timeStamp":242}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":245.86419771335204,"turn":7,"timeStamp":242}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":246.11961966310628,"turn":7,"timeStamp":243}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":246.28585600320366,"turn":7,"timeStamp":243}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":246.4793618353433,"turn":7,"timeStamp":243}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":246.94351443313644,"turn":7,"timeStamp":244}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":14},"moveTo":{"x":5,"y":15},"actorId":"SimpleBoat (1)","turn":7,"timeStamp":244}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":247.4407711311942,"turn":7,"timeStamp":244}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":248.03865718829911,"turn":7,"timeStamp":245}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":248.20684960793005,"turn":7,"timeStamp":245}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":248.43016385915689,"turn":7,"timeStamp":245}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":248.63911240448942,"turn":7,"timeStamp":245}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":248.81972963700537,"turn":7,"timeStamp":245}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":249.08936390065355,"turn":7,"timeStamp":246}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":15},"moveTo":{"x":6,"y":15},"actorId":"SimpleBoat (1)","turn":7,"timeStamp":246}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":15},"moveTo":{"x":7,"y":15},"actorId":"SimpleBoat (1)","turn":7,"timeStamp":246}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":249.719041969307,"turn":7,"timeStamp":246}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":249.89927453701966,"turn":7,"timeStamp":247}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":250.22887095718761,"turn":7,"timeStamp":247}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":250.63631460774923,"turn":7,"timeStamp":247}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":250.91926551095094,"turn":7,"timeStamp":248}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":251.08607640102855,"turn":7,"timeStamp":248}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":251.27872165094595,"turn":7,"timeStamp":248}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":251.53644953441108,"turn":7,"timeStamp":248}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":251.71436820429517,"turn":7,"timeStamp":248}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":251.83646876330022,"turn":7,"timeStamp":248}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":252.17927309329389,"turn":7,"timeStamp":249}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":13},"moveTo":{"x":9,"y":13},"actorId":"SimpleBoat","turn":7,"timeStamp":249}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":13},"moveTo":{"x":10,"y":13},"actorId":"SimpleBoat","turn":7,"timeStamp":249}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":10,"y":14},"actorId":"SimpleBoat","turn":7,"timeStamp":249}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":253.22895837284159,"turn":7,"timeStamp":250}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":253.47266418056097,"turn":7,"timeStamp":250}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":253.67940065261791,"turn":7,"timeStamp":250}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":253.84308583903476,"turn":7,"timeStamp":250}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","attackPosition":{"x":12,"y":14},"damage":9.0,"actorId":"SimpleBoat","turn":7,"timeStamp":251}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":7,"timeStamp":251}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":254.11379672284238,"turn":7,"timeStamp":251}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":254.70262185789761,"turn":7,"timeStamp":251}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":254.89374509514892,"turn":7,"timeStamp":252}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":255.44875807061908,"turn":7,"timeStamp":252}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":255.64450520678656,"turn":7,"timeStamp":252}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":255.89951405458851,"turn":7,"timeStamp":253}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":256.16992689186009,"turn":7,"timeStamp":253}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":256.31922474686871,"turn":7,"timeStamp":253}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":256.70877954619937,"turn":8,"timeStamp":253}
+{"eventType":"RESN","reasoning":"Move (11,14) → Attack (10,14), Manhattan=2, damage 1HP","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":8,"timeStamp":256}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":14},"moveTo":{"x":11,"y":14},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":8,"timeStamp":256}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":11,"y":14},"targetId":"SimpleBoat","targetPosition":{"x":10,"y":14},"reasoning":"Move (11,14) → Attack (10,14), Manhattan=2, damage 1HP","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":8,"timeStamp":257}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":260.54922283164342,"turn":8,"timeStamp":257}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":260.99897952686297,"turn":8,"timeStamp":258}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":261.37423109376687,"turn":8,"timeStamp":258}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":261.57208103575977,"turn":8,"timeStamp":258}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":261.92897725090734,"turn":8,"timeStamp":259}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":262.27401303034276,"turn":8,"timeStamp":259}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":262.47264417956467,"turn":8,"timeStamp":259}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":262.63654093557852,"turn":8,"timeStamp":259}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":262.82906959712273,"turn":8,"timeStamp":259}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":263.23867242890992,"turn":8,"timeStamp":260}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":263.39870764350053,"turn":8,"timeStamp":260}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":263.6555223337491,"turn":8,"timeStamp":260}
+{"eventType":"MOVE","moveFrom":{"x":15,"y":13},"moveTo":{"x":14,"y":13},"actorId":"SimpleBoat (2)","turn":8,"timeStamp":260}
+{"eventType":"MOVE","moveFrom":{"x":14,"y":13},"moveTo":{"x":13,"y":13},"actorId":"SimpleBoat (2)","turn":8,"timeStamp":261}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":13},"moveTo":{"x":13,"y":14},"actorId":"SimpleBoat (2)","turn":8,"timeStamp":261}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":264.68835432740161,"turn":8,"timeStamp":261}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":264.89942110775155,"turn":8,"timeStamp":262}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":265.13975011493312,"turn":8,"timeStamp":262}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(-1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":265.30589134601178,"turn":8,"timeStamp":262}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","attackPosition":{"x":11,"y":14},"damage":9.0,"actorId":"SimpleBoat (2)","turn":8,"timeStamp":262}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","turn":8,"timeStamp":262}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":265.5740829045244,"turn":8,"timeStamp":262}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":266.17373072518967,"turn":8,"timeStamp":263}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":266.39901328479755,"turn":8,"timeStamp":263}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":266.57957148249261,"turn":8,"timeStamp":263}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":266.86377763818018,"turn":8,"timeStamp":263}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":267.29923395847436,"turn":8,"timeStamp":264}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":267.56932239944581,"turn":8,"timeStamp":264}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":267.74795897144941,"turn":8,"timeStamp":264}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":268.34893021747121,"turn":8,"timeStamp":265}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":268.58923603757285,"turn":8,"timeStamp":265}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":268.75575276123709,"turn":8,"timeStamp":265}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":269.00939404431847,"turn":8,"timeStamp":266}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":15},"moveTo":{"x":8,"y":15},"actorId":"SimpleBoat (1)","turn":8,"timeStamp":266}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":15},"moveTo":{"x":9,"y":15},"actorId":"SimpleBoat (1)","turn":8,"timeStamp":266}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":270.02918343732017,"turn":8,"timeStamp":267}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":270.25541038066149,"turn":8,"timeStamp":267}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":270.49630983825773,"turn":8,"timeStamp":267}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":270.71986513363663,"turn":8,"timeStamp":267}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":270.95944414465339,"turn":8,"timeStamp":268}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":15},"moveTo":{"x":10,"y":15},"actorId":"SimpleBoat (1)","turn":8,"timeStamp":268}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, 1.00)","actionDevice":"Keyboard","actionStartTime":271.64791005355073,"turn":8,"timeStamp":268}
+{"eventType":"INPT","actionName":"Interact","actionMap":"Player","actionPhase":"Performed","actionValue":"1","actionDevice":"Keyboard","actionStartTime":271.90570606876281,"turn":8,"timeStamp":269}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(0.00, -1.00)","actionDevice":"Keyboard","actionStartTime":272.20358049537754,"turn":8,"timeStamp":269}
+{"eventType":"INPT","actionName":"Move","actionMap":"Player","actionPhase":"Started","actionValue":"(1.00, 0.00)","actionDevice":"Keyboard","actionStartTime":272.42885171528906,"turn":8,"timeStamp":269}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|3","attackPosition":{"x":11,"y":14},"damage":9.0,"actorId":"SimpleBoat (1)","turn":8,"timeStamp":269}
+{"eventType":"OVER","turn":8,"timeStamp":-1,"goalMessage":"Destroy All Enemies","winningFaction":"Player Victory!"}

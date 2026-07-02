@@ -268,11 +268,15 @@ PrefabInstance:
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: llmCaller
       value: 
-      objectReference: {fileID: 1672797915}
+      objectReference: {fileID: 385798072}
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: basePrompt
       value: 
-      objectReference: {fileID: 11400000, guid: 78b3d8af3216642b09df292cab8f54f6, type: 2}
+      objectReference: {fileID: 11400000, guid: c231bc3bb5a1f492fb049037f0f9b39d, type: 2}
+    - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
+      propertyPath: overrideInitiative
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: enemyFactions.Array.size
       value: 1
@@ -287,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3927517475928357642, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8212468789275396352, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5503,6 +5507,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cea3aab4b4b2249048a2848eed921e9e, type: 3}
+--- !u!114 &385798072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4554866502320778973, guid: cea3aab4b4b2249048a2848eed921e9e, type: 3}
+  m_PrefabInstance: {fileID: 385798071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77501d2c63d1401bb3dc598096653b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FALLA.LlmCallerObject
 --- !u!1001 &493921701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6123,11 +6138,15 @@ PrefabInstance:
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: llmCaller
       value: 
-      objectReference: {fileID: 1672797915}
+      objectReference: {fileID: 385798072}
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: basePrompt
       value: 
-      objectReference: {fileID: 11400000, guid: 78b3d8af3216642b09df292cab8f54f6, type: 2}
+      objectReference: {fileID: 11400000, guid: c231bc3bb5a1f492fb049037f0f9b39d, type: 2}
+    - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
+      propertyPath: overrideInitiative
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: enemyFactions.Array.size
       value: 1
@@ -6142,7 +6161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3927517475928357642, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8212468789275396352, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6488,7 +6507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6833642479061468329, guid: aee0b13b78b29496d8db97231a106f04, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434124725515863331, guid: aee0b13b78b29496d8db97231a106f04, type: 3}
       propertyPath: maxHealth
@@ -6904,7 +6923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6833642479061468329, guid: aee0b13b78b29496d8db97231a106f04, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434124725515863331, guid: aee0b13b78b29496d8db97231a106f04, type: 3}
       propertyPath: maxHealth
@@ -7226,17 +7245,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edea0c97c711e41ab847a18db92622f9, type: 3}
---- !u!114 &1672797915 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3004016649395720492, guid: cea3aab4b4b2249048a2848eed921e9e, type: 3}
-  m_PrefabInstance: {fileID: 385798071}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77501d2c63d1401bb3dc598096653b81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FALLA.LlmCallerObject
 --- !u!1001 &1730829198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7291,7 +7299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6833642479061468329, guid: aee0b13b78b29496d8db97231a106f04, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434124725515863331, guid: aee0b13b78b29496d8db97231a106f04, type: 3}
       propertyPath: maxHealth
@@ -7455,11 +7463,15 @@ PrefabInstance:
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: llmCaller
       value: 
-      objectReference: {fileID: 1672797915}
+      objectReference: {fileID: 385798072}
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: basePrompt
       value: 
-      objectReference: {fileID: 11400000, guid: 78b3d8af3216642b09df292cab8f54f6, type: 2}
+      objectReference: {fileID: 11400000, guid: c231bc3bb5a1f492fb049037f0f9b39d, type: 2}
+    - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
+      propertyPath: overrideInitiative
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: enemyFactions.Array.size
       value: 1
@@ -7474,7 +7486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3927517475928357642, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8212468789275396352, guid: 0bc925396065f4527904c6b17945b667, type: 3}
       propertyPath: m_LocalPosition.x

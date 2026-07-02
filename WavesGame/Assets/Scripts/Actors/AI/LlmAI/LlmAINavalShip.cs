@@ -115,6 +115,7 @@ namespace Actors.AI.LlmAI
                     DebugUtils.DebugLogMsg($"Exception: {e.Message}.",
                         DebugUtils.DebugType.Error);
                     StopTimer(stopwatch);
+                    RecordInvalidResponse(InvalidResponseType.Exception, e.Message);
                     _internalFaultyMessageCount++;
                     faultyMessage = true;
                 }
@@ -134,13 +135,16 @@ namespace Actors.AI.LlmAI
                 var llmGenericResponse = llmCaller.GetResponse();
                 if (!llmGenericResponse.Success || string.IsNullOrEmpty(llmGenericResponse.Response))
                 {
+                    var msg =
+                        $"No response exception: {llmGenericResponse.Response} Success:{llmGenericResponse.Success}.";
                     DebugUtils.DebugLogMsg(
-                        $"No response exception: {llmGenericResponse.Response} Success:{llmGenericResponse.Success}.",
+                        msg,
                         DebugUtils.DebugType.Error);
                     LevelController.GetSingleton()
                         .AddInfoLog(
-                            $"No response exception! {llmGenericResponse.Response} Success:{llmGenericResponse.Success}.",
+                            msg,
                             name);
+                    RecordInvalidResponse(InvalidResponseType.NoResponse, msg);
                     StopTimer(stopwatch);
                     _internalFaultyMessageCount++;
                     DebugUtils.DebugLogMsg($"Retrying in {breakTime} seconds...", DebugUtils.DebugType.Error);
@@ -159,7 +163,7 @@ namespace Actors.AI.LlmAI
             LevelController.GetSingleton().AddDataLog($"\"attempts\":{attempt}", name);
             _internalAttempts.Add(attempt);
 
-            DebugUtils.DebugLogMsg(result, DebugUtils.DebugType.Temporary);
+            DebugUtils.DebugLogMsg(result, DebugUtils.DebugType.Verbose);
 
             var jsonResult = Sanitizer.ExtractJson(result);
             DebugUtils.DebugLogMsg(jsonResult, DebugUtils.DebugType.System);
@@ -173,7 +177,8 @@ namespace Actors.AI.LlmAI
             {
                 DebugUtils.DebugLogMsg($"Exception {e.Message}.", DebugUtils.DebugType.Error);
                 LevelController.GetSingleton().AddInfoLog($"Casting exception! {e.Message}", name);
-                LevelController.GetSingleton().AddInfoLog($"Message was: [{jsonResult}]", name);
+                LevelController.GetSingleton().AddInfoLog($"Output was: [{jsonResult}]", name);
+                RecordInvalidResponse(InvalidResponseType.InvalidOutput, $"Output was: [{jsonResult}]. Error: {e.Message}.");
                 DebugUtils.DebugLogErrorMsg(e.Message);
                 _internalFaultyMessageCount++;
             }
@@ -209,6 +214,7 @@ namespace Actors.AI.LlmAI
                 DebugUtils.DebugLogMsg($"Exception {e.Message}.", DebugUtils.DebugType.Error);
                 LevelController.GetSingleton().AddInfoLog($"Casting exception on trying to act! {e.Message}", name);
                 DebugUtils.DebugLogErrorMsg(e.Message);
+                RecordInvalidResponse(InvalidResponseType.InvalidOutput, $"Output was: [{jsonResult}]. Error: {e.Message}.");
             }
 
             LevelController.GetSingleton()
@@ -324,6 +330,14 @@ namespace Actors.AI.LlmAI
             }
 
             recorder.RecordNewEntry(invalidCannotReachEntry);
+        }
+
+        private void RecordInvalidResponse(InvalidResponseType type, string message)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var invalidResponse = new InvalidResponseEntry(name, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp(), type, message);
+            recorder.RecordNewEntry(invalidResponse);
         }
 
         private void RecordCannotReachAttack(GridActor targetActor, GridUnit targetUnit, string reasoning)

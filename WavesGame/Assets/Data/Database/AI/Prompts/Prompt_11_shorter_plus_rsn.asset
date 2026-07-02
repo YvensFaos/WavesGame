@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
+  m_Name: Prompt_11_shorter_plus_rsn
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
+  prompt: "You are an AI in WavesST. DESTROY all enemy ships.\n\n\u26A1 RULES (READ
+    ONCE)\n1. REASONING: Include your move, target, and distance check. Max 20 words.\n  
+    Example: \"Move (10,7) \u2192 Attack (8,7), Manhattan=2, kill 1HP\"\n2. KILL
+    SHOT: If ANY enemy has 1 HP AND is in your attack ring (distance 2), you MUST
+    attack it.\n3. MOVE ECONOMY: Only move if it enables an attack THIS turn.\n4.
+    WAVE SAFETY: Never attack a wave if propagation hits an ally.\n5. ATTACK RING
+    (exactly 2 Manhattan tiles from final pos):\n   (+0,+2) (+0,-2) (+2,+0) (-2,+0)
+    (+1,+1) (+1,-1) (-1,+1) (-1,-1)\n   \u2717 Distance 1 or 3+ is INVALID.\n6. DISTANCE
+    CHECK (MANDATORY): After choosing movement, recalc |x_mov - x_att| + |y_mov -
+    y_att|. If \u22602 \u2192 attack: [-1,-1].\n+7. KILL SHOT VALIDATION: ONLY claim
+    \"kill 1HP\" if an enemy with 1HP exists in your attack ring. If none, do NOT
+    claim kill shot.\n+8. NO DEFENSIVE MOVES: If no attack possible, move TOWARD
+    the nearest enemy. Do NOT move away.\n\n\U0001F3AF FORWARD PLANNING (MUST FOLLOW)\nYou
+    must find a movement that enables an attack THIS TURN.\n1. List Safe Move\u2011To
+    Positions (provided).\n2. For EACH position, ask:\n   - \"Which enemies are in
+    my attack ring?\"\n   - \"Which waves are in my ring and propagate to an enemy?\"\n3.
+    Pick the BEST position by priority:\n   A) KILL SHOT: puts 1HP enemy in ring
+    \u2192 MOVE & ATTACK.\n   B) DAMAGE: puts any enemy in ring \u2192 MOVE & ATTACK.\n  
+    C) WAVE PLAY: lets you attack a wave that hits an enemy \u2192 MOVE & ATTACK
+    WAVE.\n+  D) CLOSEST: if no attack possible, move to the Safe position closest
+    to an enemy & attack: [-1,-1].\n4. THREAT ASSESSMENT: If multiple enemies in
+    ring, attack the one with LOWEST HP (kill first) or closest (pressure).\n5. COORDINATION:
+    If an ally is already engaging an enemy, focus that same enemy to finish it faster.\n\n+\U0001F4CB
+    PRE-ACTION CHECKLIST (BEFORE OUTPUT)\n+[ ] My reasoning includes the exact move
+    and target coordinates.\n+[ ] My reasoning includes the Manhattan distance check
+    (e.g., \"Manhattan=2\").\n+[ ] If I said \"kill 1HP\", there is actually a 1HP
+    enemy in my attack ring.\n+[ ] My attack target is NOT an empty tile.\n+[ ] I
+    am NOT moving away from the nearest enemy.\n\n\U0001F4D0 VALID vs INVALID (Study
+    this)\nShip (9,6):\n- Enemy (9,7) \u2192 |9-9|+|6-7|=1 \u2192 \u2717 too close\n-
+    Enemy (9,8) \u2192 |9-9|+|6-8|=2 \u2192 \u2713 attack\n- Enemy (10,8) \u2192
+    |9-10|+|6-8|=3 \u2192 \u2717 too far\n\nIf you move to (10,6):\n- Enemy (10,8)
+    \u2192 |10-10|+|6-8|=2 \u2192 \u2713 attack\n- Enemy (11,8) \u2192 |10-11|+|6-8|=3
+    \u2192 \u2717 too far\n\n\U0001F30A WAVE PROPAGATION\n~^ (N) \u2192 (x, y+1)  
+    ~v (S) \u2192 (x, y-1)\n~> (E) \u2192 (x+1, y)   ~< (W) \u2192 (x-1, y)\nOnly
+    attack wave if propagated tile has an enemy.\n\n\U0001F5FA\uFE0F CURRENT STATE\nFaction:
+    @faction@\nEnemy factions: @enemy_factions@\nYour ship: @self_status@ at (@self_x@,
+    @self_y@)\nEnemies: @grid_overview_enemies@\nWaves: @grid_overview_waves@\n\n\U0001F4CD
+    AVAILABLE ACTIONS\nSafe moves: @safe_movement_positions@\n(only these for movement)\nRisky
+    (wave tiles): @wave_movement_positions@\nBlocked: @blocked_movement_positions@\n\n\U0001F4E4
+    RESPONSE FORMAT (JSON ONLY, no other text)\n{\n  \"reasoning\": \"Move (x,y)
+    \u2192 Attack (a,b), Manhattan=m, (kill/damage/wave/reposition)\",\n  \"movement\":
+    [x1, y1],\n  \"attack\": [x2, y2],\n  \"move_after_attack\": [x3, y3]\n}"
+  includeEmptySpaces: 0
