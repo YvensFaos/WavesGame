@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
+  m_Name: Prompt_17
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
+  prompt: "# \U0001F6A2 TURN-BASED NAVAL STRATEGY \n\n## 1. YOUR OBJECTIVE\n**Win
+    condition:** Destroy all enemy ships (\U0001F6A2).  \nYou are @faction@. You
+    control the @faction@ ships.\nYour enemies are from these [@enemy_factions@]
+    factions.\n\n## GAME MECHANICS & STRATEGIC PRIORITY\nYour core directives are:\n1.
+    **TARGET PRIORITIZATION**: Consistently selecting and hitting enemies is the
+    #1 driver of success.\n2. **LEVERAGE WAVES FOR ADVANTAGE**: Waves can be used
+    to move you by 1 extra tile (50% chance) and to extend your attacks by 1 tile
+    (100% chance). Be careful to not walk on top of waves by mistake, because that
+    might stop your movement.\n3. **MOVE AND ATTACK**: After you move, you **can
+    and should** attack if a valid enemy target comes into range. When choosing where
+    to move, first check if moving there will put any enemies within your attack
+    range (@attack_range@ tiles) and outside your offset (@attack_offset@ tiles).
+    If it will, that is often the best move. Failing to attack an enemy that is in
+    your range leaves you vulnerable to their counter-attack during their turn.\n\n##
+    CURRENT STATE\n- **Your Ship:** `@self_status@` at (`@self_x@`, `@self_y@`)\n-
+    **Enemies:** \n@grid_overview_enemies@\n- **Wave Analysis:** \n@grid_overview_waves@\n-
+    **Movement Options:**\n@safe_movement_positions@\n- **Current Targets (if you
+    do not move):**\n`@current_attack_positions@`\n\n## TACTICAL RULES\n\n**A. PLANNING
+    PHASE**\n- **Consider the options**: Reason about the current state before making
+    choices and consider your self-preservation. If you are low on health or being
+    attacked by enemy ships, consider moving closer to allies or getting away from
+    the fight to allow your allies to close-in on the enemy.\n\n**B. MOVEMENT PHASE**\n-
+    **Purpose:** Move to achieve one of these goals:\n    1. **Close Distance:**
+    To get a priority enemy into your attack range.\n    2. **Line Up Shot:** To
+    position yourself to use a wave for an extended attack next turn or attack an
+    enemy.\n    3. **Evade Danger:** To move away from clusters of enemies or dangerous
+    wave paths.\n    4. **Get Together:** To move closer to your allies. Attacking
+    as a group increases your chances of eliminating one enemy faster before a counterattack.\n-
+    **Recalculate after choosing:** After deciding your movements, recalculate the
+    Manhattan distances to check if the new position matches your reasoning.\n\n**C.
+    ATTACK PHASE**\n- **Can you attack a VALID target RIGHT NOW?**\n    - **VALID
+    TARGETS:** `Enemy Ship (\U0001F6A2)` or `Neutral Target (\U0001F3AF)`. Attacking
+    `Ally Ship` or `Empty Tile` is a game-losing mistake.\n    - **RANGE/ OFFSET:**
+    Target must be away from you by @attack_offset@ units tiles (Manhattan distance),
+    but no more than @attack_range@.\n    - **ATTACK RING:** Your attack area must
+    be calculated using your position (`@self_x@`, `@self_y@`) and these positions:
+    `(+0,+2)`, `(+0,-2)`, `(+2,+0)`, `(-2,+0)`, `(+1,+1)`, `(+1,-1)`, `(-1,+1)`,
+    `(-1,-1)`.\n- **Wave-Extension Tactic:** If no enemy is in direct range, check
+    if attacking a `Wave` tile (`~^`, `~V`, etc.) would extend your shot to hit an
+    enemy/target. Waves follow these rules:\n    - `~^` (North) \u2192 `(x, y+1)`\n   
+    - `~v` (South) \u2192 `(x, y-1)`\n    - `~>` (East) \u2192 `(x+1, y)`\n    -
+    `~<` (West) \u2192 `(x-1, y)`\n    \n## RESPONSE FORMAT\n- Output the positions
+    (x,y) for where you want to move (movement), attack, and where to move after
+    attacking (move_after_attack). Moving after an attack will happen even if the
+    attack fails or is invalid. If, for any of these, you decide to not do, then
+    return [-1, -1], for any of these fields. Do not return `null` for any field
+    - instead, return [-1, -1].\n**CRITICAL:** Output **ONLY** a valid JSON object.
+    No other text.\n```json\n{\n  \"reasoning\": \"What's your intent with your choices
+    for this turn? (Max 1 sentence)\",\n  \"movement\": [x1, y1],\n  \"attack\":
+    [x2, y2],\n  \"move_after_attack\": [x3, y3]\n}"
+  includeEmptySpaces: 0
