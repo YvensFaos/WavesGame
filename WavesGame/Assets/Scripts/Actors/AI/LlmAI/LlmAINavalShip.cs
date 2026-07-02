@@ -18,9 +18,9 @@ namespace Actors.AI.LlmAI
     internal class LlmAction
     {
         public string reasoning = "";
-        public int[] movement = new[] { -1, -1 };
-        public int[] attack = new[] { -1, -1 };
-        public int[] moveAfterAttack = new[] { -1, -1 };
+        public int[] movement = { -1, -1 };
+        public int[] attack = { -1, -1 };
+        public int[] moveAfterAttack = { -1, -1 };
 
         public static Vector2Int GetAsVector2Int(int[] pair)
         {
@@ -33,7 +33,6 @@ namespace Actors.AI.LlmAI
         [Header("LLM")] [SerializeField] private LlmCallerObject llmCaller;
         [SerializeField] private float requestTimeOutTimer = 1.0f;
         [SerializeField] private LlmPromptSo basePrompt;
-        [SerializeField] private int overrideInitiative;
         [SerializeField] private List<Faction> enemyFactions;
 
         private int _internalWrongMovementCount;
@@ -57,7 +56,6 @@ namespace Actors.AI.LlmAI
             _internalTimers = new List<long>();
             _internalAttempts = new List<int>();
             UpdateName();
-            SetInitiative(OverrideInitiative);
         }
 
         public void UpdateName()
@@ -439,7 +437,5 @@ namespace Actors.AI.LlmAI
         public LlmPromptSo GetPrompt() => basePrompt;
 
         public LlmCallerObject GetCaller() => llmCaller;
-
-        public int OverrideInitiative => overrideInitiative;
     }
 }

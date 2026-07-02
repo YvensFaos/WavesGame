@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
@@ -132,7 +132,7 @@ namespace Core
             //Initialize level goal elements
             levelGoal.Initialize(levelActors);
             yield return null;
-            
+
             levelActionableActors = levelActionableActors.FindAll(levelActorPair => levelActorPair?.One != null);
 
             if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
@@ -161,8 +161,8 @@ namespace Core
                 levelActionableActors.ForEach(actorPair => actorPair.One.RollInitiative());
             }
 
-            levelActionableActors.Sort(((pairOne, pairTwo) =>
-                pairTwo.One.Initiative.CompareTo(pairOne.One.Initiative)));
+            levelActionableActors.Sort((pairOne, pairTwo) =>
+                pairTwo.One.Initiative.CompareTo(pairOne.One.Initiative));
 
             levelActionableActors.ForEach(actorPair =>
             {
@@ -402,11 +402,11 @@ namespace Core
             DebugUtils.DebugLogMsg($"Level ended: {(win ? "Victory!" : "Defeat!")}", DebugUtils.DebugType.System);
             CursorController.GetSingleton().FinishLevel();
             AddInfoLog("Level finished.", "LevelController");
-            
+
             if (_recorder != null)
             {
                 _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
-                    levelGoal.GetWinnerFaction(), GetTurn(), -1));
+                    levelGoal.GetWinnerFaction(), win, GetTurn(), -1));
                 DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
                 _recorder.Stop();
             }

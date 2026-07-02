@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
@@ -25,6 +25,7 @@ namespace Actors
         [SerializeField] protected NavalShipSo shipData;
         [SerializeField] protected BaseCannon navalCannon;
         [SerializeField] private Faction faction;
+        [SerializeField] private int overrideInitiative;
 
         protected int stepsAvailable;
 
@@ -32,6 +33,12 @@ namespace Actors
         {
             base.Awake();
             AssessUtils.CheckRequirement(ref spriteRenderer, this);
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            SetInitiative(OverrideInitiative);
         }
 
         public virtual void StartTurn()
@@ -219,5 +226,7 @@ namespace Actors
         {
             return $"{base.ToString()}; initiative={Initiative}; ShipData=[{shipData}]; Cannon=[{navalCannon}]";
         }
+        
+        public int OverrideInitiative => overrideInitiative;
     }
 }

@@ -30,18 +30,20 @@ namespace Core.Recorder
     public class EndGameRecordEntry : WavesEntry
     {
         private readonly string _goalMessage;
+        private readonly bool _victory;
         private readonly Faction _winningFaction;
 
-        public EndGameRecordEntry(string goalMessage, Faction winningFaction, int turn, long timeStamp) : base(
+        public EndGameRecordEntry(string goalMessage, Faction winningFaction, bool victory, int turn, long timeStamp) : base(
             WavesRecordEntryType.EndGame, turn, timeStamp)
         {
             _goalMessage = goalMessage;
             _winningFaction = winningFaction;
+            _victory = victory;
         }
 
         public override void PerformEntry()
         {
-            var winnerMessage = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" : "";
+            var winnerMessage = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" : _victory ? $"Player Victory!" : "Player Lost!";
             DebugUtils.DebugLogMsg($"End game reached! {_goalMessage}.{winnerMessage}", DebugUtils.DebugType.Temporary);
             if (!LevelController.TryToGetSingleton(out var levelController)) return;
             levelController.ForceFinishLevel();
@@ -49,7 +51,7 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            var winningFactionName = _winningFaction != null ? _winningFaction.name : "no faction";
+            var winningFactionName = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" : _victory ? $"Player Victory!" : "Player Lost!";
             return JsonUtility.ToJson(new EndGameRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.EndGame), turn,
                 timeStamp, _goalMessage, winningFactionName));
@@ -75,7 +77,7 @@ namespace Core.Recorder
                 winningFaction.name = factionName;
             }
 
-            return new EndGameRecordEntry(levelGoalMessage, winningFaction, -1, -1);
+            return new EndGameRecordEntry(levelGoalMessage, winningFaction, false, -1, -1);
         }
     }
 }

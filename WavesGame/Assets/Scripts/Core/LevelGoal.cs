@@ -259,7 +259,7 @@ namespace Core
                     if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
                     {
                         wavesRecorder.RecordNewEntry(new EndGameRecordEntry(GetLevelMessage(),
-                            _winnerFaction, GetCurrentTurn(), levelController.GetTimeStamp()));
+                            _winnerFaction, false, GetCurrentTurn(), levelController.GetTimeStamp()));
                     }
 
                     // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
@@ -309,7 +309,7 @@ namespace Core
 
         public string GetLevelMessage()
         {
-            var message = "";
+            string message;
             switch (type)
             {
                 case LevelGoalType.DestroyAllTargets:

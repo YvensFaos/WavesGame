@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
@@ -17,7 +17,6 @@ namespace Actors.AI
     public class AINavalShip : AIBaseShip
     {
         [field: SerializeField] public AIGenesSO GenesData { get; set; }
-        [SerializeField] private int overrideInitiative;
 
         private AIBrain _brain;
         private bool _calculatingAction;
