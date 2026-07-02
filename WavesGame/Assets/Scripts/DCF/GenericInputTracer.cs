@@ -64,7 +64,7 @@ namespace DCF
             while (_tracing)
             {
                 yield return new WaitUntil(() => _tracer.count > 0);
-                DebugUtils.DebugLogMsg($"Tracer detected {_tracer.count} inputs.", DebugUtils.DebugType.Temporary);
+                DebugUtils.DebugLogMsg($"Tracer detected {_tracer.count} inputs.", DebugUtils.DebugType.Verbose);
                 var inputEnumerator = _tracer.GetEnumerator();
                 while (inputEnumerator.MoveNext())
                 {

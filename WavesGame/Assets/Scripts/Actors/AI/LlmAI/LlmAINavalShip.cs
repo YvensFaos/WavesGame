@@ -295,7 +295,7 @@ namespace Actors.AI.LlmAI
                     DebugUtils.DebugLogMsg($"{name} attacks {targetUnit}!", DebugUtils.DebugType.System);
                     LevelController.GetSingleton().AddAttackLog(targetUnit.Index(), this, name);
                     var damage = CalculateDamage();
-                    RecordAttack(targetUnit.GetActor(), damage);
+                    RecordAttack(targetUnit.GetActor(), targetUnit, damage, reasoning);
                     kills = targetUnit.DamageActors(damage);
                     LevelController.GetSingleton()
                         .AddInfoLog($"Attacked succeeded at {targetUnit}. Kill count = {kills}.", name);
@@ -320,6 +320,11 @@ namespace Actors.AI.LlmAI
             var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
                 LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.InvalidTarget, currentUnit.Index(),
                 null, targetUnit.Index(), reasoning);
+            if (targetUnit.ActorsCount() == 0)
+            {
+                invalidCannotReachEntry.AppendComment("No valid targets at the attacked position.");
+            }
+
             recorder.RecordNewEntry(invalidCannotReachEntry);
         }
 
@@ -327,7 +332,7 @@ namespace Actors.AI.LlmAI
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.Attack, currentUnit.Index(),
+                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.OutOfReach, currentUnit.Index(),
                 targetActor, targetUnit.Index(), reasoning);
             if (targetActor is WaveActor)
             {
@@ -341,7 +346,7 @@ namespace Actors.AI.LlmAI
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.Move, currentUnit.Index(),
+                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.FailedToMove, currentUnit.Index(),
                 null, targetUnit, reasoning);
             if (moveAfterAttack)
             {
@@ -351,9 +356,23 @@ namespace Actors.AI.LlmAI
             recorder.RecordNewEntry(invalidCannotReachEntry);
         }
 
-        private void RecordAttack(GridActor targetActor, int damage)
+        private void RecordAttack(GridActor targetActor, GridUnit unit, int damage, string reasoning)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            if (targetActor == null)
+            {
+                RecordInvalidTargetChosen(unit, reasoning);
+                return;
+            }
+
+            if (targetActor is AIBaseShip aiBaseShip && aiBaseShip.GetFaction().Equals(GetFaction()))
+            {
+                var invalidAttempt = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+                    LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.FriendlyFire, currentUnit.Index(),
+                    aiBaseShip, unit.Index(), reasoning);
+                recorder.RecordNewEntry(invalidAttempt);
+            }
+
             var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), targetActor.name, damage,
                 LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
             if (targetActor is WaveActor)

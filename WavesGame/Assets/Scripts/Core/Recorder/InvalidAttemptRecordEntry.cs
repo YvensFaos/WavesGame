@@ -8,9 +8,10 @@ namespace Core.Recorder
 {
     public enum InvalidAttemptType
     {
-        Move,
-        Attack,
-        InvalidTarget
+        FailedToMove,
+        OutOfReach,
+        InvalidTarget,
+        FriendlyFire
     }
 
     [Serializable]
