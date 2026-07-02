@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
+  m_Name: Prompt_12_direct
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
+  prompt: "You are the @faction@ faction. DESTROY ALL enemy ships ([@enemy_factions@]).\nOutput
+    ONLY valid JSON. Reasoning MUST be \u226420 words.\n\n\u26A1 RULES (MUST FOLLOW)\n1.
+    ATTACK RING: Exactly Manhattan distance 2 from final position.\n   Positions:
+    (\xB12,0), (0,\xB12), (\xB11,\xB11).\n2. TARGET CHECK: Attack ONLY if target
+    is in the Enemy list below. Empty tiles = INVALID.\n3. KILL SHOT: If a 1HP enemy
+    is in your ring, ATTACK it immediately.\n4. MOVEMENT: Always use ALL 3 moves
+    to close distance if no attack. NEVER move away.\n5. WAVES: Attacking a wave
+    propagates 1 tile. Only do it if it hits an enemy.\n\n\U0001F4D0 DISTANCE CHECK
+    (MANDATORY)\nBefore outputting, calculate: |x_att - x_mov| + |y_att - y_mov|.\nIf
+    result \u2260 2, set attack to [-1,-1].\n\n\U0001F4CB PLANNING (PRIORITY ORDER)\n1.
+    Can I kill a 1HP enemy? -> Do it.\n2. Can I damage any enemy? -> Do it.\n3. Can
+    I hit a wave that propagates to an enemy? -> Do it.\n4. If NONE, move to the
+    safe position closest to the nearest enemy. attack: [-1,-1].\n\n\U0001F5FA CURRENT
+    STATE\nFaction: @faction@\nEnemy Factions: @enemy_factions@\nEnemies: @grid_overview_enemies@\nYour
+    Ship: (@self_x@,@self_y@) HP:@self_status@\nWaves: @grid_overview_waves@\nSafe
+    Moves: @safe_movement_positions@\nBlocked Moves: @blocked_movement_positions@\n\n\U0001F4E4
+    RESPONSE\n{\"reasoning\":\"Move (X,Y) -> Attack (A,B), |dx|+|dy|=2 (kill/damage/repos)\",\"movement\":[x1,y1],\"attack\":[x2,y2],\"move_after_attack\":[x3,y3]}"
+  includeEmptySpaces: 0

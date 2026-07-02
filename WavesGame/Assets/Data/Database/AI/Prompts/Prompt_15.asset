@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
+  m_Name: Prompt_15
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
+  prompt: "# \U0001F6A2 TURN-BASED NAVAL STRATEGY \u2013 COMMAND PROMPT\n\n## 1.
+    YOUR OBJECTIVE\n**Win condition:** Destroy all enemy ships (\U0001F534\u2693). 
+    \nYou are **@faction@**. You control the ship marked **\u2693**.\n\n---\n\n##
+    2. CURRENT MAP STATE (Coordinates & Symbols)\n\n**Your ship:**  \n- Position:
+    (`@self_x@`, `@self_y@`)  \n- Status: `@self_status@` (health, etc.)\n\n**Enemy
+    ships (\U0001F534\u2693):**  \n`@grid_overview_enemies@`  \n*(list of (x,y) positions)*\n\n**Neutral
+    targets (\U0001F3AF):**  \n`@grid_overview_targets@`\n\n**Waves (\u2192 \u2191
+    \u2193 \u2196 \u2197 \u2198 \u2199):**  \n`@grid_overview_waves@`  \n*(each wave
+    has a position and direction)*\n\n**Safe movement tiles (not blocked, not occupied
+    by enemy, not wave source):**  \n`@safe_movement_positions@`\n\n**Forbidden tiles
+    (blocked, enemy occupied, or occupied by wave):**  \n`@blocked_movement_positions@`\n\n---\n\n##
+    3. SIMPLE DECISION RULES (Follow in order)\n\n### \u2705 RULE 1 \u2013 ATTACK
+    IF POSSIBLE\n**Direct attack:** You can hit any enemy or target within **Manhattan
+    distance 1 or 2** tiles.\n\n**Wave-extended attack:**  \n- If you attack a wave
+    (e.g., \u2192 at (x,y)), your shot continues **one tile in that wave\u2019s direction**. 
+    \n- This counts as hitting the **first enemy** in that extended line.  \n- Example:
+    You are at (5,5), attack \u2192 at (6,5) \u2192 hits (7,5) if an enemy is there.\n\n**What
+    to do:**  \n- If a direct or wave-extended attack is available \u2192 **set `attack`
+    to that (x,y).**  \n- **Then, optionally** set `move_after_attack` to a new position
+    if it improves your tactical situation (e.g., retreat, reposition).  \n- **If
+    you don't want to move after attack**, set `move_after_attack` to `[-1, -1]`.\n\n---\n\n###
+    \U0001F504 RULE 2 \u2013 MOVE IF NO ATTACK IS POSSIBLE\nIf you cannot attack
+    this turn, **move** to enable one next turn.\n\n**Movement must be to a SAFE
+    tile** (from the list above).  \n**Your move should aim to:**  \n- Get within
+    1\u20132 tiles of an enemy (for a direct attack next turn), OR  \n- Position
+    yourself to use a wave for an extended shot next turn.  \n\n**If no useful move
+    exists, stay put:** set `movement = [-1, -1]`.\n\n**Important:**  \n- You may
+    set `attack` to `[-1, -1]` when moving.  \n- `move_after_attack` is ignored if
+    you don't attack (set to `[-1, -1]`).\n\n---\n\n## 4. YOUR RESPONSE FORMAT (JSON
+    only)\n\n```json\n{\n  \"reasoning\": \"Short reason (max 1 sentence) \u2013
+    e.g., 'Attacking enemy at (2,3), then moving to (1,3) to cover escape.'\",\n 
+    \"movement\": [x, y],           // your move this turn (or [-1, -1] if staying)\n 
+    \"attack\": [x, y],             // target to attack (or [-1, -1] if none)\n 
+    \"move_after_attack\": [x, y]   // move after attack (or [-1, -1] if none)\n}"
+  includeEmptySpaces: 0

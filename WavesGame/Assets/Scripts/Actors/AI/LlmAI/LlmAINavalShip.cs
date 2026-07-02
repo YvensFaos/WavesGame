@@ -20,6 +20,7 @@ namespace Actors.AI.LlmAI
         public string reasoning = "";
         public int[] movement = { -1, -1 };
         public int[] attack = { -1, -1 };
+        [JsonProperty("move_after_attack")]
         public int[] moveAfterAttack = { -1, -1 };
 
         public static Vector2Int GetAsVector2Int(int[] pair)
@@ -162,7 +163,6 @@ namespace Actors.AI.LlmAI
 
             LevelController.GetSingleton().AddDataLog($"\"attempts\":{attempt}", name);
             _internalAttempts.Add(attempt);
-
             DebugUtils.DebugLogMsg(result, DebugUtils.DebugType.Verbose);
 
             var jsonResult = Sanitizer.ExtractJson(result);
@@ -178,7 +178,8 @@ namespace Actors.AI.LlmAI
                 DebugUtils.DebugLogMsg($"Exception {e.Message}.", DebugUtils.DebugType.Error);
                 LevelController.GetSingleton().AddInfoLog($"Casting exception! {e.Message}", name);
                 LevelController.GetSingleton().AddInfoLog($"Output was: [{jsonResult}]", name);
-                RecordInvalidResponse(InvalidResponseType.InvalidOutput, $"Output was: [{jsonResult}]. Error: {e.Message}.");
+                RecordInvalidResponse(InvalidResponseType.InvalidOutput,
+                    $"Output was: [{jsonResult}]. Error: {e.Message}.");
                 DebugUtils.DebugLogErrorMsg(e.Message);
                 _internalFaultyMessageCount++;
             }
@@ -205,6 +206,8 @@ namespace Actors.AI.LlmAI
                 movement = LlmAction.GetAsVector2Int(actions.movement);
                 attack = LlmAction.GetAsVector2Int(actions.attack);
                 moveAfterAttack = LlmAction.GetAsVector2Int(actions.moveAfterAttack);
+                RecordCommands(movement, attack, moveAfterAttack);
+
                 shouldMove = IsValidLlmAction(movement);
                 shouldAttack = IsValidLlmAction(attack);
                 shouldMoveAfterAttack = IsValidLlmAction(moveAfterAttack);
@@ -214,7 +217,8 @@ namespace Actors.AI.LlmAI
                 DebugUtils.DebugLogMsg($"Exception {e.Message}.", DebugUtils.DebugType.Error);
                 LevelController.GetSingleton().AddInfoLog($"Casting exception on trying to act! {e.Message}", name);
                 DebugUtils.DebugLogErrorMsg(e.Message);
-                RecordInvalidResponse(InvalidResponseType.InvalidOutput, $"Output was: [{jsonResult}]. Error: {e.Message}.");
+                RecordInvalidResponse(InvalidResponseType.InvalidOutput,
+                    $"Output was: [{jsonResult}]. Error: {e.Message}.");
             }
 
             LevelController.GetSingleton()
@@ -316,6 +320,14 @@ namespace Actors.AI.LlmAI
             }
 
             yield return null;
+        }
+
+        private void RecordCommands(Vector2Int movement, Vector2Int attack, Vector2Int moveAfterAttack)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var command = new CommandRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+                LevelController.GetSingleton().GetTimeStamp(), movement, attack, moveAfterAttack);
+            recorder.RecordNewEntry(command);
         }
 
         private void RecordInvalidTargetChosen(GridUnit targetUnit, string reasoning)

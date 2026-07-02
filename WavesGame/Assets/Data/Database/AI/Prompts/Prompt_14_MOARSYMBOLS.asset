@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
+  m_Name: Prompt_14_MOARSYMBOLS
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
+  prompt: "\u2694\uFE0F  WavesST: TURN-BASED NAVAL STRATEGY  \u2694\uFE0F\n\U0001F3AF
+    FACTION: @faction@ | \u274C ENEMIES: [`@enemy_factions@`]\n\n---\n---\n## \U0001F4DC
+    SYMBOL LEGEND (Memorize This!)\n| Symbol | Meaning          | Symbol | Meaning           
+    |\n|--------|------------------|--------|--------------------|\n| \u2693     
+    | **Your Ship**    | \U0001F534\u2693    | **Enemy Ship**     |\n| \U0001F7E2\u2693   
+    | **Ally Ship**    | \U0001F3AF     | **Neutral Target** |\n| \u2192      | Wave
+    \u2192 Right     | \u2190      | Wave \u2190 Left        |\n| \u2191      | Wave
+    \u2191 Up        | \u2193      | Wave \u2193 Down        |\n| \u2196      | Wave
+    \u2196           | \u2197      | Wave \u2197             |\n| \u2198      | Wave
+    \u2198           | \u2199      | Wave \u2199             |\n| \u2B1C     | Empty
+    Tile       | \u2B1B     | Blocked Tile       |\n| \u26A1      | **Can Attack**  
+    | \U0001F6AB     | **Invalid Action** |\n\n---\n---\n## \U0001F3AF PRIMARY OBJECTIVE
+    & CORE DIRECTIVES\n**\U0001F3C6 WIN CONDITION: DESTROY ALL ENEMY SHIPS (\U0001F534\u2693).**\n\n\U0001F4CA
+    **STATISTICAL INSIGHT:**\n\u2705 **PRECISION > MOBILITY** \u2013 Hitting enemies
+    consistently wins games.\n\u274C **Wandering = Losing** \u2013 Every move must
+    serve a tactical purpose.\n\n### \U0001F525 TOP 4 RULES (Follow in Order!)\n1.
+    **\U0001F3AF TARGET PRIORITIZATION IS #1**\n   - **Always attack if a valid target
+    (\U0001F534\u2693 or \U0001F3AF) is in range (\u26A1).**\n   - **Never attack
+    allies (\U0001F7E2\u2693) or empty tiles (\u2B1C) \u2013 INSTANT LOSS.**\n\n2.
+    **\U0001F3AF\u2192\u2694\uFE0F ATTACK BEFORE MOVING**\n   - **First, check if
+    you can attack NOW.**\n   - If yes: **Attack first, then move.**\n   - If no:
+    **Move to enable an attack next turn.**\n\n3. **\U0001F30A LEVERAGE WAVES (\U0001F4A5
+    Game-Changer!)**\n   - **Attacking a wave (\u2192\u2191\u2197 etc.) extends your
+    shot 1 tile in its direction.**\n   - **Example:** At (10,9), attacking \u2192
+    at (11,9) hits (12,9).\n   - **Wave attacks count as valid if they propagate
+    to an enemy!**\n\n4. **\u27A1\uFE0F MOVE WITH INTENT**\n   - **Only move to:**\n    
+    \u2705 Get an enemy in attack range (\u26A1)\n     \u2705 Line up a wave-extended
+    shot (\U0001F30A\u27A1\uFE0F\U0001F3AF)\n     \u2705 Escape danger (\U0001F6A8)\n  
+    - **If none apply: DO NOT MOVE ([-1, -1]).**\n\n---\n---\n## \U0001F50D CURRENT
+    STATE (Symbolic Overview)\n@symbolic_grid@\n- **\u2693 Your Ship:** `@self_status@`
+    @ (`@self_x@`, `@self_y@`)\n- **\U0001F534 Enemies:** `@grid_overview_enemies@`\n-
+    **\U0001F30A Waves:** `@grid_overview_waves@`\n\n---\n---\n## \u2694\uFE0F TACTICAL
+    DECISION TREE (Follow Step-by-Step!)\n\n### \U0001F534 PHASE 1: ATTACK (Highest
+    Priority)\n**\u2753 Can you attack a VALID target (\U0001F534\u2693 or \U0001F3AF)
+    RIGHT NOW?**\n- **\u2705 YES?**\n  - **Range Check:** Target must be **`@attack_offset@`\u2013`@attack_range@`
+    tiles away (Manhattan).**\n  - **Wave Check:** If no direct target, can you **attack
+    a wave (\u2192\u2191\u2197 etc.) to hit an enemy?**\n  - **\u2192 ACTION: Attack
+    immediately!**\n- **\u274C NO?**\n  - **\u2192 Proceed to PHASE 2: Movement.**\n\n###
+    \U0001F7E2 PHASE 2: MOVEMENT (Only if Attack Impossible)\n**\u2753 What\u2019s
+    your goal?**\n1. **\U0001F3AF Close Distance:** Move to put an enemy in **\u26A1
+    attack range** next turn.\n2. **\U0001F30A Line Up Wave Shot:** Position to use
+    a wave (\u2192\u2191\u2197 etc.) for an extended attack.\n3. **\U0001F6A8 Evade
+    Danger:** Move away from enemy clusters or risky wave paths (\u2197\u2198 etc.).\n\n**\u26A0\uFE0F
+    PATH RULES:**\n- **\u274C Never cross a wave (\u2192\u2191\u2197 etc.) or blocked
+    tile (\u2B1B).**\n- **\u2705 Only use SAFE positions:** `@safe_movement_positions@`\n-
+    **\u26A0\uFE0F Avoid RISKY positions:**\n  - *Waves:* `@wave_movement_positions@`\n 
+    - *Blocked:* `@blocked_movement_positions@`\n\n---\n---\n## \u2705 PRE-RESPONSE
+    CHECKLIST (MANDATORY!)\n**\U0001F539 Before submitting, verify ALL:**\n1. **\U0001F3AF
+    Movement Justification:**\n   - Does my `\"movement\"` **directly enable an attack
+    or avoid danger?**\n   - If **NO** \u2192 `movement = [-1, -1]`\n\n2. **\U0001F50D
+    Target Analysis:**\n   - From my `\"movement\"`, can I hit an enemy (\U0001F534\u2693)
+    or target (\U0001F3AF)?\n   - **Calculate:** Is it **`@attack_offset@`\u2013`@attack_range@`
+    tiles away?**\n\n3. **\u2694\uFE0F Target Selection:**\n   - Is my `\"attack\"`
+    **confirmed** to be:\n     - An enemy (\U0001F534\u2693)?\n     - A target (\U0001F3AF)?\n    
+    - A wave (\u2192\u2191\u2197 etc.) that **propagates to an enemy?**\n   - If
+    **unsure** \u2192 `attack = [-1, -1]`\n\n4. **\U0001F30A Wave Utilization:**\n  
+    - Did I check if a wave (\u2192\u2191\u2197 etc.) can **extend my attack this
+    turn or next?**\n\n---\n---\n## \U0001F4E4 RESPONSE FORMAT (STRICT!)\n**\u26A0\uFE0F
+    OUTPUT *ONLY* VALID JSON. NO OTHER TEXT.**\n```json\n{\n  \"reasoning\": \"\u26A1
+    Attacking \U0001F534\u2693 at (x,y) | \U0001F30A Using wave \u2192 for extended
+    shot | \u27A1\uFE0F Moving to (a,b) to line up next attack\",\n  \"movement\":
+    [@x1@, @y1@],\n  \"attack\": [@x2@, @y2@],\n  \"move_after_attack\": [@x3@, @y3@]\n}"
+  includeEmptySpaces: 0
