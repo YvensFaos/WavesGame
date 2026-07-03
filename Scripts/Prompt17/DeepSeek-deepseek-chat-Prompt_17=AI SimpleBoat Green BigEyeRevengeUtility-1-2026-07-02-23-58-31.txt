@@ -1,0 +1,153 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"LLMAIBattleground","randomSeed":6,"maxTurns":100,"navalActorEntryJsons":[{"name":"LLMAgent|DeepSeek|deepseek-chat|Red|4","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":10,"y":13},"genesData":"","basePrompt":"Prompt_17","llmInfo":"DeepSeek-deepseek-chat-Prompt_17","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"LLMAgent|DeepSeek|deepseek-chat|Red|5","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":12},"genesData":"","basePrompt":"Prompt_17","llmInfo":"DeepSeek-deepseek-chat-Prompt_17","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"LLMAgent|DeepSeek|deepseek-chat|Red|6","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":12},"genesData":"","basePrompt":"Prompt_17","llmInfo":"DeepSeek-deepseek-chat-Prompt_17","llmType":"DeepSeek","llmModel":"deepseek-chat"},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":6},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":6},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"AI Wars"}
+{"eventType":"RESN","reasoning":"Move to (10,12) to get closer to enemies and position for a potential wave-extended attack next turn, while avoiding immediate danger.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":0,"timeStamp":2}
+{"eventType":"CMMD","movement":{"x":10,"y":12},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":0,"timeStamp":2}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":0,"timeStamp":2}
+{"eventType":"RESN","reasoning":"Move to (11, 11) to get enemy at (12, 6) within attack range (Manhattan distance 2) and attack it, then move to (10, 11) to use the north wave to extend next turn's attack.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":6}
+{"eventType":"CMMD","movement":{"x":11,"y":11},"attack":{"x":12,"y":6},"moveAfterAttack":{"x":10,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":6}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":6}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":7}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":11,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":12,"y":6},"reasoning":"Move to (11, 11) to get enemy at (12, 6) within attack range (Manhattan distance 2) and attack it, then move to (10, 11) to use the north wave to extend next turn's attack.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":7}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":10,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":0,"timeStamp":8}
+{"eventType":"RESN","reasoning":"Move to (8,11) to get enemy at (7,6) within attack range (Manhattan distance 2) and attack it.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":0,"timeStamp":11}
+{"eventType":"CMMD","movement":{"x":8,"y":11},"attack":{"x":7,"y":6},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":0,"timeStamp":11}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":8,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":0,"timeStamp":11}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":12},"moveTo":{"x":8,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":0,"timeStamp":12}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":8,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|9","targetPosition":{"x":7,"y":6},"reasoning":"Move to (8,11) to get enemy at (7,6) within attack range (Manhattan distance 2) and attack it.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":0,"timeStamp":12}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":9,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":13}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":9,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":14}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","comment":"Moved by wave effect!","turn":0,"timeStamp":14}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":16}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":16}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":17}
+{"eventType":"ATTK","targetId":"Target","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":17}
+{"eventType":"DEAD","actorId":"Target","turn":0,"timeStamp":17}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":6,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":19}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":6},"moveTo":{"x":6,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":20}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":7},"moveTo":{"x":6,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":20}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":21}
+{"eventType":"DEAD","actorId":"Target (3)","turn":0,"timeStamp":21}
+{"eventType":"RESN","reasoning":"Move to (11,11) to get enemy at (11,8) within attack range (Manhattan distance 2) and attack it, then move after attack to (12,11) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":24}
+{"eventType":"CMMD","movement":{"x":11,"y":11},"attack":{"x":11,"y":8},"moveAfterAttack":{"x":12,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":24}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":25}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":25}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":11,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":11,"y":8},"reasoning":"Move to (11,11) to get enemy at (11,8) within attack range (Manhattan distance 2) and attack it, then move after attack to (12,11) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":1,"timeStamp":26}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":11,"y":11},"targetId":"","targetPosition":{"x":12,"y":11},"reasoning":"Move to (11,11) to get enemy at (11,8) within attack range (Manhattan distance 2) and attack it, then move after attack to (12,11) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","comment":"Movement after attacking.","turn":1,"timeStamp":26}
+{"eventType":"RESN","reasoning":"Move to (9,10) to get enemy at (9,6) within attack range (Manhattan distance 2) and attack it, then move to (8,10) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":1,"timeStamp":28}
+{"eventType":"CMMD","movement":{"x":9,"y":10},"attack":{"x":9,"y":6},"moveAfterAttack":{"x":8,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":1,"timeStamp":28}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","comment":"Moved by wave effect!","turn":1,"timeStamp":29}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":9,"y":6},"reasoning":"Move to (9,10) to get enemy at (9,6) within attack range (Manhattan distance 2) and attack it, then move to (8,10) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":1,"timeStamp":29}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":10,"y":12},"targetId":"","targetPosition":{"x":8,"y":10},"reasoning":"Move to (9,10) to get enemy at (9,6) within attack range (Manhattan distance 2) and attack it, then move to (8,10) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","comment":"Movement after attacking.","turn":1,"timeStamp":29}
+{"eventType":"RESN","reasoning":"Move to (9,10) to get enemy at (9,6) within attack range (Manhattan distance 2) and attack it, then move after attack to (10,10) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":1,"timeStamp":32}
+{"eventType":"CMMD","movement":{"x":9,"y":10},"attack":{"x":9,"y":6},"moveAfterAttack":{"x":10,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":1,"timeStamp":32}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":11},"moveTo":{"x":9,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":1,"timeStamp":32}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":11},"moveTo":{"x":9,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":1,"timeStamp":33}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":9,"y":10},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":9,"y":6},"reasoning":"Move to (9,10) to get enemy at (9,6) within attack range (Manhattan distance 2) and attack it, then move after attack to (10,10) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":1,"timeStamp":33}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":10},"moveTo":{"x":10,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":1,"timeStamp":34}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":12,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":36}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":12,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":36}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":12,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":37}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","attackPosition":{"x":10,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":37}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":1,"timeStamp":37}
+{"eventType":"RESN","reasoning":"Move to (12, 12) to get enemy at (12, 10) within attack range (Manhattan distance 2) and attack it, then move after attack to (13, 12) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":42}
+{"eventType":"CMMD","movement":{"x":12,"y":12},"attack":{"x":12,"y":10},"moveAfterAttack":{"x":13,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":42}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":43}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":12,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":43}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":44}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":44}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":13,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":2,"timeStamp":46}
+{"eventType":"RESN","reasoning":"Move to (11,11) to get enemy at (12,10) within attack range (Manhattan distance 2) and attack it, then move after attack to (11,10) to avoid potential counterattack.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":49}
+{"eventType":"CMMD","movement":{"x":11,"y":11},"attack":{"x":12,"y":10},"moveAfterAttack":{"x":11,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":49}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":49}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":50}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":50}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":50}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":11,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":2,"timeStamp":52}
+{"eventType":"RESN","reasoning":"Move to (11, 9) to get within attack range of the low-health enemy at (12, 10) and finish it off, then move to (12, 9) to reposition.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":2,"timeStamp":55}
+{"eventType":"CMMD","movement":{"x":11,"y":9},"attack":{"x":12,"y":10},"moveAfterAttack":{"x":12,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":2,"timeStamp":55}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":10},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":2,"timeStamp":56}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":11,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":2,"timeStamp":56}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":2,"timeStamp":57}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":57}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":12,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":2,"timeStamp":59}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":8},"moveTo":{"x":7,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":2,"timeStamp":61}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":8},"moveTo":{"x":8,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":2,"timeStamp":62}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":8},"moveTo":{"x":9,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":2,"timeStamp":62}
+{"eventType":"RESN","reasoning":"Move to (12, 12) to get enemy at (9, 8) within attack range (Manhattan distance 2) and attack it, then move after attack to (11, 12) to close distance further.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":66}
+{"eventType":"CMMD","movement":{"x":12,"y":12},"attack":{"x":9,"y":8},"moveAfterAttack":{"x":11,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":66}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":12},"moveTo":{"x":12,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":66}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":12,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|9","targetPosition":{"x":9,"y":8},"reasoning":"Move to (12, 12) to get enemy at (9, 8) within attack range (Manhattan distance 2) and attack it, then move after attack to (11, 12) to close distance further.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":67}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":3,"timeStamp":67}
+{"eventType":"RESN","reasoning":"Move to (10, 9) to get enemy at (9, 8) within attack range (Manhattan distance 2) and attack it, then move to (9, 9) to close distance further.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":70}
+{"eventType":"CMMD","movement":{"x":10,"y":9},"attack":{"x":9,"y":8},"moveAfterAttack":{"x":9,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":70}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":10},"moveTo":{"x":10,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":70}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":10},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":71}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|9","attackPosition":{"x":9,"y":8},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":71}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":3,"timeStamp":71}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":9,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":73}
+{"eventType":"RESN","reasoning":"Move to (11, 8) to get enemy at (9, 8) within attack range (Manhattan distance 2) and attack it.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":3,"timeStamp":77}
+{"eventType":"CMMD","movement":{"x":11,"y":8},"attack":{"x":9,"y":8},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":3,"timeStamp":77}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":11,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":3,"timeStamp":77}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":11,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":3,"timeStamp":78}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|9","attackPosition":{"x":9,"y":8},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":3,"timeStamp":78}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":3,"timeStamp":78}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":10,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":80}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":81}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","attackPosition":{"x":11,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":81}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":3,"timeStamp":81}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":8},"moveTo":{"x":8,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":3,"timeStamp":83}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":8},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":3,"timeStamp":84}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":3,"timeStamp":84}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","attackPosition":{"x":9,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":3,"timeStamp":85}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":3,"timeStamp":85}
+{"eventType":"RESN","reasoning":"Move to (10, 10) to get enemy at (8, 10) within attack range (Manhattan distance 2) and attack it, then move to (9, 10) to stay safe.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":4,"timeStamp":89}
+{"eventType":"CMMD","movement":{"x":10,"y":10},"attack":{"x":8,"y":10},"moveAfterAttack":{"x":9,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":4,"timeStamp":89}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":4,"timeStamp":89}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":10,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":4,"timeStamp":90}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","comment":"Moved by wave effect!","turn":4,"timeStamp":90}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|9","targetPosition":{"x":8,"y":10},"reasoning":"Move to (10, 10) to get enemy at (8, 10) within attack range (Manhattan distance 2) and attack it, then move to (9, 10) to stay safe.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":4,"timeStamp":91}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":10,"y":12},"targetId":"","targetPosition":{"x":9,"y":10},"reasoning":"Move to (10, 10) to get enemy at (8, 10) within attack range (Manhattan distance 2) and attack it, then move to (9, 10) to stay safe.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","comment":"Movement after attacking.","turn":4,"timeStamp":91}
+{"eventType":"RESN","reasoning":"Move to (8, 8) to get within attack range of the low-health enemy at (8, 10), then attack it to eliminate a threat.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":4,"timeStamp":94}
+{"eventType":"CMMD","movement":{"x":8,"y":8},"attack":{"x":8,"y":10},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":4,"timeStamp":94}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":9},"moveTo":{"x":8,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":4,"timeStamp":94}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":8,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":4,"timeStamp":95}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|9","attackPosition":{"x":8,"y":10},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":4,"timeStamp":95}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":4,"timeStamp":95}
+{"eventType":"RESN","reasoning":"Move to (10, 8) to get the enemy at (10, 7) within attack range (Manhattan distance 1) and attack it, then stay in place.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":4,"timeStamp":99}
+{"eventType":"CMMD","movement":{"x":10,"y":8},"attack":{"x":10,"y":7},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":4,"timeStamp":99}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":10,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":4,"timeStamp":100}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":8},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":10,"y":7},"reasoning":"Move to (10, 8) to get the enemy at (10, 7) within attack range (Manhattan distance 1) and attack it, then stay in place.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":4,"timeStamp":100}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":101}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":102}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":11,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":102}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","attackPosition":{"x":10,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":103}
+{"eventType":"DEAD","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|5","turn":4,"timeStamp":103}
+{"eventType":"RESN","reasoning":"Move to (11,11) to get the enemy at (11,9) within attack range (Manhattan distance 2) and attack it directly.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":5,"timeStamp":107}
+{"eventType":"CMMD","movement":{"x":11,"y":11},"attack":{"x":11,"y":9},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":5,"timeStamp":107}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":5,"timeStamp":107}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":5,"timeStamp":108}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|7","attackPosition":{"x":11,"y":9},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":5,"timeStamp":108}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":108}
+{"eventType":"RESN","reasoning":"Move to (9,9) to get enemy at (11,9) within attack range (Manhattan distance 2), then attack it.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":112}
+{"eventType":"CMMD","movement":{"x":9,"y":9},"attack":{"x":11,"y":9},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":112}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":8},"moveTo":{"x":9,"y":8},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":113}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":8},"moveTo":{"x":9,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":113}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|7","attackPosition":{"x":11,"y":9},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":5,"timeStamp":114}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":114}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":12,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":116}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":12,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":117}
+{"eventType":"ATTK","targetId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","attackPosition":{"x":11,"y":11},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":117}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":5,"timeStamp":117}
+{"eventType":"RESN","reasoning":"Move to (10, 10) to get the enemy at (12, 10) within attack range (Manhattan distance 2) and attack it, then move after attack to (9, 10) to stay safe.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":6,"timeStamp":121}
+{"eventType":"CMMD","movement":{"x":10,"y":10},"attack":{"x":12,"y":10},"moveAfterAttack":{"x":9,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":6,"timeStamp":121}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":10,"y":11},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":6,"timeStamp":122}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","comment":"Moved by wave effect!","turn":6,"timeStamp":122}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":12,"y":10},"reasoning":"Move to (10, 10) to get the enemy at (12, 10) within attack range (Manhattan distance 2) and attack it, then move after attack to (9, 10) to stay safe.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","turn":6,"timeStamp":123}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":10,"y":12},"targetId":"","targetPosition":{"x":9,"y":10},"reasoning":"Move to (10, 10) to get the enemy at (12, 10) within attack range (Manhattan distance 2) and attack it, then move after attack to (9, 10) to stay safe.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|4","comment":"Movement after attacking.","turn":6,"timeStamp":123}
+{"eventType":"RESN","reasoning":"Move to (10, 10) to get the enemy at (12, 10) within attack range (Manhattan distance 2) and attack it, then move to (11, 10) to close distance further.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":6,"timeStamp":126}
+{"eventType":"CMMD","movement":{"x":10,"y":10},"attack":{"x":12,"y":10},"moveAfterAttack":{"x":11,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":6,"timeStamp":126}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":9},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":6,"timeStamp":126}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":10,"y":10},"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":6,"timeStamp":127}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|7","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"LLMAgent|DeepSeek|deepseek-chat|Red|6","turn":6,"timeStamp":127}
+{"eventType":"OVER","turn":6,"timeStamp":127,"goalMessage":"AI Wars = Green[Utility] x Red[DeepSeek-deepseek-chat-Prompt_17] ","winningFaction":"Winning Faction is Red!"}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":6,"timeStamp":127}

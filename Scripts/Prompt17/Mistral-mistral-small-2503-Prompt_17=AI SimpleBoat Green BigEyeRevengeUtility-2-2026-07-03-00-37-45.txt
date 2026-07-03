@@ -1,0 +1,172 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"LLMAIBattleground","randomSeed":6,"maxTurns":100,"navalActorEntryJsons":[{"name":"LLMAgent|Mistral|mistral-small-2503|Red|4","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":10,"y":13},"genesData":"","basePrompt":"Prompt_17","llmInfo":"Mistral-mistral-small-2503-Prompt_17","llmType":"Mistral","llmModel":"mistral-small-2503"},{"name":"LLMAgent|Mistral|mistral-small-2503|Red|5","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":12},"genesData":"","basePrompt":"Prompt_17","llmInfo":"Mistral-mistral-small-2503-Prompt_17","llmType":"Mistral","llmModel":"mistral-small-2503"},{"name":"LLMAgent|Mistral|mistral-small-2503|Red|6","shipPrefabType":"LlmAINavalShip","faction":"Red","shipData":"BasicAIShip","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":12},"genesData":"","basePrompt":"Prompt_17","llmInfo":"Mistral-mistral-small-2503-Prompt_17","llmType":"Mistral","llmModel":"mistral-small-2503"},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":6},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Green BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":6},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"AI Wars"}
+{"eventType":"RESN","reasoning":"Move to position enemy ships within attack range and prioritize the closest targets.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":0,"timeStamp":1}
+{"eventType":"CMMD","movement":{"x":11,"y":13},"attack":{"x":9,"y":13},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":0,"timeStamp":1}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":11,"y":13},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":0,"timeStamp":2}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":11,"y":13},"targetId":"","targetPosition":{"x":9,"y":13},"reasoning":"Move to position enemy ships within attack range and prioritize the closest targets.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","comment":"No valid targets at the attacked position.","turn":0,"timeStamp":2}
+{"eventType":"RESN","reasoning":"Move to position enemy (12,6) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":0,"timeStamp":5}
+{"eventType":"CMMD","movement":{"x":12,"y":13},"attack":{"x":12,"y":11},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":0,"timeStamp":5}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":12,"y":13},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":0,"timeStamp":6}
+{"eventType":"NVLD","type":"InvalidTarget","position":{"x":12,"y":13},"targetId":"","targetPosition":{"x":12,"y":11},"reasoning":"Move to position enemy (12,6) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","comment":"No valid targets at the attacked position.","turn":0,"timeStamp":6}
+{"eventType":"RESN","reasoning":"Move to position enemy ships within attack range and prioritize the closest target for elimination.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":0,"timeStamp":10}
+{"eventType":"CMMD","movement":{"x":8,"y":12},"attack":{"x":7,"y":6},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":8,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":0,"timeStamp":10}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":8,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|9","targetPosition":{"x":7,"y":6},"reasoning":"Move to position enemy ships within attack range and prioritize the closest target for elimination.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":0,"timeStamp":11}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":10,"y":5},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":12}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":11,"y":5},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":12}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":5},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":0,"timeStamp":13}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":13,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":14}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":6},"moveTo":{"x":13,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":14}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":7},"moveTo":{"x":13,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":15}
+{"eventType":"ATTK","targetId":"Target","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":0,"timeStamp":15}
+{"eventType":"DEAD","actorId":"Target","turn":0,"timeStamp":15}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":6,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":17}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":6},"moveTo":{"x":6,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":18}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":7},"moveTo":{"x":6,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":18}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":0,"timeStamp":19}
+{"eventType":"DEAD","actorId":"Target (3)","turn":0,"timeStamp":19}
+{"eventType":"RESN","reasoning":"Move to position (10, 13) to bring enemy at (11, 6) into attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":1,"timeStamp":22}
+{"eventType":"CMMD","movement":{"x":10,"y":13},"attack":{"x":11,"y":6},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":1,"timeStamp":22}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":13},"moveTo":{"x":10,"y":13},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":1,"timeStamp":22}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":13},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":11,"y":6},"reasoning":"Move to position (10, 13) to bring enemy at (11, 6) into attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":1,"timeStamp":23}
+{"eventType":"RESN","reasoning":"Move to position enemy (13,8) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":1,"timeStamp":25}
+{"eventType":"CMMD","movement":{"x":13,"y":13},"attack":{"x":13,"y":8},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":1,"timeStamp":25}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":13},"moveTo":{"x":13,"y":13},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":1,"timeStamp":25}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":13,"y":13},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":13,"y":8},"reasoning":"Move to position enemy (13,8) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":1,"timeStamp":26}
+{"eventType":"RESN","reasoning":"Move to position enemy (11,6) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":1,"timeStamp":27}
+{"eventType":"CMMD","movement":{"x":9,"y":12},"attack":{"x":11,"y":6},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":1,"timeStamp":27}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":12},"moveTo":{"x":9,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":1,"timeStamp":28}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":9,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":11,"y":6},"reasoning":"Move to position enemy (11,6) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":1,"timeStamp":28}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":8},"moveTo":{"x":13,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":30}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":9},"moveTo":{"x":13,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":31}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":10},"moveTo":{"x":13,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":31}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|6","attackPosition":{"x":13,"y":13},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":1,"timeStamp":32}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":1,"timeStamp":32}
+{"eventType":"RESN","reasoning":"Move to position enemy (11,11) within attack range and attack (11,6) if possible.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":2,"timeStamp":35}
+{"eventType":"CMMD","movement":{"x":11,"y":11},"attack":{"x":11,"y":6},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":2,"timeStamp":35}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":11,"y":13},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":2,"timeStamp":36}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":13},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":2,"timeStamp":36}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":2,"timeStamp":37}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":11,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":11,"y":6},"reasoning":"Move to position enemy (11,11) within attack range and attack (11,6) if possible.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":2,"timeStamp":37}
+{"eventType":"RESN","reasoning":"Move to position enemy at (13,11) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":2,"timeStamp":39}
+{"eventType":"CMMD","movement":{"x":13,"y":12},"attack":{"x":13,"y":11},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":2,"timeStamp":39}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":13},"moveTo":{"x":13,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":2,"timeStamp":40}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":13,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":13,"y":11},"reasoning":"Move to position enemy at (13,11) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":2,"timeStamp":40}
+{"eventType":"RESN","reasoning":"Move to (10, 12) to attack the enemy at (11, 6) via wave extension using the wave at (10, 11).","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":2,"timeStamp":42}
+{"eventType":"CMMD","movement":{"x":10,"y":12},"attack":{"x":10,"y":11},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":2,"timeStamp":42}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":12},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":2,"timeStamp":42}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":12},"targetId":"Wave N","targetPosition":{"x":10,"y":11},"reasoning":"Move to (10, 12) to attack the enemy at (11, 6) via wave extension using the wave at (10, 11).","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","comment":"Attacked a wave","turn":2,"timeStamp":43}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":11},"moveTo":{"x":13,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":45}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|6","attackPosition":{"x":13,"y":12},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":2,"timeStamp":45}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":2,"timeStamp":45}
+{"eventType":"RESN","reasoning":"Move to position enemy (13,10) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":3,"timeStamp":49}
+{"eventType":"CMMD","movement":{"x":12,"y":10},"attack":{"x":13,"y":10},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":3,"timeStamp":49}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":11,"y":10},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":3,"timeStamp":49}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":10},"moveTo":{"x":12,"y":10},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":3,"timeStamp":50}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":12,"y":10},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":13,"y":10},"reasoning":"Move to position enemy (13,10) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":3,"timeStamp":50}
+{"eventType":"RESN","reasoning":"Move to position enemy at (13,10) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":3,"timeStamp":52}
+{"eventType":"CMMD","movement":{"x":13,"y":11},"attack":{"x":13,"y":10},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":3,"timeStamp":52}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":12},"moveTo":{"x":13,"y":11},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":3,"timeStamp":53}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":13,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":13,"y":10},"reasoning":"Move to position enemy at (13,10) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":3,"timeStamp":53}
+{"eventType":"RESN","reasoning":"Move to position enemy (11,6) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":3,"timeStamp":55}
+{"eventType":"CMMD","movement":{"x":11,"y":11},"attack":{"x":11,"y":6},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":3,"timeStamp":55}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":11,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":3,"timeStamp":55}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":12},"moveTo":{"x":11,"y":11},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":3,"timeStamp":56}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":11,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|7","targetPosition":{"x":11,"y":6},"reasoning":"Move to position enemy (11,6) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":3,"timeStamp":56}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":57}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":58}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":12,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":58}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|4","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":3,"timeStamp":59}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":3,"timeStamp":59}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":10},"moveTo":{"x":13,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":3,"timeStamp":61}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|4","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":3,"timeStamp":61}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":3,"timeStamp":61}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":8},"moveTo":{"x":6,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":3,"timeStamp":63}
+{"eventType":"RESN","reasoning":"Move to attack the enemy at (13,9) while positioning for potential wave extension next turn.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":4,"timeStamp":65}
+{"eventType":"CMMD","movement":{"x":13,"y":10},"attack":{"x":13,"y":9},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":4,"timeStamp":65}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":10},"moveTo":{"x":13,"y":10},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":4,"timeStamp":66}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":13,"y":10},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":13,"y":9},"reasoning":"Move to attack the enemy at (13,9) while positioning for potential wave extension next turn.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":4,"timeStamp":66}
+{"eventType":"RESN","reasoning":"Move to position the enemy at (13,9) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":4,"timeStamp":68}
+{"eventType":"CMMD","movement":{"x":13,"y":12},"attack":{"x":13,"y":9},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":4,"timeStamp":68}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":11},"moveTo":{"x":13,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":4,"timeStamp":69}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":13,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":13,"y":9},"reasoning":"Move to position the enemy at (13,9) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":4,"timeStamp":69}
+{"eventType":"RESN","reasoning":"Move to (12, 10) to bring the enemy at (13, 9) into attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":4,"timeStamp":71}
+{"eventType":"CMMD","movement":{"x":12,"y":10},"attack":{"x":13,"y":9},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":4,"timeStamp":71}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":11,"y":10},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":4,"timeStamp":71}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":10},"moveTo":{"x":12,"y":10},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":4,"timeStamp":72}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":13,"y":9},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":4,"timeStamp":72}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":4,"timeStamp":72}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|5","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":4,"timeStamp":75}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":4,"timeStamp":75}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":9},"moveTo":{"x":12,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":4,"timeStamp":77}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|4","attackPosition":{"x":13,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":4,"timeStamp":77}
+{"eventType":"DEAD","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|4","turn":4,"timeStamp":77}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":9},"moveTo":{"x":5,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":4,"timeStamp":79}
+{"eventType":"ATTK","targetId":"Target (4)","attackPosition":{"x":3,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":4,"timeStamp":80}
+{"eventType":"DEAD","actorId":"Target (4)","turn":4,"timeStamp":80}
+{"eventType":"RESN","reasoning":"Move to attack the enemy at (12, 9) which is within range after moving to (12, 12).","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":5,"timeStamp":83}
+{"eventType":"CMMD","movement":{"x":12,"y":12},"attack":{"x":12,"y":9},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":5,"timeStamp":83}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":12},"moveTo":{"x":12,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":5,"timeStamp":83}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":12,"y":12},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":12,"y":9},"reasoning":"Move to attack the enemy at (12, 9) which is within range after moving to (12, 12).","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":5,"timeStamp":84}
+{"eventType":"RESN","reasoning":"Move to attack the high-health enemy at (12,8) while leveraging wave extension for a potential follow-up attack.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":5,"timeStamp":86}
+{"eventType":"CMMD","movement":{"x":12,"y":9},"attack":{"x":12,"y":8},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":5,"timeStamp":86}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":12,"y":10},"targetId":"","targetPosition":{"x":12,"y":9},"reasoning":"Move to attack the high-health enemy at (12,8) while leveraging wave extension for a potential follow-up attack.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":5,"timeStamp":86}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|7","attackPosition":{"x":12,"y":8},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":5,"timeStamp":86}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":86}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":8},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":88}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":88}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":5,"timeStamp":89}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":9},"moveTo":{"x":11,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":5,"timeStamp":90}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":11,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":5,"timeStamp":91}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":10},"moveTo":{"x":11,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":5,"timeStamp":91}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|5","attackPosition":{"x":12,"y":10},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":5,"timeStamp":92}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":5,"timeStamp":92}
+{"eventType":"MOVE","moveFrom":{"x":5,"y":9},"moveTo":{"x":6,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":5,"timeStamp":94}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":9},"moveTo":{"x":6,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":5,"timeStamp":94}
+{"eventType":"RESN","reasoning":"Move to attack the enemy at (11,11) and position for potential wave extension.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":6,"timeStamp":96}
+{"eventType":"CMMD","movement":{"x":11,"y":11},"attack":{"x":11,"y":11},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":6,"timeStamp":96}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":12,"y":12},"targetId":"","targetPosition":{"x":11,"y":11},"reasoning":"Move to attack the enemy at (11,11) and position for potential wave extension.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":6,"timeStamp":96}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":11,"y":11},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":6,"timeStamp":96}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":6,"timeStamp":96}
+{"eventType":"RESN","reasoning":"Prioritize eliminating the low-health enemy at (11,11) by moving to (11,10) to attack it directly.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":6,"timeStamp":100}
+{"eventType":"CMMD","movement":{"x":11,"y":10},"attack":{"x":11,"y":11},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":6,"timeStamp":100}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":10},"moveTo":{"x":11,"y":10},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":6,"timeStamp":100}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":11,"y":10},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":11,"y":11},"reasoning":"Prioritize eliminating the low-health enemy at (11,11) by moving to (11,10) to attack it directly.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":6,"timeStamp":101}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":10,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":6,"timeStamp":102}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":9,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":6,"timeStamp":102}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":11},"moveTo":{"x":10,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":6,"timeStamp":103}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","comment":"Moved by wave effect!","turn":6,"timeStamp":104}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|6","attackPosition":{"x":12,"y":12},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":6,"timeStamp":104}
+{"eventType":"DEAD","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|6","turn":6,"timeStamp":104}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":8},"moveTo":{"x":7,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":6,"timeStamp":106}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":8},"moveTo":{"x":8,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":6,"timeStamp":107}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":8},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":6,"timeStamp":107}
+{"eventType":"RESN","reasoning":"Move to attack the low-health enemy at (10,12) and eliminate it immediately.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":7,"timeStamp":110}
+{"eventType":"CMMD","movement":{"x":10,"y":11},"attack":{"x":10,"y":12},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":7,"timeStamp":110}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":10},"moveTo":{"x":10,"y":10},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":7,"timeStamp":110}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":10},"moveTo":{"x":10,"y":11},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":7,"timeStamp":111}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":10,"y":12},"reasoning":"Move to attack the low-health enemy at (10,12) and eliminate it immediately.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":7,"timeStamp":111}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":10,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":7,"timeStamp":112}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":5},"actorId":"AIAgent-Utility|RevengeUtility|Green|7","turn":7,"timeStamp":112}
+{"eventType":"RESN","reasoning":"Move to attack the low-health enemy at (10,12) and eliminate it immediately.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":8,"timeStamp":116}
+{"eventType":"CMMD","movement":{"x":10,"y":12},"attack":{"x":10,"y":12},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":8,"timeStamp":116}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":10,"y":11},"targetId":"","targetPosition":{"x":10,"y":12},"reasoning":"Move to attack the low-health enemy at (10,12) and eliminate it immediately.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":8,"timeStamp":116}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":11},"targetId":"AIAgent-Utility|RevengeUtility|Green|8","targetPosition":{"x":10,"y":12},"reasoning":"Move to attack the low-health enemy at (10,12) and eliminate it immediately.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":8,"timeStamp":116}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":12},"moveTo":{"x":9,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":8,"timeStamp":118}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":12},"moveTo":{"x":9,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":8,"timeStamp":118}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":7,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":8,"timeStamp":120}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":9},"moveTo":{"x":6,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":8,"timeStamp":120}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":9},"moveTo":{"x":6,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":8,"timeStamp":121}
+{"eventType":"RESN","reasoning":"Move to position enemy at (9,13) within attack range and attack it.","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":9,"timeStamp":125}
+{"eventType":"CMMD","movement":{"x":9,"y":12},"attack":{"x":9,"y":13},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":9,"timeStamp":125}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":11},"moveTo":{"x":10,"y":12},"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","comment":"Moved by wave effect!","turn":9,"timeStamp":126}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Green|8","attackPosition":{"x":9,"y":13},"damage":9.0,"actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":9,"timeStamp":126}
+{"eventType":"DEAD","actorId":"AIAgent-Utility|RevengeUtility|Green|8","turn":9,"timeStamp":126}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":10},"moveTo":{"x":7,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":9,"timeStamp":129}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":9,"timeStamp":130}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":8,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Green|9","turn":9,"timeStamp":130}
+{"eventType":"ATTK","targetId":"Wave N","attackPosition":{"x":10,"y":11},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Green|9","comment":"Attacked a wave","turn":9,"timeStamp":131}
+{"eventType":"DAMG","damage":9,"actorId":"Wave N","turn":9,"timeStamp":131}
+{"eventType":"OVER","turn":9,"timeStamp":131,"goalMessage":"AI Wars = Green[Utility] x Red[Mistral-mistral-small-2503-Prompt_17] ","winningFaction":"Winning Faction is Green!"}
+{"eventType":"DEAD","actorId":"LLMAgent|Mistral|mistral-small-2503|Red|5","turn":9,"timeStamp":131}
+{"eventType":"ATTK","targetId":"LLMAgent|Mistral|mistral-small-2503|Red|5","attackPosition":{"x":10,"y":12},"damage":9.0,"actorId":"Wave N","turn":9,"timeStamp":131}

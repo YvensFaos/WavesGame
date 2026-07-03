@@ -1,0 +1,126 @@
+﻿{"eventType":"INFO","turn":-1,"timeStamp":-1,"map":"LLMAIBattleground","randomSeed":6,"maxTurns":100,"navalActorEntryJsons":[{"name":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":9,"y":5},"genesData":"","basePrompt":"Prompt_17","llmInfo":"Gemini-gemini-2.5-flash-lite-Prompt_17","llmType":"Gemini","llmModel":"gemini-2.5-flash-lite"},{"name":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":6},"genesData":"","basePrompt":"Prompt_17","llmInfo":"Gemini-gemini-2.5-flash-lite-Prompt_17","llmType":"Gemini","llmModel":"gemini-2.5-flash-lite"},{"name":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","shipPrefabType":"LlmAINavalShip","faction":"Green","shipData":"BasicAI Green Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":6},"genesData":"","basePrompt":"Prompt_17","llmInfo":"Gemini-gemini-2.5-flash-lite-Prompt_17","llmType":"Gemini","llmModel":"gemini-2.5-flash-lite"},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":10,"y":13},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":7,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""},{"name":"AI SimpleBoat Red BigEye(Clone)","shipPrefabType":"AINavalShip","faction":"Red","shipData":"BasicAI Red Ship","navalCannon":"Regular Cannon","initialPosition":{"x":12,"y":12},"genesData":"RevengeUtility","basePrompt":"","llmInfo":"","llmType":"","llmModel":""}]}
+{"eventType":"GOAL","turn":-1,"timeStamp":0,"goalMessage":"AI Wars"}
+{"eventType":"RESN","reasoning":"I will move to (10, 6) to get closer to the enemy ships and prepare for an attack, as this position allows me to potentially attack the enemy at (10, 13) next turn.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":0,"timeStamp":1}
+{"eventType":"CMMD","movement":{"x":10,"y":6},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":0,"timeStamp":1}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":5},"moveTo":{"x":10,"y":5},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":0,"timeStamp":2}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":10,"y":6},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":0,"timeStamp":2}
+{"eventType":"RESN","reasoning":"I will move to (11, 5) to get closer to the enemy at (10, 13) and position myself to attack it next turn, while also being in range of the wave at (10, 11) to potentially extend my attack.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":0,"timeStamp":5}
+{"eventType":"CMMD","movement":{"x":11,"y":5},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":0,"timeStamp":5}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":11,"y":6},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":0,"timeStamp":6}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":11,"y":5},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":0,"timeStamp":6}
+{"eventType":"RESN","reasoning":"I will move to (8, 6) to get closer to the enemy ships and prepare to attack on the next turn.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":0,"timeStamp":8}
+{"eventType":"CMMD","movement":{"x":8,"y":6},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":0,"timeStamp":8}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":6},"moveTo":{"x":8,"y":6},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":0,"timeStamp":9}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":13},"moveTo":{"x":9,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":0,"timeStamp":10}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":12},"moveTo":{"x":6,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":11}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":12},"moveTo":{"x":6,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":12}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":11},"moveTo":{"x":6,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":12}
+{"eventType":"ATTK","targetId":"Target (3)","attackPosition":{"x":7,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":0,"timeStamp":13}
+{"eventType":"DEAD","actorId":"Target (3)","turn":0,"timeStamp":13}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":12},"moveTo":{"x":13,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":15}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":12},"moveTo":{"x":13,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":15}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":11},"moveTo":{"x":13,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":16}
+{"eventType":"ATTK","targetId":"Target","attackPosition":{"x":12,"y":9},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":0,"timeStamp":16}
+{"eventType":"DEAD","actorId":"Target","turn":0,"timeStamp":16}
+{"eventType":"RESN","reasoning":"I will move to (10, 8) to get closer to the enemy at (9, 13) and potentially attack it next turn.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":1,"timeStamp":20}
+{"eventType":"CMMD","movement":{"x":10,"y":8},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":1,"timeStamp":20}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":1,"timeStamp":20}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":10,"y":8},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":1,"timeStamp":21}
+{"eventType":"RESN","reasoning":"I will move to (10, 6) to get closer to the enemy at (13, 10) and potentially attack it next turn.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":1,"timeStamp":23}
+{"eventType":"CMMD","movement":{"x":10,"y":6},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":1,"timeStamp":23}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":5},"moveTo":{"x":10,"y":5},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":1,"timeStamp":23}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":10,"y":6},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":1,"timeStamp":24}
+{"eventType":"RESN","reasoning":"I will move to (8, 7) to get closer to the enemy at (6, 10) and potentially attack it next turn, while also positioning myself to utilize the wave at (9, 7).","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":1,"timeStamp":26}
+{"eventType":"CMMD","movement":{"x":8,"y":7},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":1,"timeStamp":26}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":6},"moveTo":{"x":8,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":1,"timeStamp":27}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":10},"moveTo":{"x":7,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":29}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":29}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":30}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","attackPosition":{"x":8,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":1,"timeStamp":30}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":1,"timeStamp":30}
+{"eventType":"MOVE","moveFrom":{"x":13,"y":10},"moveTo":{"x":12,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":1,"timeStamp":32}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":10},"moveTo":{"x":11,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":1,"timeStamp":33}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":10},"moveTo":{"x":11,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":1,"timeStamp":33}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","attackPosition":{"x":10,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":1,"timeStamp":34}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":1,"timeStamp":34}
+{"eventType":"RESN","reasoning":"I will move to (10, 9) to get into range of the enemy at (11, 9) and then attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":2,"timeStamp":37}
+{"eventType":"CMMD","movement":{"x":10,"y":9},"attack":{"x":11,"y":9},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":2,"timeStamp":37}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":8},"moveTo":{"x":10,"y":9},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":2,"timeStamp":37}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":9},"targetId":"AIAgent-Utility|RevengeUtility|Red|9","targetPosition":{"x":11,"y":9},"reasoning":"I will move to (10, 9) to get into range of the enemy at (11, 9) and then attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":2,"timeStamp":38}
+{"eventType":"RESN","reasoning":"I will move to (10, 8) to get closer to the enemy at (8, 9) and prepare to attack.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":2,"timeStamp":40}
+{"eventType":"CMMD","movement":{"x":10,"y":8},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":2,"timeStamp":40}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":6},"moveTo":{"x":10,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":2,"timeStamp":40}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":10,"y":8},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":2,"timeStamp":41}
+{"eventType":"RESN","reasoning":"I will move to (9, 8) to get closer to the enemy at (8, 9) and prepare for an attack.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":2,"timeStamp":43}
+{"eventType":"CMMD","movement":{"x":9,"y":8},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":2,"timeStamp":43}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":7},"moveTo":{"x":9,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":2,"timeStamp":43}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":7},"moveTo":{"x":9,"y":6},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","comment":"Moved by wave effect!","turn":2,"timeStamp":44}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":8,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":2,"timeStamp":46}
+{"eventType":"ATTK","targetId":"Wave S","attackPosition":{"x":9,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","comment":"Attacked a wave","turn":2,"timeStamp":47}
+{"eventType":"DAMG","damage":9,"actorId":"Wave S","turn":2,"timeStamp":47}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":2,"timeStamp":47}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","attackPosition":{"x":9,"y":6},"damage":9.0,"actorId":"Wave S","turn":2,"timeStamp":47}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":11,"y":8},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":2,"timeStamp":49}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":11,"y":7},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":2,"timeStamp":49}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","attackPosition":{"x":10,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":2,"timeStamp":50}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":2,"timeStamp":50}
+{"eventType":"RESN","reasoning":"I will move to (11, 8) to get into range of the enemy at (8, 8) and then attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":3,"timeStamp":53}
+{"eventType":"CMMD","movement":{"x":11,"y":8},"attack":{"x":8,"y":8},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":3,"timeStamp":53}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":11,"y":9},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":3,"timeStamp":53}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":9},"moveTo":{"x":11,"y":8},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":3,"timeStamp":54}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":11,"y":8},"targetId":"AIAgent-Utility|RevengeUtility|Red|8","targetPosition":{"x":8,"y":8},"reasoning":"I will move to (11, 8) to get into range of the enemy at (8, 8) and then attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":3,"timeStamp":54}
+{"eventType":"RESN","reasoning":"I will move to (10, 7) to get into range of the enemy at (8, 8) and attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":3,"timeStamp":56}
+{"eventType":"CMMD","movement":{"x":10,"y":7},"attack":{"x":8,"y":8},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":3,"timeStamp":56}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":8},"moveTo":{"x":10,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":3,"timeStamp":57}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":7},"targetId":"AIAgent-Utility|RevengeUtility|Red|8","targetPosition":{"x":8,"y":8},"reasoning":"I will move to (10, 7) to get into range of the enemy at (8, 8) and attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":3,"timeStamp":57}
+{"eventType":"RESN","reasoning":"I will move to (8, 7) to get closer to the enemy at (8, 8) and prepare to attack it next turn.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":3,"timeStamp":59}
+{"eventType":"CMMD","movement":{"x":8,"y":7},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":3,"timeStamp":59}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":6},"moveTo":{"x":8,"y":6},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":3,"timeStamp":59}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":6},"moveTo":{"x":8,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":3,"timeStamp":60}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":13},"moveTo":{"x":8,"y":13},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":61}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":13},"moveTo":{"x":8,"y":12},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":3,"timeStamp":62}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":8},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":63}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","attackPosition":{"x":8,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":3,"timeStamp":63}
+{"eventType":"DEAD","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|3","turn":3,"timeStamp":63}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":7},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":65}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","attackPosition":{"x":11,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":3,"timeStamp":66}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":3,"timeStamp":66}
+{"eventType":"RESN","reasoning":"I will move to (11, 7) to get closer to the enemy at (11, 6) and prepare to attack it next turn.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":4,"timeStamp":69}
+{"eventType":"CMMD","movement":{"x":11,"y":7},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":4,"timeStamp":69}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":8},"moveTo":{"x":11,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":4,"timeStamp":70}
+{"eventType":"RESN","reasoning":"I will move to (10, 8) to get closer to the enemy at (11, 6) and potentially bring it into attack range next turn.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":4,"timeStamp":72}
+{"eventType":"CMMD","movement":{"x":10,"y":8},"attack":{"x":-1,"y":-1},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":4,"timeStamp":72}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":10,"y":8},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":4,"timeStamp":72}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":12},"moveTo":{"x":8,"y":11},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":4,"timeStamp":74}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":11},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":4,"timeStamp":74}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":7,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":4,"timeStamp":75}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":9},"moveTo":{"x":9,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":76}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":9},"moveTo":{"x":10,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":77}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":9},"moveTo":{"x":10,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":77}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","attackPosition":{"x":10,"y":8},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":4,"timeStamp":78}
+{"eventType":"DAMG","damage":7,"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":4,"timeStamp":78}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":12,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":4,"timeStamp":80}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","attackPosition":{"x":11,"y":7},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":4,"timeStamp":80}
+{"eventType":"DEAD","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|1","turn":4,"timeStamp":80}
+{"eventType":"RESN","reasoning":"I will move to (10, 10) to attack the enemy ship there, as it is within range and a priority target.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":5,"timeStamp":83}
+{"eventType":"CMMD","movement":{"x":10,"y":10},"attack":{"x":10,"y":10},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":5,"timeStamp":83}
+{"eventType":"NVLD","type":"FailedToMove","position":{"x":10,"y":8},"targetId":"","targetPosition":{"x":10,"y":10},"reasoning":"I will move to (10, 10) to attack the enemy ship there, as it is within range and a priority target.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":5,"timeStamp":83}
+{"eventType":"ATTK","targetId":"AIAgent-Utility|RevengeUtility|Red|8","attackPosition":{"x":10,"y":10},"damage":9.0,"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":5,"timeStamp":83}
+{"eventType":"DAMG","damage":7,"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":83}
+{"eventType":"MOVE","moveFrom":{"x":7,"y":10},"moveTo":{"x":6,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":5,"timeStamp":86}
+{"eventType":"MOVE","moveFrom":{"x":6,"y":10},"moveTo":{"x":6,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|7","turn":5,"timeStamp":86}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":10},"moveTo":{"x":9,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":87}
+{"eventType":"MOVE","moveFrom":{"x":9,"y":10},"moveTo":{"x":8,"y":10},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":88}
+{"eventType":"MOVE","moveFrom":{"x":8,"y":10},"moveTo":{"x":8,"y":9},"actorId":"AIAgent-Utility|RevengeUtility|Red|8","turn":5,"timeStamp":88}
+{"eventType":"MOVE","moveFrom":{"x":12,"y":6},"moveTo":{"x":11,"y":6},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":5,"timeStamp":90}
+{"eventType":"RESN","reasoning":"I will move to (10, 6) to get within range of the low-health enemy ship and attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":6,"timeStamp":92}
+{"eventType":"CMMD","movement":{"x":10,"y":6},"attack":{"x":11,"y":6},"moveAfterAttack":{"x":-1,"y":-1},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":6,"timeStamp":92}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":8},"moveTo":{"x":10,"y":7},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":6,"timeStamp":93}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":7},"moveTo":{"x":10,"y":6},"actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":6,"timeStamp":93}
+{"eventType":"NVLD","type":"OutOfReach","position":{"x":10,"y":6},"targetId":"AIAgent-Utility|RevengeUtility|Red|9","targetPosition":{"x":11,"y":6},"reasoning":"I will move to (10, 6) to get within range of the low-health enemy ship and attack it.","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":6,"timeStamp":94}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":6},"moveTo":{"x":11,"y":5},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":6,"timeStamp":96}
+{"eventType":"MOVE","moveFrom":{"x":11,"y":5},"moveTo":{"x":10,"y":5},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":6,"timeStamp":96}
+{"eventType":"MOVE","moveFrom":{"x":10,"y":5},"moveTo":{"x":10,"y":4},"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":6,"timeStamp":97}
+{"eventType":"ATTK","targetId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","attackPosition":{"x":10,"y":6},"damage":9.0,"actorId":"AIAgent-Utility|RevengeUtility|Red|9","turn":6,"timeStamp":97}
+{"eventType":"OVER","turn":6,"timeStamp":97,"goalMessage":"AI Wars = Green[Gemini-gemini-2.5-flash-lite-Prompt_17] x Red[Utility] ","winningFaction":"Winning Faction is Red!"}
+{"eventType":"DEAD","actorId":"LLMAgent|Gemini|gemini-2.5-flash-lite|Green|2","turn":6,"timeStamp":97}
