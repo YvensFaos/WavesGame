@@ -3,15 +3,20 @@ from collections import defaultdict
 import file_utils
 import json
 
-actors_data = defaultdict(lambda:
+factions_data = defaultdict(lambda:
                           {"llm_type": 0,
                            "count": 0,
-                           "llm_type": 0,
                            "llm_model": 0,
                            "base_prompt": 0,
                            "genes_data": 0,
                            "actors": []
                            })
+
+actors_data = defaultdict(lambda: {
+    "faction": "",
+    "death": 0,
+    "attacks": 0
+})
 
 # def get_faction_from_name(name):
 #     for faction in actors_data:
@@ -26,15 +31,20 @@ def process_info(json_data):
 
     for actor in actors_info:
         faction = actor["faction"]
-        actors_data[faction]["count"] += 1
-        actors_data[faction]["llm_type"] = actor["llmType"]
-        actors_data[faction]["llm_model"] = actor["llmModel"]
-        actors_data[faction]["base_prompt"] = actor["basePrompt"]
-        actors_data[faction]["genes_data"] = actor["genesData"]
-        actors_data[faction]["actors"].append(actor["name"])
+        factions_data[faction]["count"] += 1
+        factions_data[faction]["llm_type"] = actor["llmType"]
+        factions_data[faction]["llm_model"] = actor["llmModel"]
+        factions_data[faction]["base_prompt"] = actor["basePrompt"]
+        factions_data[faction]["genes_data"] = actor["genesData"]
+        actor_name = actor["name"]
+        factions_data[faction]["actors"].append(actor_name)
+        actors_data[actor_name]["faction"] = faction
 
-    for faction in actors_data:
-        print(f"{faction},{actors_data[faction]}")
+    for faction in factions_data:
+        print(f"{faction},{factions_data[faction]}")
+
+    for actor in actors_data:
+        print(f"{actor},{actors_data[actor]}")
 
 def process_event_type(json_data):
     event_type = json_data["eventType"]
