@@ -18,10 +18,6 @@ actors_data = defaultdict(lambda: {
     "attacks": 0
 })
 
-# def get_faction_from_name(name):
-#     for faction in actors_data:
-#         if faction["actors"]
-
 def process_info(json_data):
     level_map = json_data["map"]
     seed = json_data["randomSeed"]
@@ -46,14 +42,21 @@ def process_info(json_data):
     for actor in actors_data:
         print(f"{actor},{actors_data[actor]}")
 
+def process_reason(json_data):
+
+
 def process_event_type(json_data):
     event_type = json_data["eventType"]
     match event_type:
         case "INFO":
             process_info(json_data)
+        case "RESN":
+            process_reason(json_data)
         case "WARNING":
             return "WARNING"
     return None
+
+#{"eventType":"RESN","reasoning":"Move to (10,6) to get enemy at (10,13) within attack range (Manhattan distance 2) and attack it, then stay in place.","actorId":"LLMAgent|DeepSeek|deepseek-chat|Green|1","turn":0,"timeStamp":2}
 
 
 def main():
