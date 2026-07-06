@@ -31,8 +31,10 @@ def find_lines_containing_string(search_string, lines_array):
 def get_valid_files_from_folder(folder_path, encoding='utf-8'):
     files = get_files_from_folder(folder_path)
     valid_files = []
+    file_names = []
     for filename in files:
         file_path = os.path.join(folder_path, filename)
+        file_names.append(filename)
         with open(f"{file_path}", 'r', encoding=encoding) as file:
             if filename.startswith('.') or filename.endswith(('.pyc', '.pyo', '.so', '.dll', '.exe', '.bin')):
                 continue
@@ -41,4 +43,4 @@ def get_valid_files_from_folder(folder_path, encoding='utf-8'):
             for line in file:
                 file_content.append(line.strip())
             valid_files.append(file_content)
-    return valid_files
+    return valid_files, file_names
