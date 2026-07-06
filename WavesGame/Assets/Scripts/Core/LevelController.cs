@@ -135,17 +135,6 @@ namespace Core
 
             levelActionableActors = levelActionableActors.FindAll(levelActorPair => levelActorPair?.One != null);
 
-            if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
-            {
-                //This is used when the level is being recorded for regular gaming procedures, rather than by the scheduler
-                recorderInfo += GetLevelRecordingName();
-                DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
-                var recorderFileName = $"{recorderInfo}-{TimestampHelper.GetSimplifiedTimestamp()}";
-                _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, -1, levelNavalActors,
-                    recorderFileName);
-                _recorder.RecordNewEntry(new GoalRecordEntry(levelGoal));
-            }
-
             levelGoalText.text = levelGoal.GetLevelMessage();
             turnText.text = "Turns";
 
@@ -180,6 +169,18 @@ namespace Core
             AddInfoLog($"Grid size is {gridDimensions.x} by {gridDimensions.y}.", "LevelController");
 
             turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
+            
+            if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
+            {
+                //This is used when the level is being recorded for regular gaming procedures, rather than by the scheduler
+                recorderInfo += GetLevelRecordingName();
+                DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
+                var recorderFileName = $"{recorderInfo}-{TimestampHelper.GetSimplifiedTimestamp()}";
+                //TODO levelNavalActors are getting duplicates for the regular AI
+                _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, -1, levelNavalActors,
+                    recorderFileName);
+                _recorder.RecordNewEntry(new GoalRecordEntry(levelGoal));
+            }
 
             //Start level
             var enumerator = levelActionableActors.GetEnumerator();
