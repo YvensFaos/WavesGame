@@ -3,92 +3,79 @@ from collections import defaultdict
 import file_utils
 import json
 
-destroyed_data = defaultdict(lambda: {
-    "turn": 0,
-})
-
-factions_data = defaultdict(lambda:
-                            {"llm_type": 0,
-                             "count": 0,
-                             "llm_model": 0,
-                             "base_prompt": 0,
-                             "genes_data": 0,
-                             "deaths": 0,
-                             "actors": [],
-                             "movements": [],
-                             "cmmd": {
-                                 "movements": [],
-                                 "attacks": [],
-                                 "postMovements": []
-                             },
-                             "invalid": {
-                                 "out_of_reach": 0
-                             }
-                             })
-
-actors_data = defaultdict(lambda: {
-    "faction": "",
-    "death": 0,
-    "attacks": 0,
-    "steps": 0,
-    "dead": False,
-    "reasoning": [],
-    "movements": [],
-    "cmmd": {
-        "movements": [],
-        "attacks": [],
-        "postMovements": []
-    },
-    "invalid": {
-        "out_of_reach": 0
-    }
-})
-
 file_info = defaultdict(lambda: {
     "level_map": "",
     "seed": 0,
     "max_turns": 0,
+    "destroyed_data": {
+        "turn": 0,
+    },
+
+    "factions_data": {},
+    "actors_data": {}
 })
 
 
 def process_info(file_name, json_data):
-    level_map = json_data["map"]
-    seed = json_data["randomSeed"]
-    max_turns = json_data["maxTurns"]
-
-    file_info[file_name]["level_map"] = level_map
-    file_info[file_name]["seed"] = seed
-    file_info[file_name]["max_turns"] = max_turns
-
+    file_info[file_name]["level_map"] = json_data["map"]
+    file_info[file_name]["seed"] = json_data["randomSeed"]
+    file_info[file_name]["max_turns"] = json_data["maxTurns"]
     actors_info = json_data["navalActorEntryJsons"]
 
     for actor in actors_info:
         faction = actor["faction"]
-        factions_data[faction]["count"] += 1
-        factions_data[faction]["llm_type"] = actor["llmType"]
-        factions_data[faction]["llm_model"] = actor["llmModel"]
-        factions_data[faction]["base_prompt"] = actor["basePrompt"]
-        factions_data[faction]["genes_data"] = actor["genesData"]
+        print(f"Add faction {faction}")
+        if faction not in file_info[file_name]["factions_data"]:
+            file_info[file_name]["factions_data"][faction] = {
+                "llm_type": actor["llmType"],
+                "count": 1,
+                "llm_model": actor["llmModel"],
+                "base_prompt": actor["basePrompt"],
+                "genes_data": actor["genesData"],
+                "deaths": 0,
+                "actors": [],
+                "movements": [],
+                "cmmd": {
+                    "movements": [],
+                    "attacks": [],
+                    "postMovements": []
+                },
+                "invalid": {
+                    "out_of_reach": 0
+                }
+            }
+
         actor_name = actor["name"]
-        factions_data[faction]["actors"].append(actor_name)
-        actors_data[actor_name]["faction"] = faction
-
-    for faction in factions_data:
-        print(f"{faction},{factions_data[faction]}")
-    for actor in actors_data:
-        print(f"{actor},{actors_data[actor]}")
-
+        print(f"Add actor {actor_name}")
+        file_info[file_name]["factions_data"][faction]["actors"].append(actor_name)
+        if actor_name not in file_info[file_name]["actors_data"]:
+            file_info[file_name]["actors_data"][actor_name] = {
+                "faction": faction,
+                "death": 0,
+                "attacks": 0,
+                "steps": 0,
+                "dead": False,
+                "reasoning": [],
+                "movements": [],
+                "cmmd": {
+                    "movements": [],
+                    "attacks": [],
+                    "postMovements": []
+                },
+                "invalid": {
+                    "out_of_reach": 0
+                }
+            }
 
 def process_reason(file_name, json_data):
-    actor = json_data["actorId"]
-    actors_data[actor]["reasoning"].append(json_data["reasoning"])
+    file_info[file_name]["actors_data"][json_data["actorId"]]["reasoning"].append(json_data["reasoning"])
 
 
 def process_cmmd(file_name, json_data):
     actor_id = json_data["actorId"]
-    actor = actors_data[actor_id]
+    actor = file_info[file_name]["actors_data"][actor_id]
     actor_faction = actor["faction"]
-    faction = factions_data[actor_faction]
+    faction = file_info[file_name]["factions_data"][actor_faction]
     movement = json_data["movement"]
     if movement["x"] != -1 and movement["y"] != -1:
         actor["cmmd"]["movements"].append(movement)
@@ -104,10 +91,9 @@ def process_cmmd(file_name, json_data):
 
 
 def process_move(file_name, json_data):
-    actor_id = json_data["actorId"]
-    actor = actors_data[actor_id]
+    actor = file_info[file_name]["actors_data"][json_data["actorId"]]
     actor_faction = actor["faction"]
-    faction = factions_data[actor_faction]
+    faction = file_info[file_name]["factions_data"][actor_faction]
     movement = json_data["moveTo"]
     if movement["x"] != -1 and movement["y"] != -1:
         actor["movements"].append(movement)
@@ -119,9 +105,9 @@ def process_move(file_name, json_data):
 
 def process_invalid(file_name, json_data):
     actor_id = json_data["actorId"]
-    actor = actors_data[actor_id]
+    actor = file_info[file_name]["actors_data"][actor_id]
     actor_faction = actor["faction"]
-    faction = factions_data[actor_faction]
+    faction = file_info[file_name]["factions_data"][actor_faction]
     match json_data["type"]:
         case "OutOfReach":
             actor["invalid"]["out_of_reach"] += 1
@@ -130,13 +116,13 @@ def process_invalid(file_name, json_data):
 
 def process_dead(file_name, json_data):
     actor_id = json_data["actorId"]
-    actor = actors_data.get(actor_id)
-    destroyed_data[actor_id]["turn"] = json_data["turn"]
+    actor = file_info[file_name]["actors_data"].get(actor_id)
+    file_info[file_name]["destroyed_data"][actor_id]["turn"] = json_data["turn"]
 
     if actor is not None:
         actor["dead"] = True
         actor_faction = actor["faction"]
-        factions_data[actor_faction]["deaths"] += 1
+        file_info[file_name]["factions_data"][actor_faction]["deaths"] += 1
 
 
 def process_event_type(file_name, json_data):
@@ -165,7 +151,7 @@ def main():
     files, file_names = file_utils.get_valid_files_from_folder(folder, 'utf-8-sig')
 
     for index, file in enumerate(files):
-        actors_data.clear()
+        file_info.clear()
         for line in file:
             json_data = json.loads(line)
             process_event_type(file_names[index], json_data)
