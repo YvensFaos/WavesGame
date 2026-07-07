@@ -156,6 +156,5 @@ def main():
             json_data = json.loads(line)
             process_event_type(file_names[index], json_data)
 
-
 if __name__ == "__main__":
     main()
