@@ -34,7 +34,15 @@ namespace Actors
         protected override void Start()
         {
             base.Start();
-            internalID = LevelController.GetSingleton().AddLevelActor(this);
+            GenerateID();
+        }
+
+        public void GenerateID()
+        {
+            if(LevelController.TryToGetSingleton(out var levelController))
+            {
+                internalID = levelController.AddLevelActor(this);    
+            }
         }
 
         public override bool TakeDamage(int damage)

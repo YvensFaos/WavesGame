@@ -98,7 +98,7 @@ namespace Actors.AI
             }
         }
 
-        private void UpdateName()
+        public void UpdateName()
         {
             var internalIDStr = internalID.ToString();
             var factionName = GetFaction().name;

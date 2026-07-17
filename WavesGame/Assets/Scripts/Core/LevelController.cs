@@ -24,21 +24,8 @@ using Logger = UUtils.Logger;
 
 namespace Core
 {
-    [Serializable]
-    internal class LevelActorPair : Pair<NavalShip, bool>, IComparable<LevelActorPair>
-    {
-        public LevelActorPair(NavalShip one) : base(one, true)
-        {
-        }
-
-        public static implicit operator bool(LevelActorPair pair) => pair.One != null && pair.Two;
-
-        public int CompareTo(LevelActorPair other)
-        {
-            return other.One.Initiative.CompareTo(other.One.Initiative);
-        }
-    }
-
+    //TODO simplify the level controller for game levels only, instead of also dealing with AI/LLM/Battle simulations
+    
     public class LevelController : WeakSingleton<LevelController>
     {
         [Header("Data")] [SerializeField] private List<GridActor> levelActors;

@@ -98,7 +98,10 @@ namespace Core
         {
             if (_movingAnimation) return;
             if (newIndex.x == index.x && newIndex.y == index.y) return;
-            var validPosition = GridManager.GetSingleton().CheckGridPosition(newIndex, out var gridUnit);
+
+            if (!GridManager.TryToGetSingleton(out var gridManager)) return;
+            
+            var validPosition = gridManager.CheckGridPosition(newIndex, out var gridUnit);
             if (!validPosition) InvalidPosition();
             _movingAnimation = true;
             if (animate)

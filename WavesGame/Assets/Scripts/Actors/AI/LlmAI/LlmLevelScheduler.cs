@@ -101,7 +101,8 @@ namespace Actors.AI.LlmAI
                     if (newAiBaseShip is AINavalShip aiBaseShip)
                     {
                         aiBaseShip.GenesData = customFaction.AIGenes;
-                        
+                        //TODO get the number
+                        aiBaseShip.UpdateName();   
                     }
 
                     //TODO check if this works for the grid
