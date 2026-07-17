@@ -227,6 +227,12 @@ namespace Actors
             return $"{base.ToString()}; initiative={Initiative}; ShipData=[{shipData}]; Cannon=[{navalCannon}]";
         }
         
+        public void UpdateFaction(Faction newFaction)
+        {
+            faction = newFaction;
+            healthBar.SetFillBarColor(newFaction.factionColor);
+        }
+        
         public int OverrideInitiative => overrideInitiative;
     }
 }

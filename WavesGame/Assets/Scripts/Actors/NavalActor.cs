@@ -23,7 +23,7 @@ namespace Actors
         [SerializeField] private ParticleSystem missParticles;
         [SerializeField] private ParticleSystem destroyParticles;
         [SerializeField] private NavalActorType navalType;
-        [SerializeField] private FillBar healthBar;
+        [SerializeField] protected FillBar healthBar;
         protected int internalID;
 
         protected virtual void Awake()
@@ -37,12 +37,17 @@ namespace Actors
             GenerateID();
         }
 
-        public void GenerateID()
+        private void GenerateID()
         {
             if(LevelController.TryToGetSingleton(out var levelController))
             {
                 internalID = levelController.AddLevelActor(this);    
             }
+        }
+
+        public void ConfigureID(int id)
+        {
+            internalID = id;
         }
 
         public override bool TakeDamage(int damage)
@@ -103,13 +108,13 @@ namespace Actors
         /// </summary>
         public void DestroyActorImmediate()
         {
-            if (MarkedForDeath) return;
+            if (markedForDeath) return;
             DestroyActor();
         }
 
         protected override void DestroyActor()
         {
-            MarkedForDeath = true;
+            markedForDeath = true;
             StartCoroutine(DestroyCoroutine());
             NotifyLevelController();
         }
