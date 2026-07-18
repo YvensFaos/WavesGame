@@ -19,9 +19,9 @@ namespace Core.Recorder
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [SerializeField] public string comment;
 
-        public ActorRecordEntryJson(string actorId, string comment, string eventType, int turn, long timeStamp) : base(
-            eventType, turn,
-            timeStamp)
+        public ActorRecordEntryJson(string actorId, string comment, string eventType, long timeStamp) : base(
+            eventType, TurnManager.GetSingleton().GetTurnNumber(),
+            timeStamp) //TODO
         {
             this.actorId = actorId;
             this.comment = string.IsNullOrEmpty(comment) ? null : comment;
