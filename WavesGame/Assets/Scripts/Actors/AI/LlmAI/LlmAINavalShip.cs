@@ -45,15 +45,16 @@ namespace Actors.AI.LlmAI
         private List<long> _internalTimers;
         private List<int> _internalAttempts;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            AssessUtils.CheckRequirement(ref llmCaller, this);
-        }
+        // protected override void Awake()
+        // {
+        //     base.Awake();
+        //     AssessUtils.CheckRequirement(ref llmCaller, this);
+        // }
 
         protected override void Start()
         {
             base.Start();
+            AssessUtils.CheckRequirement(ref llmCaller, this);
             _internalTimers = new List<long>();
             _internalAttempts = new List<int>();
             UpdateName();

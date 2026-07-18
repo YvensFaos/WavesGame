@@ -8,6 +8,7 @@
 
 using Actors;
 using Actors.AI.LlmAI;
+using FALLA;
 using UnityEngine;
 using UUtils;
 
@@ -17,19 +18,31 @@ namespace Core.PlayerTypes
     public class LlmPlayerType : PlayerTypeBaseSo
     {
         public LlmModelPairSo modelPair;
+        public string typeKey;
         public LlmPromptSo promptSo;
-        public string apiKeyFile = "llm_api_keys.json";
+        public LlmCallerObject callerObjectPrefab;
 
         public override void InitializeType(NavalShip navalShip)
         {
             if (navalShip is LlmAINavalShip llmAINavalShip)
             {
-                //TODO Get the llm caller from the pool of callers or create one.
+                var caller = Instantiate(callerObjectPrefab, navalShip.transform);
+                var llmModelPair = modelPair.modelPair; 
+                caller.Initialize(llmModelPair.One, llmModelPair.Two, typeKey);
+                llmAINavalShip.SetCaller(caller);
+                llmAINavalShip.ChangeBasePrompt(promptSo);
+                llmAINavalShip.UpdateName();
             }
             else
             {
-                DebugUtils.DebugLogErrorMsg($"Error! Naval Ship used as LlmPlayer Type is not a LlmAINavalShip! Type is {navalShip.GetType()}!");
+                DebugUtils.DebugLogErrorMsg(
+                    $"Error! Naval Ship used as LlmPlayer Type is not a LlmAINavalShip! Type is {navalShip.GetType()}!");
             }
+        }
+
+        public string GetName()
+        {
+            return $"LlmPlayerType-{modelPair.ToString()}-{promptSo.name}";
         }
     }
 }
