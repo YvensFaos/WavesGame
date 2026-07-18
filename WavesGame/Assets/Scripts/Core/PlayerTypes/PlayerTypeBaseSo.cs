@@ -27,7 +27,7 @@ namespace Core.PlayerTypes
         [SerializeField]
         private List<FactionNavalShipPair> actorPairs;
 
-        public abstract void InitializeType(NavalShip navalShip);
+        public abstract void InitializeType(NavalShip navalShip, HashSet<Faction> factions);
         
         public NavalShip GetActorFromFaction(Faction faction)
         {

@@ -158,33 +158,34 @@ namespace Actors
 
         protected MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
         {
-            return new MovementRecordEntry(name, moveFrom.Index(), moveTo.Index(),
-                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
+            // return new MovementRecordEntry(name, moveFrom.Index(), moveTo.Index(),
+            //     LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
+            return null;
         }
 
         private void RecordDamage(int damage)
         {
-            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp()));
+            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            // recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
+            //     LevelController.GetSingleton().GetTimeStamp()));
         }
 
         private void RecordDeath()
         {
-            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DeathRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp()));
+            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            // recorder.RecordNewEntry(new DeathRecordEntry(name, LevelController.GetSingleton().GetTurn(),
+            //     LevelController.GetSingleton().GetTimeStamp()));
         }
 
         protected void RecordMovement(GridUnit moveFrom, GridUnit moveTo)
         {
-            RecordMovement(MakeNewMovementEntry(moveFrom, moveTo));
+            // RecordMovement(MakeNewMovementEntry(moveFrom, moveTo));
         }
 
         protected static void RecordMovement(MovementRecordEntry entry)
         {
-            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(entry);
+            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            // recorder.RecordNewEntry(entry);
         }
 
         public NavalActorType NavalType => navalType;

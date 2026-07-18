@@ -20,12 +20,18 @@ namespace Core.Simulation
 {
     public class SimulationManager : MonoBehaviour
     {
-        // [SerializeReference, Scene] private string battleGroundScene;
-        [SerializeReference, Scene] private string controllerScene;
+        [Header("Simulation References")] [SerializeReference, Scene]
+        private string controllerScene;
 
-        [SerializeField] private List<Simulation> simulations;
+        [SerializeField] private SimulationController simulationControllerPrefab;
 
-        [SerializeField] private float warmUpTimer;
+        [Header("Simulations")] [SerializeField]
+        private List<Simulation> simulations;
+
+        [Header("Simulation Settings")] [SerializeField]
+        private float warmUpTimer;
+
+        [SerializeField] private int simulationSeed = 6;
 
         private void Start()
         {
@@ -59,9 +65,9 @@ namespace Core.Simulation
                     DebugUtils.DebugLogMsg(
                         $"Loading simulation Battle Ground scene [{simulation.BattleGroundScene}]...",
                         DebugUtils.DebugType.System);
-                    
+
                     yield return WaitUntilAsyncAdditiveLoadScene(simulation.BattleGroundScene);
-                    
+
                     DebugUtils.DebugLogMsg($"Battle Ground [{simulation.BattleGroundScene}] scene loaded!",
                         DebugUtils.DebugType.System);
 
@@ -92,16 +98,31 @@ namespace Core.Simulation
                     //Iterate over place holders to initialize ship prefabs
                     var factionPlayerTypes = simulation.FactionPlayerTypePairs;
                     var factionNavalShipsDictionary = new Dictionary<Faction, List<NavalShip>>();
+                    var factionsHash = new HashSet<Faction>();
+                    foreach (var keyValuePair in factionPlayerTypes)
+                    {
+                        factionsHash.Add(keyValuePair.One);
+                    }
 
                     foreach (var factionPlayerTypePair in factionPlayerTypes)
                     {
                         var faction = factionPlayerTypePair.One;
                         var playerType = factionPlayerTypePair.Two;
                         var factionList = factionsDictionary[faction];
-                        var navalShips = InitializePlaceHoldersForFactionAndType(faction, playerType, factionList);
+                        var navalShips =
+                            InitializePlaceHoldersForFactionAndType(faction, playerType, factionList, factionsHash);
                         factionNavalShipsDictionary.Add(faction, navalShips);
                     }
+
                     PerformFlags(factionNavalShipsDictionary);
+
+                    var simulationController = Instantiate(simulationControllerPrefab);
+                    simulationController.Initialize(factionNavalShipsDictionary);
+
+                    DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);
+                    yield return simulationController.StartSimulation(simulationSeed);
+                    DebugUtils.DebugLogMsg($"Simulation completed!", DebugUtils.DebugType.System);
+                    Destroy(simulationController.gameObject);
                 }
 
                 ++internalCounter;
@@ -112,15 +133,14 @@ namespace Core.Simulation
 
             yield break;
 
-     
-
             List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction, PlayerTypeBaseSo playerType,
-                List<PlaceholderActor> placeHolders)
+                List<PlaceholderActor> placeHolders, HashSet<Faction> factionsHash)
             {
                 var navalShips = new List<NavalShip>();
 
                 //Sort by the order
                 placeHolders.Sort();
+
                 var baseNavalActor = playerType.GetActorFromFaction(faction);
                 for (var i = placeHolders.Count - 1; i >= 0; --i)
                 {
@@ -128,15 +148,18 @@ namespace Core.Simulation
                     var navalShip = Instantiate(baseNavalActor, placeHolder.transform.position, Quaternion.identity);
                     navalShip.ConfigureID(placeHolder.Order);
                     navalShip.UpdateFaction(faction);
-                    playerType.InitializeType(navalShip);
+                    //Initialize the naval ship according to its specific player type
+                    playerType.InitializeType(navalShip, factionsHash);
+
                     navalShips.Add(navalShip);
+                    DebugUtils.DebugLogMsg($"Naval Ship Added: {navalShip.name}", DebugUtils.DebugType.System);
                     Destroy(placeHolder.gameObject);
                 }
 
                 return navalShips;
             }
         }
-        
+
         private static IEnumerator WaitUntilAsyncAdditiveLoadScene(string sceneName)
         {
             DebugUtils.DebugLogMsg($"Additive loading scene: {sceneName}", DebugUtils.DebugType.System);

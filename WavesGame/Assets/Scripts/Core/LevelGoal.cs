@@ -112,15 +112,11 @@ namespace Core
                             switch (navalShip)
                             {
                                 case AINavalShip aiNavalShip:
-                                {
                                     IncreaseFactionCount(aiNavalShip);
                                     break;
-                                }
                                 case LlmAINavalShip llmNavalShip:
-                                {
                                     IncreaseFactionCount(llmNavalShip);
                                     break;
-                                }
                             }
                         }
                     }

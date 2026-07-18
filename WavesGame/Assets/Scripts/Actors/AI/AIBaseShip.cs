@@ -8,6 +8,7 @@
 
 using System.Collections;
 using Core;
+using Core.Simulation;
 using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
@@ -40,7 +41,15 @@ namespace Actors.AI
 
         protected virtual void FinishAITurn()
         {
-            LevelController.GetSingleton().EndTurnForCurrentActor();
+            if (LevelController.TryToGetSingleton(out var levelController))
+            {
+                levelController.EndTurnForCurrentActor();
+            }
+
+            if (SimulationController.TryToGetSingleton(out var simulationController))
+            {
+                simulationController.EndTurnForCurrentActor();
+            }
             DebugUtils.DebugLogMsg($"{name} has finished its turn.", DebugUtils.DebugType.System);
         }
 

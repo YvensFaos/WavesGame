@@ -6,6 +6,8 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System.Collections.Generic;
+using System.Linq;
 using Actors;
 using Actors.AI.LlmAI;
 using FALLA;
@@ -22,7 +24,7 @@ namespace Core.PlayerTypes
         public LlmPromptSo promptSo;
         public LlmCallerObject callerObjectPrefab;
 
-        public override void InitializeType(NavalShip navalShip)
+        public override void InitializeType(NavalShip navalShip, HashSet<Faction> factions)
         {
             if (navalShip is LlmAINavalShip llmAINavalShip)
             {
@@ -32,6 +34,11 @@ namespace Core.PlayerTypes
                 llmAINavalShip.SetCaller(caller);
                 llmAINavalShip.ChangeBasePrompt(promptSo);
                 llmAINavalShip.UpdateName();
+
+                foreach (var faction in factions.Where(faction => !faction.Equals(navalShip.GetFaction())))
+                {
+                    llmAINavalShip.AddEnemyFaction(faction);
+                }
             }
             else
             {
@@ -42,7 +49,7 @@ namespace Core.PlayerTypes
 
         public string GetName()
         {
-            return $"LlmPlayerType-{modelPair.ToString()}-{promptSo.name}";
+            return $"LlmPlayerType-{modelPair}-{promptSo.name}";
         }
     }
 }
