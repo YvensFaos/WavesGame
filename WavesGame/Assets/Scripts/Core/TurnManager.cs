@@ -21,6 +21,11 @@ namespace Core
             turnNumber = 0;
         }
         
+        public long GetTimeStamp()
+        {
+            return (long)Time.timeSinceLevelLoad;
+        }
+        
         public int GetTurnNumber() => turnNumber;
     }
 }

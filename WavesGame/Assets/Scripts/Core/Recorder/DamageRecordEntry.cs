@@ -22,8 +22,8 @@ namespace Core.Recorder
     {
         [SerializeField] public int damage;
 
-        public DamageRecordEntryJson(string actorId, string eventType, int turn, long timeStamp, int damage,
-            string comment = "") : base(actorId, comment, eventType, turn, timeStamp)
+        public DamageRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp, int damage,
+            string comment = "") : base(actorId, faction, eventType, turn, timeStamp, comment)
         {
             this.damage = damage;
         }
@@ -34,8 +34,8 @@ namespace Core.Recorder
     {
         private int _damage;
 
-        public DamageRecordEntry(string actorId, int damage, int turn, long timeStamp) : base(actorId,
-            WavesRecordEntryType.Damage, turn, timeStamp)
+        public DamageRecordEntry(string actorId, Faction faction, int damage) : base(actorId, faction,
+            WavesRecordEntryType.Damage)
         {
             _damage = damage;
         }
@@ -72,7 +72,7 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new DamageRecordEntryJson(ActorID,
+            return JsonConvert.SerializeObject(new DamageRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Damage), turn,
                 timeStamp, _damage, comment));
         }
@@ -99,7 +99,7 @@ namespace Core.Recorder
                 return null;
             }
 
-            return new DamageRecordEntry(actorId, damage, -1, -1);
+            return null;//new DamageRecordEntry(actorId, damage, -1, -1);
         }
     }
 }

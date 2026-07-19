@@ -39,11 +39,14 @@ namespace Core.Recorder
         protected readonly int turn;
         protected readonly long timeStamp;
 
-        protected WavesEntry(WavesRecordEntryType eventType, int turn, long timeStamp)
+        protected WavesEntry(WavesRecordEntryType eventType)
         {
             this.eventType = eventType;
-            this.turn = turn;
-            this.timeStamp = timeStamp;
+            turn = -1;
+            timeStamp = -1;
+            if (!TurnManager.TryToGetSingleton(out var turnManager)) return;
+            turn = turnManager.GetTurnNumber();
+            timeStamp = turnManager.GetTimeStamp();
         }
 
         public sealed override string ToString()

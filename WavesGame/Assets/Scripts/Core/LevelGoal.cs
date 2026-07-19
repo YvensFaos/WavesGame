@@ -248,15 +248,15 @@ namespace Core
                     if (!endLevel) return false;
 
                     _winnerFaction = aliveFaction;
-                    levelController.AddInfoLog($"Faction {_winnerFaction} won.", "LevelGoal");
-                    levelController
-                        .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
+                    // levelController.AddInfoLog($"Faction {_winnerFaction} won.", "LevelGoal");
+                    // levelController
+                    //     .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
 
-                    if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
-                    {
-                        wavesRecorder.RecordNewEntry(new EndGameRecordEntry(GetLevelMessage(),
-                            _winnerFaction, false, GetCurrentTurn(), levelController.GetTimeStamp()));
-                    }
+                    // if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
+                    // {
+                    //     wavesRecorder.RecordNewEntry(new EndGameRecordEntry(GetLevelMessage(),
+                    //         _winnerFaction, false, GetCurrentTurn(), levelController.GetTimeStamp()));
+                    // }
 
                     // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
                     foreach (var aiShipPair in enemyFactionShips)

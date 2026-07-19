@@ -555,10 +555,7 @@ namespace Core
 
         public int GetTurn() => levelGoal.GetCurrentTurn();
 
-        public long GetTimeStamp()
-        {
-            return (long)Time.timeSinceLevelLoad;
-        }
+
 
         public int GetRandomSeed() => randomSeed;
 

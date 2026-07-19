@@ -22,10 +22,9 @@ namespace Core.Recorder
         [SerializeField] public SimpleVector2Int attackPosition;
         [SerializeField] public float damage;
 
-        public AttackRecordEntryJson(string actorId, string eventType, int turn, long timeStamp,
-            string targetId, Vector2Int attackPosition, float damage, string comment = "") : base(actorId, comment,
-            eventType, turn,
-            timeStamp)
+        public AttackRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
+            string targetId, Vector2Int attackPosition, float damage, string comment = "") : base(actorId, faction,
+            eventType, turn, timeStamp, comment)
         {
             this.targetId = targetId;
             this.attackPosition = new SimpleVector2Int(attackPosition);
@@ -40,9 +39,10 @@ namespace Core.Recorder
         private Vector2Int _attackPosition;
         private float _damage;
 
-        public AttackRecordEntry(string actorId, Vector2Int attackPosition, string targetId, float damage, int turn,
+        public AttackRecordEntry(string actorId, Faction faction, Vector2Int attackPosition, string targetId,
+            float damage, int turn,
             long timeStamp) :
-            base(actorId, WavesRecordEntryType.Attack, turn, timeStamp)
+            base(actorId, faction, WavesRecordEntryType.Attack)
         {
             _attackPosition = attackPosition;
             _targetId = targetId;
@@ -91,7 +91,7 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new AttackRecordEntryJson(ActorID,
+            return JsonConvert.SerializeObject(new AttackRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _targetId,
                 _attackPosition, _damage, comment));
         }
@@ -131,7 +131,7 @@ namespace Core.Recorder
             }
 
             //TODO update reading the turn and timeStamp
-            return new AttackRecordEntry(actorId, new Vector2Int(x, y), "TODO <target>", damage, -1, -1);
+            return null; //new AttackRecordEntry(actorId, new Vector2Int(x, y), "TODO <target>", damage, -1, -1);
         }
     }
 }
