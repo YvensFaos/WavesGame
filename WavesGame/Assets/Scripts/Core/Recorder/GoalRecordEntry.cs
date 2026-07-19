@@ -28,12 +28,12 @@ namespace Core.Recorder
     {
         private readonly string _goalMessage;
 
-        public GoalRecordEntry(LevelGoal levelGoal) : base(WavesRecordEntryType.Goal, -1, 0)
+        public GoalRecordEntry(LevelGoal levelGoal) : base(WavesRecordEntryType.Goal)
         {
             _goalMessage = LevelGoalTypeExtension.LevelGoalTypeToString(levelGoal.Type());
         }
 
-        private GoalRecordEntry(string levelGoalMessage) : base(WavesRecordEntryType.Goal, -1, 0)
+        private GoalRecordEntry(string levelGoalMessage) : base(WavesRecordEntryType.Goal)
         {
             _goalMessage = levelGoalMessage;
         }

@@ -33,8 +33,8 @@ namespace Core.Recorder
         private readonly bool _victory;
         private readonly Faction _winningFaction;
 
-        public EndGameRecordEntry(string goalMessage, Faction winningFaction, bool victory, int turn, long timeStamp) : base(
-            WavesRecordEntryType.EndGame, turn, timeStamp)
+        public EndGameRecordEntry(string goalMessage, Faction winningFaction, bool victory) : base(
+            WavesRecordEntryType.EndGame)
         {
             _goalMessage = goalMessage;
             _winningFaction = winningFaction;
@@ -77,7 +77,7 @@ namespace Core.Recorder
                 winningFaction.name = factionName;
             }
 
-            return new EndGameRecordEntry(levelGoalMessage, winningFaction, false, -1, -1);
+            return null; //new EndGameRecordEntry(levelGoalMessage, winningFaction, false, -1, -1);
         }
     }
 }

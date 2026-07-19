@@ -60,19 +60,20 @@ namespace Actors.AI
                         DebugUtils.DebugLogMsg($"{name} attacks {chosenAction}!", DebugUtils.DebugType.System);
                         var damage = CalculateDamage();
 
-                        if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
-                        {
-                            var attackRecordEntry = new AttackRecordEntry(name, targetUnit.Index(),
-                                targetUnit.GetActor().name,
-                                damage, LevelController.GetSingleton().GetTurn(),
-                                LevelController.GetSingleton().GetTimeStamp());
-                            if (targetUnit.GetActor() is WaveActor)
-                            {
-                                attackRecordEntry.AppendComment($"Attacked a wave");
-                            }
-
-                            wavesRecorder.RecordNewEntry(attackRecordEntry);
-                        }
+                        //TODO
+                        // if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
+                        // {
+                        //     var attackRecordEntry = new AttackRecordEntry(name, targetUnit.Index(),
+                        //         targetUnit.GetActor().name,
+                        //         damage, LevelController.GetSingleton().GetTurn(),
+                        //         LevelController.GetSingleton().GetTimeStamp());
+                        //     if (targetUnit.GetActor() is WaveActor)
+                        //     {
+                        //         attackRecordEntry.AppendComment($"Attacked a wave");
+                        //     }
+                        //
+                        //     wavesRecorder.RecordNewEntry(attackRecordEntry);
+                        // }
 
                         kills = targetUnit.DamageActors(damage);
                         LevelController.GetSingleton().AddAttackLog(chosenAction.GetUnit().Index(), this, name);

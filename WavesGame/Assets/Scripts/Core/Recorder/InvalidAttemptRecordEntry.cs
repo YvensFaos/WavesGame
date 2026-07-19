@@ -6,8 +6,8 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
-
 using System;
+using Actors;
 using Grid;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -32,12 +32,12 @@ namespace Core.Recorder
         [SerializeField] public SimpleVector2Int targetPosition;
         [SerializeField] public string reasoning;
 
-        public InvalidAttemptRecordEntryJson(string actorId,
+        public InvalidAttemptRecordEntryJson(string actorId, string faction,
             string eventType, int turn, long timeStamp,
             string type, Vector2Int position,
             GridActor targetActor, Vector2Int targetUnit,
             string reasoning, string comment = "") :
-            base(actorId, comment, eventType, turn, timeStamp)
+            base(actorId, faction, eventType, turn, timeStamp, comment)
         {
             this.type = type;
             this.position = new SimpleVector2Int(position);
@@ -55,10 +55,10 @@ namespace Core.Recorder
         private readonly Vector2Int _targetPosition;
         private readonly string _reasoning;
 
-        public InvalidAttemptRecordEntry(string actorId, int turn, long timeStamp,
+        public InvalidAttemptRecordEntry(string actorId, Faction faction, int turn, long timeStamp,
             InvalidAttemptType type, Vector2Int position, GridActor targetActor, Vector2Int targetPosition,
             string reasoning) :
-            base(actorId, WavesRecordEntryType.InvalidAttempt, turn, timeStamp)
+            base(actorId, faction, WavesRecordEntryType.InvalidAttempt)
         {
             _type = type;
             _position = position;
@@ -76,7 +76,7 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new InvalidAttemptRecordEntryJson(ActorID,
+            return JsonConvert.SerializeObject(new InvalidAttemptRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp,
                 _type.ToString(), _position, _targetActor, _targetPosition, _reasoning, comment));
         }

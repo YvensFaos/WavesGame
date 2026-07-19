@@ -135,22 +135,24 @@ namespace Actors
 
         private void RecordDamage(int damage)
         {
-            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp()));
+            //TODO
+            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            // recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
+            //     LevelController.GetSingleton().GetTimeStamp()));
         }
 
         private void RecordAttack(GridActor targetActor, int damage)
         {
-            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), targetActor.name, damage,
-                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
-            if (targetActor is WaveActor)
-            {
-                attackRecordEntry.AppendComment($"Attacked a wave");
-            }
-
-            recorder.RecordNewEntry(attackRecordEntry);
+            //TODO
+            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            // var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), targetActor.name, damage,
+            //     LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
+            // if (targetActor is WaveActor)
+            // {
+            //     attackRecordEntry.AppendComment($"Attacked a wave");
+            // }
+            //
+            // recorder.RecordNewEntry(attackRecordEntry);
         }
 
         public float GetDamage() => waveDamage;

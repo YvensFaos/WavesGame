@@ -7,6 +7,7 @@
  */
 
 using System;
+using Actors;
 using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
@@ -16,8 +17,8 @@ namespace Core.Recorder
     [Serializable]
     public class DeathRecordEntryJson : ActorRecordEntryJson
     {
-        public DeathRecordEntryJson(string actorId, string eventType, int turn, long timeStamp, string comment = "") :
-            base(actorId, comment, eventType, turn, timeStamp)
+        public DeathRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp, string comment = "") :
+            base(actorId, faction, eventType, turn, timeStamp, comment)
         {
         }
     }
@@ -25,8 +26,7 @@ namespace Core.Recorder
     [Serializable]
     public class DeathRecordEntry : ActorRecordEntry
     {
-        public DeathRecordEntry(string actorId, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Death,
-            turn, timeStamp)
+        public DeathRecordEntry(string actorId, Faction faction) : base(actorId, faction, WavesRecordEntryType.Death)
         {
         }
 
@@ -40,7 +40,7 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID,
+            return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Death), turn,
                 timeStamp, comment));
         }
@@ -63,7 +63,7 @@ namespace Core.Recorder
 
             var actorId = parts[1];
 
-            return new DeathRecordEntry(actorId, -1, -1);
+            return null;//new DeathRecordEntry(actorId, -1, -1);
         }
     }
 }

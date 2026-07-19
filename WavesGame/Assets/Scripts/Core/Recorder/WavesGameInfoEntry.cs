@@ -118,7 +118,7 @@ namespace Core.Recorder
         private readonly List<NavalActor> _navalActors;
 
         public WavesGameInfoEntry(string map, int randomSeed, int maxTurns, List<NavalActor> navalActors) : base(
-            WavesRecordEntryType.Information, -1, -1)
+            WavesRecordEntryType.Information)
         {
             _map = map;
             _randomSeed = randomSeed;

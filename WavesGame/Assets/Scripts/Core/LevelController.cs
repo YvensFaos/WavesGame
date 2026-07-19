@@ -393,8 +393,8 @@ namespace Core
 
             if (_recorder != null)
             {
-                _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
-                    levelGoal.GetWinnerFaction(), win, GetTurn(), -1));
+                // _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
+                //     levelGoal.GetWinnerFaction(), win, GetTurn(), -1));
                 DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
                 _recorder.Stop();
             }
