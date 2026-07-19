@@ -18,7 +18,7 @@ using UUtils;
 namespace Core
 {
     //TODO simplify the level controller for game levels only, instead of also dealing with AI/LLM/Battle simulations
-    
+
     public class LevelController : GameController
     {
         [SerializeField] private bool initiativeBased = true;
@@ -77,11 +77,12 @@ namespace Core
             //Initialize level goal elements
             levelGoal.Initialize(levelActors);
             yield return null;
-            
+
             if (TurnManager.TryToGetSingleton(out var turnManager))
             {
                 turnManager.Initialize();
             }
+
             yield return null;
 
             levelActionableActors = levelActionableActors.FindAll(levelActorPair => levelActorPair?.One != null);
@@ -120,9 +121,9 @@ namespace Core
 
             if (TurnManager.TryToGetSingleton(out turnManager))
             {
-                turnText.text = $"Turn = {turnManager.GetTurnNumber()}";    
+                turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
             }
-            
+
             // if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
             // {
             //     //This is used when the level is being recorded for regular gaming procedures, rather than by the scheduler
@@ -182,7 +183,7 @@ namespace Core
                 enumerator.Dispose();
                 //Finished going through all characters
                 levelGoal.SurvivedTurn();
-                
+
                 if (TurnManager.TryToGetSingleton(out turnManager))
                 {
                     turnManager.NextTurn();
@@ -221,14 +222,14 @@ namespace Core
                 //End current turn is for the actor being destroyed
                 EndTurnForCurrentActor();
             }
-        
+
             //Set the pair as false, so its level should be skipped.
             var actionPair = levelActionableActors.Find(pair => pair.One.Equals(navalShip));
             actionPair.Two = false;
-        
+
             //Remove the naval ship from the list of active naval ships.
             levelNavalActors.Remove(navalShip);
-        
+
             DebugUtils.DebugLogMsg($"Naval Ship: {navalShip.name} destroyed. Checking for level finish...",
                 DebugUtils.DebugType.System);
             if (levelGoal.CheckGoalActor(navalShip))
@@ -236,12 +237,12 @@ namespace Core
                 //Game level goal was achieved
                 FinishLevel(true);
             }
-        
+
             if (levelGoal.CheckGameOver())
             {
                 FinishLevel(false);
             }
-        
+
             var actorTurnUI = actorTurnUIs.Find(turnUI => turnUI.NavalShip.Equals(navalShip));
             if (actorTurnUI == null) return;
             if (actorTurnUIs == null) return;
@@ -249,7 +250,7 @@ namespace Core
             if (actorTurnUI.gameObject == null) return;
             Destroy(actorTurnUI.gameObject);
         }
-        
+
         // public override void NotifyDestroyedActor(NavalTarget navalTarget)
         // {
         //     //Does not finish the level if the level controller is not controlling the game.
@@ -274,7 +275,7 @@ namespace Core
             StopCoroutine(controllerCoroutine);
             CursorController.GetSingleton().FinishLevel();
             endLevelPanelUI.gameObject.SetActive(true);
-            endLevelPanelUI.OpenEndLevelPanel(true);
+            endLevelPanelUI.OpenEndLevelPanel(nextLevelName, true);
         }
 
         protected override void FinishLevel(bool win)
@@ -285,7 +286,7 @@ namespace Core
             if (_finishedLevel) return;
             _finishedLevel = true;
             StopCoroutine(controllerCoroutine);
-        
+
             DebugUtils.DebugLogMsg($"Level ended: {(win ? "Victory!" : "Defeat!")}", DebugUtils.DebugType.System);
             CursorController.GetSingleton().FinishLevel();
             // AddInfoLog("Level finished.", "LevelController");
@@ -296,20 +297,21 @@ namespace Core
             //     DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
             //     _recorder.Stop();
             // }
-        
+
             // Delays one frame to finish writing all the necessary information on the logs and recorders.
-            // DelayHelper.DelayOneFrame(this, () =>
-            // {
-            //     if (_scheduler == null)
-            //     {
-            //         endLevelPanelUI.gameObject.SetActive(true);
-            //         endLevelPanelUI.OpenEndLevelPanel(win);
-            //     }
-            //     else
-            //     {
-            //         _scheduler.FinishLevel(levelGoal);
-            //     }
-            // });
+            DelayHelper.DelayOneFrame(this, () =>
+            {
+                endLevelPanelUI.gameObject.SetActive(true);
+                endLevelPanelUI.OpenEndLevelPanel(nextLevelName, win);
+                // if (_scheduler == null)
+                // {
+                //     
+                // }
+                // else
+                // {
+                //     _scheduler.FinishLevel(levelGoal);
+                // }
+            });
         }
 
         // #region Logging

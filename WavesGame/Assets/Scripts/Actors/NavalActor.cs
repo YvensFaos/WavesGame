@@ -116,12 +116,15 @@ namespace Actors
         {
             markedForDeath = true;
             StartCoroutine(DestroyCoroutine());
-            NotifyLevelController();
+            NotifyGameController();
         }
 
-        protected virtual void NotifyLevelController()
+        protected virtual void NotifyGameController()
         {
-            LevelController.GetSingleton().NotifyDestroyedActor(this);
+            GameController.TryToUseGameController(gameController =>
+            {
+                gameController.NotifyDestroyedActor(this);
+            });
         }
 
         private IEnumerator DestroyCoroutine()
@@ -156,36 +159,32 @@ namespace Actors
             Destroy(gameObject);
         }
 
-        protected MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
+        protected virtual MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
         {
-            // return new MovementRecordEntry(name, moveFrom.Index(), moveTo.Index(),
-            //     LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
-            return null;
+            return new MovementRecordEntry(name, null, moveFrom.Index(), moveTo.Index());
         }
 
-        private void RecordDamage(int damage)
+        protected virtual void RecordDamage(int damage)
         {
-            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            // recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
-            //     LevelController.GetSingleton().GetTimeStamp()));
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DamageRecordEntry(name, null, damage));
         }
 
-        private void RecordDeath()
+        protected virtual void RecordDeath()
         {
-            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            // recorder.RecordNewEntry(new DeathRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-            //     LevelController.GetSingleton().GetTimeStamp()));
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DeathRecordEntry(name, null));
         }
 
         protected void RecordMovement(GridUnit moveFrom, GridUnit moveTo)
         {
-            // RecordMovement(MakeNewMovementEntry(moveFrom, moveTo));
+            RecordMovement(MakeNewMovementEntry(moveFrom, moveTo));
         }
 
         protected static void RecordMovement(MovementRecordEntry entry)
         {
-            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            // recorder.RecordNewEntry(entry);
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(entry);
         }
 
         public NavalActorType NavalType => navalType;

@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using Core;
 using UnityEngine;
 using UUtils;
 
@@ -24,10 +25,12 @@ namespace Actors
             return base.TakeDamage(damageTaken);
         }
 
-        protected override void NotifyLevelController()
+        protected override void NotifyGameController()
         {
-            //TODO
-            // LevelController.GetSingleton().NotifyDestroyedActor(this);
+            GameController.TryToUseGameController(controller =>
+            {
+                controller.NotifyDestroyedActor(this);
+            });
         }
 
         public NavalActorStats GetStats() => stats;

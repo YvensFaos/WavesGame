@@ -40,7 +40,7 @@ namespace Core.Recorder
             base(type)
         {
             ActorID = actorId;
-            this.faction = faction.name;
+            this.faction = faction != null ? faction.name : "No Faction";
             comment = "";
         }
 

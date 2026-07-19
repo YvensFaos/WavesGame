@@ -103,42 +103,6 @@ namespace Core
         }
 
         public abstract void NotifyDestroyedActor(NavalShip navalShip);
-        // {
-        //     //Does not finish the level if the level controller is not controlling the game.
-        //     if (!running) return;
-        //     if (_currentActor.Equals(navalShip))
-        //     {
-        //         //End current turn is for the actor being destroyed
-        //         EndTurnForCurrentActor();
-        //     }
-        //
-        //     //Set the pair as false, so its level should be skipped.
-        //     var actionPair = levelActionableActors.Find(pair => pair.One.Equals(navalShip));
-        //     actionPair.Two = false;
-        //
-        //     //Remove the naval ship from the list of active naval ships.
-        //     levelNavalActors.Remove(navalShip);
-        //
-        //     DebugUtils.DebugLogMsg($"Naval Ship: {navalShip.name} destroyed. Checking for level finish...",
-        //         DebugUtils.DebugType.System);
-        //     if (levelGoal.CheckGoalActor(navalShip))
-        //     {
-        //         //Game level goal was achieved
-        //         FinishLevel(true);
-        //     }
-        //
-        //     if (levelGoal.CheckGameOver())
-        //     {
-        //         FinishLevel(false);
-        //     }
-        //
-        //     var actorTurnUI = actorTurnUIs.Find(turnUI => turnUI.NavalShip.Equals(navalShip));
-        //     if (actorTurnUI == null) return;
-        //     if (actorTurnUIs == null) return;
-        //     actorTurnUIs.Remove(actorTurnUI);
-        //     if (actorTurnUI.gameObject == null) return;
-        //     Destroy(actorTurnUI.gameObject);
-        // }
 
         public void NotifyDestroyedActor(NavalTarget navalTarget)
         {
@@ -146,8 +110,6 @@ namespace Core
             if (!running) return;
             DebugUtils.DebugLogMsg($"Target: {navalTarget.name} destroyed. Checking for level finish...",
                 DebugUtils.DebugType.System);
-            levelGoal.CheckGoalActor(navalTarget);
-
             if (levelGoal.CheckGoalActor(navalTarget))
             {
                 //Game level goal was achieved
@@ -156,40 +118,6 @@ namespace Core
         }
 
         protected abstract void FinishLevel(bool win);
-        // {
-        //     //Does not finish the level if the level controller is not controlling the game.
-        //     if (!running) return;
-        //     //Prevents finishing the level more than once
-        //     if (_finishedLevel) return;
-        //     _finishedLevel = true;
-        //     StopCoroutine(_levelCoroutine);
-        //
-        //     DebugUtils.DebugLogMsg($"Level ended: {(win ? "Victory!" : "Defeat!")}", DebugUtils.DebugType.System);
-        //     CursorController.GetSingleton().FinishLevel();
-        //     AddInfoLog("Level finished.", "LevelController");
-        //
-        //     if (_recorder != null)
-        //     {
-        //         // _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
-        //         //     levelGoal.GetWinnerFaction(), win, GetTurn(), -1));
-        //         DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
-        //         _recorder.Stop();
-        //     }
-        //
-        //     // Delays one frame to finish writing all the necessary information on the logs and recorders.
-        //     DelayHelper.DelayOneFrame(this, () =>
-        //     {
-        //         if (_scheduler == null)
-        //         {
-        //             endLevelPanelUI.gameObject.SetActive(true);
-        //             endLevelPanelUI.OpenEndLevelPanel(win);
-        //         }
-        //         else
-        //         {
-        //             _scheduler.FinishLevel(levelGoal);
-        //         }
-        //     });
-        // }
 
         public void StopLevel()
         {

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Actors.Cannon;
 using Core;
+using Core.Recorder;
 using DG.Tweening;
 using Grid;
 using UnityEngine;
@@ -57,9 +58,9 @@ namespace Actors
             ActionsLeft = 0;
         }
 
-        public void SetInitiative(int initiative)
+        public void SetInitiative(int newInitiative)
         {
-            Initiative = initiative;
+            Initiative = newInitiative;
         }
 
         public void RollInitiative()
@@ -206,10 +207,29 @@ namespace Actors
             onFinishMoving?.Invoke(finalStep);
         }
 
-        protected override void NotifyLevelController()
+        protected override void NotifyGameController()
         {
-            //TODO
-            // LevelController.GetSingleton().NotifyDestroyedActor(this);
+            GameController.TryToUseGameController(controller =>
+            {
+                controller.NotifyDestroyedActor(this);
+            });
+        }
+        
+        protected override MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
+        {
+            return new MovementRecordEntry(name, faction, moveFrom.Index(), moveTo.Index());
+        }
+
+        protected override void RecordDamage(int damage)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DamageRecordEntry(name, faction, damage));
+        }
+
+        protected override void RecordDeath()
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DeathRecordEntry(name, faction));
         }
 
         public NavalShipSo ShipData => shipData;
