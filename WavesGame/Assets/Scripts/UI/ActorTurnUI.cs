@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
@@ -16,6 +16,7 @@ namespace UI
 {
     public class ActorTurnUI : MonoBehaviour, IComparable<ActorTurnUI>
     {
+        [SerializeField, ReadOnly] private int initiative;
         [SerializeField] private Image holderImage;
         [SerializeField] private Image actorImage;
         [SerializeField, ReadOnly] private NavalShip navalShip;
@@ -25,11 +26,12 @@ namespace UI
         [SerializeField] private Sprite availableActorHolderSprite;
         [SerializeField] private Sprite unavailableActorHolderSprite;
         
-        public void Initialize(NavalShip newNavalShip)
+        public void Initialize(NavalShip ship)
         {
-            navalShip = newNavalShip;
-            navalShipSo = newNavalShip.ShipData;
-            actorImage.sprite = navalShipSo.shipSprite;
+            initiative = ship.Initiative;
+            navalShip = ship;
+            navalShipSo = ship.ShipData;
+            actorImage.sprite = navalShip.GetSprite();
             ToggleAvailability(false);
         }
 
@@ -40,7 +42,7 @@ namespace UI
 
         public int CompareTo(ActorTurnUI other)
         {
-            return navalShipSo.stats.speed.Two.CompareTo(other.navalShipSo.stats.speed.Two);
+            return initiative.CompareTo(other.initiative);
         }
         
         public NavalShip NavalShip => navalShip;

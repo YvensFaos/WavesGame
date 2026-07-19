@@ -76,10 +76,10 @@ namespace Core.Simulation
             foreach (var pair in _navalShips)
             {
                 allNavalShips.AddRange(pair.Value);
-                levelActionableActors.AddRange(pair.Value.Select(actor => new LevelActorPair(actor)));
             }
-
             allNavalShips.Sort();
+            
+            levelActionableActors.AddRange(allNavalShips.Select(actor => new LevelActorPair(actor)));
             allNavalShips.ForEach(navalShip =>
             {
                 DebugUtils.DebugLogMsg($"Creating actor UI {navalShip.name}", DebugUtils.DebugType.System);

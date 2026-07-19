@@ -222,7 +222,7 @@ namespace Actors
         {
             if (ReferenceEquals(this, other)) return 0;
             // Sort by the largest to the smallest
-            return other is null ? 1 : other.Initiative.CompareTo(other.Initiative);
+            return other is null ? 1 : Initiative.CompareTo(other.Initiative);
         }
 
         public override string ToString()
@@ -243,5 +243,7 @@ namespace Actors
             get => initiative;
             private set => initiative = value;
         }
+
+        public Sprite GetSprite() => spriteRenderer.sprite;
     }
 }
