@@ -55,7 +55,7 @@ namespace Core.Recorder
         private readonly Vector2Int _targetPosition;
         private readonly string _reasoning;
 
-        public InvalidAttemptRecordEntry(string actorId, Faction faction, int turn, long timeStamp,
+        public InvalidAttemptRecordEntry(string actorId, Faction faction,
             InvalidAttemptType type, Vector2Int position, GridActor targetActor, Vector2Int targetPosition,
             string reasoning) :
             base(actorId, faction, WavesRecordEntryType.InvalidAttempt)

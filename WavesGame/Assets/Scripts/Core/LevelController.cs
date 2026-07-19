@@ -119,6 +119,12 @@ namespace Core
             //Initialize level goal elements
             levelGoal.Initialize(levelActors);
             yield return null;
+            
+            if (TurnManager.TryToGetSingleton(out var turnManager))
+            {
+                turnManager.Initialize();
+            }
+            yield return null;
 
             levelActionableActors = levelActionableActors.FindAll(levelActorPair => levelActorPair?.One != null);
 
@@ -155,7 +161,10 @@ namespace Core
             var gridDimensions = GridManager.GetSingleton().GetDimensions();
             AddInfoLog($"Grid size is {gridDimensions.x} by {gridDimensions.y}.", "LevelController");
 
-            turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
+            if (TurnManager.TryToGetSingleton(out turnManager))
+            {
+                turnText.text = $"Turn = {turnManager.GetTurnNumber()}";    
+            }
             
             if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
             {
@@ -216,8 +225,12 @@ namespace Core
                 enumerator.Dispose();
                 //Finished going through all characters
                 levelGoal.SurvivedTurn();
-                levelGoal.NextTurn();
-                turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
+                
+                if (TurnManager.TryToGetSingleton(out turnManager))
+                {
+                    turnManager.NextTurn();
+                    turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
+                }
 
                 victory = levelGoal.CheckGoal();
                 gameOver = levelGoal.CheckGameOver();
@@ -552,10 +565,6 @@ namespace Core
         public string GetNextLevelName() => nextLevelName;
 
         public LevelGoal GetLevelGoal() => levelGoal;
-
-        public int GetTurn() => levelGoal.GetCurrentTurn();
-
-
 
         public int GetRandomSeed() => randomSeed;
 

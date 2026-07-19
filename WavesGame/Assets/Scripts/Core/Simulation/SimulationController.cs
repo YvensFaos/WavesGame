@@ -65,6 +65,11 @@ namespace Core.Simulation
 
             simulationText.text = "Simulation";
             turnText.text = "Turns";
+            
+            if (TurnManager.TryToGetSingleton(out var turnManager))
+            {
+                turnManager.Initialize();
+            }
 
             var allNavalShips = new List<NavalShip>();
             var levelActionableActors = new List<LevelActorPair>();
@@ -83,8 +88,12 @@ namespace Core.Simulation
             var firstActor = allNavalShips[0];
             CursorController.GetSingleton().MoveToIndex(firstActor.GetUnit().Index());
             yield return 0.5f;
-            turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
-
+            
+            if (TurnManager.TryToGetSingleton(out turnManager))
+            {
+                turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
+            }
+            
             //Start level
             var enumerator = levelActionableActors.GetEnumerator();
             var continueLevel = true;
@@ -135,9 +144,13 @@ namespace Core.Simulation
                 enumerator.Dispose();
                 //Finished going through all characters
                 levelGoal.SurvivedTurn();
-                levelGoal.NextTurn();
-                turnText.text = $"Turn = {levelGoal.GetCurrentTurn()}";
-
+                
+                if (TurnManager.TryToGetSingleton(out turnManager))
+                {
+                    turnManager.NextTurn();
+                    turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
+                }
+                
                 victory = levelGoal.CheckGoal();
                 gameOver = levelGoal.CheckGameOver();
                 if (victory || gameOver)

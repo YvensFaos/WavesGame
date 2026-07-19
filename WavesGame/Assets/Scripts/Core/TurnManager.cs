@@ -21,9 +21,14 @@ namespace Core
             turnNumber = 0;
         }
         
-        public long GetTimeStamp()
+        public static long GetTimeStamp()
         {
             return (long)Time.timeSinceLevelLoad;
+        }
+
+        public void NextTurn()
+        {
+            turnNumber++;
         }
         
         public int GetTurnNumber() => turnNumber;

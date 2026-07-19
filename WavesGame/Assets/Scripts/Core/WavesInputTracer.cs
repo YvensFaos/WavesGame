@@ -11,10 +11,7 @@ namespace Core
         {
             if (actionEventPtr.phase is not InputActionPhase.Performed) return;
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            if (!LevelController.TryToGetSingleton(out var levelController)) return;
-            
-            // recorder.RecordNewEntry(new InputRecordEntry(actionEventPtr, levelController.GetTurn(), levelController
-            //     .GetTimeStamp()));
+            recorder.RecordNewEntry(new InputRecordEntry(actionEventPtr));            
         }
     }
 }

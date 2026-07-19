@@ -75,7 +75,6 @@ namespace Core
         [SerializeField] private NavalActor destroyTarget;
         [SerializeField] private int surviveForTurns;
         [SerializeField] private int maxLlmTurns;
-        [SerializeField, ReadOnly] private int turnNumber;
         [SerializeField, ReadOnly] private List<NavalTarget> levelTargets;
         [SerializeField, ReadOnly] private List<NavalShip> levelShips;
         [SerializeField, ReadOnly] private List<NavalShip> playerLevelShips;
@@ -123,7 +122,6 @@ namespace Core
                         break;
                 }
             });
-            turnNumber = 0;
         }
 
         private void IncreaseFactionCount(NavalShip navalShip)
@@ -210,24 +208,29 @@ namespace Core
                     break;
                 case LevelGoalType.AIWars:
                 {
-                    var levelController = LevelController.GetSingleton();
-                    if (turnNumber >= maxLlmTurns)
+                    
+                    // var levelController = LevelController.GetSingleton();
+                    if (TurnManager.TryToGetSingleton(out var turnManager))
                     {
-                        DebugUtils.DebugLogMsg($"Draw! Max number of turns reached: {turnNumber} == {maxLlmTurns}.",
-                            DebugUtils.DebugType.System);
-                        levelController.AddInfoLog($"Draw! No faction won.", "LevelGoal");
-                        levelController
-                            .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
-                        foreach (var aiShipPair in enemyFactionShips)
+                        var turnNumber = turnManager.GetTurnNumber();
+                        if (turnNumber >= maxLlmTurns)
                         {
-                            var aiShip = aiShipPair.One;
-                            if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
+                            DebugUtils.DebugLogMsg($"Draw! Max number of turns reached: {turnNumber} == {maxLlmTurns}.",
+                                DebugUtils.DebugType.System);
+                            // levelController.AddInfoLog($"Draw! No faction won.", "LevelGoal");
+                            // levelController
+                            //     .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
+                            foreach (var aiShipPair in enemyFactionShips)
                             {
-                                llmAINavalShip.LogFinalInformation();
+                                var aiShip = aiShipPair.One;
+                                if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
+                                {
+                                    llmAINavalShip.LogFinalInformation();
+                                }
                             }
-                        }
 
-                        return true;
+                            return true;
+                        }
                     }
 
                     var enumerator = _availableFactions.GetEnumerator();
@@ -282,10 +285,10 @@ namespace Core
             _survivedTurns++;
         }
 
-        public void NextTurn()
-        {
-            turnNumber++;
-        }
+        // public void NextTurn()
+        // {
+        //     turnNumber++;
+        // }
 
         public bool CheckGameOver()
         {
@@ -365,7 +368,7 @@ namespace Core
 
         public Faction GetWinnerFaction() => _winnerFaction;
 
-        public int GetCurrentTurn() => turnNumber;
+        // public int GetCurrentTurn() => turnNumber;
 
         public int GetMaxTurns() => maxLlmTurns;
     }

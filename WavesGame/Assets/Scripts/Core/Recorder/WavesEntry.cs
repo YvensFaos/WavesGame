@@ -46,7 +46,7 @@ namespace Core.Recorder
             timeStamp = -1;
             if (!TurnManager.TryToGetSingleton(out var turnManager)) return;
             turn = turnManager.GetTurnNumber();
-            timeStamp = turnManager.GetTimeStamp();
+            timeStamp = TurnManager.GetTimeStamp();
         }
 
         public sealed override string ToString()

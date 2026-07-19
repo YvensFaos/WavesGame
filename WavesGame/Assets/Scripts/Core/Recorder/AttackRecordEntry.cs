@@ -40,8 +40,7 @@ namespace Core.Recorder
         private float _damage;
 
         public AttackRecordEntry(string actorId, Faction faction, Vector2Int attackPosition, string targetId,
-            float damage, int turn,
-            long timeStamp) :
+            float damage) :
             base(actorId, faction, WavesRecordEntryType.Attack)
         {
             _attackPosition = attackPosition;

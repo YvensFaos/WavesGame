@@ -48,7 +48,7 @@ namespace Core.Recorder
         private readonly string _actionDevice;
         private readonly double _actionStartTime;
 
-        public InputRecordEntry(InputActionTrace.ActionEventPtr actionEventPtr, int turn, long timeStamp) : base(
+        public InputRecordEntry(InputActionTrace.ActionEventPtr actionEventPtr) : base(
             WavesRecordEntryType.Input)
         {
             var action = actionEventPtr.action;
