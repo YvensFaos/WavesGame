@@ -27,7 +27,8 @@ namespace Actors
 
         protected override void NotifyLevelController()
         {
-            LevelController.GetSingleton().NotifyDestroyedActor(this);
+            //TODO
+            // LevelController.GetSingleton().NotifyDestroyedActor(this);
         }
 
         public NavalActorStats GetStats() => stats;

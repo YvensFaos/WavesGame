@@ -179,9 +179,9 @@ namespace Actors
                     nextStep = false;
 
                     //TODO for now, it does not check for the case of multiple waves moving the ship
-                    var waveMovementEntry = MakeNewMovementEntry(firstStep, moveToUnit);
-                    waveMovementEntry.AppendComment($"Moved by wave effect!");
-                    RecordMovement(waveMovementEntry);
+                    // var waveMovementEntry = MakeNewMovementEntry(firstStep, moveToUnit);
+                    // waveMovementEntry.AppendComment($"Moved by wave effect!");
+                    // RecordMovement(waveMovementEntry);
                     transform.DOMove(moveToUnit.transform.position, time).OnComplete(() =>
                     {
                         DebugUtils.DebugLogMsg($"{name} being pushed by the waves to {moveToUnit.Index()}!",
@@ -208,7 +208,8 @@ namespace Actors
 
         protected override void NotifyLevelController()
         {
-            LevelController.GetSingleton().NotifyDestroyedActor(this);
+            //TODO
+            // LevelController.GetSingleton().NotifyDestroyedActor(this);
         }
 
         public NavalShipSo ShipData => shipData;

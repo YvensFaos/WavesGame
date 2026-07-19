@@ -346,8 +346,8 @@ namespace Actors.AI.LlmAI
                     var damage = CalculateDamage();
                     RecordAttack(targetUnit.GetActor(), targetUnit, damage, reasoning);
                     kills = targetUnit.DamageActors(damage);
-                    LevelController.GetSingleton()
-                        .AddInfoLog($"Attacked succeeded at {targetUnit}. Kill count = {kills}.", name);
+                    // LevelController.GetSingleton()
+                    //     .AddInfoLog($"Attacked succeeded at {targetUnit}. Kill count = {kills}.", name);
                     yield return new WaitForSeconds(1.5f);
                 }
                 else
@@ -450,10 +450,10 @@ namespace Actors.AI.LlmAI
 
         private void PromptInfo(string promptInfo)
         {
-            if (LevelController.TryToGetSingleton(out var levelController))
-            {
-                levelController.AddPromptLog(promptInfo, name);
-            }
+            // if (LevelController.TryToGetSingleton(out var levelController))
+            // {
+            //     levelController.AddPromptLog(promptInfo, name);
+            // }
         }
 
         protected override void FinishAITurn()
