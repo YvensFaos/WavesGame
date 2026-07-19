@@ -127,7 +127,9 @@ namespace Actors.AI
         /// <returns></returns>
         private static float CalculateActorsGridUnit(AINavalShip aiNavalShip, GridUnit unit)
         {
-            var actorEnumerator = LevelController.GetSingleton().GetNavalActorsEnumerator();
+            //TODO
+            var actorEnumerator = GameController.GetSingleton().GetNavalActorsEnumerator();
+            
             var genes = aiNavalShip.GetGenesData();
             var faction = aiNavalShip.GetFaction();
             var utility = 0.0f;

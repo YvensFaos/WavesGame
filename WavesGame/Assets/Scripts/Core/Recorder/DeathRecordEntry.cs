@@ -33,8 +33,9 @@ namespace Core.Recorder
         {
             DebugUtils.DebugLogMsg($"DeathRecordEntry: {ActorID} is destroyed.", DebugUtils.DebugType.Temporary);
             var levelController = LevelController.GetSingleton();
-            var navalActor = levelController.GetNavalActorWithId(ActorID);
-            navalActor.DestroyActorImmediate();
+            //TODO
+            // var navalActor = levelController.GetNavalActorWithId(ActorID);
+            // navalActor.DestroyActorImmediate();
         }
 
         protected override string ToJson()

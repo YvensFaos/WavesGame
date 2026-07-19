@@ -6,7 +6,6 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Actors;
@@ -26,39 +25,22 @@ namespace Core
 {
     //TODO simplify the level controller for game levels only, instead of also dealing with AI/LLM/Battle simulations
     
-    public class LevelController : WeakSingleton<LevelController>
+    public class LevelController : GameController
     {
-        [Header("Data")] [SerializeField] private List<GridActor> levelActors;
-        [SerializeField, ReadOnly] private List<NavalActor> levelNavalActors;
-        [SerializeField, ReadOnly] private List<LevelActorPair> levelActionableActors;
-        [SerializeField, ReadOnly] private List<ActorTurnUI> actorTurnUIs;
         [SerializeField] private bool initiativeBased = true;
-        [SerializeField] private int randomSeed = 6;
         [SerializeField] private bool logLevel;
-
-        [Header("Level Specific")] [SerializeField]
-        private LevelGoal levelGoal;
 
         [SerializeField, Scene] private string nextLevelName;
 
         [Header("Controllers")] [SerializeField]
         private bool recordLevel;
 
-        [Header("References")] [SerializeField]
-        private RectTransform actorTurnsHolder;
-
-        [SerializeField] private ActorTurnUI actorTurnUIPrefab;
         [SerializeField] private EndLevelPanelUI endLevelPanelUI;
         [SerializeField] private TextMeshProUGUI levelGoalText;
-        [SerializeField] private TextMeshProUGUI turnText;
 
-        private Coroutine _levelCoroutine;
-        private NavalActor _currentActor;
         private Logger _logger;
-        private bool _endTurn;
         private bool _finishedLevel;
         private bool _hasScheduler;
-        private bool _levelRunning;
         private LlmLevelScheduler _scheduler;
         private WavesRecorder _recorder;
 
@@ -73,7 +55,7 @@ namespace Core
             endLevelPanelUI.gameObject.SetActive(false);
             _logger = new Logger();
             _hasScheduler = TryToInitializeViaScheduler();
-            _levelCoroutine = StartCoroutine(LevelCoroutine());
+            controllerCoroutine = StartCoroutine(LevelCoroutine());
         }
 
         private bool TryToInitializeViaScheduler()
@@ -89,7 +71,7 @@ namespace Core
         {
             //Wait for one frame for all elements to be initialized
             yield return null;
-            _levelRunning = true;
+            running = true;
 
             UnityEngine.Random.InitState(randomSeed);
             var recorderInfo = "";
@@ -196,9 +178,9 @@ namespace Core
                 {
                     // If the current is valid, then proceed with its turn.
                     if (!enumerator.Current) continue;
-                    _currentActor = enumerator.Current?.One;
-                    _endTurn = false;
-                    if (_currentActor is NavalShip navalShip)
+                    currentActor = enumerator.Current?.One;
+                    endTurn = false;
+                    if (currentActor is NavalShip navalShip)
                     {
                         var turnUI = GetActorTurnUI(navalShip);
                         turnUI.ToggleAvailability(true);
@@ -206,7 +188,7 @@ namespace Core
                         // Move the cursor to the ship
                         CursorController.GetSingleton().MoveToIndex(navalShip.GetUnit().Index());
 
-                        yield return new WaitUntil(() => _endTurn);
+                        yield return new WaitUntil(() => endTurn);
                         // Check if the naval ship was not destroyed during its own turn.
                         if (navalShip == null) continue;
                         navalShip.EndTurn();
@@ -218,7 +200,7 @@ namespace Core
                     }
                     else
                     {
-                        yield return new WaitUntil(() => _endTurn);
+                        yield return new WaitUntil(() => endTurn);
                     }
                 }
 
@@ -255,94 +237,86 @@ namespace Core
             FinishLevel(victory);
         }
 
-        public void StopLevel()
-        {
-            StopCoroutine(_levelCoroutine);
-            _levelRunning = false;
-        }
+        // public void StopLevel()
+        // {
+        //     StopCoroutine(_levelCoroutine);
+        //     running = false;
+        // }
 
-        /// <summary>
-        /// Allows the LevelController to continue.
-        /// </summary>
-        public void EndTurnForCurrentActor()
-        {
-            _endTurn = true;
-        }
+        // public int AddLevelActor(GridActor actor)
+        // {
+        //     levelActors.Add(actor);
+        //     if (actor is not NavalActor navalActor) return levelActors.Count;
+        //     levelNavalActors.Add(navalActor);
+        //     switch (navalActor.NavalType)
+        //     {
+        //         case NavalActorType.Player:
+        //         case NavalActorType.Enemy:
+        //             if (navalActor is NavalShip navalShip)
+        //             {
+        //                 levelActionableActors ??= new List<LevelActorPair>();
+        //                 levelActionableActors.Add(new LevelActorPair(navalShip));
+        //                 return levelActionableActors.Count;
+        //             }
+        //
+        //             break;
+        //         case NavalActorType.Collectable:
+        //         case NavalActorType.Obstacle:
+        //         case NavalActorType.Wave:
+        //             return levelNavalActors.Count;
+        //         default:
+        //             throw new ArgumentOutOfRangeException();
+        //     }
+        //
+        //     return levelActors.Count;
+        // }
 
-        public int AddLevelActor(GridActor actor)
-        {
-            levelActors.Add(actor);
-            if (actor is not NavalActor navalActor) return levelActors.Count;
-            levelNavalActors.Add(navalActor);
-            switch (navalActor.NavalType)
-            {
-                case NavalActorType.Player:
-                case NavalActorType.Enemy:
-                    if (navalActor is NavalShip navalShip)
-                    {
-                        levelActionableActors ??= new List<LevelActorPair>();
-                        levelActionableActors.Add(new LevelActorPair(navalShip));
-                        return levelActionableActors.Count;
-                    }
+        // public void MoveActor(NavalShip navalShip, Vector2Int moveTo)
+        // {
+        //     if (GridManager.GetSingleton().CheckGridPosition(moveTo, out var gridUnit))
+        //     {
+        //         navalShip.MoveTo(gridUnit, _ => { });
+        //     }
+        // }
 
-                    break;
-                case NavalActorType.Collectable:
-                case NavalActorType.Obstacle:
-                case NavalActorType.Wave:
-                    return levelNavalActors.Count;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        // private void AddLevelActorToTurnBar(NavalShip navalShip)
+        // {
+        //     var newActorTurnUI = Instantiate(actorTurnUIPrefab, actorTurnsHolder);
+        //     newActorTurnUI.Initialize(navalShip);
+        //     actorTurnUIs.Add(newActorTurnUI);
+        // }
 
-            return levelActors.Count;
-        }
+        // public bool IsCurrentActor(NavalActor navalActor)
+        // {
+        //     return _currentActor.Equals(navalActor);
+        // }
 
-        public void MoveActor(NavalShip navalShip, Vector2Int moveTo)
-        {
-            if (GridManager.GetSingleton().CheckGridPosition(moveTo, out var gridUnit))
-            {
-                navalShip.MoveTo(gridUnit, _ => { });
-            }
-        }
+        // public void NotifyDestroyedActor(NavalActor navalActor)
+        // {
+        //     //Does not finish the level if the level controller is not controlling the game.
+        //     if (!running) return;
+        //     //TODO logic for a generic actor being destroyed
+        //     DebugUtils.DebugLogMsg($"Naval Actor {navalActor.name} notified Level Controller of its destruction.",
+        //         DebugUtils.DebugType.Verbose);
+        // }
 
-        private void AddLevelActorToTurnBar(NavalShip navalShip)
-        {
-            var newActorTurnUI = Instantiate(actorTurnUIPrefab, actorTurnsHolder);
-            newActorTurnUI.Initialize(navalShip);
-            actorTurnUIs.Add(newActorTurnUI);
-        }
-
-        public bool IsCurrentActor(NavalActor navalActor)
-        {
-            return _currentActor.Equals(navalActor);
-        }
-
-        public void NotifyDestroyedActor(NavalActor navalActor)
-        {
-            //Does not finish the level if the level controller is not controlling the game.
-            if (!_levelRunning) return;
-            //TODO logic for a generic actor being destroyed
-            DebugUtils.DebugLogMsg($"Naval Actor {navalActor.name} notified Level Controller of its destruction.",
-                DebugUtils.DebugType.Verbose);
-        }
-
-        public void NotifyDestroyedActor(NavalShip navalShip)
+        public override void NotifyDestroyedActor(NavalShip navalShip)
         {
             //Does not finish the level if the level controller is not controlling the game.
-            if (!_levelRunning) return;
-            if (_currentActor.Equals(navalShip))
+            if (!running) return;
+            if (currentActor.Equals(navalShip))
             {
                 //End current turn is for the actor being destroyed
                 EndTurnForCurrentActor();
             }
-
+        
             //Set the pair as false, so its level should be skipped.
             var actionPair = levelActionableActors.Find(pair => pair.One.Equals(navalShip));
             actionPair.Two = false;
-
+        
             //Remove the naval ship from the list of active naval ships.
             levelNavalActors.Remove(navalShip);
-
+        
             DebugUtils.DebugLogMsg($"Naval Ship: {navalShip.name} destroyed. Checking for level finish...",
                 DebugUtils.DebugType.System);
             if (levelGoal.CheckGoalActor(navalShip))
@@ -350,12 +324,12 @@ namespace Core
                 //Game level goal was achieved
                 FinishLevel(true);
             }
-
+        
             if (levelGoal.CheckGameOver())
             {
                 FinishLevel(false);
             }
-
+        
             var actorTurnUI = actorTurnUIs.Find(turnUI => turnUI.NavalShip.Equals(navalShip));
             if (actorTurnUI == null) return;
             if (actorTurnUIs == null) return;
@@ -363,21 +337,21 @@ namespace Core
             if (actorTurnUI.gameObject == null) return;
             Destroy(actorTurnUI.gameObject);
         }
-
-        public void NotifyDestroyedActor(NavalTarget navalTarget)
-        {
-            //Does not finish the level if the level controller is not controlling the game.
-            if (!_levelRunning) return;
-            DebugUtils.DebugLogMsg($"Target: {navalTarget.name} destroyed. Checking for level finish...",
-                DebugUtils.DebugType.System);
-            levelGoal.CheckGoalActor(navalTarget);
-
-            if (levelGoal.CheckGoalActor(navalTarget))
-            {
-                //Game level goal was achieved
-                FinishLevel(true);
-            }
-        }
+        
+        // public override void NotifyDestroyedActor(NavalTarget navalTarget)
+        // {
+        //     //Does not finish the level if the level controller is not controlling the game.
+        //     if (!running) return;
+        //     DebugUtils.DebugLogMsg($"Target: {navalTarget.name} destroyed. Checking for level finish...",
+        //         DebugUtils.DebugType.System);
+        //     levelGoal.CheckGoalActor(navalTarget);
+        //
+        //     if (levelGoal.CheckGoalActor(navalTarget))
+        //     {
+        //         //Game level goal was achieved
+        //         FinishLevel(true);
+        //     }
+        // }
 
         /// <summary>
         /// Used to force a finish level screen for Player Level Recording.
@@ -385,25 +359,25 @@ namespace Core
         public void ForceFinishLevel()
         {
             _finishedLevel = true;
-            StopCoroutine(_levelCoroutine);
+            StopCoroutine(controllerCoroutine);
             CursorController.GetSingleton().FinishLevel();
             endLevelPanelUI.gameObject.SetActive(true);
             endLevelPanelUI.OpenEndLevelPanel(true);
         }
 
-        private void FinishLevel(bool win)
+        protected override void FinishLevel(bool win)
         {
             //Does not finish the level if the level controller is not controlling the game.
-            if (!_levelRunning) return;
+            if (!running) return;
             //Prevents finishing the level more than once
             if (_finishedLevel) return;
             _finishedLevel = true;
-            StopCoroutine(_levelCoroutine);
-
+            StopCoroutine(controllerCoroutine);
+        
             DebugUtils.DebugLogMsg($"Level ended: {(win ? "Victory!" : "Defeat!")}", DebugUtils.DebugType.System);
             CursorController.GetSingleton().FinishLevel();
             AddInfoLog("Level finished.", "LevelController");
-
+        
             if (_recorder != null)
             {
                 // _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
@@ -411,7 +385,7 @@ namespace Core
                 DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
                 _recorder.Stop();
             }
-
+        
             // Delays one frame to finish writing all the necessary information on the logs and recorders.
             DelayHelper.DelayOneFrame(this, () =>
             {
@@ -425,22 +399,6 @@ namespace Core
                     _scheduler.FinishLevel(levelGoal);
                 }
             });
-        }
-
-        private ActorTurnUI GetActorTurnUI(NavalShip navalShip)
-        {
-            return actorTurnUIs.Find(actorTurnUI => actorTurnUI.NavalShip.Equals(navalShip));
-        }
-
-        public void RemoveFactionShip(AIBaseShip aiBaseShip)
-        {
-            levelGoal.RemoveFactionCount(aiBaseShip);
-        }
-
-        private string GetLevelRecordingName()
-        {
-            return
-                $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
         }
 
         #region Logging
@@ -566,9 +524,5 @@ namespace Core
 
         public LevelGoal GetLevelGoal() => levelGoal;
 
-        public int GetRandomSeed() => randomSeed;
-
-        // ReSharper disable once NotDisposedResourceIsReturned
-        public List<NavalActor>.Enumerator GetNavalActorsEnumerator() => levelNavalActors.GetEnumerator();
     }
 }

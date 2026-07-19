@@ -20,7 +20,6 @@ namespace UI
         [SerializeField] private Image holderImage;
         [SerializeField] private Image actorImage;
         [SerializeField, ReadOnly] private NavalShip navalShip;
-        [SerializeField, ReadOnly] private NavalShipSo navalShipSo;
 
         [Header("References")]
         [SerializeField] private Sprite availableActorHolderSprite;
@@ -30,7 +29,6 @@ namespace UI
         {
             initiative = ship.Initiative;
             navalShip = ship;
-            navalShipSo = ship.ShipData;
             actorImage.sprite = navalShip.GetSprite();
             ToggleAvailability(false);
         }

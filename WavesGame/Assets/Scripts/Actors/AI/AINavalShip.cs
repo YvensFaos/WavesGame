@@ -36,9 +36,10 @@ namespace Actors.AI
         {
             yield return new WaitForSeconds(0.05f);
 
-            LevelController.GetSingleton().AddInfoLog($"Start turn", name);
+            //TODO
+            // LevelController.GetSingleton().AddInfoLog($"Start turn", name);
             var canCalculateMove = _brain.CalculateMovement(currentUnit.Index(), stepsAvailable, out var chosenAction);
-            LevelController.GetSingleton().AddInfoLog($"Can calculate move: {canCalculateMove}", name);
+            // LevelController.GetSingleton().AddInfoLog($"Can calculate move: {canCalculateMove}", name);
 
             yield return new WaitForSeconds(0.25f);
             if (canCalculateMove)
@@ -46,13 +47,13 @@ namespace Actors.AI
                 _calculatingAction = true;
                 var attacked = false;
                 DebugUtils.DebugLogMsg($"{name} has selected action {chosenAction}.", DebugUtils.DebugType.System);
-                LevelController.GetSingleton().AddInfoLog($"Chosen action: {chosenAction}", name);
+                // LevelController.GetSingleton().AddInfoLog($"Chosen action: {chosenAction}", name);
                 MoveTo(chosenAction.GetUnit(), unit =>
                 {
                     while (TryToAct())
                     {
                         var canCalculateAction = _brain.CalculateAction(unit.Index(), out chosenAction);
-                        LevelController.GetSingleton().AddInfoLog($"Can calculate action: {canCalculateAction}", name);
+                        // LevelController.GetSingleton().AddInfoLog($"Can calculate action: {canCalculateAction}", name);
                         if (!canCalculateAction) continue;
                         var targetUnit = chosenAction.GetUnit();
                         if (targetUnit.ActorsCount() <= 0) continue;
@@ -75,7 +76,8 @@ namespace Actors.AI
                         // }
 
                         kills = targetUnit.DamageActors(damage);
-                        LevelController.GetSingleton().AddAttackLog(chosenAction.GetUnit().Index(), this, name);
+                        //TODO
+                        // LevelController.GetSingleton().AddAttackLog(chosenAction.GetUnit().Index(), this, name);
                         attacked = true;
                     }
 
@@ -92,7 +94,7 @@ namespace Actors.AI
             }
             else
             {
-                LevelController.GetSingleton().AddInfoLog($"Cannot calculate - random movement!", name);
+                // LevelController.GetSingleton().AddInfoLog($"Cannot calculate - random movement!", name);
                 var moveTo = AIBrain.GenerateRandomMovement(currentUnit.Index(), stepsAvailable);
                 MoveTo(moveTo, _ => { FinishAITurn(); }, true);
             }

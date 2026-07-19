@@ -145,8 +145,12 @@ namespace Core
                 case NavalActorType.Player:
                 {
                     ShowWalkablePathForUnit();
-                    var isCurrentTurnPlayer = LevelController.GetSingleton().IsCurrentActor(_selectedActor);
-                    navalShipOptionsPanel.ShowOptions(isCurrentTurnPlayer);
+                    
+                    GameController.TryToUseGameController(gameController =>
+                    {
+                        var isCurrentTurnPlayer = gameController.IsCurrentActor(_selectedActor);
+                        navalShipOptionsPanel.ShowOptions(isCurrentTurnPlayer);    
+                    });
                 }
                     break;
                 case NavalActorType.Enemy:

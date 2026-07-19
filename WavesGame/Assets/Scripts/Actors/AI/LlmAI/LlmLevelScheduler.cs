@@ -118,12 +118,15 @@ namespace Actors.AI.LlmAI
             }
             ships = ships.FindAll(ship => ship != null && ship.enabled);
 
-            if (!WavesRecorder.TryToGetSingleton(out var wavesRecorder)) return ships;
-            DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
-            var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
-            wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), levelController.GetLevelGoal().GetMaxTurns(), ships, recorderFileName);
-            wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
             return ships;
+            
+            // TODO
+            // if (!WavesRecorder.TryToGetSingleton(out var wavesRecorder)) return ships;
+            // DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
+            // var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
+            // wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), levelController.GetLevelGoal().GetMaxTurns(), ships, recorderFileName);
+            // wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
+            // return ships;
         }
 
         public void FinishLevel(LevelGoal levelGoal)
@@ -141,16 +144,18 @@ namespace Actors.AI.LlmAI
             {
                 DebugUtils.DebugLogMsg($"Finished level, winner -> {winnerFaction}.", DebugUtils.DebugType.System);
                 var winnerPair = currentSchedule.GetFactionPair(winnerFaction);
-                LevelController.GetSingleton()
-                    .AddInfoLog(
-                        winnerPair.Two.modelPair.One == LlmType.Custom
-                            ? $"Utility {winnerPair.One.name} won."
-                            : $"LLM {winnerPair.Caller} won.", "LevelGoal");
+                //TODO
+                // LevelController.GetSingleton()
+                //     .AddInfoLog(
+                //         winnerPair.Two.modelPair.One == LlmType.Custom
+                //             ? $"Utility {winnerPair.One.name} won."
+                //             : $"LLM {winnerPair.Caller} won.", "LevelGoal");
             }
             else
             {
                 DebugUtils.DebugLogMsg($"Finished level, DRAW!", DebugUtils.DebugType.System);
-                LevelController.GetSingleton().AddInfoLog($"DRAW!", "LevelGoal");
+                //TODO
+                // LevelController.GetSingleton().AddInfoLog($"DRAW!", "LevelGoal");
             }
 
             if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))

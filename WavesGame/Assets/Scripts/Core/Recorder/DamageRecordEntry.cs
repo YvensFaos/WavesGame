@@ -51,23 +51,23 @@ namespace Core.Recorder
                 DebugUtils.DebugType.Temporary);
             var levelController = LevelController.GetSingleton();
 
-            var actor = levelController.GetActorWithId(ActorID);
-
-            if (actor == null)
-            {
-                //If fails to find the actor as a NavalActor, fall back to finding it between all GridActors in the Level.
-                //Mostly the case for when attacking a WaveActor.
-                //TODO consider storing all GridActors in the LevelController to prevent repeating this process.
-                var allGridActors =
-                    Object.FindObjectsByType<GridActor>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-                actor = allGridActors.ToList().Find(gridActor => gridActor.name.Equals(ActorID));
-            }
-
-            switch (actor)
-            {
-                case NavalActor navalActor: navalActor.TakeDirectDamage(_damage); break;
-                case WaveActor waveActor: waveActor.PlayCinematicDamage(); break;
-            }
+            // var actor = levelController.GetActorWithId(ActorID);
+            //
+            // if (actor == null)
+            // {
+            //     //If fails to find the actor as a NavalActor, fall back to finding it between all GridActors in the Level.
+            //     //Mostly the case for when attacking a WaveActor.
+            //     //TODO consider storing all GridActors in the LevelController to prevent repeating this process.
+            //     var allGridActors =
+            //         Object.FindObjectsByType<GridActor>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            //     actor = allGridActors.ToList().Find(gridActor => gridActor.name.Equals(ActorID));
+            // }
+            //
+            // switch (actor)
+            // {
+            //     case NavalActor navalActor: navalActor.TakeDirectDamage(_damage); break;
+            //     case WaveActor waveActor: waveActor.PlayCinematicDamage(); break;
+            // }
         }
 
         protected override string ToJson()

@@ -11,47 +11,33 @@ using System.Collections.Generic;
 using System.Linq;
 using Actors;
 using Grid;
-using NaughtyAttributes;
 using TMPro;
-using UI;
 using UnityEngine;
 using UUtils;
 
 namespace Core.Simulation
 {
-    public class SimulationController : WeakSingleton<SimulationController>
+    public class SimulationController : GameController
     {
-        [Header("References")] [SerializeField]
-        private RectTransform actorTurnsHolder;
-
-        [SerializeField] private ActorTurnUI actorTurnUIPrefab;
         [SerializeField] private TextMeshProUGUI simulationText;
-        [SerializeField] private TextMeshProUGUI turnText;
-        [SerializeField, ReadOnly] private List<ActorTurnUI> actorTurnUIs;
-
-        [Header("Data")] [SerializeField] private List<GridActor> levelActors;
-
-        [Header("Level Specific")] [SerializeField]
-        private LevelGoal levelGoal;
 
         private Dictionary<Faction, List<NavalShip>> _navalShips;
-        private NavalActor _currentActor;
-
-        private bool _victory;
-        private bool _endTurn;
 
         public void Initialize(Dictionary<Faction, List<NavalShip>> navalShipsDictionary)
         {
             _navalShips = navalShipsDictionary;
         }
 
-        public Coroutine StartSimulation(int randomSeed)
+        public Coroutine StartSimulation(int seed)
         {
-            return StartCoroutine(SimulationCoroutine(randomSeed));
+            randomSeed = seed;
+            controllerCoroutine = StartCoroutine(SimulationCoroutine());
+            return controllerCoroutine;
         }
 
-        private IEnumerator SimulationCoroutine(int randomSeed)
+        private IEnumerator SimulationCoroutine()
         {
+            running = true;
             yield return new WaitForEndOfFrame();
             //Wait for one frame for all elements to be initialized
             yield return null;
@@ -65,20 +51,23 @@ namespace Core.Simulation
 
             simulationText.text = "Simulation";
             turnText.text = "Turns";
-            
+
             if (TurnManager.TryToGetSingleton(out var turnManager))
             {
                 turnManager.Initialize();
             }
 
             var allNavalShips = new List<NavalShip>();
-            var levelActionableActors = new List<LevelActorPair>();
+            levelNavalActors = new List<NavalActor>();
+            levelActionableActors = new List<LevelActorPair>();
             foreach (var pair in _navalShips)
             {
                 allNavalShips.AddRange(pair.Value);
+                levelNavalActors.AddRange(pair.Value);
             }
+
             allNavalShips.Sort();
-            
+
             levelActionableActors.AddRange(allNavalShips.Select(actor => new LevelActorPair(actor)));
             allNavalShips.ForEach(navalShip =>
             {
@@ -89,12 +78,12 @@ namespace Core.Simulation
             var firstActor = allNavalShips[0];
             CursorController.GetSingleton().MoveToIndex(firstActor.GetUnit().Index());
             yield return 0.5f;
-            
+
             if (TurnManager.TryToGetSingleton(out turnManager))
             {
                 turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
             }
-            
+
             //Start level
             var enumerator = levelActionableActors.GetEnumerator();
             var continueLevel = true;
@@ -113,9 +102,9 @@ namespace Core.Simulation
                 {
                     // If the current is valid, then proceed with its turn.
                     if (!enumerator.Current) continue;
-                    _currentActor = enumerator.Current?.One;
-                    _endTurn = false;
-                    if (_currentActor is NavalShip navalShip)
+                    currentActor = enumerator.Current?.One;
+                    endTurn = false;
+                    if (currentActor is NavalShip navalShip)
                     {
                         var turnUI = GetActorTurnUI(navalShip);
                         turnUI.ToggleAvailability(true);
@@ -125,7 +114,7 @@ namespace Core.Simulation
 
                         navalShip.StartTurn();
                         // Move the cursor to the ship
-                        yield return new WaitUntil(() => _endTurn);
+                        yield return new WaitUntil(() => endTurn);
 
                         // Check if the naval ship was not destroyed during its own turn.
                         if (navalShip == null) continue;
@@ -138,20 +127,20 @@ namespace Core.Simulation
                     }
                     else
                     {
-                        yield return new WaitUntil(() => _endTurn);
+                        yield return new WaitUntil(() => endTurn);
                     }
                 }
 
                 enumerator.Dispose();
                 //Finished going through all characters
                 levelGoal.SurvivedTurn();
-                
+
                 if (TurnManager.TryToGetSingleton(out turnManager))
                 {
                     turnManager.NextTurn();
                     turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
                 }
-                
+
                 victory = levelGoal.CheckGoal();
                 gameOver = levelGoal.CheckGameOver();
                 if (victory || gameOver)
@@ -166,34 +155,50 @@ namespace Core.Simulation
             }
 
             enumerator.Dispose();
-            if (gameOver)
+            running = false;
+        }
+
+        public override void NotifyDestroyedActor(NavalShip navalShip)
+        {
+            //Does not finish the level if the level controller is not controlling the game.
+            if (!running) return;
+            if (currentActor.Equals(navalShip))
             {
-                victory = false;
+                //End current turn is for the actor being destroyed
+                EndTurnForCurrentActor();
             }
 
-            _victory = victory;
-        }
-        
-        /// <summary>
-        /// Allows the LevelController to continue.
-        /// </summary>
-        public void EndTurnForCurrentActor()
-        {
-            _endTurn = true;
+            //Set the pair as false, so its level should be skipped.
+            var actionPair = levelActionableActors.Find(pair => pair.One.Equals(navalShip));
+            actionPair.Two = false;
+
+            //Remove the naval ship from the list of active naval ships.
+            levelNavalActors.Remove(navalShip);
+
+            DebugUtils.DebugLogMsg($"Naval Ship: {navalShip.name} destroyed. Checking for level finish...",
+                DebugUtils.DebugType.System);
+            if (levelGoal.CheckGoalActor(navalShip))
+            {
+                //Game level goal was achieved
+                FinishLevel(true);
+            }
+
+            if (levelGoal.CheckGameOver())
+            {
+                FinishLevel(false);
+            }
+
+            var actorTurnUI = actorTurnUIs.Find(turnUI => turnUI.NavalShip.Equals(navalShip));
+            if (actorTurnUI == null) return;
+            if (actorTurnUIs == null) return;
+            actorTurnUIs.Remove(actorTurnUI);
+            if (actorTurnUI.gameObject == null) return;
+            Destroy(actorTurnUI.gameObject);
         }
 
-        private ActorTurnUI GetActorTurnUI(NavalShip navalShip)
+        protected override void FinishLevel(bool win)
         {
-            return actorTurnUIs.Find(actorTurnUI => actorTurnUI.NavalShip.Equals(navalShip));
+            throw new System.NotImplementedException();
         }
-
-        private void AddLevelActorToTurnBar(NavalShip navalShip)
-        {
-            var newActorTurnUI = Instantiate(actorTurnUIPrefab, actorTurnsHolder);
-            newActorTurnUI.Initialize(navalShip);
-            actorTurnUIs.Add(newActorTurnUI);
-        }
-
-        public bool Victory => _victory;
     }
 }

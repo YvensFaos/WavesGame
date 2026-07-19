@@ -48,10 +48,11 @@ namespace Core.Recorder
         {
             DebugUtils.DebugLogMsg($"MovementRecordEntry: {ActorID} moves from {MoveFrom} to {MoveTo}.",
                 DebugUtils.DebugType.Temporary);
-            var levelController = LevelController.GetSingleton();
-            var navalShip = levelController.GetNavalShipWithId(ActorID);
-            if (navalShip == null) return;
-            levelController.MoveActor(navalShip, MoveTo);
+            //TODO
+            // var levelController = LevelController.GetSingleton();
+            // var navalShip = levelController.GetNavalShipWithId(ActorID);
+            // if (navalShip == null) return;
+            // levelController.MoveActor(navalShip, MoveTo);
         }
 
         protected override string ToJson()

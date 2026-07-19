@@ -39,9 +39,9 @@ namespace Actors
 
         private void GenerateID()
         {
-            if(LevelController.TryToGetSingleton(out var levelController))
+            if(GameController.TryToGetSingleton(out var gameController))
             {
-                internalID = levelController.AddLevelActor(this);    
+                internalID = gameController.AddLevelActor(this);    
             }
         }
 

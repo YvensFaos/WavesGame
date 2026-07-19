@@ -42,8 +42,8 @@ namespace Core.Recorder
         {
             if (!LevelController.TryToGetSingleton(out var levelController)) return;
             //TODO does not handle specific type variables such as targets and number of turns to survive
-            levelController.GetLevelGoal().SetTypeViaString(_goalMessage);
-            DebugUtils.DebugLogMsg($"Level goal changed to: {_goalMessage}.", DebugUtils.DebugType.Temporary);
+            // levelController.GetLevelGoal().SetTypeViaString(_goalMessage);
+            // DebugUtils.DebugLogMsg($"Level goal changed to: {_goalMessage}.", DebugUtils.DebugType.Temporary);
         }
 
         protected override string ToJson()

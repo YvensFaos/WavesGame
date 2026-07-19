@@ -37,9 +37,10 @@ namespace UI
 
         public void NextLevel()
         {
-            var nextLevel = LevelController.GetSingleton().GetNextLevelName();
-            DebugUtils.DebugLogMsg($"Loading next level {nextLevel}.", DebugUtils.DebugType.System);
-            SceneManager.LoadScene(nextLevel);
+            //TODO
+            // var nextLevel = LevelController.GetSingleton().GetNextLevelName();
+            // DebugUtils.DebugLogMsg($"Loading next level {nextLevel}.", DebugUtils.DebugType.System);
+            // SceneManager.LoadScene(nextLevel);
         }
 
         public void RestartLevel()

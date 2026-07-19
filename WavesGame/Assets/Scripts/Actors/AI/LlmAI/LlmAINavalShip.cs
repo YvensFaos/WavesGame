@@ -259,42 +259,47 @@ namespace Actors.AI.LlmAI
 
         private void LogInfo(string message)
         {
-            if (LevelController.TryToGetSingleton(out var levelController))
-            {
-                levelController.AddInfoLog(message, name);
-            }
+            //TODO
+            // if (LevelController.TryToGetSingleton(out var levelController))
+            // {
+            //     levelController.AddInfoLog(message, name);
+            // }
         }
 
         private void LogTimeInfo(string message)
         {
-            if (LevelController.TryToGetSingleton(out var levelController))
-            {
-                levelController.AddTimeInfoToLog(message, name);
-            }
+            //TODO
+            // if (LevelController.TryToGetSingleton(out var levelController))
+            // {
+            //     levelController.AddTimeInfoToLog(message, name);
+            // }
         }
 
         private void LogReason(string message)
         {
-            if (LevelController.TryToGetSingleton(out var levelController))
-            {
-                levelController.AddReasonLog(message, name);
-            }
+            //TODO
+            // if (LevelController.TryToGetSingleton(out var levelController))
+            // {
+            //     levelController.AddReasonLog(message, name);
+            // }
         }
 
         private void LogData(string message)
         {
-            if (LevelController.TryToGetSingleton(out var levelController))
-            {
-                levelController.AddDataLog(message, name);
-            }
+            //TODO
+            // if (LevelController.TryToGetSingleton(out var levelController))
+            // {
+            //     levelController.AddDataLog(message, name);
+            // }
         }
 
         private void LogMovementLog(Vector2Int position)
         {
-            if (LevelController.TryToGetSingleton(out var levelController))
-            {
-                LevelController.GetSingleton().AddMovementLog(position, name);
-            }
+            //TODO
+            // if (LevelController.TryToGetSingleton(out var levelController))
+            // {
+            //     LevelController.GetSingleton().AddMovementLog(position, name);
+            // }
         }
 
         private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, bool moveAfterAttack = false)
@@ -476,17 +481,18 @@ namespace Actors.AI.LlmAI
             var maxRequest = _internalTimers is { Count: > 0 } ? _internalTimers.Max(timer => timer) : -1;
             var minRequest = _internalTimers is { Count: > 0 } ? _internalTimers.Min(timer => timer) : -1;
             var averageAttempts = (float)_internalAttempts.Sum(attempt => attempt) / _internalAttempts.Count;
-            levelController.AddDataLog(
-                $"\"internalWrongMovementCount\":{_internalWrongMovementCount}" +
-                $",\"internalWrongAttackCount\":{_internalWrongAttackCount}" +
-                $",\"internalTotalRequestCount\":{_internalTotalRequestCount}" +
-                $",\"internalMovementAttemptCount\":{_internalMovementAttemptCount}" +
-                $",\"internalAttackAttemptCount\":{_internalAttackAttemptCount}" +
-                $",\"internalFaultyMessageCount\":{_internalFaultyMessageCount}" +
-                $",\"averageRequestTime\":{averageRequest},\"averageRequestTimeCount\":{_internalTimers.Count}" +
-                $",\"maxRequestTime\":{maxRequest},\"minRequest\":{minRequest}" +
-                $",\"averageAttempts\":{averageAttempts}" +
-                $",\"kills\":{kills}", name);
+            //TODO
+            // levelController.AddDataLog(
+            //     $"\"internalWrongMovementCount\":{_internalWrongMovementCount}" +
+            //     $",\"internalWrongAttackCount\":{_internalWrongAttackCount}" +
+            //     $",\"internalTotalRequestCount\":{_internalTotalRequestCount}" +
+            //     $",\"internalMovementAttemptCount\":{_internalMovementAttemptCount}" +
+            //     $",\"internalAttackAttemptCount\":{_internalAttackAttemptCount}" +
+            //     $",\"internalFaultyMessageCount\":{_internalFaultyMessageCount}" +
+            //     $",\"averageRequestTime\":{averageRequest},\"averageRequestTimeCount\":{_internalTimers.Count}" +
+            //     $",\"maxRequestTime\":{maxRequest},\"minRequest\":{minRequest}" +
+            //     $",\"averageAttempts\":{averageAttempts}" +
+            //     $",\"kills\":{kills}", name);
         }
 
         public string GetLlmInfo()

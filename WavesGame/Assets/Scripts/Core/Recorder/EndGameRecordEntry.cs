@@ -45,8 +45,9 @@ namespace Core.Recorder
         {
             var winnerMessage = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" : _victory ? $"Player Victory!" : "Player Lost!";
             DebugUtils.DebugLogMsg($"End game reached! {_goalMessage}.{winnerMessage}", DebugUtils.DebugType.Temporary);
-            if (!LevelController.TryToGetSingleton(out var levelController)) return;
-            levelController.ForceFinishLevel();
+            //TODO
+            // if (!LevelController.TryToGetSingleton(out var levelController)) return;
+            // levelController.ForceFinishLevel();
         }
 
         protected override string ToJson()
