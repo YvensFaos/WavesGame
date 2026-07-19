@@ -18,6 +18,7 @@ namespace Core
 
         public void Initialize()
         {
+            DebugUtils.DebugLogMsg($"Turn Manager initialized at object {name}.", DebugUtils.DebugType.System);
             turnNumber = 0;
         }
         

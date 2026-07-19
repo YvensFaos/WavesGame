@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,11 @@ namespace Core.Simulation
         private List<Simulation> simulations;
 
         [Header("Simulation Settings")] [SerializeField]
-        private float warmUpTimer;
+        private SimulationFlags flags;
+
+        [SerializeField] private float warmUpTimer;
+
+        private Faction _firstFaction;
 
         [SerializeField] private int simulationSeed = 6;
 
@@ -148,6 +153,7 @@ namespace Core.Simulation
                     var navalShip = Instantiate(baseNavalActor, placeHolder.transform.position, Quaternion.identity);
                     navalShip.ConfigureID(placeHolder.Order);
                     navalShip.UpdateFaction(faction);
+
                     //Initialize the naval ship according to its specific player type
                     playerType.InitializeType(navalShip, factionsHash);
 
@@ -170,7 +176,53 @@ namespace Core.Simulation
 
         private void PerformFlags(Dictionary<Faction, List<NavalShip>> dictionary)
         {
-            //TODO
+            var factions = dictionary.Keys.ToList();
+
+            ChangeFactionOrder();
+            InterleaveFactionOrder();
+            return;
+            
+            void ChangeFactionOrder()
+            {
+                if (!flags.HasFlag(SimulationFlags.ChangeFactionOrder)) return;
+                if (_firstFaction != null)
+                {
+                    factions.Remove(_firstFaction);
+                    factions.Add(_firstFaction);
+                }
+                _firstFaction = factions[0];
+            }
+
+            void InterleaveFactionOrder()
+            {
+                if (!flags.HasFlag(SimulationFlags.InterleavedOrder)) return;
+                var indices = new Pair<Faction, int>[factions.Count];
+                for (var i = 0; i < factions.Count; i++)
+                {
+                    indices[i] = new Pair<Faction, int>(factions[i], 0);
+                }
+                
+                var order = 1;
+                int skip;
+                do
+                {
+                    skip = 0;
+                    foreach (var pair in indices)
+                    {
+                        if (pair.Two < dictionary[pair.One].Count)
+                        {
+                            var navalShip = dictionary[pair.One][pair.Two];
+                            if (navalShip != null) navalShip.SetInitiative(order++);
+                            else skip++;
+                            pair.Two++;
+                        }
+                        else
+                        {
+                            skip++;
+                        }
+                    }
+                }while(skip < indices.Length - 1);
+            }
         }
     }
 }

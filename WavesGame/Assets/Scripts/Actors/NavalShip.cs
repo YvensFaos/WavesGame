@@ -25,7 +25,8 @@ namespace Actors
         [SerializeField] protected NavalShipSo shipData;
         [SerializeField] protected BaseCannon navalCannon;
         [SerializeField] private Faction faction;
-        [SerializeField] private int overrideInitiative;
+        [SerializeField] private int initiative;
+        [SerializeField] private int overrideInitiative = -1;
 
         protected int stepsAvailable;
 
@@ -38,7 +39,10 @@ namespace Actors
         protected override void Start()
         {
             base.Start();
-            SetInitiative(OverrideInitiative);
+            if (overrideInitiative >= 1)
+            {
+                SetInitiative(OverrideInitiative);    
+            }
         }
 
         public virtual void StartTurn()
@@ -210,7 +214,6 @@ namespace Actors
         public NavalShipSo ShipData => shipData;
         public BaseCannon NavalCannon => navalCannon;
         public int RemainingSteps => stepsAvailable;
-        public int Initiative { get; private set; }
         public int ActionsLeft { get; private set; }
         public Faction GetFaction() => faction;
         public SpriteRenderer Renderer() => spriteRenderer;
@@ -234,5 +237,11 @@ namespace Actors
         }
         
         public int OverrideInitiative => overrideInitiative;
+
+        public int Initiative
+        {
+            get => initiative;
+            private set => initiative = value;
+        }
     }
 }
