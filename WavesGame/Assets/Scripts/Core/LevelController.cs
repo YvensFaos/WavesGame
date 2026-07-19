@@ -7,19 +7,13 @@
  */
 
 using System.Collections;
-using System.Collections.Generic;
 using Actors;
-using Actors.AI;
-using Actors.AI.LlmAI;
-using Core.Recorder;
 using Grid;
 using NaughtyAttributes;
 using TMPro;
 using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UUtils;
-using Logger = UUtils.Logger;
 
 namespace Core
 {
@@ -28,21 +22,21 @@ namespace Core
     public class LevelController : GameController
     {
         [SerializeField] private bool initiativeBased = true;
-        [SerializeField] private bool logLevel;
+        // [SerializeField] private bool logLevel;
 
         [SerializeField, Scene] private string nextLevelName;
 
-        [Header("Controllers")] [SerializeField]
-        private bool recordLevel;
+        // [Header("Controllers")] [SerializeField]
+        // private bool recordLevel;
 
         [SerializeField] private EndLevelPanelUI endLevelPanelUI;
         [SerializeField] private TextMeshProUGUI levelGoalText;
 
-        private Logger _logger;
+        // private Logger _logger;
         private bool _finishedLevel;
-        private bool _hasScheduler;
-        private LlmLevelScheduler _scheduler;
-        private WavesRecorder _recorder;
+        // private bool _hasScheduler;
+        // private LlmLevelScheduler _scheduler;
+        // private WavesRecorder _recorder;
 
         protected override void Awake()
         {
@@ -53,19 +47,19 @@ namespace Core
         private void Start()
         {
             endLevelPanelUI.gameObject.SetActive(false);
-            _logger = new Logger();
-            _hasScheduler = TryToInitializeViaScheduler();
+            // _logger = new Logger();
+            // _hasScheduler = TryToInitializeViaScheduler();
             controllerCoroutine = StartCoroutine(LevelCoroutine());
         }
 
-        private bool TryToInitializeViaScheduler()
-        {
-            _scheduler = LlmLevelScheduler.GetSingleton();
-            if (_scheduler == null) return false;
-
-            _scheduler.BeginNewLevel();
-            return true;
-        }
+        // private bool TryToInitializeViaScheduler()
+        // {
+        //     _scheduler = LlmLevelScheduler.GetSingleton();
+        //     if (_scheduler == null) return false;
+        //
+        //     _scheduler.BeginNewLevel();
+        //     return true;
+        // }
 
         private IEnumerator LevelCoroutine()
         {
@@ -73,30 +67,12 @@ namespace Core
             yield return null;
             running = true;
 
-            UnityEngine.Random.InitState(randomSeed);
-            var recorderInfo = "";
+            Random.InitState(randomSeed);
+            // var recorderInfo = "";
             levelActors = levelActors.FindAll(actor => actor != null);
 
-            if (_hasScheduler)
-            {
-                if (!_scheduler.CheckValidLevel())
-                {
-                    AddInfoLog($"Schedule done.", "LevelController");
-                    ApplicationHelper.QuitApplication();
-                    yield break;
-                }
-
-                recorderInfo += _scheduler.GetCurrentScheduleInfo();
-                //Wait for one more frame to destroy the unused LLM actors replaced by Utility Agent AIs, if any
-                yield return null;
-                levelNavalActors = _scheduler.SetupLevel(levelActors);
-            }
-            else
-            {
-                //Wait for one more frame to destroy the unused LLM actors replaced by Utility Agent AIs, if any
-                yield return null;
-                levelNavalActors = levelNavalActors.FindAll(levelNavalActor => levelNavalActor != null);
-            }
+            yield return null;
+            levelNavalActors = levelNavalActors.FindAll(levelNavalActor => levelNavalActor != null);
 
             //Initialize level goal elements
             levelGoal.Initialize(levelActors);
@@ -112,12 +88,11 @@ namespace Core
 
             levelGoalText.text = levelGoal.GetLevelMessage();
             turnText.text = "Turns";
-
-            if (logLevel)
-            {
-                var logFileName = $"{levelGoal.GetLevelMessage()}-{TimestampHelper.GetSimplifiedTimestamp()}";
-                _logger.StartNewLogFile(logFileName);
-            }
+            // if (logLevel)
+            // {
+            //     var logFileName = $"{levelGoal.GetLevelMessage()}-{TimestampHelper.GetSimplifiedTimestamp()}";
+            //     _logger.StartNewLogFile(logFileName);
+            // }
 
             //Roll initiatives and order turns
             if (initiativeBased)
@@ -139,26 +114,26 @@ namespace Core
             var firstActor = levelActionableActors[0].One;
             CursorController.GetSingleton().MoveToIndex(firstActor.GetUnit().Index());
 
-            AddInfoLog($"Level starts with {levelActionableActors.Count} actors.", "LevelController");
+            // AddInfoLog($"Level starts with {levelActionableActors.Count} actors.", "LevelController");
             var gridDimensions = GridManager.GetSingleton().GetDimensions();
-            AddInfoLog($"Grid size is {gridDimensions.x} by {gridDimensions.y}.", "LevelController");
+            // AddInfoLog($"Grid size is {gridDimensions.x} by {gridDimensions.y}.", "LevelController");
 
             if (TurnManager.TryToGetSingleton(out turnManager))
             {
                 turnText.text = $"Turn = {turnManager.GetTurnNumber()}";    
             }
             
-            if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
-            {
-                //This is used when the level is being recorded for regular gaming procedures, rather than by the scheduler
-                recorderInfo += GetLevelRecordingName();
-                DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
-                var recorderFileName = $"{recorderInfo}-{TimestampHelper.GetSimplifiedTimestamp()}";
-                //TODO levelNavalActors are getting duplicates for the regular AI
-                _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, -1, levelNavalActors,
-                    recorderFileName);
-                _recorder.RecordNewEntry(new GoalRecordEntry(levelGoal));
-            }
+            // if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
+            // {
+            //     //This is used when the level is being recorded for regular gaming procedures, rather than by the scheduler
+            //     recorderInfo += GetLevelRecordingName();
+            //     DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
+            //     var recorderFileName = $"{recorderInfo}-{TimestampHelper.GetSimplifiedTimestamp()}";
+            //     //TODO levelNavalActors are getting duplicates for the regular AI
+            //     _recorder.LogGameStart(SceneManager.GetActiveScene().name, randomSeed, -1, levelNavalActors,
+            //         recorderFileName);
+            //     _recorder.RecordNewEntry(new GoalRecordEntry(levelGoal));
+            // }
 
             //Start level
             var enumerator = levelActionableActors.GetEnumerator();
@@ -219,7 +194,7 @@ namespace Core
                 if (victory || gameOver)
                 {
                     continueLevel = false;
-                    AddInfoLog($"Level finished!", "LevelController");
+                    // AddInfoLog($"Level finished!", "LevelController");
                 }
                 else
                 {
@@ -236,69 +211,6 @@ namespace Core
 
             FinishLevel(victory);
         }
-
-        // public void StopLevel()
-        // {
-        //     StopCoroutine(_levelCoroutine);
-        //     running = false;
-        // }
-
-        // public int AddLevelActor(GridActor actor)
-        // {
-        //     levelActors.Add(actor);
-        //     if (actor is not NavalActor navalActor) return levelActors.Count;
-        //     levelNavalActors.Add(navalActor);
-        //     switch (navalActor.NavalType)
-        //     {
-        //         case NavalActorType.Player:
-        //         case NavalActorType.Enemy:
-        //             if (navalActor is NavalShip navalShip)
-        //             {
-        //                 levelActionableActors ??= new List<LevelActorPair>();
-        //                 levelActionableActors.Add(new LevelActorPair(navalShip));
-        //                 return levelActionableActors.Count;
-        //             }
-        //
-        //             break;
-        //         case NavalActorType.Collectable:
-        //         case NavalActorType.Obstacle:
-        //         case NavalActorType.Wave:
-        //             return levelNavalActors.Count;
-        //         default:
-        //             throw new ArgumentOutOfRangeException();
-        //     }
-        //
-        //     return levelActors.Count;
-        // }
-
-        // public void MoveActor(NavalShip navalShip, Vector2Int moveTo)
-        // {
-        //     if (GridManager.GetSingleton().CheckGridPosition(moveTo, out var gridUnit))
-        //     {
-        //         navalShip.MoveTo(gridUnit, _ => { });
-        //     }
-        // }
-
-        // private void AddLevelActorToTurnBar(NavalShip navalShip)
-        // {
-        //     var newActorTurnUI = Instantiate(actorTurnUIPrefab, actorTurnsHolder);
-        //     newActorTurnUI.Initialize(navalShip);
-        //     actorTurnUIs.Add(newActorTurnUI);
-        // }
-
-        // public bool IsCurrentActor(NavalActor navalActor)
-        // {
-        //     return _currentActor.Equals(navalActor);
-        // }
-
-        // public void NotifyDestroyedActor(NavalActor navalActor)
-        // {
-        //     //Does not finish the level if the level controller is not controlling the game.
-        //     if (!running) return;
-        //     //TODO logic for a generic actor being destroyed
-        //     DebugUtils.DebugLogMsg($"Naval Actor {navalActor.name} notified Level Controller of its destruction.",
-        //         DebugUtils.DebugType.Verbose);
-        // }
 
         public override void NotifyDestroyedActor(NavalShip navalShip)
         {
@@ -376,153 +288,131 @@ namespace Core
         
             DebugUtils.DebugLogMsg($"Level ended: {(win ? "Victory!" : "Defeat!")}", DebugUtils.DebugType.System);
             CursorController.GetSingleton().FinishLevel();
-            AddInfoLog("Level finished.", "LevelController");
-        
-            if (_recorder != null)
-            {
-                // _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
-                //     levelGoal.GetWinnerFaction(), win, GetTurn(), -1));
-                DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
-                _recorder.Stop();
-            }
+            // AddInfoLog("Level finished.", "LevelController");
+            // if (_recorder != null)
+            // {
+            //     // _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
+            //     //     levelGoal.GetWinnerFaction(), win, GetTurn(), -1));
+            //     DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
+            //     _recorder.Stop();
+            // }
         
             // Delays one frame to finish writing all the necessary information on the logs and recorders.
-            DelayHelper.DelayOneFrame(this, () =>
-            {
-                if (_scheduler == null)
-                {
-                    endLevelPanelUI.gameObject.SetActive(true);
-                    endLevelPanelUI.OpenEndLevelPanel(win);
-                }
-                else
-                {
-                    _scheduler.FinishLevel(levelGoal);
-                }
-            });
+            // DelayHelper.DelayOneFrame(this, () =>
+            // {
+            //     if (_scheduler == null)
+            //     {
+            //         endLevelPanelUI.gameObject.SetActive(true);
+            //         endLevelPanelUI.OpenEndLevelPanel(win);
+            //     }
+            //     else
+            //     {
+            //         _scheduler.FinishLevel(levelGoal);
+            //     }
+            // });
         }
 
-        #region Logging
+        // #region Logging
+        //
+        // public void AddInfoLog(string info, string callerName = "")
+        // {
+        //     if (!logLevel) return;
+        //     _logger.AddLine($"[{callerName}];INFO {info}");
+        // }
+        //
+        // public void AddPromptLog(string info, string callerName = "")
+        // {
+        //     if (!logLevel) return;
+        //     _logger.AddLine($"[{callerName}];PRPT {info}");
+        // }
+        //
+        // public void AddDataLog(string data, string callerName = "")
+        // {
+        //     if (!logLevel) return;
+        //     _logger.AddLine($"[{callerName}];DATA {{{data}}}");
+        // }
+        //
+        // public void AddMovementLog(Vector2Int position, string callerName = "")
+        // {
+        //     if (!logLevel) return;
+        //     _logger.AddLine($"[{callerName}];MOVE {{{position.x}, {position.y}}}");
+        // }
+        //
+        // public void AddAttackLog(Vector2Int position, AIBaseShip attacker, string callerName = "")
+        // {
+        //     if (!logLevel) return;
+        //     _logger.AddLine($"[{callerName}];ATTK {{{position.x}, {position.y}}}");
+        //     if (!GridManager.GetSingleton().CheckGridPosition(position, out var unit)) return;
+        //     var actor = unit.GetActor();
+        //     switch (actor)
+        //     {
+        //         case LlmAINavalShip llm:
+        //         {
+        //             var factionStr = attacker.GetFaction().Equals(llm.GetFaction()) ? "ALLY" : "ENEMY";
+        //             _logger.AddLine($"[{callerName}];TRGT LLM {{{factionStr}}}");
+        //             break;
+        //         }
+        //         case AINavalShip ai:
+        //         {
+        //             var factionStr = attacker.GetFaction().Equals(ai.GetFaction()) ? "ALLY" : "ENEMY";
+        //             _logger.AddLine($"[{callerName}];TRGT LLM {{{factionStr}}}");
+        //             break;
+        //         }
+        //         case WaveActor:
+        //             _logger.AddLine($"[{callerName}];TRGT WAVE");
+        //             break;
+        //         case NavalTarget:
+        //             _logger.AddLine($"[{callerName}];TRGT TARGET");
+        //             break;
+        //     }
+        // }
+        //
+        // public void AddReasonLog(string data, string callerName = "")
+        // {
+        //     if (!logLevel) return;
+        //     _logger.AddLine($"[{callerName}];RESN {{\"reasoning\":{data}]}}");
+        // }
+        //
+        // public void AddTimeInfoToLog(string timeInfo, string callerName = "")
+        // {
+        //     if (!logLevel) return;
+        //     _logger.AddLine($"[{callerName}];TIME {{{timeInfo}}}");
+        // }
+        //
+        // #endregion
 
-        public void AddInfoLog(string info, string callerName = "")
-        {
-            if (!logLevel) return;
-            _logger.AddLine($"[{callerName}];INFO {info}");
-        }
-
-        public void AddPromptLog(string info, string callerName = "")
-        {
-            if (!logLevel) return;
-            _logger.AddLine($"[{callerName}];PRPT {info}");
-        }
-
-        public void AddDataLog(string data, string callerName = "")
-        {
-            if (!logLevel) return;
-            _logger.AddLine($"[{callerName}];DATA {{{data}}}");
-        }
-
-        public void AddMovementLog(Vector2Int position, string callerName = "")
-        {
-            if (!logLevel) return;
-            _logger.AddLine($"[{callerName}];MOVE {{{position.x}, {position.y}}}");
-        }
-
-        public void AddAttackLog(Vector2Int position, AIBaseShip attacker, string callerName = "")
-        {
-            if (!logLevel) return;
-            _logger.AddLine($"[{callerName}];ATTK {{{position.x}, {position.y}}}");
-            if (!GridManager.GetSingleton().CheckGridPosition(position, out var unit)) return;
-            var actor = unit.GetActor();
-            switch (actor)
-            {
-                case LlmAINavalShip llm:
-                {
-                    var factionStr = attacker.GetFaction().Equals(llm.GetFaction()) ? "ALLY" : "ENEMY";
-                    _logger.AddLine($"[{callerName}];TRGT LLM {{{factionStr}}}");
-                    break;
-                }
-                case AINavalShip ai:
-                {
-                    var factionStr = attacker.GetFaction().Equals(ai.GetFaction()) ? "ALLY" : "ENEMY";
-                    _logger.AddLine($"[{callerName}];TRGT LLM {{{factionStr}}}");
-                    break;
-                }
-                case WaveActor:
-                    _logger.AddLine($"[{callerName}];TRGT WAVE");
-                    break;
-                case NavalTarget:
-                    _logger.AddLine($"[{callerName}];TRGT TARGET");
-                    break;
-            }
-        }
-
-        public void AddReasonLog(string data, string callerName = "")
-        {
-            if (!logLevel) return;
-            _logger.AddLine($"[{callerName}];RESN {{\"reasoning\":{data}]}}");
-        }
-
-        public void AddTimeInfoToLog(string timeInfo, string callerName = "")
-        {
-            if (!logLevel) return;
-            _logger.AddLine($"[{callerName}];TIME {{{timeInfo}}}");
-        }
-
-        #endregion
-
-#if UNITY_EDITOR
-        [Button("Prepare for Recording Level")]
-        private void PrepareForRecording()
-        {
-            var recorders = FindObjectsByType<WavesRecorder>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (recorders is not { Length: > 0 }) return;
-            var recorder = recorders[0];
-            recorder.gameObject.SetActive(true);
-            recordLevel = true;
-
-            var recordPlayer =
-                FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (recordPlayer is not { Length: > 0 }) return;
-            var player = recordPlayer[0];
-            player.gameObject.SetActive(false);
-        }
-
-        [Button("Prepare for Player Level Record")]
-        private void PrepareForPlayingRecord()
-        {
-            var recordPlayer =
-                FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (recordPlayer is not { Length: > 0 }) return;
-            var player = recordPlayer[0];
-            player.gameObject.SetActive(true);
-            recordLevel = false;
-
-            var recorders = FindObjectsByType<WavesRecorder>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            if (recorders is not { Length: > 0 }) return;
-            var recorder = recorders[0];
-            recorder.gameObject.SetActive(false);
-        }
-#endif
-
-        public NavalShip GetNavalShipWithId(string actorId)
-        {
-            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId) && actor is NavalShip) as
-                NavalShip;
-        }
-
-        public NavalActor GetNavalActorWithId(string actorId)
-        {
-            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId));
-        }
-
-        public GridActor GetActorWithId(string actorId)
-        {
-            return levelNavalActors.Find(actor => actor != null && actor.name.Equals(actorId));
-        }
-
-        public string GetNextLevelName() => nextLevelName;
-
-        public LevelGoal GetLevelGoal() => levelGoal;
-
+// #if UNITY_EDITOR
+//         [Button("Prepare for Recording Level")]
+//         private void PrepareForRecording()
+//         {
+//             var recorders = FindObjectsByType<WavesRecorder>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+//             if (recorders is not { Length: > 0 }) return;
+//             var recorder = recorders[0];
+//             recorder.gameObject.SetActive(true);
+//             // recordLevel = true;
+//
+//             var recordPlayer =
+//                 FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+//             if (recordPlayer is not { Length: > 0 }) return;
+//             var player = recordPlayer[0];
+//             player.gameObject.SetActive(false);
+//         }
+//
+//         [Button("Prepare for Player Level Record")]
+//         private void PrepareForPlayingRecord()
+//         {
+//             var recordPlayer =
+//                 FindObjectsByType<WavesRecordPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+//             if (recordPlayer is not { Length: > 0 }) return;
+//             var player = recordPlayer[0];
+//             player.gameObject.SetActive(true);
+//             // recordLevel = false;
+//
+//             var recorders = FindObjectsByType<WavesRecorder>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+//             if (recorders is not { Length: > 0 }) return;
+//             var recorder = recorders[0];
+//             recorder.gameObject.SetActive(false);
+//         }
+// #endif
     }
 }

@@ -87,8 +87,6 @@ namespace Core.Simulation
             //Start level
             var enumerator = levelActionableActors.GetEnumerator();
             var continueLevel = true;
-            var victory = false;
-            var gameOver = false;
             while (continueLevel)
             {
                 //There are no actors left. Finish the level cycle.
@@ -141,9 +139,8 @@ namespace Core.Simulation
                     turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
                 }
 
-                victory = levelGoal.CheckGoal();
-                gameOver = levelGoal.CheckGameOver();
-                if (victory || gameOver)
+                var finished = levelGoal.CheckGoal();
+                if (!finished)
                 {
                     continueLevel = false;
                 }

@@ -22,25 +22,25 @@ namespace Core
 {
     public abstract class GameController : WeakSingleton<GameController>
     {
-        [Header("References")] 
-        [SerializeField] protected RectTransform actorTurnsHolder;
+        [Header("References")] [SerializeField]
+        protected RectTransform actorTurnsHolder;
+
         [SerializeField] protected ActorTurnUI actorTurnUIPrefab;
         [SerializeField, ReadOnly] protected List<ActorTurnUI> actorTurnUIs;
         [SerializeField, ReadOnly] protected List<LevelActorPair> levelActionableActors;
         [SerializeField, ReadOnly] protected List<NavalActor> levelNavalActors;
         [SerializeField] protected TextMeshProUGUI turnText;
-        [Header("Data")] 
-        [SerializeField] protected int randomSeed = 6;
+        [Header("Data")] [SerializeField] protected int randomSeed = 6;
         [SerializeField] protected List<GridActor> levelActors;
-        
-        [Header("Level Specific")] 
-        [SerializeField] protected LevelGoal levelGoal;
+
+        [Header("Level Specific")] [SerializeField]
+        protected LevelGoal levelGoal;
 
         protected bool running;
         protected NavalActor currentActor;
         protected bool endTurn;
         protected Coroutine controllerCoroutine;
-        
+
         /// <summary>
         /// Allows the LevelController to continue.
         /// </summary>
@@ -48,17 +48,17 @@ namespace Core
         {
             endTurn = true;
         }
-        
+
         protected ActorTurnUI GetActorTurnUI(NavalShip navalShip)
         {
             return actorTurnUIs.Find(actorTurnUI => actorTurnUI.NavalShip.Equals(navalShip));
         }
-        
+
         public bool IsCurrentActor(NavalActor navalActor)
         {
             return currentActor.Equals(navalActor);
         }
-        
+
         public int AddLevelActor(GridActor actor)
         {
             levelActors.Add(actor);
@@ -74,7 +74,7 @@ namespace Core
                         levelActionableActors.Add(new LevelActorPair(navalShip));
                         return levelActionableActors.Count;
                     }
-        
+
                     break;
                 case NavalActorType.Collectable:
                 case NavalActorType.Obstacle:
@@ -83,7 +83,7 @@ namespace Core
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        
+
             return levelActors.Count;
         }
 
@@ -93,13 +93,12 @@ namespace Core
             newActorTurnUI.Initialize(navalShip);
             actorTurnUIs.Add(newActorTurnUI);
         }
-        
+
         public void NotifyDestroyedActor(NavalActor navalActor)
         {
             //Does not finish the level if the level controller is not controlling the game.
             if (!running) return;
-            //TODO logic for a generic actor being destroyed
-            DebugUtils.DebugLogMsg($"Naval Actor {navalActor.name} notified Level Controller of its destruction.",
+            DebugUtils.DebugLogMsg($"Naval Actor {navalActor.name} notified Game Controller of its destruction.",
                 DebugUtils.DebugType.Verbose);
         }
 
@@ -191,24 +190,24 @@ namespace Core
         //         }
         //     });
         // }
-        
+
         public void StopLevel()
         {
             StopCoroutine(controllerCoroutine);
             running = false;
         }
-        
+
         public void RemoveFactionShip(AIBaseShip aiBaseShip)
         {
             levelGoal.RemoveFactionCount(aiBaseShip);
         }
-        
+
         protected string GetLevelRecordingName()
         {
             return
                 $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
         }
-        
+
         public static void TryToUseGameController(Action<GameController> function)
         {
             if (TryToGetSingleton(out var gameController))
@@ -220,7 +219,7 @@ namespace Core
                 DebugUtils.DebugLogWarningMsg("No valid Game Controller found!");
             }
         }
-        
+
         public int GetRandomSeed() => randomSeed;
         public List<NavalActor>.Enumerator GetNavalActorsEnumerator() => levelNavalActors.GetEnumerator();
     }
