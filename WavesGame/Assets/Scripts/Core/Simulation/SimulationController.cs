@@ -17,11 +17,20 @@ using UUtils;
 
 namespace Core.Simulation
 {
+    public enum SimulationOutcome
+    {
+        Victory,
+        Draw
+    }
+
     public class SimulationController : GameController
     {
         [SerializeField] private TextMeshProUGUI simulationText;
 
         private Dictionary<Faction, List<NavalShip>> _navalShips;
+
+        private SimulationOutcome _outcome;
+        private Faction _winningFaction;
 
         public void Initialize(Dictionary<Faction, List<NavalShip>> navalShipsDictionary)
         {
@@ -43,14 +52,15 @@ namespace Core.Simulation
             yield return null;
 
             Random.InitState(randomSeed);
-            levelActors = FindObjectsByType<GridActor>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)
+            levelActors = FindObjectsByType<GridActor>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID)
                 .ToList();
+            
             //Initialize level goal elements
             levelGoal.Initialize(levelActors);
             yield return null;
 
             simulationText.text = "Simulation";
-            turnText.text = "Turns";
+            turnText.text = "Turns - ";
 
             if (TurnManager.TryToGetSingleton(out var turnManager))
             {
@@ -87,7 +97,7 @@ namespace Core.Simulation
             //Start level
             var enumerator = levelActionableActors.GetEnumerator();
             var continueLevel = true;
-            while (continueLevel)
+            while (continueLevel && running)
             {
                 //There are no actors left. Finish the level cycle.
                 if (actorTurnUIs.Count == 0)
@@ -130,17 +140,13 @@ namespace Core.Simulation
                 }
 
                 enumerator.Dispose();
-                //Finished going through all characters
-                levelGoal.SurvivedTurn();
-
                 if (TurnManager.TryToGetSingleton(out turnManager))
                 {
                     turnManager.NextTurn();
                     turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
                 }
 
-                var finished = levelGoal.CheckGoal();
-                if (!finished)
+                if (levelGoal.CheckGoal())
                 {
                     continueLevel = false;
                 }
@@ -177,11 +183,17 @@ namespace Core.Simulation
             if (levelGoal.CheckGoalActor(navalShip))
             {
                 //Game level goal was achieved
+                _outcome = SimulationOutcome.Victory;
+                var survivor = levelActionableActors.Find(pair => pair.Two);
+                _winningFaction = survivor.One.GetFaction();
+                DebugUtils.DebugLogMsg($"Winning Faction: {_winningFaction.name}!", DebugUtils.DebugType.System);
                 FinishLevel(true);
             }
 
             if (levelGoal.CheckGameOver())
             {
+                _outcome = SimulationOutcome.Draw;
+                DebugUtils.DebugLogMsg($"Draw! No Winning Faction!", DebugUtils.DebugType.System);
                 FinishLevel(false);
             }
 
@@ -195,7 +207,11 @@ namespace Core.Simulation
 
         protected override void FinishLevel(bool win)
         {
-            throw new System.NotImplementedException();
+            running = false;
         }
+
+        public SimulationOutcome Outcome => _outcome;
+
+        public Faction WinningFaction => _winningFaction;
     }
 }

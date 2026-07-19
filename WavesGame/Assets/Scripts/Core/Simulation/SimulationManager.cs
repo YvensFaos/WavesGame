@@ -126,15 +126,23 @@ namespace Core.Simulation
                     DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);
                     yield return simulationController.StartSimulation(simulationSeed);
                     DebugUtils.DebugLogMsg($"Simulation completed!", DebugUtils.DebugType.System);
+
+                    var outcome = simulationController.Outcome;
+                    var winningString = "";
+                    if (outcome == SimulationOutcome.Victory)
+                    {
+                        var winningFaction = simulationController.WinningFaction;
+                        winningString = $"Winning Faction: {winningFaction}";
+                    }
+                    DebugUtils.DebugLogMsg($"Result: {outcome}.{winningString}", DebugUtils.DebugType.System);
                     Destroy(simulationController.gameObject);
                 }
 
                 ++internalCounter;
             }
 
-            //
-
-
+            DebugUtils.DebugLogMsg($"All simulations completed!", DebugUtils.DebugType.System);
+            //TODO finalize the simulation system
             yield break;
 
             List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction, PlayerTypeBaseSo playerType,

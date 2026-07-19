@@ -296,6 +296,10 @@ namespace Core
             switch (type)
             {
                 case LevelGoalType.AIWars:
+                    if (TurnManager.TryToGetSingleton(out var turnManager))
+                    {
+                        return turnManager.GetTurnNumber() >= maxLlmTurns;
+                    }
                     return false;
                 case LevelGoalType.Custom:
                     //TODO change this in the future
@@ -366,9 +370,7 @@ namespace Core
         }
 
         public Faction GetWinnerFaction() => _winnerFaction;
-
-        // public int GetCurrentTurn() => turnNumber;
-
+        
         public int GetMaxTurns() => maxLlmTurns;
     }
 }
