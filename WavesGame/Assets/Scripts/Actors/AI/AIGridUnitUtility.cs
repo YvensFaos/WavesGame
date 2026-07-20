@@ -59,7 +59,37 @@ namespace Actors.AI
                         utility = float.MinValue;
                         break;
                     case WaveActor waveActor:
-                        utility -= waveActor.GetDamage();
+                        //If moving towards a wave, check if the waves is in the direction of the movement (good)
+                        //or opposite to it (bad)
+                        var currentPosition = aiNavalShip.GetUnit().Index();
+                        var wavePosition = waveActor.GetUnit().Index();
+                        var direction = wavePosition - currentPosition;
+                        var asVector2 = new Vector2(direction.x, direction.y);
+                        asVector2.Normalize();
+                        var waveDirection = waveActor.GetWaveDirection;
+                        switch (waveDirection)
+                        {
+                            case GridMoveType.Cross:
+                            case GridMoveType.Area:
+                            case GridMoveType.Diagonal:
+                                utility -= waveActor.GetDamage();
+                                break;
+                            case GridMoveType.Up:
+                                utility = direction.y >= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                break;
+                            case GridMoveType.Down:
+                                utility = direction.y <= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                break;
+                            case GridMoveType.Left:
+                                utility = direction.x <= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                break;
+                            case GridMoveType.Right:
+                                utility = direction.x >= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                        
                         break;
                 }
             }

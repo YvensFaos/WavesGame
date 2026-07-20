@@ -14,7 +14,8 @@ namespace Actors.AI.Brain
             var position = aiNavalShip.GetUnit();
             var positionIndex = position.Index();
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
-            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(positionIndex, stepsAvailable);
+            //Check only movement for a radius of 1 to considering every movement
+            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(positionIndex, 1);
             var utilities = new List<AIGridUnitUtility>();
             var genes = aiNavalShip.GetGenesData();
 
