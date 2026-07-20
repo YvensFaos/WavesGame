@@ -33,5 +33,7 @@ namespace Core.PlayerTypes
         {
             return actorPairs.Find(pair => pair.One.Equals(faction))?.Two;
         }
+
+        public abstract string GetName();
     }
 }

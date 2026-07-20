@@ -16,7 +16,7 @@ using UUtils;
 
 namespace Core.PlayerTypes
 {
-    [CreateAssetMenu(fileName = "LLM Player Type", menuName = "Waves/Player Type/LLM Player", order = 0)]
+    [CreateAssetMenu(fileName = "LLM Player Type", menuName = "Waves/Player Type/LLM Player", order = 3)]
     public class LlmPlayerType : PlayerTypeBaseSo
     {
         public LlmModelPairSo modelPair;
@@ -47,7 +47,7 @@ namespace Core.PlayerTypes
             }
         }
 
-        public string GetName()
+        public override string GetName()
         {
             return $"LlmPlayerType-{modelPair}-{promptSo.name}";
         }
