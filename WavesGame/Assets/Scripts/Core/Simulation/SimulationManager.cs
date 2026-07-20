@@ -69,7 +69,12 @@ namespace Core.Simulation
 
             DebugUtils.DebugLogMsg($"All simulations completed!", DebugUtils.DebugType.System);
             
-            //TODO unload other scenes and quit the game
+            yield return WaitUntilAsyncAdditiveUnloadScene(controllerScene);
+            DebugUtils.DebugLogMsg("Controller scene unloaded!", DebugUtils.DebugType.System);
+            yield return null;
+            
+            DebugUtils.DebugLogMsg("Quit application.", DebugUtils.DebugType.System);
+            ApplicationHelper.QuitApplication();
         }
 
         private IEnumerator RunSimulation(int i1, Simulation simulation)
