@@ -95,6 +95,14 @@ namespace Actors
             return base.TakeDamage(damageTaken);
         }
 
+        /// <summary>
+        /// Move to a given unit in the grid and reduces the amount of steps available automatically.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="onFinishMoving"></param>
+        /// <param name="animate"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public override bool MoveTo(GridUnit unit, Action<GridUnit> onFinishMoving, bool animate = false,
             float time = 0.5f)
         {
@@ -126,6 +134,7 @@ namespace Actors
             else
             {
                 transform.position = unit.transform.position;
+                //TODO update the stepsCounts
                 UpdateGridUnitOnMovement(unit);
                 onFinishMoving?.Invoke(unit);
             }

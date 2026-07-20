@@ -66,6 +66,7 @@ namespace Core.Simulation
                 for (var i = 1; i <= iterations; i++)
                 {
                     DebugUtils.DebugLogMsg($"Iteration Number: {i}.", DebugUtils.DebugType.System);
+
                     DebugUtils.DebugLogMsg(
                         $"Loading simulation Battle Ground scene [{simulation.BattleGroundScene}]...",
                         DebugUtils.DebugType.System);
@@ -99,7 +100,7 @@ namespace Core.Simulation
                             DebugUtils.DebugType.System);
                     }
 
-                    //Iterate over place holders to initialize ship prefabs
+                    //Iterate over placeholders to initialize ship prefabs
                     var factionPlayerTypes = simulation.FactionPlayerTypePairs;
                     var factionNavalShipsDictionary = new Dictionary<Faction, List<NavalShip>>();
                     var factionsHash = new HashSet<Faction>();
@@ -134,8 +135,33 @@ namespace Core.Simulation
                         var winningFaction = simulationController.WinningFaction;
                         winningString = $"Winning Faction: {winningFaction}";
                     }
+
                     DebugUtils.DebugLogMsg($"Result: {outcome}.{winningString}", DebugUtils.DebugType.System);
                     Destroy(simulationController.gameObject);
+
+                    yield return new WaitForSeconds(warmUpTimer);
+
+                    DebugUtils.DebugLogMsg(
+                        $"Unloading simulation Battle Ground scene [{simulation.BattleGroundScene}]...",
+                        DebugUtils.DebugType.System);
+                    yield return WaitUntilAsyncAdditiveUnloadScene(simulation.BattleGroundScene);
+                    DebugUtils.DebugLogMsg($"Battle Ground [{simulation.BattleGroundScene}] scene unloaded!",
+                        DebugUtils.DebugType.System);
+                    
+                    yield return new WaitForSeconds(warmUpTimer);
+
+                    //Destroy remaining actors
+                    var remainingActors = 0;
+                    DebugUtils.DebugLogMsg($"Deleting remaining actors...", DebugUtils.DebugType.System);
+                    foreach (var placeholder in factionNavalShipsDictionary.SelectMany(keyValuePair => keyValuePair.Value))
+                    {
+                        if (placeholder == null) continue;
+                        Destroy(placeholder.gameObject);
+                        remainingActors++;
+                    }
+                    DebugUtils.DebugLogMsg($"{remainingActors} actors removed!", DebugUtils.DebugType.System);
+
+                    yield return new WaitForSeconds(warmUpTimer);
                 }
 
                 ++internalCounter;
@@ -181,6 +207,20 @@ namespace Core.Simulation
             yield return new WaitUntil(() => asyncOperation is { isDone: true });
         }
 
+        private static IEnumerator WaitUntilAsyncAdditiveUnloadScene(string sceneName)
+        {
+            DebugUtils.DebugLogMsg($"Additive unloading scene: {sceneName}", DebugUtils.DebugType.System);
+            var asyncOperation = SceneManager.UnloadSceneAsync(sceneName);
+            if (asyncOperation == null)
+            {
+                DebugUtils.DebugLogErrorMsg($"Scene '{sceneName}' not found or already unloaded.");
+                yield break;
+            }
+
+            yield return asyncOperation;
+            yield return new WaitUntil(() => asyncOperation is { isDone: true });
+        }
+
         private void PerformFlags(Dictionary<Faction, List<NavalShip>> dictionary)
         {
             var factions = dictionary.Keys.ToList();
@@ -188,7 +228,7 @@ namespace Core.Simulation
             ChangeFactionOrder();
             InterleaveFactionOrder();
             return;
-            
+
             void ChangeFactionOrder()
             {
                 if (!flags.HasFlag(SimulationFlags.ChangeFactionOrder)) return;
@@ -197,6 +237,7 @@ namespace Core.Simulation
                     factions.Remove(_firstFaction);
                     factions.Add(_firstFaction);
                 }
+
                 _firstFaction = factions[0];
             }
 
@@ -208,7 +249,7 @@ namespace Core.Simulation
                 {
                     indices[i] = new Pair<Faction, int>(factions[i], 0);
                 }
-                
+
                 var order = 1;
                 int skip;
                 do
@@ -228,7 +269,7 @@ namespace Core.Simulation
                             skip++;
                         }
                     }
-                }while(skip < indices.Length - 1);
+                } while (skip < indices.Length - 1);
             }
         }
     }

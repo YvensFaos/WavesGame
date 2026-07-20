@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2465860514152689212}
   - component: {fileID: 7889225319036759644}
   m_Layer: 6
-  m_Name: AI SimpleBoat
+  m_Name: AI SimpleBoat Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a872b3a177941fa88fdc910f269e3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.AINavalShip
-  maxHealth: 10
+  maxHealth: 15
   currentHealth: 0
   currentUnit: {fileID: 0}
   targetRenderer: {fileID: 2759963361646680205}
@@ -66,9 +66,11 @@ MonoBehaviour:
   shipData: {fileID: 11400000, guid: 43f494d61b5cd48f28f7a6eff95158d6, type: 2}
   navalCannon: {fileID: 7889225319036759644}
   faction: {fileID: 11400000, guid: cfb967da26c2946d89664483c5a76968, type: 2}
+  initiative: 0
+  overrideInitiative: 0
   kills: 0
   <GenesData>k__BackingField: {fileID: 11400000, guid: cee14c0b324364f2ebc98f9725f1de87, type: 2}
-  overrideInitiative: 0
+  brain: {fileID: 11400000, guid: 5522c25df06b74657b1dc76c0484f364, type: 2}
 --- !u!114 &7889225319036759644
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ namespace Core.PlayerTypes
             if (navalShip is AINavalShip aiNavalShip)
             {
                 aiNavalShip.GenesData = aiGenesSo;
-                //TODO aiNavalShip.ChangeBrainTo(aiBrainMachine);
+                aiNavalShip.ChangeBrainTo(aiBrainMachine);
                 aiNavalShip.UpdateName();
             }
             else

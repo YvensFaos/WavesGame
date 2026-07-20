@@ -5,6 +5,7 @@ using UUtils;
 
 namespace Actors.AI.Brain
 {
+    [CreateAssetMenu(fileName = "New Utility AI Brain", menuName = "Waves/AI/Utility AI Brain", order = 1)]
     public class AIUtilityBrainMachine : AIBrainMachine
     {
         public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable,
@@ -100,7 +101,15 @@ namespace Actors.AI.Brain
             AIGridUnitUtility attackAt = null;
 
             var shouldMove = stepsAvailable > 0;
-            if (shouldMove) shouldMove = CalculateMovement(aiNavalShip, stepsAvailable, out moveTo);
+            if (shouldMove)
+            {
+                shouldMove = CalculateMovement(aiNavalShip, stepsAvailable, out moveTo);
+                if (moveTo.GetUnit().Equals(aiNavalShip.GetUnit()))
+                {
+                    //Trying to move to the same position
+                    shouldMove = false;
+                }
+            }
             var shouldAttack = actionsAvailable > 0;
             if (shouldAttack) shouldAttack = CalculateAttack(aiNavalShip, out attackAt);
 
@@ -161,6 +170,11 @@ namespace Actors.AI.Brain
             {
                 DebugUtils.DebugLogMsg($"Utils => {i} {utilities[i]}", DebugUtils.DebugType.Verbose);
             }
+        }
+
+        public override string ToString()
+        {
+            return "AIUtilityBrainMachine";
         }
     }
 }

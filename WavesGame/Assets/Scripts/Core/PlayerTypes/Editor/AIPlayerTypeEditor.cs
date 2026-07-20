@@ -12,18 +12,18 @@ using UUtils.Editor;
 
 namespace Core.PlayerTypes.Editor
 {
-    [CustomEditor(typeof(LlmPlayerType))]
-    public class LlmPlayerTypeEditor : UnityEditor.Editor
+    [CustomEditor(typeof(AIPlayerType))]
+    public class AIPlayerTypeEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
             EditorGUILayout.Space(10);
-            var llmPlayerType = (LlmPlayerType) target;
-            if (GUILayout.Button("Rename LLM Player Type"))
+            var aiPlayerType = (AIPlayerType) target;
+            if (GUILayout.Button("Rename AI Player Type"))
             {
-                RenameScriptableObjectHelper.RenameAssetFile(llmPlayerType, llmPlayerType.GetName());
+                RenameScriptableObjectHelper.RenameAssetFile(aiPlayerType, aiPlayerType.GetName());
             }
         }
     }

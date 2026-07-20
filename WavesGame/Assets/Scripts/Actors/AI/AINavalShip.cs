@@ -6,8 +6,9 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections;
-using Core;
+using Actors.AI.Brain;
 using UnityEngine;
 using UUtils;
 
@@ -17,14 +18,8 @@ namespace Actors.AI
     {
         [field: SerializeField] public AIGenesSO GenesData { get; set; }
 
-        private AIBrain _brain;
+        [SerializeField] private AIBrainMachine brain;
         private bool _calculatingAction;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _brain = new AIBrain(this, navalCannon.GetCannonSo);
-        }
 
         protected override void Start()
         {
@@ -34,70 +29,71 @@ namespace Actors.AI
 
         protected override IEnumerator TurnAI()
         {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForEndOfFrame();
 
-            //TODO
-            // LevelController.GetSingleton().AddInfoLog($"Start turn", name);
-            var canCalculateMove = _brain.CalculateMovement(currentUnit.Index(), stepsAvailable, out var chosenAction);
-            // LevelController.GetSingleton().AddInfoLog($"Can calculate move: {canCalculateMove}", name);
+            var actionsLeft = ActionsLeft;
+            var remainingSteps = RemainingSteps;
 
-            yield return new WaitForSeconds(0.25f);
-            if (canCalculateMove)
+            AIAction act;
+            do
             {
-                _calculatingAction = true;
-                var attacked = false;
-                DebugUtils.DebugLogMsg($"{name} has selected action {chosenAction}.", DebugUtils.DebugType.System);
-                // LevelController.GetSingleton().AddInfoLog($"Chosen action: {chosenAction}", name);
-                MoveTo(chosenAction.GetUnit(), unit =>
+                act = brain.CalculateAction(this, actionsLeft, remainingSteps, out var target);
+                var targetString = target != null ? target.ToString() : "[No Target]";
+                DebugUtils.DebugLogMsg($"{name} has selected action {act} with target {targetString}.", DebugUtils.DebugType.System);
+                switch (act)
                 {
-                    while (TryToAct())
-                    {
-                        var canCalculateAction = _brain.CalculateAction(unit.Index(), out chosenAction);
-                        // LevelController.GetSingleton().AddInfoLog($"Can calculate action: {canCalculateAction}", name);
-                        if (!canCalculateAction) continue;
-                        var targetUnit = chosenAction.GetUnit();
-                        if (targetUnit.ActorsCount() <= 0) continue;
-                        DebugUtils.DebugLogMsg($"{name} attacks {chosenAction}!", DebugUtils.DebugType.System);
-                        var damage = CalculateDamage();
-
-                        //TODO
-                        // if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
-                        // {
-                        //     var attackRecordEntry = new AttackRecordEntry(name, targetUnit.Index(),
-                        //         targetUnit.GetActor().name,
-                        //         damage, LevelController.GetSingleton().GetTurn(),
-                        //         LevelController.GetSingleton().GetTimeStamp());
-                        //     if (targetUnit.GetActor() is WaveActor)
-                        //     {
-                        //         attackRecordEntry.AppendComment($"Attacked a wave");
-                        //     }
-                        //
-                        //     wavesRecorder.RecordNewEntry(attackRecordEntry);
-                        // }
-
-                        kills = targetUnit.DamageActors(damage);
-                        //TODO
-                        // LevelController.GetSingleton().AddAttackLog(chosenAction.GetUnit().Index(), this, name);
-                        attacked = true;
-                    }
-
-                    _calculatingAction = false;
-                }, true);
-
-                yield return new WaitUntil(() => !_calculatingAction);
-                if (attacked)
-                {
-                    yield return new WaitForSeconds(1.25f);
+                    case AIAction.None:
+                        DebugUtils.DebugLogMsg($"{name} has no action to do!", DebugUtils.DebugType.System);
+                        act = AIAction.EndTurn;
+                        goto case AIAction.EndTurn;
+                    case AIAction.Movement:
+                        if (target == null)
+                        {
+                            DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
+                            break;
+                        }
+                        _calculatingAction = true;
+                        var move = MoveTo(target.GetUnit(), unit =>
+                        {
+                            _calculatingAction = false;
+                        }, true);
+                        yield return new WaitUntil(() => !_calculatingAction);
+                        remainingSteps = move ? RemainingSteps : 0;
+                        break;
+                    case AIAction.Attack:
+                        if (target == null)
+                        {
+                            DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
+                            break;
+                        }
+                        var targetUnit = target.GetUnit();
+                        if (targetUnit.ActorsCount() <= 0)
+                        {
+                            DebugUtils.DebugLogErrorMsg($"Target position has no valid targets [{targetUnit}].");
+                            break;
+                        }
+                        var firstActor = targetUnit.GetActor();
+                        DebugUtils.DebugLogMsg($"{name} attacks {firstActor}!", DebugUtils.DebugType.System);
+                        if (TryToAct())
+                        {
+                            var damage = CalculateDamage();
+                            kills += targetUnit.DamageActors(damage);
+                            yield return new WaitForSeconds(0.7f);
+                        }
+                        else
+                        {
+                            DebugUtils.DebugLogErrorMsg($"{name} cannot act! No more valid actions this turn.");
+                        }
+                        actionsLeft = ActionsLeft;
+                        break;
+                    case AIAction.EndTurn:
+                        DebugUtils.DebugLogMsg($"{name} finishes its turn!", DebugUtils.DebugType.System);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-
-                FinishAITurn();
-            }
-            else
-            {
-                // LevelController.GetSingleton().AddInfoLog($"Cannot calculate - random movement!", name);
-                var moveTo = AIBrain.GenerateRandomMovement(currentUnit.Index(), stepsAvailable);
-                MoveTo(moveTo, _ => { FinishAITurn(); }, true);
-            }
+            } while (act != AIAction.EndTurn);
+            FinishAITurn();
         }
 
         public void UpdateName()
@@ -111,6 +107,11 @@ namespace Actors.AI
         {
             var factionName = GetFaction().name;
             return $"Utility|{GenesData.name}|{factionName}|";
+        }
+
+        public void ChangeBrainTo(AIBrainMachine newBrain)
+        {
+            brain = newBrain;
         }
 
         public AIGenesSO GetGenesData() => GenesData;
