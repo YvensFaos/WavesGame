@@ -35,7 +35,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6804080615908462149
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,6 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!95 &3266146490834385687
 Animator:
   serializedVersion: 7
@@ -148,7 +149,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2719815080959028075
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -205,6 +206,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &9116787501436768038
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a27e67eaa084b17be7ae3d2c854f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Actors.NavalShip
-  maxHealth: 10
+  maxHealth: 15
   currentHealth: 0
   currentUnit: {fileID: 0}
   targetRenderer: {fileID: 6804080615908462149}
@@ -271,6 +273,8 @@ MonoBehaviour:
   shipData: {fileID: 11400000, guid: d3b3df1f633c94cfab3dad91ee6107a7, type: 2}
   navalCannon: {fileID: 5520116451851239357}
   faction: {fileID: 11400000, guid: 028f3a64e77ea4b9ea60ed05ea857e9f, type: 2}
+  initiative: 0
+  overrideInitiative: 0
 --- !u!114 &5520116451851239357
 MonoBehaviour:
   m_ObjectHideFlags: 0
