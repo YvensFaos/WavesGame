@@ -17,6 +17,7 @@ namespace Core.Simulation
     {
         [SerializeField] private int iterations;
         [SerializeReference, Scene] private string battleGroundScene;
+        [SerializeField] private bool record = true;
         [SerializeField] private List<FactionPlayerTypePair> factionPlayerTypePairs;
 
         public string BattleGroundScene => battleGroundScene;
@@ -24,5 +25,6 @@ namespace Core.Simulation
         public List<FactionPlayerTypePair> FactionPlayerTypePairs => factionPlayerTypePairs;
 
         public int Iterations => iterations;
+        public bool Record => record;
     }
 }

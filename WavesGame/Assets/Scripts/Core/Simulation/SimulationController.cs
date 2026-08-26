@@ -52,7 +52,7 @@ namespace Core.Simulation
             yield return null;
 
             Random.InitState(randomSeed);
-            levelActors = FindObjectsByType<GridActor>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID)
+            levelActors = FindObjectsByType<GridActor>(FindObjectsInactive.Exclude)
                 .ToList();
             
             //Initialize level goal elements

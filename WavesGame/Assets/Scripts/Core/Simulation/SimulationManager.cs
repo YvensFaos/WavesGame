@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Actors;
 using Core.PlayerTypes;
+using Core.Recorder;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,9 +32,13 @@ namespace Core.Simulation
         [Header("Simulation Settings")] [SerializeField]
         private SimulationFlags flags;
 
+        [Header("Recorder")] [SerializeField] private WavesRecorder wavesRecorderPrefab;
+
         [SerializeField] private float warmUpTimer;
         [SerializeField] private int simulationSeed = 6;
         [SerializeField, ReadOnly] private Faction firstFaction;
+        
+        private WavesRecorder _wavesRecorder;
 
         private void Start()
         {
@@ -68,119 +73,150 @@ namespace Core.Simulation
             }
 
             DebugUtils.DebugLogMsg($"All simulations completed!", DebugUtils.DebugType.System);
-            
+
             yield return WaitUntilAsyncAdditiveUnloadScene(controllerScene);
             DebugUtils.DebugLogMsg("Controller scene unloaded!", DebugUtils.DebugType.System);
             yield return null;
-            
+
             DebugUtils.DebugLogMsg("Quit application.", DebugUtils.DebugType.System);
             ApplicationHelper.QuitApplication();
         }
 
-        private IEnumerator RunSimulation(int i1, Simulation simulation)
+        private IEnumerator RunSimulation(int iterationNumber, Simulation simulation)
         {
+            DebugUtils.DebugLogMsg($"Iteration Number: {iterationNumber}.", DebugUtils.DebugType.System);
+
+            DebugUtils.DebugLogMsg(
+                $"Loading simulation Battle Ground scene [{simulation.BattleGroundScene}]...",
+                DebugUtils.DebugType.System);
+
+            yield return WaitUntilAsyncAdditiveLoadScene(simulation.BattleGroundScene);
+
+            DebugUtils.DebugLogMsg($"Battle Ground [{simulation.BattleGroundScene}] scene loaded!",
+                DebugUtils.DebugType.System);
+
+            var placeholders =
+                FindObjectsByType<PlaceholderActor>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)
+                    .ToList();
+            DebugUtils.DebugLogMsg($"Placeholders found: {placeholders.Count}!", DebugUtils.DebugType.System);
+            placeholders.Sort();
+
+            var factionsDictionary = new Dictionary<Faction, List<PlaceholderActor>>();
+            foreach (var placeholder in placeholders)
             {
-                DebugUtils.DebugLogMsg($"Iteration Number: {i1}.", DebugUtils.DebugType.System);
-
-                DebugUtils.DebugLogMsg(
-                    $"Loading simulation Battle Ground scene [{simulation.BattleGroundScene}]...",
-                    DebugUtils.DebugType.System);
-
-                yield return WaitUntilAsyncAdditiveLoadScene(simulation.BattleGroundScene);
-
-                DebugUtils.DebugLogMsg($"Battle Ground [{simulation.BattleGroundScene}] scene loaded!",
-                    DebugUtils.DebugType.System);
-
-                var placeholders =
-                    FindObjectsByType<PlaceholderActor>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)
-                        .ToList();
-                DebugUtils.DebugLogMsg($"Placeholders found: {placeholders.Count}!", DebugUtils.DebugType.System);
-                placeholders.Sort();
-
-                var factionsDictionary = new Dictionary<Faction, List<PlaceholderActor>>();
-                foreach (var placeholder in placeholders)
+                if (!factionsDictionary.ContainsKey(placeholder.PlaceholderFaction))
                 {
-                    if (!factionsDictionary.ContainsKey(placeholder.PlaceholderFaction))
-                    {
-                        factionsDictionary.Add(placeholder.PlaceholderFaction, new List<PlaceholderActor>());
-                    }
-
-                    factionsDictionary[placeholder.PlaceholderFaction].Add(placeholder);
+                    factionsDictionary.Add(placeholder.PlaceholderFaction, new List<PlaceholderActor>());
                 }
 
-                foreach (var keyValuePair in factionsDictionary)
-                {
-                    DebugUtils.DebugLogMsg(
-                        $"Placeholders from {keyValuePair.Key} found: {keyValuePair.Value.Count}!",
-                        DebugUtils.DebugType.System);
-                }
-
-                //Iterate over placeholders to initialize ship prefabs
-                var factionPlayerTypes = simulation.FactionPlayerTypePairs;
-                var factionNavalShipsDictionary = new Dictionary<Faction, List<NavalShip>>();
-                var factionsHash = new HashSet<Faction>();
-                foreach (var keyValuePair in factionPlayerTypes)
-                {
-                    factionsHash.Add(keyValuePair.One);
-                }
-
-                foreach (var factionPlayerTypePair in factionPlayerTypes)
-                {
-                    var faction = factionPlayerTypePair.One;
-                    var playerType = factionPlayerTypePair.Two;
-                    var factionList = factionsDictionary[faction];
-                    var navalShips =
-                        InitializePlaceHoldersForFactionAndType(faction, playerType, factionList, factionsHash);
-                    factionNavalShipsDictionary.Add(faction, navalShips);
-                }
-                PerformFlags(factionNavalShipsDictionary);
-
-                var simulationController = Instantiate(simulationControllerPrefab);
-                simulationController.Initialize(factionNavalShipsDictionary);
-
-                DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);
-                yield return simulationController.StartSimulation(simulationSeed);
-                DebugUtils.DebugLogMsg($"Simulation completed!", DebugUtils.DebugType.System);
-
-                var outcome = simulationController.Outcome;
-                var winningString = "";
-                if (outcome == SimulationOutcome.Victory)
-                {
-                    var winningFaction = simulationController.WinningFaction;
-                    winningString = $"Winning Faction: {winningFaction}";
-                }
-
-                DebugUtils.DebugLogMsg($"Result: {outcome}.{winningString}", DebugUtils.DebugType.System);
-                Destroy(simulationController.gameObject);
-
-                yield return new WaitForSeconds(warmUpTimer);
-
-                DebugUtils.DebugLogMsg(
-                    $"Unloading simulation Battle Ground scene [{simulation.BattleGroundScene}]...",
-                    DebugUtils.DebugType.System);
-                yield return WaitUntilAsyncAdditiveUnloadScene(simulation.BattleGroundScene);
-                DebugUtils.DebugLogMsg($"Battle Ground [{simulation.BattleGroundScene}] scene unloaded!",
-                    DebugUtils.DebugType.System);
-
-                yield return new WaitForSeconds(warmUpTimer);
-
-                //Destroy remaining actors
-                var remainingActors = 0;
-                DebugUtils.DebugLogMsg($"Deleting remaining actors...", DebugUtils.DebugType.System);
-                foreach (var placeholder in factionNavalShipsDictionary.SelectMany(keyValuePair =>
-                             keyValuePair.Value))
-                {
-                    if (placeholder == null) continue;
-                    Destroy(placeholder.gameObject);
-                    remainingActors++;
-                }
-
-                DebugUtils.DebugLogMsg($"{remainingActors} actors removed!", DebugUtils.DebugType.System);
-                yield return new WaitForSeconds(warmUpTimer);
+                factionsDictionary[placeholder.PlaceholderFaction].Add(placeholder);
             }
+
+            foreach (var keyValuePair in factionsDictionary)
+            {
+                DebugUtils.DebugLogMsg(
+                    $"Placeholders from {keyValuePair.Key} found: {keyValuePair.Value.Count}!",
+                    DebugUtils.DebugType.System);
+            }
+
+            //Iterate over placeholders to initialize ship prefabs
+            var factionPlayerTypes = simulation.FactionPlayerTypePairs;
+            var factionNavalShipsDictionary = new Dictionary<Faction, List<NavalShip>>();
+            var factionsHash = new HashSet<Faction>();
+            foreach (var keyValuePair in factionPlayerTypes)
+            {
+                factionsHash.Add(keyValuePair.One);
+            }
+
+            List<NavalShip> navalShips = new List<NavalShip>();
+            //Initialize naval ships according to their types
+            foreach (var factionPlayerTypePair in factionPlayerTypes)
+            {
+                var faction = factionPlayerTypePair.One;
+                var playerType = factionPlayerTypePair.Two;
+                var factionList = factionsDictionary[faction];
+                navalShips =
+                    InitializePlaceHoldersForFactionAndType(faction, playerType, factionList, factionsHash);
+                factionNavalShipsDictionary.Add(faction, navalShips);
+            }
+
+            PerformFlags(factionNavalShipsDictionary);
+            
+            var simulationController = Instantiate(simulationControllerPrefab);
+            simulationController.Initialize(factionNavalShipsDictionary);
+            
+            //Wait for the naval actors to load their indices
+            yield return new WaitForEndOfFrame();
+            
+            //Start recorder, if the simulation should be recorded
+            var shouldRecord = simulation.Record;
+            if (shouldRecord)
+            {
+                if (_wavesRecorder != null)
+                {
+                    Destroy(_wavesRecorder);
+                }
+                
+                _wavesRecorder = Instantiate(wavesRecorderPrefab, transform);
+                var levelGoal = simulationController.GetLevelGoal();
+                var maxTurns = levelGoal.GetMaxTurns();
+                var navalActors = navalShips.Cast<NavalActor>().ToList();
+                var recordingIdentifier = $"{simulationController.GetLevelRecordingName()}-iteration[{iterationNumber}]";
+                DebugUtils.DebugLogMsg($"Starting recording...", DebugUtils.DebugType.System);
+                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, simulationSeed, maxTurns, navalActors, recordingIdentifier);
+            }
+
+            DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);
+            yield return simulationController.StartSimulation(simulationSeed);
+            DebugUtils.DebugLogMsg($"Simulation completed!", DebugUtils.DebugType.System);
+
+            var outcome = simulationController.Outcome;
+            var winningString = "";
+            if (outcome == SimulationOutcome.Victory)
+            {
+                var winningFaction = simulationController.WinningFaction;
+                winningString = $"Winning Faction: {winningFaction}";
+            }
+
+            DebugUtils.DebugLogMsg($"Result: {outcome}.{winningString}", DebugUtils.DebugType.System);
+            Destroy(simulationController.gameObject);
+
+            if (shouldRecord)
+            {
+                DebugUtils.DebugLogMsg($"Stop recording!", DebugUtils.DebugType.System);
+                _wavesRecorder.Stop();
+                Destroy(_wavesRecorder);
+            }
+            _wavesRecorder = null;
+
+            yield return new WaitForSeconds(warmUpTimer);
+
+            DebugUtils.DebugLogMsg(
+                $"Unloading simulation Battle Ground scene [{simulation.BattleGroundScene}]...",
+                DebugUtils.DebugType.System);
+            yield return WaitUntilAsyncAdditiveUnloadScene(simulation.BattleGroundScene);
+            DebugUtils.DebugLogMsg($"Battle Ground [{simulation.BattleGroundScene}] scene unloaded!",
+                DebugUtils.DebugType.System);
+
+            yield return new WaitForSeconds(warmUpTimer);
+
+            //Destroy remaining actors
+            var remainingActors = 0;
+            DebugUtils.DebugLogMsg($"Deleting remaining actors...", DebugUtils.DebugType.System);
+            foreach (var placeholder in factionNavalShipsDictionary.SelectMany(keyValuePair =>
+                         keyValuePair.Value))
+            {
+                if (placeholder == null) continue;
+                Destroy(placeholder.gameObject);
+                remainingActors++;
+            }
+
+            DebugUtils.DebugLogMsg($"{remainingActors} actors removed!", DebugUtils.DebugType.System);
+            yield return new WaitForSeconds(warmUpTimer);
         }
 
-        private static List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction, PlayerTypeBaseSo playerType,
+        private static List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction,
+            PlayerTypeBaseSo playerType,
             List<PlaceholderActor> placeHolders, HashSet<Faction> factionsHash)
         {
             var navalShips = new List<NavalShip>();
@@ -206,7 +242,7 @@ namespace Core.Simulation
 
             return navalShips;
         }
-        
+
         private static IEnumerator WaitUntilAsyncAdditiveLoadScene(string sceneName)
         {
             DebugUtils.DebugLogMsg($"Additive loading scene: {sceneName}", DebugUtils.DebugType.System);

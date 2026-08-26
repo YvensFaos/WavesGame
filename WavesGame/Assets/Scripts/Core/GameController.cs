@@ -130,7 +130,7 @@ namespace Core
             levelGoal.RemoveFactionCount(aiBaseShip);
         }
 
-        protected string GetLevelRecordingName()
+        public string GetLevelRecordingName()
         {
             return
                 $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
@@ -148,6 +148,7 @@ namespace Core
             }
         }
 
+        public LevelGoal GetLevelGoal() => levelGoal;
         public int GetRandomSeed() => randomSeed;
         public List<NavalActor>.Enumerator GetNavalActorsEnumerator() => levelNavalActors.GetEnumerator();
     }
