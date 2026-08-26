@@ -29,7 +29,7 @@ namespace Actors
         [SerializeField] private int initiative;
         [SerializeField] private int overrideInitiative = -1;
 
-        protected int stepsAvailable;
+        private int _stepsAvailable;
 
         protected override void Awake()
         {
@@ -50,7 +50,7 @@ namespace Actors
         {
             //Reset turn variables
             ActionsLeft = shipData.stats.spirit.Two;
-            stepsAvailable = shipData.stats.speed.Two;
+            _stepsAvailable = shipData.stats.speed.Two;
         }
 
         public virtual void EndTurn()
@@ -109,7 +109,7 @@ namespace Actors
             if (animate)
             {
                 var steps = GridManager.GetSingleton()
-                    .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), stepsAvailable,
+                    .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), _stepsAvailable,
                         true);
 
                 if (steps.Count == 0)
@@ -121,7 +121,7 @@ namespace Actors
                 }
 
                 var stepsCount = steps.Count - 1; //Removes the initial (current) step from the movement count.
-                stepsAvailable = Mathf.Max(stepsAvailable - stepsCount, 0);
+                _stepsAvailable = Mathf.Max(_stepsAvailable - stepsCount, 0);
 
                 if (steps.Count <= 0)
                 {
@@ -240,10 +240,16 @@ namespace Actors
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(new DeathRecordEntry(name, faction));
         }
+        
+        public virtual void UpdateName()
+        {
+            var internalIDStr = internalID.ToString();
+            name = $"{name}|{faction.name}|{internalIDStr}";
+        }
 
         public NavalShipSo ShipData => shipData;
         public BaseCannon NavalCannon => navalCannon;
-        public int RemainingSteps => stepsAvailable;
+        public int RemainingSteps => _stepsAvailable;
         public int ActionsLeft { get; private set; }
         public Faction GetFaction() => faction;
         public SpriteRenderer Renderer() => spriteRenderer;

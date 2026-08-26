@@ -61,7 +61,7 @@ namespace Actors.AI.LlmAI
             UpdateName();
         }
 
-        public void UpdateName()
+        public override void UpdateName()
         {
             var internalIDStr = internalID.ToString();
             if (llmCaller == null || llmCaller.GetLlmType() == LlmType.Custom)

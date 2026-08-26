@@ -9,7 +9,7 @@ namespace Core.PlayerTypes
     {
         public override void InitializeType(NavalShip navalShip, HashSet<Faction> factions)
         {
-            //TODO do something here
+            navalShip.UpdateName();
         }
 
         public override string GetName()

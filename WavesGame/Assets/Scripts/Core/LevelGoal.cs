@@ -261,17 +261,6 @@ namespace Core
                         {
                             DebugUtils.DebugLogMsg($"Draw! Max number of turns reached: {turnNumber} == {maxLlmTurns}.",
                                 DebugUtils.DebugType.System);
-
-                            //TODO Log the final ship status
-                            // foreach (var navalShipFactionPair in factionShips)
-                            // {
-                            //     var ship = navalShipFactionPair.One;
-                            //     if (ship != null && ship is LlmAINavalShip llmAINavalShip)
-                            //     {
-                            //         llmAINavalShip.LogFinalInformation();
-                            //     }
-                            // }
-
                             return true;
                         }
                     }
@@ -294,18 +283,6 @@ namespace Core
                     if (!endLevel) return false;
 
                     _winnerFaction = aliveFaction;
-
-                    //TODO Log the final ship status
-                    // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-                    // foreach (var navalShipFactionPair in factionShips)
-                    // {
-                    //     var aiShip = navalShipFactionPair.One;
-                    //     if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
-                    //     {
-                    //         llmAINavalShip.LogFinalInformation();
-                    //     }
-                    // }
-
                     return true;
                 }
                 default:
@@ -319,11 +296,6 @@ namespace Core
         {
             _survivedTurns++;
         }
-
-        // public void NextTurn()
-        // {
-        //     turnNumber++;
-        // }
 
         public bool CheckGameOver()
         {
@@ -400,9 +372,8 @@ namespace Core
                     var enumerator = sortedFactions.GetEnumerator();
                     while (enumerator.MoveNext())
                     {
-                        var shipInfo = "";
                         var navalShipFactionPair = factionShips.Find(ship => ship.Two.Equals(enumerator.Current.Key));
-                        shipInfo = navalShipFactionPair switch
+                        var shipInfo = navalShipFactionPair switch
                         {
                             { One: LlmAINavalShip llmNavalShip } => $"[{llmNavalShip.GetLlmInfo()}]",
                             { One: AIBaseShip aiShipNavalShip } => $"[{aiShipNavalShip.name}]",
