@@ -25,6 +25,7 @@ namespace Core
         DestroyAllEnemies,
         SurviveForTurns,
         DestroySpecificEnemy,
+        Battleground,
         AIWars,
         Custom
     }
@@ -41,6 +42,7 @@ namespace Core
                 LevelGoalType.DestroySpecificEnemy => "Destroy Specific Enemy",
                 LevelGoalType.AIWars => "AI Wars",
                 LevelGoalType.Custom => "Custom",
+                LevelGoalType.Battleground => "Battleground",
                 _ => throw new ArgumentOutOfRangeException(nameof(levelGoalType), levelGoalType, null)
             };
         }
@@ -55,15 +57,16 @@ namespace Core
                 "Destroy Specific Enemy" => LevelGoalType.DestroySpecificEnemy,
                 "AI Wars" => LevelGoalType.AIWars,
                 "Custom" => LevelGoalType.Custom,
+                "Battleground" => LevelGoalType.Battleground,
                 _ => throw new ArgumentOutOfRangeException(nameof(levelGoalType), levelGoalType, null)
             };
         }
     }
 
     [Serializable]
-    public class AIShipFactionPair : Pair<NavalShip, Faction>
+    public class NavalShipFactionPair : Pair<NavalShip, Faction>
     {
-        public AIShipFactionPair(NavalShip one, Faction two) : base(one, two)
+        public NavalShipFactionPair(NavalShip one, Faction two) : base(one, two)
         {
         }
     }
@@ -78,7 +81,7 @@ namespace Core
         [SerializeField, ReadOnly] private List<NavalShip> levelShips;
         [SerializeField, ReadOnly] private List<NavalShip> playerLevelShips;
         [SerializeField, ReadOnly] private List<NavalShip> enemyLevelShips;
-        [SerializeField, ReadOnly] private List<AIShipFactionPair> enemyFactionShips;
+        [SerializeField, ReadOnly] private List<NavalShipFactionPair> factionShips;
         private Dictionary<Faction, int> _availableFactions;
         private int _survivedTurns;
         private Faction _winnerFaction;
@@ -100,6 +103,7 @@ namespace Core
                     case NavalShip navalShip:
                     {
                         levelShips.Add(navalShip);
+                        IncreaseFactionCount(navalShip);
                         if (navalShip.NavalType == NavalActorType.Player)
                         {
                             playerLevelShips.Add(navalShip);
@@ -107,15 +111,6 @@ namespace Core
                         else
                         {
                             enemyLevelShips.Add(navalShip);
-                            switch (navalShip)
-                            {
-                                case AINavalShip aiNavalShip:
-                                    IncreaseFactionCount(aiNavalShip);
-                                    break;
-                                case LlmAINavalShip llmNavalShip:
-                                    IncreaseFactionCount(llmNavalShip);
-                                    break;
-                            }
                         }
                     }
                         break;
@@ -126,7 +121,7 @@ namespace Core
         private void IncreaseFactionCount(NavalShip navalShip)
         {
             var faction = navalShip.GetFaction();
-            enemyFactionShips.Add(new AIShipFactionPair(navalShip, faction));
+            factionShips.Add(new NavalShipFactionPair(navalShip, faction));
             if (!_availableFactions.TryAdd(faction, 1))
             {
                 _availableFactions[faction]++;
@@ -160,32 +155,18 @@ namespace Core
             {
                 enemyLevelShips.Remove(navalShip);
                 enemyLevelShips.RemoveAll(target => target == null);
-
-                switch (navalShip)
-                {
-                    case LlmAINavalShip llmNavalShip:
-                    {
-                        UpdateFactionCount(llmNavalShip);
-                        break;
-                    }
-                    case AINavalShip aiNavalShip:
-                    {
-                        UpdateFactionCount(aiNavalShip);
-                        break;
-                    }
-                    default:
-                        return CheckGoal();
-                }
             }
+
+            UpdateFactionCount(navalShip);
 
             return CheckGoal();
 
-            void UpdateFactionCount(NavalShip otherNavalShip)
+            void UpdateFactionCount(NavalShip removedNavalShip)
             {
-                var faction = otherNavalShip.GetFaction();
+                var faction = removedNavalShip.GetFaction();
                 _availableFactions[faction]--;
                 DebugUtils.DebugLogMsg(
-                    $"Naval Ship was an AI Ship {otherNavalShip.name} from the {faction} faction. Remaining: {_availableFactions[faction]}.",
+                    $"Naval Ship was an Ship {removedNavalShip.name} from the {faction} faction. Remaining: {_availableFactions[faction]}.",
                     DebugUtils.DebugType.System);
             }
         }
@@ -207,7 +188,6 @@ namespace Core
                     break;
                 case LevelGoalType.AIWars:
                 {
-                    
                     // var levelController = LevelController.GetSingleton();
                     if (TurnManager.TryToGetSingleton(out var turnManager))
                     {
@@ -219,7 +199,7 @@ namespace Core
                             // levelController.AddInfoLog($"Draw! No faction won.", "LevelGoal");
                             // levelController
                             //     .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
-                            foreach (var aiShipPair in enemyFactionShips)
+                            foreach (var aiShipPair in factionShips)
                             {
                                 var aiShip = aiShipPair.One;
                                 if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
@@ -261,7 +241,7 @@ namespace Core
                     // }
 
                     // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-                    foreach (var aiShipPair in enemyFactionShips)
+                    foreach (var aiShipPair in factionShips)
                     {
                         var aiShip = aiShipPair.One;
                         if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
@@ -269,6 +249,62 @@ namespace Core
                             llmAINavalShip.LogFinalInformation();
                         }
                     }
+
+                    return true;
+                }
+                case LevelGoalType.Battleground:
+                {
+                    if (TurnManager.TryToGetSingleton(out var turnManager))
+                    {
+                        var turnNumber = turnManager.GetTurnNumber();
+                        if (turnNumber >= maxLlmTurns)
+                        {
+                            DebugUtils.DebugLogMsg($"Draw! Max number of turns reached: {turnNumber} == {maxLlmTurns}.",
+                                DebugUtils.DebugType.System);
+
+                            //TODO Log the final ship status
+                            // foreach (var navalShipFactionPair in factionShips)
+                            // {
+                            //     var ship = navalShipFactionPair.One;
+                            //     if (ship != null && ship is LlmAINavalShip llmAINavalShip)
+                            //     {
+                            //         llmAINavalShip.LogFinalInformation();
+                            //     }
+                            // }
+
+                            return true;
+                        }
+                    }
+
+                    var enumerator = _availableFactions.GetEnumerator();
+                    var alive = 0;
+                    Faction aliveFaction = null;
+                    while (enumerator.MoveNext())
+                    {
+                        var current = enumerator.Current;
+                        if (current.Value <= 0) continue;
+                        aliveFaction = current.Key;
+                        alive++;
+                    }
+
+                    //Only one survived, then it won!
+                    enumerator.Dispose();
+                    DebugUtils.DebugLogMsg($"Factions remaining {alive}", DebugUtils.DebugType.System);
+                    var endLevel = alive == 1;
+                    if (!endLevel) return false;
+
+                    _winnerFaction = aliveFaction;
+
+                    //TODO Log the final ship status
+                    // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+                    // foreach (var navalShipFactionPair in factionShips)
+                    // {
+                    //     var aiShip = navalShipFactionPair.One;
+                    //     if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
+                    //     {
+                    //         llmAINavalShip.LogFinalInformation();
+                    //     }
+                    // }
 
                     return true;
                 }
@@ -295,11 +331,13 @@ namespace Core
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
             switch (type)
             {
+                case  LevelGoalType.DestroyAllTargets:
                 case LevelGoalType.AIWars:
                     if (TurnManager.TryToGetSingleton(out var turnManager))
                     {
                         return turnManager.GetTurnNumber() >= maxLlmTurns;
                     }
+
                     return false;
                 case LevelGoalType.Custom:
                     //TODO change this in the future
@@ -315,8 +353,6 @@ namespace Core
             switch (type)
             {
                 case LevelGoalType.DestroyAllTargets:
-                    message = LevelGoalTypeExtension.LevelGoalTypeToString(type);
-                    break;
                 case LevelGoalType.DestroyAllEnemies:
                     message = LevelGoalTypeExtension.LevelGoalTypeToString(type);
                     break;
@@ -327,6 +363,7 @@ namespace Core
                     message = $"Destroy {destroyTarget.name}";
                     break;
                 case LevelGoalType.AIWars:
+                {
                     message = "AI Wars = ";
                     var sortedFactions = _availableFactions.ToList();
                     sortedFactions.Sort((pair, valuePair) =>
@@ -335,7 +372,7 @@ namespace Core
                     while (enumerator.MoveNext())
                     {
                         var llmInfo = "";
-                        var aiShip = enemyFactionShips.Find(ship => ship.Two.Equals(enumerator.Current.Key));
+                        var aiShip = factionShips.Find(ship => ship.Two.Equals(enumerator.Current.Key));
 
                         llmInfo = aiShip switch
                         {
@@ -349,9 +386,34 @@ namespace Core
 
                     enumerator.Dispose();
                     message = message[..^2];
+                }
                     break;
                 case LevelGoalType.Custom:
                     message = LevelGoalTypeExtension.LevelGoalTypeToString(type);
+                    break;
+                case LevelGoalType.Battleground:
+                {
+                    message = "Battleground = ";
+                    var sortedFactions = _availableFactions.ToList();
+                    sortedFactions.Sort((pair, valuePair) =>
+                        string.Compare(pair.Key.ToString(), valuePair.Key.ToString(), StringComparison.Ordinal));
+                    var enumerator = sortedFactions.GetEnumerator();
+                    while (enumerator.MoveNext())
+                    {
+                        var shipInfo = "";
+                        var navalShipFactionPair = factionShips.Find(ship => ship.Two.Equals(enumerator.Current.Key));
+                        shipInfo = navalShipFactionPair switch
+                        {
+                            { One: LlmAINavalShip llmNavalShip } => $"[{llmNavalShip.GetLlmInfo()}]",
+                            { One: AIBaseShip aiShipNavalShip } => $"[{aiShipNavalShip.name}]",
+                            _ => "Player"
+                        };
+                        message += $"{enumerator.Current.Key}{shipInfo} x ";
+                    }
+
+                    enumerator.Dispose();
+                    message = message[..^2];
+                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -370,7 +432,9 @@ namespace Core
         }
 
         public Faction GetWinnerFaction() => _winnerFaction;
-        
+
         public int GetMaxTurns() => maxLlmTurns;
+
+        public Dictionary<Faction, int> Factions => _availableFactions;
     }
 }

@@ -106,7 +106,7 @@ namespace Core.Simulation
                     continue;
                 }
 
-                while (enumerator.MoveNext())
+                while (enumerator.MoveNext() && running)
                 {
                     // If the current is valid, then proceed with its turn.
                     if (!enumerator.Current) continue;
@@ -117,12 +117,15 @@ namespace Core.Simulation
                         var turnUI = GetActorTurnUI(navalShip);
                         turnUI.ToggleAvailability(true);
 
-                        CursorController.GetSingleton().MoveToIndex(navalShip.GetUnit().Index());
-                        yield return 0.5f;
-
-                        navalShip.StartTurn();
                         // Move the cursor to the ship
-                        yield return new WaitUntil(() => endTurn);
+                        CursorController.GetSingleton().MoveToIndex(navalShip.GetUnit().Index());
+                        yield return 0.75f;
+
+                        // Waits for the ship's turn
+                        navalShip.StartTurn();
+                        
+                        // Waits for the ship's turn or if the game ends during the ship's turn (!running)
+                        yield return new WaitUntil(() => endTurn || !running);
 
                         // Check if the naval ship was not destroyed during its own turn.
                         if (navalShip == null) continue;

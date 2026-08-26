@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
@@ -49,6 +50,7 @@ namespace Actors.AI.LlmAI
             return false;
         }
         
+        [Obsolete]
         public List<NavalActor> SetupLevel(List<GridActor> levelActors)
         {
             currentSchedule = schedules[internalCounter];
