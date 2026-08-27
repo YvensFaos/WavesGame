@@ -14,6 +14,7 @@ namespace Core.Recorder
     public class NavalActorEntryJson
     {
         [SerializeField] public string name;
+        [SerializeField] public int startingHealth;
         [SerializeField] public string shipPrefabType;
         [SerializeField] public string faction;
         [SerializeField] public string shipData;
@@ -22,6 +23,9 @@ namespace Core.Recorder
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
         public string genesData = null;
+        
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
+        public string machineBrain = null;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
         public string basePrompt = null;
@@ -38,6 +42,7 @@ namespace Core.Recorder
         public NavalActorEntryJson(NavalActor navalActor)
         {
             name = navalActor.name;
+            startingHealth = navalActor.GetCurrentHealth();
             var shipType = navalActor.GetType();
             shipPrefabType = shipType.Name;
             initialPosition = new SimpleVector2Int(navalActor.GetUnit().Index());
@@ -50,6 +55,7 @@ namespace Core.Recorder
             llmType = null;
             llmModel = null;
             genesData = null;
+            machineBrain = null;
 
             switch (navalActor)
             {
@@ -69,6 +75,8 @@ namespace Core.Recorder
                 case AINavalShip aiNavalShip:
                 {
                     genesData = aiNavalShip.GetGenesData().name;
+                    machineBrain = aiNavalShip.GetBrain().name;
+                    
                     GetInfoFromNavalShip(aiNavalShip);
                 }
                     break;

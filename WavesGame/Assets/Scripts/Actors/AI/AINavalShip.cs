@@ -117,6 +117,8 @@ namespace Actors.AI
             brain = newBrain;
         }
 
+        public AIBrainMachine GetBrain() => brain;
+
         public AIGenesSO GetGenesData() => GenesData;
     }
 }
