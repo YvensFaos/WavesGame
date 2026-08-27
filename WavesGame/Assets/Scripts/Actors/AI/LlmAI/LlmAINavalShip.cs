@@ -78,6 +78,7 @@ namespace Actors.AI.LlmAI
 
             yield return new WaitForSeconds(0.05f);
 
+            //TODO record the LLM delays and timers
             DebugUtils.DebugLogMsg($"Request Timer. Wait for {requestTimeOutTimer} seconds.",
                 DebugUtils.DebugType.System);
             yield return new WaitForSeconds(requestTimeOutTimer);

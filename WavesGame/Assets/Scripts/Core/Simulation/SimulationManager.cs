@@ -135,9 +135,10 @@ namespace Core.Simulation
                 var faction = factionPlayerTypePair.One;
                 var playerType = factionPlayerTypePair.Two;
                 var factionList = factionsDictionary[faction];
-                navalShips =
+                var factionNavalShips =
                     InitializePlaceHoldersForFactionAndType(faction, playerType, factionList, factionsHash);
-                factionNavalShipsDictionary.Add(faction, navalShips);
+                factionNavalShipsDictionary.Add(faction, factionNavalShips);
+                navalShips.AddRange(factionNavalShips);
             }
 
             PerformFlags(factionNavalShipsDictionary);
