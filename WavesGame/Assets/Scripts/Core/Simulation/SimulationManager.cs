@@ -37,7 +37,7 @@ namespace Core.Simulation
         [SerializeField] private float warmUpTimer;
         [SerializeField] private int simulationSeed = 6;
         [SerializeField, ReadOnly] private Faction firstFaction;
-        
+
         private WavesRecorder _wavesRecorder;
 
         private void Start()
@@ -128,7 +128,7 @@ namespace Core.Simulation
                 factionsHash.Add(keyValuePair.One);
             }
 
-            List<NavalShip> navalShips = new List<NavalShip>();
+            var navalShips = new List<NavalShip>();
             //Initialize naval ships according to their types
             foreach (var factionPlayerTypePair in factionPlayerTypes)
             {
@@ -141,29 +141,32 @@ namespace Core.Simulation
             }
 
             PerformFlags(factionNavalShipsDictionary);
-            
+
             var simulationController = Instantiate(simulationControllerPrefab);
             simulationController.Initialize(factionNavalShipsDictionary);
-            
+
             //Wait for the naval actors to load their indices
             yield return new WaitForEndOfFrame();
-            
+
             //Start recorder, if the simulation should be recorded
             var shouldRecord = simulation.Record;
+            var levelGoal = simulationController.GetLevelGoal();
+            var levelGoalMessage = levelGoal.GetLevelMessage();
             if (shouldRecord)
             {
                 if (_wavesRecorder != null)
                 {
                     Destroy(_wavesRecorder);
                 }
-                
+
                 _wavesRecorder = Instantiate(wavesRecorderPrefab, transform);
-                var levelGoal = simulationController.GetLevelGoal();
                 var maxTurns = levelGoal.GetMaxTurns();
                 var navalActors = navalShips.Cast<NavalActor>().ToList();
-                var recordingIdentifier = $"{simulationController.GetLevelRecordingName()}-iteration[{iterationNumber}]";
+                var recordingIdentifier =
+                    $"{simulation.BattleGroundScene}-{simulationController.GetLevelMessageAndTime()}-iteration[{iterationNumber}]";
                 DebugUtils.DebugLogMsg($"Starting recording...", DebugUtils.DebugType.System);
-                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, simulationSeed, maxTurns, navalActors, recordingIdentifier);
+                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, simulationSeed, maxTurns, navalActors,
+                    recordingIdentifier);
             }
 
             DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);
@@ -172,13 +175,19 @@ namespace Core.Simulation
 
             var outcome = simulationController.Outcome;
             var winningString = "";
+            var winningFaction = simulationController.WinningFaction;
             if (outcome == SimulationOutcome.Victory)
             {
-                var winningFaction = simulationController.WinningFaction;
                 winningString = $"Winning Faction: {winningFaction}";
             }
 
             DebugUtils.DebugLogMsg($"Result: {outcome}.{winningString}", DebugUtils.DebugType.System);
+
+            if (shouldRecord)
+            {
+                RecordSimulationOutcome(levelGoalMessage, outcome, simulationController.WinningFaction);
+            }
+
             Destroy(simulationController.gameObject);
 
             if (shouldRecord)
@@ -187,6 +196,7 @@ namespace Core.Simulation
                 _wavesRecorder.Stop();
                 Destroy(_wavesRecorder);
             }
+
             _wavesRecorder = null;
 
             yield return new WaitForSeconds(warmUpTimer);
@@ -213,6 +223,13 @@ namespace Core.Simulation
 
             DebugUtils.DebugLogMsg($"{remainingActors} actors removed!", DebugUtils.DebugType.System);
             yield return new WaitForSeconds(warmUpTimer);
+        }
+
+        private void RecordSimulationOutcome(string levelMessage, SimulationOutcome outcome, Faction winningFaction)
+        {
+            if (_wavesRecorder == null) return;
+            _wavesRecorder.RecordNewEntry(new EndGameRecordEntry(levelMessage, winningFaction,
+                outcome == SimulationOutcome.Victory));
         }
 
         private static List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction,

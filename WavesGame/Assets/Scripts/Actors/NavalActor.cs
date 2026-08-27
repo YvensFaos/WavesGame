@@ -181,7 +181,7 @@ namespace Actors
             RecordMovement(MakeNewMovementEntry(moveFrom, moveTo));
         }
 
-        protected static void RecordMovement(MovementRecordEntry entry)
+        private static void RecordMovement(MovementRecordEntry entry)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(entry);

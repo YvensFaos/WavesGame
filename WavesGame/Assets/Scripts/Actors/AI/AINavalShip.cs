@@ -39,7 +39,8 @@ namespace Actors.AI
             {
                 act = brain.CalculateAction(this, actionsLeft, remainingSteps, out var target);
                 var targetString = target != null ? target.ToString() : "[No Target]";
-                DebugUtils.DebugLogMsg($"{name} has selected action {act} with target {targetString}.", DebugUtils.DebugType.System);
+                var utilityReasoning = $"{name} has selected action {act} with target {targetString}.";
+                DebugUtils.DebugLogMsg($"{utilityReasoning}", DebugUtils.DebugType.System);
                 switch (act)
                 {
                     case AIAction.None:
@@ -53,6 +54,7 @@ namespace Actors.AI
                             break;
                         }
                         _calculatingAction = true;
+                        //TODO
                         var move = MoveTo(target.GetUnit(), unit =>
                         {
                             _calculatingAction = false;
@@ -77,6 +79,7 @@ namespace Actors.AI
                         if (TryToAct())
                         {
                             var damage = CalculateDamage();
+                            RecordAttack(firstActor, targetUnit, damage, utilityReasoning);
                             kills += targetUnit.DamageActors(damage);
                             yield return new WaitForSeconds(0.7f);
                         }

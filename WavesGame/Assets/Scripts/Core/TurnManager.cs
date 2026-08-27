@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using Core.Recorder;
 using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
@@ -30,6 +31,13 @@ namespace Core
         public void NextTurn()
         {
             turnNumber++;
+            RecordTurn();
+        }
+
+        private void RecordTurn()
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new TurnRecordEntry(turnNumber));
         }
         
         public int GetTurnNumber() => turnNumber;

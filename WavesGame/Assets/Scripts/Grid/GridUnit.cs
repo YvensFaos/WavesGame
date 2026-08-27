@@ -170,7 +170,7 @@ namespace Grid
 
         public override string ToString()
         {
-            return $"{name} {Index()}";
+            return $"{name} {index}";
         }
 
         public string GetStringInfo()

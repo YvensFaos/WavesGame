@@ -135,6 +135,12 @@ namespace Core
             return
                 $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
         }
+        
+        public string GetLevelMessageAndTime()
+        {
+            return
+                $"{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
+        }
 
         public static void TryToUseGameController(Action<GameController> function)
         {

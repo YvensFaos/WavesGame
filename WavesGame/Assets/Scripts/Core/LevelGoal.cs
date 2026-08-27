@@ -199,14 +199,14 @@ namespace Core
                             // levelController.AddInfoLog($"Draw! No faction won.", "LevelGoal");
                             // levelController
                             //     .AddInfoLog($"Logging remaining ships. Count: {enemyFactionShips.Count}.", "LevelGoal");
-                            foreach (var aiShipPair in factionShips)
-                            {
-                                var aiShip = aiShipPair.One;
-                                if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
-                                {
-                                    llmAINavalShip.LogFinalInformation();
-                                }
-                            }
+                            // foreach (var aiShipPair in factionShips)
+                            // {
+                            //     var aiShip = aiShipPair.One;
+                            //     if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
+                            //     {
+                            //         // llmAINavalShip.LogFinalInformation();
+                            //     }
+                            // }
 
                             return true;
                         }
@@ -241,14 +241,14 @@ namespace Core
                     // }
 
                     // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-                    foreach (var aiShipPair in factionShips)
-                    {
-                        var aiShip = aiShipPair.One;
-                        if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
-                        {
-                            llmAINavalShip.LogFinalInformation();
-                        }
-                    }
+                    // foreach (var aiShipPair in factionShips)
+                    // {
+                    //     var aiShip = aiShipPair.One;
+                    //     if (aiShip != null && aiShip is LlmAINavalShip llmAINavalShip)
+                    //     {
+                    //         // llmAINavalShip.LogFinalInformation();
+                    //     }
+                    // }
 
                     return true;
                 }
@@ -303,7 +303,8 @@ namespace Core
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
             switch (type)
             {
-                case  LevelGoalType.DestroyAllTargets:
+                case LevelGoalType.DestroyAllTargets:
+                case LevelGoalType.Battleground:
                 case LevelGoalType.AIWars:
                     if (TurnManager.TryToGetSingleton(out var turnManager))
                     {
