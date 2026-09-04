@@ -277,20 +277,11 @@ namespace Core
                     DebugUtils.DebugLogMsg($"Act upon {targetActor.name}!", DebugUtils.DebugType.Verbose);
 
                     var damage = navalShip.CalculateDamage();
-                    // if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
-                    // {
-                    //     var attackRecordEntry = new AttackRecordEntry
-                    //     (_selectedActor.gameObject.name, targetActor.GetUnit().Index(), targetActor.name,
-                    //         damage, LevelController.GetSingleton().GetTurn(),
-                    //         LevelController.GetSingleton().GetTimeStamp());
-                    //     if (targetActor is WaveActor)
-                    //     {
-                    //         attackRecordEntry.AppendComment($"Attacked a wave");
-                    //     }
-                    //
-                    //     wavesRecorder.RecordNewEntry(attackRecordEntry);
-                    // }
-
+                    
+                    var attackedWave = targetActor is WaveActor;
+                    var reasoning = attackedWave ? "Attacked a wave" : "Regular attack";
+                    navalShip.RecordAttack(targetActor, gridUnit, damage, reasoning);
+                  
                     targetActor.TakeDamage(damage);
                     attackHappened = true;
                 }
