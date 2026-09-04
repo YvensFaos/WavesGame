@@ -54,7 +54,7 @@ namespace Core.Simulation
             Random.InitState(randomSeed);
             levelActors = FindObjectsByType<GridActor>(FindObjectsInactive.Exclude)
                 .ToList();
-            
+
             //Initialize level goal elements
             levelGoal.Initialize(levelActors);
             yield return null;
@@ -123,7 +123,7 @@ namespace Core.Simulation
 
                         // Waits for the ship's turn
                         navalShip.StartTurn();
-                        
+
                         // Waits for the ship's turn or if the game ends during the ship's turn (!running)
                         yield return new WaitUntil(() => endTurn || !running);
 
@@ -148,6 +148,10 @@ namespace Core.Simulation
                     turnManager.NextTurn();
                     turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
                 }
+
+                var currentActors = levelActors.Where(actor => actor != null && actor is NavalActor)
+                    .Select(actor => (NavalActor)actor).ToList();
+                RecordGameState(currentActors);
 
                 if (levelGoal.CheckGoal())
                 {

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using Actors;
 using Actors.AI;
+using Core.Recorder;
 using Grid;
 using NaughtyAttributes;
 using TMPro;
@@ -17,6 +18,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UUtils;
+using Random = UnityEngine.Random;
 
 namespace Core
 {
@@ -134,6 +136,12 @@ namespace Core
         {
             return
                 $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
+        }
+
+        protected void RecordGameState(List<NavalActor> actors)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new StateRecordEntry(actors));
         }
         
         public string GetLevelMessageAndTime()
