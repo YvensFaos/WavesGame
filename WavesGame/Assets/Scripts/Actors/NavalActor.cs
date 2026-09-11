@@ -167,13 +167,13 @@ namespace Actors
         protected virtual void RecordDamage(int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DamageRecordEntry(name, null, damage));
+            recorder.RecordNewEntry(new DamageRecordEntry(name, Faction.GetNeutralFaction(), damage));
         }
 
         protected virtual void RecordDeath()
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DeathRecordEntry(name, null));
+            recorder.RecordNewEntry(new DeathRecordEntry(name, Faction.GetNeutralFaction()));
         }
 
         protected void RecordMovement(GridUnit moveFrom, GridUnit moveTo)

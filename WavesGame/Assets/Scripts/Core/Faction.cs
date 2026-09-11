@@ -14,10 +14,20 @@ namespace Actors
     public class Faction : ScriptableObject
     {
         public Color factionColor;
+        private static Faction neutral;
         
         public override string ToString()
         {
             return name;
+        }
+
+        public static Faction GetNeutralFaction()
+        {
+            if (neutral != null) return neutral;
+            neutral = CreateInstance<Faction>();
+            neutral.factionColor = Color.white;
+            neutral.name = "Neutral";
+            return neutral;
         }
     }
 }

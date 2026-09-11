@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Recorder;
 using Grid;
 using NaughtyAttributes;
 using UnityEngine;
@@ -72,7 +73,7 @@ namespace Actors
                     var enumerator = unit.GetActorEnumerator();
                     while (enumerator.MoveNext())
                     {
-                        RecordAttack(enumerator.Current, damage);
+                        RecordPropagation(enumerator.Current);
                     }
 
                     enumerator.Dispose();
@@ -131,28 +132,18 @@ namespace Actors
             return new GridStepEffectResult(false, pushTo, true, waveDamage);
         }
 
-        //TODO
         private void RecordDamage(int damage)
         {
-            //TODO
-            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            // recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
-            //     LevelController.GetSingleton().GetTimeStamp()));
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var damageRecordEntry = new DamageRecordEntry(name, Faction.GetNeutralFaction(), damage);
+            recorder.RecordNewEntry(damageRecordEntry);
         }
 
-        //TODO
-        private void RecordAttack(GridActor targetActor, int damage)
+        private void RecordPropagation(GridActor targetActor)
         {
-            //TODO
-            // if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            // var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), targetActor.name, damage,
-            //     LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
-            // if (targetActor is WaveActor)
-            // {
-            //     attackRecordEntry.AppendComment($"Attacked a wave");
-            // }
-            //
-            // recorder.RecordNewEntry(attackRecordEntry);
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var propagationEntry = new PropagationEntry(name, targetActor.name);
+            recorder.RecordNewEntry(propagationEntry);
         }
 
         public float GetDamage() => waveDamage;

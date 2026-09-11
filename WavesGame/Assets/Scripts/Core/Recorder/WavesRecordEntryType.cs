@@ -23,6 +23,7 @@ namespace Core.Recorder
         EndGame,
         Information,
         Command,
+        Propagation,
         InvalidAttempt,
         Input,
         Turn
@@ -48,6 +49,7 @@ namespace Core.Recorder
                 WavesRecordEntryType.Turn => "TURN",
                 WavesRecordEntryType.GameState => "GSTT",
                 WavesRecordEntryType.ScenarioState => "SCNR",
+                WavesRecordEntryType.Propagation => "PPGT",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }

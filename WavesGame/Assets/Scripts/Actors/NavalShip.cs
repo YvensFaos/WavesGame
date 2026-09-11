@@ -172,6 +172,7 @@ namespace Actors
                 var stepEffects = current.GetHasStepEffectActors();
                 if (stepEffects.Count <= 0) continue;
                 DebugUtils.DebugLogMsg($"{name} has stepped on something!", DebugUtils.DebugType.Verbose);
+                
                 foreach (var effect in stepEffects.Select(stepActor => stepActor.StepEffect(this)))
                 {
                     if (effect.causeDamage)
@@ -192,6 +193,7 @@ namespace Actors
                     // var waveMovementEntry = MakeNewMovementEntry(firstStep, moveToUnit);
                     // waveMovementEntry.AppendComment($"Moved by wave effect!");
                     // RecordMovement(waveMovementEntry);
+                    
                     transform.DOMove(moveToUnit.transform.position, time).OnComplete(() =>
                     {
                         DebugUtils.DebugLogMsg($"{name} being pushed by the waves to {moveToUnit.Index()}!",
