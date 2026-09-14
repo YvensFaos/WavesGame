@@ -20,6 +20,7 @@ namespace Core.Recorder
         Goal,
         GameState,
         ScenarioState,
+        StepFX,
         EndGame,
         Information,
         Command,
@@ -50,6 +51,7 @@ namespace Core.Recorder
                 WavesRecordEntryType.GameState => "GSTT",
                 WavesRecordEntryType.ScenarioState => "SCNR",
                 WavesRecordEntryType.Propagation => "PPGT",
+                WavesRecordEntryType.StepFX => "STFX",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }

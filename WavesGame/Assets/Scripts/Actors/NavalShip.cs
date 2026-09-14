@@ -175,6 +175,8 @@ namespace Actors
                 
                 foreach (var effect in stepEffects.Select(stepActor => stepActor.StepEffect(this)))
                 {
+                    RecordStepEffect(effect.stepActor, effect.damage);
+                    
                     if (effect.causeDamage)
                     {
                         cumulativeDamage += effect.damage;
@@ -199,10 +201,13 @@ namespace Actors
                         DebugUtils.DebugLogMsg($"{name} being pushed by the waves to {moveToUnit.Index()}!",
                             DebugUtils.DebugType.Verbose);
                         UpdateGridUnitOnMovement(moveToUnit);
+                        
+                        //TODO Add an effect for pushing the naval ship
                         finalStep = moveToUnit;
                         continueSteps = false;
                         nextStep = true;
-                        //Being pushed back, but it seems to keep on marking the wrong piece in the map
+                        
+                        //TODO Being pushed back, but it seems to keep on marking the wrong piece in the map
                     });
                     yield return new WaitUntil(() => nextStep);
                 }

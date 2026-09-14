@@ -125,11 +125,11 @@ namespace Actors
             var pushUnblockedArea = pushArea.FindAll(unit => unit.Type() != GridUnitType.Blocked);
 
             //If there are no valid places to push, ignore the step effect, cause damage and block movement from proceeding.
-            if (pushUnblockedArea.Count == 0) return new GridStepEffectResult(false, null, true, waveDamage);
+            if (pushUnblockedArea.Count == 0) return new GridStepEffectResult(this, false, null, true, waveDamage);
 
             //Gets a random position from the list of pushable spaces.
             var pushTo = RandomHelper<GridUnit>.GetRandomFromList(pushUnblockedArea);
-            return new GridStepEffectResult(false, pushTo, true, waveDamage);
+            return new GridStepEffectResult(this, false, pushTo, true, waveDamage);
         }
 
         private void RecordDamage(int damage)

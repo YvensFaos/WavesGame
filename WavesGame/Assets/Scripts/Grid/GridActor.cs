@@ -103,7 +103,7 @@ namespace Grid
         /// <returns>Returns the effects of stepping on this actor.</returns>
         public virtual GridStepEffectResult StepEffect(GridActor stepper)
         {
-            return new GridStepEffectResult(true, null, false, 0);
+            return new GridStepEffectResult(stepper, true, null, false, 0);
         }
 
         public bool BlockGridUnit => blockGridUnit;

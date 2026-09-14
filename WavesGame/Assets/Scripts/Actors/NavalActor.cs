@@ -186,6 +186,12 @@ namespace Actors
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(entry);
         }
+        
+        protected void RecordStepEffect(GridActor stepActor, int damage)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new StepEffectEntry(stepActor.name, name, damage));
+        }
 
         public NavalActorType NavalType => navalType;
 
