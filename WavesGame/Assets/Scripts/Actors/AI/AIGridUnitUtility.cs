@@ -266,6 +266,7 @@ namespace Actors.AI
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
+                    case ObstacleActor:
                     case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         utility = float.MinValue;
                         break;
@@ -422,7 +423,7 @@ namespace Actors.AI
 
         public override string ToString()
         {
-            return $"{_unit.Index()} - U = {Utility}";
+            return $"{_unit.Index()} - U = {Utility} [{_unit.GetActor()?.name} - {_unit.Index()}]";
         }
     }
 }

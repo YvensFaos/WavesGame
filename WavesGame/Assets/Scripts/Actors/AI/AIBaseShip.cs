@@ -41,16 +41,19 @@ namespace Actors.AI
 
         protected virtual void FinishAITurn()
         {
-            if (LevelController.TryToGetSingleton(out var levelController))
+            DelayHelper.DelayOneFrame(this, () =>
             {
-                levelController.EndTurnForCurrentActor();
-            }
+                if (LevelController.TryToGetSingleton(out var levelController))
+                {
+                    levelController.EndTurnForCurrentActor();
+                }
 
-            if (SimulationController.TryToGetSingleton(out var simulationController))
-            {
-                simulationController.EndTurnForCurrentActor();
-            }
-            DebugUtils.DebugLogMsg($"{name} has finished its turn.", DebugUtils.DebugType.System);
+                if (SimulationController.TryToGetSingleton(out var simulationController))
+                {
+                    simulationController.EndTurnForCurrentActor();
+                }
+                DebugUtils.DebugLogMsg($"{name} has finished its turn.", DebugUtils.DebugType.System);
+            });
         }
         
         protected abstract IEnumerator TurnAI();

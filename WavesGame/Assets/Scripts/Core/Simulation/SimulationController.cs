@@ -86,7 +86,8 @@ namespace Core.Simulation
             });
 
             var firstActor = allNavalShips[0];
-            CursorController.GetSingleton().MoveToIndex(firstActor.GetUnit().Index());
+            var cursorController = CursorController.GetSingleton();
+            cursorController.MoveToIndex(firstActor.GetUnit().Index());
             yield return 0.5f;
 
             if (TurnManager.TryToGetSingleton(out turnManager))
@@ -122,7 +123,13 @@ namespace Core.Simulation
                         turnUI.ToggleAvailability(true);
 
                         // Move the cursor to the ship
-                        CursorController.GetSingleton().MoveToIndex(navalShip.GetUnit().Index());
+                        if (cursorController.MovingAnimation())
+                        {
+                            DebugUtils.DebugLogMsg($"Cursor is still moving...", DebugUtils.DebugType.System);
+                            yield return new WaitUntil(() => !cursorController.MovingAnimation());
+                        }
+                        
+                        cursorController.MoveToIndex(navalShip.GetUnit().Index());
                         yield return 0.75f;
 
                         // Waits for the ship's turn
@@ -134,6 +141,7 @@ namespace Core.Simulation
                         // Check if the naval ship was not destroyed during its own turn.
                         if (navalShip == null) continue;
                         navalShip.EndTurn();
+                        yield return 0.25f;
 
                         if (enumerator.Current is { Two: true })
                         {

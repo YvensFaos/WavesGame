@@ -375,6 +375,7 @@ namespace Core
             RemoveControllerCallbacks();
         }
 
+        public bool MovingAnimation() => _movingAnimation;
         public Vector2Int GetIndex() => index;
         public NavalActor GetSelectedActor() => _selectedActor;
         public bool IsActive() => _active;

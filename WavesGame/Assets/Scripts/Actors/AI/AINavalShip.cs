@@ -33,7 +33,8 @@ namespace Actors.AI
 
             var actionsLeft = ActionsLeft;
             var remainingSteps = RemainingSteps;
-
+            DebugUtils.DebugLogMsg($"{name} has {actionsLeft} actions and steps {remainingSteps}!", DebugUtils.DebugType.System);
+            
             AIAction act;
             do
             {
@@ -44,7 +45,7 @@ namespace Actors.AI
                 switch (act)
                 {
                     case AIAction.None:
-                        DebugUtils.DebugLogMsg($"{name} has no action to do!", DebugUtils.DebugType.System);
+                        DebugUtils.DebugLogMsg($"{name} decided on no action! Has still {actionsLeft} actions and {remainingSteps} movements left.", DebugUtils.DebugType.System);
                         act = AIAction.EndTurn;
                         goto case AIAction.EndTurn;
                     case AIAction.Movement:
@@ -78,6 +79,7 @@ namespace Actors.AI
                         DebugUtils.DebugLogMsg($"{name} attacks {firstActor}!", DebugUtils.DebugType.System);
                         if (TryToAct())
                         {
+                            --actionsLeft;
                             var damage = CalculateDamage();
                             RecordAttack(firstActor, targetUnit, damage, utilityReasoning);
                             kills += targetUnit.DamageActors(damage);
@@ -87,7 +89,6 @@ namespace Actors.AI
                         {
                             DebugUtils.DebugLogErrorMsg($"{name} cannot act! No more valid actions this turn.");
                         }
-                        actionsLeft = ActionsLeft;
                         break;
                     case AIAction.EndTurn:
                         DebugUtils.DebugLogMsg($"{name} finishes its turn!", DebugUtils.DebugType.System);

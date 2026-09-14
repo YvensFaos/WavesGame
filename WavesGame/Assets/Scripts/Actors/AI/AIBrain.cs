@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections.Generic;
 using Actors.Cannon;
 using Grid;
@@ -14,6 +15,7 @@ using UUtils;
 
 namespace Actors.AI
 {
+    [Obsolete]
     public class AIBrain
     {
         private readonly AINavalShip _aiNavalShip;
