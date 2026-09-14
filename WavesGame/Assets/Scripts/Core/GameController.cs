@@ -18,7 +18,6 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UUtils;
-using Random = UnityEngine.Random;
 
 namespace Core
 {

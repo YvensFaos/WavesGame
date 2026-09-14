@@ -12,25 +12,29 @@ using UnityEngine;
 
 namespace Actors.AI.Brain
 {
-    [CreateAssetMenu(fileName = "New Utility AI Brain", menuName = "Waves/AI/Utility AI Brain", order = 1)]
-    public class AIUtilityBrainMachine : AIBrainMachine
+    internal enum AIClassicState
     {
+        Start, Move, Attack, MoveAgain
+    }
+    
+    [CreateAssetMenu(fileName = "New Classic Utility AI Brain", menuName = "Waves/AI/Classic Utility AI Brain", order = 2)]
+    public class AIClassicUtilityBrainMachine : AIBrainMachine
+    {
+        private AIClassicState _state = AIClassicState.Start;
+        
         public override void StartTurn(AINavalShip aiNavalShip)
         {
-            
+            _state = AIClassicState.Start;
         }
 
-        public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable,
-            out AIGridUnitUtility moveTo)
+        public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, out AIGridUnitUtility moveTo)
         {
-            var position = aiNavalShip.GetUnit();
-            var positionIndex = position.Index();
-            var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
-            //Check only movement for a radius of 1 to considering every movement
-            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(positionIndex, 1);
+            var position = aiNavalShip.GetUnit().Index();
+            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(position, stepsAvailable);
             var utilities = new List<AIGridUnitUtility>();
             var genes = aiNavalShip.GetGenesData();
-
+            var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
+            
             //First calculate all possible movements
             foreach (var unit in walkableUnits)
             {
@@ -80,12 +84,11 @@ namespace Actors.AI.Brain
 
         public override bool CalculateAttack(AINavalShip aiNavalShip, out AIGridUnitUtility attack)
         {
-            var position = aiNavalShip.GetUnit();
-            var positionIndex = position.Index();
+            attack = null;
+            var position = aiNavalShip.GetUnit().Index();
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
             var attackableFromUnit = GridManager.GetSingleton().GetGridUnitsForMoveType(cannonData.targetAreaType,
-                positionIndex, cannonData.area, cannonData.deadZone);
-            attack = null;
+                position, cannonData.area, cannonData.deadZone);
 
             if (attackableFromUnit == null || attackableFromUnit.Count == 0) return false;
 
@@ -109,49 +112,35 @@ namespace Actors.AI.Brain
             out AIGridUnitUtility target)
         {
             target = null;
-            if (actionsAvailable <= 0 && stepsAvailable <= 0) return AIAction.EndTurn;
-            AIGridUnitUtility moveTo = null;
-            AIGridUnitUtility attackAt = null;
-
-            var shouldMove = stepsAvailable > 0;
-            if (shouldMove)
+            
+            switch (_state)
             {
-                shouldMove = CalculateMovement(aiNavalShip, stepsAvailable, out moveTo);
-                if (moveTo.GetUnit().Equals(aiNavalShip.GetUnit()))
-                {
-                    //Trying to move to the same position
-                    shouldMove = false;
-                }
-            }
-            var shouldAttack = actionsAvailable > 0;
-            if (shouldAttack) shouldAttack = CalculateAttack(aiNavalShip, out attackAt);
-
-            switch (shouldMove)
-            {
-                //If should not move and should not attack
-                case false when !shouldAttack:
-                    return AIAction.None;
-                //If should move and should attack, then use the one with the highest utility
-                case true when shouldAttack:
-                {
-                    var action = moveTo.Utility > attackAt.Utility ? AIAction.Movement : AIAction.EndTurn;
-                    target = moveTo.Utility > attackAt.Utility ? moveTo : attackAt;
-                    return action;
-                }
-                //If should only move and not attack
-                case true:
-                    target = moveTo;
+                case AIClassicState.Start:
+                    _state = AIClassicState.Move;
+                    CalculateMovement(aiNavalShip, stepsAvailable, out target);
                     return AIAction.Movement;
-                //If should not move but should attack
+                case AIClassicState.Move:
+                    _state = AIClassicState.Attack;
+                    return CalculateAttack(aiNavalShip, out target) ? AIAction.Attack : AIAction.None;
+                case AIClassicState.Attack:
+                    _state = AIClassicState.MoveAgain;
+                    if (stepsAvailable > 0 && CalculateMovement(aiNavalShip, stepsAvailable, out target))
+                    {
+                        return AIAction.Movement;
+                    }
+                    //Else, moves to the end of the method and return AIAction.EndTurn
+                    break;
+                case AIClassicState.MoveAgain:
                 default:
-                    target = attackAt;
-                    return AIAction.Attack;
+                    break;
             }
+            
+            return AIAction.EndTurn;
         }
         
         public override string ToString()
         {
-            return "AIUtilityBrainMachine";
+            return "AIClassicUtilityBrainMachine";
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Actors.AI
             var actionsLeft = ActionsLeft;
             var remainingSteps = RemainingSteps;
             DebugUtils.DebugLogMsg($"{name} has {actionsLeft} actions and steps {remainingSteps}!", DebugUtils.DebugType.System);
+            brain.StartTurn(this);
             
             AIAction act;
             do
