@@ -52,21 +52,16 @@ namespace Actors
 
         public override bool TakeDamage(int damage)
         {
-            //TODO replace MaxValue with some more controlled value
-            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            damage = ClampDamage(damage);
             var destroyed = false;
             if (damage > 0)
             {
                 destroyed = base.TakeDamage(damage);
+                RecordDamage(damage);
                 if (destroyed)
                 {
                     RecordDeath();
                 }
-                else
-                {
-                    RecordDamage(damage);
-                }
-
                 var ratio = GetHealthRatio();
                 healthBar.SetFillFactor(ratio, 1 - ratio);
                 AnimateDamage();
@@ -81,11 +76,16 @@ namespace Actors
 
         public void TakeDirectDamage(int damage)
         {
-            //TODO replace MaxValue with some more controlled value
-            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            damage = ClampDamage(damage);
             base.TakeDamage(damage);
             var ratio = GetHealthRatio();
             healthBar.SetFillFactor(ratio, 1 - ratio);
+        }
+
+        private int ClampDamage(int damage)
+        {
+            //TODO replace MaxValue with some more controlled value
+            return Mathf.Clamp(damage, 0, int.MaxValue);
         }
 
         public void AnimateDamage(bool miss = false)

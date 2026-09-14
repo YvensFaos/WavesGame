@@ -69,13 +69,13 @@ namespace Actors
             {
                 if (unit.ActorsCount() > 0)
                 {
-                    unit.DamageActors(damage);
                     var enumerator = unit.GetActorEnumerator();
                     while (enumerator.MoveNext())
                     {
-                        RecordPropagation(enumerator.Current);
+                        RecordPropagation(enumerator.Current, damage);
                     }
-
+                    unit.DamageActors(damage);
+                    
                     enumerator.Dispose();
                 }
                 else
@@ -139,10 +139,10 @@ namespace Actors
             recorder.RecordNewEntry(damageRecordEntry);
         }
 
-        private void RecordPropagation(GridActor targetActor)
+        private void RecordPropagation(GridActor targetActor, int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var propagationEntry = new PropagationEntry(name, targetActor.name);
+            var propagationEntry = new PropagationEntry(name, targetActor.name, damage);
             recorder.RecordNewEntry(propagationEntry);
         }
 
