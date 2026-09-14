@@ -15,6 +15,9 @@ namespace Core.PlayerTypes.Editor
     [CustomEditor(typeof(AIPlayerType))]
     public class AIPlayerTypeEditor : UnityEditor.Editor
     {
+        private UnityEditor.Editor _scriptableAiGeneObjectEditor;
+        private UnityEditor.Editor _scriptableBrainMachineObjectEditor;
+        
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
@@ -25,6 +28,23 @@ namespace Core.PlayerTypes.Editor
             {
                 RenameScriptableObjectHelper.RenameAssetFile(aiPlayerType, aiPlayerType.GetName());
             }
+            
+            var playerType = (AIPlayerType)target;
+            var aiGenesSo = playerType.aiGenesSo;
+            if (aiGenesSo != null)
+            {
+                EditorGUILayout.Space(15);
+                EditorGUILayout.HelpBox("AI Genes SO", MessageType.Info);
+                CreateCachedEditor(aiGenesSo, null, ref _scriptableAiGeneObjectEditor);
+                _scriptableAiGeneObjectEditor.OnInspectorGUI();    
+            }
+
+            var aiBrainMachine = playerType.aiBrainMachine;
+            if (aiBrainMachine == null) return;
+            EditorGUILayout.Space(15);
+            EditorGUILayout.HelpBox("AI Brain Machine SO", MessageType.Info);
+            CreateCachedEditor(aiBrainMachine, null, ref _scriptableBrainMachineObjectEditor);
+            _scriptableBrainMachineObjectEditor.OnInspectorGUI();
         }
     }
 }

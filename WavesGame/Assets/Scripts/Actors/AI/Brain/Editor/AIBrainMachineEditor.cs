@@ -10,20 +10,20 @@ using UnityEditor;
 using UnityEngine;
 using UUtils.Editor;
 
-namespace Actors.AI.LlmAI.Editor
+namespace Actors.AI.Brain.Editor
 {
-    [CustomEditor(typeof(LlmModelPairSo))]
-    public class LlmModelPairSoEditor : UnityEditor.Editor
+    [CustomEditor(typeof(AIBrainMachine))]
+    public class AIBrainMachineEditor: UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
             EditorGUILayout.Space(10);
-            var llmModelPairSo = (LlmModelPairSo) target;
-            if (GUILayout.Button("Rename LlmModelPair"))
+            var aiBrainMachine = (AIBrainMachine) target;
+            if (GUILayout.Button("Rename AIBrainMachine"))
             {
-                RenameScriptableObjectHelper.RenameAssetFile(llmModelPairSo, llmModelPairSo.modelPair.ToString());
+                RenameScriptableObjectHelper.RenameAssetFile(aiBrainMachine, aiBrainMachine.ToString());
             }
         }
     }

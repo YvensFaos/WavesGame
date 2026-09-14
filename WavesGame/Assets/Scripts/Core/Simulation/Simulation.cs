@@ -7,6 +7,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -26,5 +27,12 @@ namespace Core.Simulation
 
         public int Iterations => iterations;
         public bool Record => record;
+
+        public override string ToString()
+        {
+            var players = factionPlayerTypePairs.Aggregate("", (current, pair) => current + $"{pair.Two.GetName()}-{pair.One} x ");
+            players = players[..^2];
+            return $"{players} {battleGroundScene}";
+        }
     }
 }

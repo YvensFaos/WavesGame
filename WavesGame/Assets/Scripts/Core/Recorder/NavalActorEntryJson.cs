@@ -16,6 +16,35 @@ using UnityEngine;
 namespace Core.Recorder
 {
     [Serializable]
+    public class GeneEntryJson
+    {
+        [SerializeField] public float aggressiveness;
+        [SerializeField] public float patience;
+        [SerializeField] public float friendliness;
+        [SerializeField] public float selfPreservation;
+        [SerializeField] public float awareness;
+        [SerializeField] public float sight;
+        [SerializeField] public float targetInterest;
+        [SerializeField] public bool sortUtilities;
+        [SerializeField] public int topUtilitiesChosen;
+        [SerializeField] public float decay;
+
+        public GeneEntryJson(AIGenesSO genes)
+        {
+            aggressiveness = genes.aggressiveness;
+            patience = genes.patience;
+            friendliness = genes.friendliness;
+            selfPreservation = genes.selfPreservation;
+            awareness = genes.awareness;
+            sight = genes.sight;
+            targetInterest = genes.targetInterest;
+            sortUtilities = genes.sortUtilities;
+            topUtilitiesChosen = genes.topUtilitiesChosen;
+            decay = genes.decay;
+        }
+    }
+    
+    [Serializable]
     public class NavalActorEntryJson
     {
         [SerializeField] public string name;
@@ -27,7 +56,7 @@ namespace Core.Recorder
         [SerializeField] public SimpleVector2Int position;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
-        public string genesData = null;
+        public GeneEntryJson genesData = null;
         
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
         public string machineBrain = null;
@@ -80,7 +109,7 @@ namespace Core.Recorder
 
                 case AINavalShip aiNavalShip:
                 {
-                    genesData = aiNavalShip.GetGenesData().name;
+                    genesData = new GeneEntryJson(aiNavalShip.GetGenesData());
                     machineBrain = aiNavalShip.GetBrain().name;
                     
                     GetInfoFromNavalShip(aiNavalShip);

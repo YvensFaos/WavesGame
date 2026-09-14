@@ -26,10 +26,11 @@ namespace Actors.AI
 
         [Header("Interests")] 
         public float targetInterest = 0.1f;
+        
+        [Header("Utility Distributions")]
         public bool sortUtilities = true;
-        public bool doubleBestUtilityChance = true;
-
-        [Header("Data")] 
-        public int possibleActionsCount = 4;
+        public int topUtilitiesChosen = 4;
+        [Range(0.0f, 1.0f)]
+        public float decay = 0.15f;
     }
 }
