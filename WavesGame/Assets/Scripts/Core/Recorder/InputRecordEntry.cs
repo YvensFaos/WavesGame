@@ -18,12 +18,12 @@ namespace Core.Recorder
     [Serializable]
     public class InputRecordEntryJson : WavesEntryJson
     {
-        [SerializeField] public string actionName;
-        [SerializeField] public string actionMap;
-        [SerializeField] public string actionPhase;
-        [SerializeField] public string actionValue;
-        [SerializeField] public string actionDevice;
-        [SerializeField] public double actionStartTime;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionName;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionMap;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionPhase;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionValue;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionDevice;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public double actionStartTime;
 
         public InputRecordEntryJson(string actionName, string actionMap, string actionPhase, string actionValue,
             string actionDevice,
@@ -86,7 +86,7 @@ namespace Core.Recorder
             return JsonConvert.SerializeObject(new InputRecordEntryJson(_actionName, _actionMap, _actionPhase,
                 _actionValue, _actionDevice, _actionStartTime,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
-                turn, timeStamp));
+                turn, timeStamp), GetJsonSerializerSettings());
         }
     }
 }

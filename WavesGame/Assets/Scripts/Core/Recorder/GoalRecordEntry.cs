@@ -7,6 +7,7 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -48,9 +49,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new GoalRecordEntryJson(
+            return JsonConvert.SerializeObject(new GoalRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Goal), turn, timeStamp,
-                _goalMessage));
+                _goalMessage), GetJsonSerializerSettings());
         }
 
         /// TODO change this to read the entry from a JSON.

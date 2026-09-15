@@ -17,9 +17,11 @@ namespace Core.Recorder
     [Serializable]
     public class DamageRecordEntryJson : ActorRecordEntryJson
     {
-        [SerializeField] public int damage;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        public int damage;
 
-        public DamageRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp, int damage,
+        public DamageRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
+            int damage,
             string comment = "") : base(actorId, faction, eventType, turn, timeStamp, comment)
         {
             this.damage = damage;
@@ -46,32 +48,13 @@ namespace Core.Recorder
         {
             DebugUtils.DebugLogMsg($"DamageRecordEntry: {ActorID} was damaged by {_damage}.",
                 DebugUtils.DebugType.Temporary);
-            var levelController = LevelController.GetSingleton();
-
-            // var actor = levelController.GetActorWithId(ActorID);
-            //
-            // if (actor == null)
-            // {
-            //     //If fails to find the actor as a NavalActor, fall back to finding it between all GridActors in the Level.
-            //     //Mostly the case for when attacking a WaveActor.
-            //     //TODO consider storing all GridActors in the LevelController to prevent repeating this process.
-            //     var allGridActors =
-            //         Object.FindObjectsByType<GridActor>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-            //     actor = allGridActors.ToList().Find(gridActor => gridActor.name.Equals(ActorID));
-            // }
-            //
-            // switch (actor)
-            // {
-            //     case NavalActor navalActor: navalActor.TakeDirectDamage(_damage); break;
-            //     case WaveActor waveActor: waveActor.PlayCinematicDamage(); break;
-            // }
         }
 
         protected override string ToJson()
         {
             return JsonConvert.SerializeObject(new DamageRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Damage), turn,
-                timeStamp, _damage, comment));
+                timeStamp, _damage, comment), GetJsonSerializerSettings());
         }
 
         /// <summary>
@@ -96,7 +79,7 @@ namespace Core.Recorder
                 return null;
             }
 
-            return null;//new DamageRecordEntry(actorId, damage, -1, -1);
+            return null; //new DamageRecordEntry(actorId, damage, -1, -1);
         }
     }
 }

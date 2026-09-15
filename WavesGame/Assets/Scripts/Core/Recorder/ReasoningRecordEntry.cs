@@ -48,7 +48,7 @@ namespace Core.Recorder
         {
             return JsonConvert.SerializeObject(new ReasoningRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _reasoning,
-                comment));
+                comment), GetJsonSerializerSettings());
         }
     }
 }

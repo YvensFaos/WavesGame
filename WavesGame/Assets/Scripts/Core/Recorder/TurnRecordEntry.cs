@@ -7,6 +7,7 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Core.Recorder
@@ -37,8 +38,9 @@ namespace Core.Recorder
         
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new TurnRecordEntryJson(
-                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Turn), turn, timeStamp));
+            return JsonConvert.SerializeObject(new TurnRecordEntryJson(
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Turn), turn,
+                timeStamp), GetJsonSerializerSettings());
         }
     }
 }

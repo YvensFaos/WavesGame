@@ -16,7 +16,8 @@ namespace Core.Recorder
     [Serializable]
     public class DeathRecordEntryJson : ActorRecordEntryJson
     {
-        public DeathRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp, string comment = "") :
+        public DeathRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
+            string comment = "") :
             base(actorId, faction, eventType, turn, timeStamp, comment)
         {
         }
@@ -42,7 +43,7 @@ namespace Core.Recorder
         {
             return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Death), turn,
-                timeStamp, comment));
+                timeStamp, comment), GetJsonSerializerSettings());
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Core.Recorder
 
             var actorId = parts[1];
 
-            return null;//new DeathRecordEntry(actorId, -1, -1);
+            return null; //new DeathRecordEntry(actorId, -1, -1);
         }
     }
 }

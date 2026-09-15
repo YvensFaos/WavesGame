@@ -8,6 +8,7 @@
 
 using System;
 using Actors;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -53,9 +54,9 @@ namespace Core.Recorder
         protected override string ToJson()
         {
             var winningFactionName = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" : _victory ? $"Player Victory!" : "Player Lost!";
-            return JsonUtility.ToJson(new EndGameRecordEntryJson(
+            return JsonConvert.SerializeObject(new EndGameRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.EndGame), turn,
-                timeStamp, _goalMessage, winningFactionName));
+                timeStamp, _goalMessage, winningFactionName), GetJsonSerializerSettings());
         }
 
         /// TODO change this to read the entry from a JSON.

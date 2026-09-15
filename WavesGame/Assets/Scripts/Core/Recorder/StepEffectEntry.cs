@@ -7,6 +7,7 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -49,9 +50,9 @@ namespace Core.Recorder
         
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new StepEffectEntryJson(
+            return JsonConvert.SerializeObject(new StepEffectEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.StepFX), turn,
-                timeStamp, _stepId, _targetId, _damage));
+                timeStamp, _stepId, _targetId, _damage), GetJsonSerializerSettings());
         }
     }
 }

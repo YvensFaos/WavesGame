@@ -7,6 +7,7 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -15,11 +16,17 @@ namespace Core.Recorder
     [Serializable]
     public class PropagationEntryJson : WavesEntryJson
     {
-        [SerializeField] private string originId;
-        [SerializeField] private string targetId;
-        [SerializeField] private int damage;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        private string originId;
 
-        public PropagationEntryJson(string eventType, int turn, long timeStamp, string originId, string targetId, int damage) :
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        private string targetId;
+
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        private int damage;
+
+        public PropagationEntryJson(string eventType, int turn, long timeStamp, string originId, string targetId,
+            int damage) :
             base(eventType, turn, timeStamp)
         {
             this.originId = originId;
@@ -49,9 +56,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new PropagationEntryJson(
+            return JsonConvert.SerializeObject(new PropagationEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Propagation), turn,
-                timeStamp, _originId, _targetId, _damage));
+                timeStamp, _originId, _targetId, _damage), GetJsonSerializerSettings());
         }
     }
 }

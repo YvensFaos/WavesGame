@@ -59,7 +59,7 @@ namespace Core.Recorder
         {
             return JsonConvert.SerializeObject(new MovementRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Movement), turn,
-                timeStamp, MoveFrom, MoveTo, comment));
+                timeStamp, MoveFrom, MoveTo, comment), GetJsonSerializerSettings());
         }
 
         public Vector2Int MoveFrom { get; }

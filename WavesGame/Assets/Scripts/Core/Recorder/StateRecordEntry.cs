@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Actors;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -44,9 +45,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new StateRecordEntryJson(
+            return JsonConvert.SerializeObject(new StateRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.GameState), turn,
-                timeStamp, _navalActors));
+                timeStamp, _navalActors), GetJsonSerializerSettings());
         }
     }
 }

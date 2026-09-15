@@ -92,7 +92,7 @@ namespace Core.Recorder
         {
             return JsonConvert.SerializeObject(new AttackRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _targetId,
-                _attackPosition, _damage, comment));
+                _attackPosition, _damage, comment), GetJsonSerializerSettings());
         }
 
         /// <summary>

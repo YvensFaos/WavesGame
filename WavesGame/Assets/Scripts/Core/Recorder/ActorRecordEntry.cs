@@ -18,9 +18,7 @@ namespace Core.Recorder
     {
         [SerializeField] public string actorId;
         [SerializeField] public string faction;
-
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
-        public string comment;
+        [SerializeField] public string comment;
 
         public ActorRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
             string comment) : base(eventType, turn, timeStamp)
@@ -58,7 +56,7 @@ namespace Core.Recorder
         {
             return JsonConvert.SerializeObject(new ActorRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
-                turn, timeStamp, comment));
+                turn, timeStamp, comment), GetJsonSerializerSettings());
         }
 
         protected string ActorID { get; }

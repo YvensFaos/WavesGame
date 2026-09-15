@@ -10,6 +10,7 @@ using System;
 using Actors;
 using Actors.AI;
 using Actors.AI.LlmAI;
+using Core.Recorder.Extras;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -18,29 +19,29 @@ namespace Core.Recorder
     [Serializable]
     public class GeneEntryJson
     {
-        [SerializeField] public float aggressiveness;
-        [SerializeField] public float patience;
-        [SerializeField] public float friendliness;
-        [SerializeField] public float selfPreservation;
-        [SerializeField] public float awareness;
-        [SerializeField] public float sight;
-        [SerializeField] public float targetInterest;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float aggressiveness;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float patience;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float friendliness;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float selfPreservation;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float awareness;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float sight;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float targetInterest;
         [SerializeField] public bool sortUtilities;
         [SerializeField] public int topUtilitiesChosen;
-        [SerializeField] public float decay;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float decay;
 
         public GeneEntryJson(AIGenesSO genes)
         {
-            aggressiveness = genes.aggressiveness;
-            patience = genes.patience;
-            friendliness = genes.friendliness;
-            selfPreservation = genes.selfPreservation;
-            awareness = genes.awareness;
-            sight = genes.sight;
-            targetInterest = genes.targetInterest;
+            aggressiveness = MathF.Round(genes.aggressiveness, 2);
+            patience = MathF.Round(genes.patience, 2);
+            friendliness = MathF.Round(genes.friendliness, 2);
+            selfPreservation = MathF.Round(genes.selfPreservation, 2);
+            awareness = MathF.Round(genes.awareness, 2);
+            sight = MathF.Round(genes.sight, 2);
+            targetInterest = MathF.Round(genes.targetInterest, 2);
             sortUtilities = genes.sortUtilities;
             topUtilitiesChosen = genes.topUtilitiesChosen;
-            decay = genes.decay;
+            decay = MathF.Round(genes.decay, 2);
         }
     }
 
@@ -48,7 +49,7 @@ namespace Core.Recorder
     public class NavalActorShortEntryJson
     {
         [SerializeField] public string name;
-        [SerializeField] public int currentHealth;
+        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int currentHealth;
         [SerializeField] public string faction;
         [SerializeField] public SimpleVector2Int position;
 
@@ -66,7 +67,7 @@ namespace Core.Recorder
             currentHealth = navalActor.GetCurrentHealth();
             var gridUnit = navalActor.GetUnit();
             position = gridUnit != null ? new SimpleVector2Int(gridUnit.Index()) : new SimpleVector2Int(-1, -1);
-            faction = "Missing Type";
+            faction = Faction.GetNeutralFaction().name;
             if (navalActor is NavalShip navalShip)
             {
                 faction = navalShip.GetFaction().ToString();
@@ -78,7 +79,7 @@ namespace Core.Recorder
     public class NavalActorEntryJson
     {
         [SerializeField] public string name;
-        [SerializeField] public int currentHealth;
+        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int currentHealth;
         [SerializeField] public string shipPrefabType;
         [SerializeField] public string faction;
         [SerializeField] public string shipData;

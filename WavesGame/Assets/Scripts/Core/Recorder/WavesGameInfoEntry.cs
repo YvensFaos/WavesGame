@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Actors;
+using Core.Recorder.Extras;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -68,9 +70,10 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new WavesGameInfoRecordEntryJson(
+            var json = JsonConvert.SerializeObject(new WavesGameInfoRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Information), turn,
-                timeStamp, _map, _randomSeed, _maxTurns, _navalActors, _waveActors, _obstacleActors));
+                timeStamp, _map, _randomSeed, _maxTurns, _navalActors, _waveActors, _obstacleActors), GetJsonSerializerSettings());
+            return json;
         }
     }
 }

@@ -12,6 +12,7 @@ using Actors;
 using Actors.AI;
 using Actors.AI.LlmAI;
 using Grid;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -115,9 +116,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new ScenarioEntryJson(_scenarioOverview,
+            return JsonConvert.SerializeObject(new ScenarioEntryJson(_scenarioOverview,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.ScenarioState), turn,
-                timeStamp));
+                timeStamp), GetJsonSerializerSettings());
         }
     }
 }

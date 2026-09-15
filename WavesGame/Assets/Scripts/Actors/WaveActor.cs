@@ -74,8 +74,9 @@ namespace Actors
                     {
                         RecordPropagation(enumerator.Current, damage);
                     }
+
                     unit.DamageActors(damage);
-                    
+
                     enumerator.Dispose();
                 }
                 else
@@ -142,7 +143,8 @@ namespace Actors
         private void RecordPropagation(GridActor targetActor, int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var propagationEntry = new PropagationEntry(name, targetActor.name, damage);
+            var targetActorName = targetActor ? targetActor.name : "Empty";
+            var propagationEntry = new PropagationEntry(name, targetActorName, damage);
             recorder.RecordNewEntry(propagationEntry);
         }
 
@@ -150,7 +152,7 @@ namespace Actors
         public int GetAreaOfEffect() => areaOfEffect;
         public int GetStepAreaDistance() => stepAreaDistance;
         public GridMoveType GetWaveDirection => waveDirection;
-        
+
         public override string ToString()
         {
             return

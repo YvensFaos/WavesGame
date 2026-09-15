@@ -60,7 +60,7 @@ namespace Core.Recorder
         {
             return JsonConvert.SerializeObject(new InvalidResponseEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp,
-                _type.ToString(), _message, comment));
+                _type.ToString(), _message, comment), GetJsonSerializerSettings());
         }
     }
 }

@@ -21,7 +21,8 @@ namespace Core.Recorder
         [SerializeField] public SimpleVector2Int attack;
         [SerializeField] public SimpleVector2Int moveAfterAttack;
 
-        public CommandRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp, Vector2Int movement,
+        public CommandRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
+            Vector2Int movement,
             Vector2Int attack, Vector2Int moveAfterAttack, string comment = "")
             : base(actorId, faction, eventType, turn, timeStamp, comment)
         {
@@ -57,7 +58,7 @@ namespace Core.Recorder
         {
             return JsonConvert.SerializeObject(new CommandRecordEntryJson(ActorID, faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp,
-                _movement, _attack, _moveAfterAttack, comment));
+                _movement, _attack, _moveAfterAttack, comment), GetJsonSerializerSettings());
         }
     }
 }
