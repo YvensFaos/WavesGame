@@ -36,6 +36,7 @@ namespace Core.Simulation
 
         [SerializeField] private float warmUpTimer;
         [SerializeField] private int simulationSeed = 6;
+        [SerializeField] private string extra = "";
         [SerializeField, ReadOnly] private Faction firstFaction;
 
         private WavesRecorder _wavesRecorder;
@@ -171,7 +172,7 @@ namespace Core.Simulation
                 var obstacleActors = FindObjectsByType<ObstacleActor>(FindObjectsInactive.Exclude).ToList();
 
                 var recordingIdentifier =
-                    $"{simulation.BattleGroundScene}-{simulationController.GetLevelMessageAndTime()}-iteration[{iterationNumber}]";
+                    $"{simulation.BattleGroundScene}-{simulationController.GetLevelMessageAndTime()}-{extra}-iteration[{iterationNumber}]";
                 DebugUtils.DebugLogMsg($"Starting recording...", DebugUtils.DebugType.System);
                 _wavesRecorder.LogGameStart(simulation.BattleGroundScene, simulationSeed, maxTurns, navalActors,
                     waveActors, obstacleActors, recordingIdentifier);
