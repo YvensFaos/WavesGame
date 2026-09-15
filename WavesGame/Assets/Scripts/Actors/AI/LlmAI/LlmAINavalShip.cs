@@ -90,6 +90,7 @@ namespace Actors.AI.LlmAI
             var retry = true;
             var faultyMessage = false;
             var result = "";
+            var responseTimer = 0.0f;
             do
             {
                 var stopwatch = Stopwatch.StartNew();
@@ -102,7 +103,7 @@ namespace Actors.AI.LlmAI
                 {
                     DebugUtils.DebugLogMsg($"Exception: {e.Message}.",
                         DebugUtils.DebugType.Error);
-                    StopTimer(stopwatch);
+                    responseTimer = StopTimer(stopwatch);
                     RecordInvalidResponse(InvalidResponseType.Exception, e.Message);
                     faultyMessage = true;
                 }
@@ -128,7 +129,7 @@ namespace Actors.AI.LlmAI
                         DebugUtils.DebugType.Error);
 
                     RecordInvalidResponse(InvalidResponseType.NoResponse, msg);
-                    StopTimer(stopwatch);
+                    responseTimer = StopTimer(stopwatch);
                     DebugUtils.DebugLogMsg($"Retrying in {breakTime} seconds...", DebugUtils.DebugType.Error);
                     yield return new WaitForSeconds(breakTime);
                     breakTime *= 1.25f;
@@ -136,7 +137,7 @@ namespace Actors.AI.LlmAI
                 }
 
                 result = llmGenericResponse.Response;
-                StopTimer(stopwatch);
+                responseTimer = StopTimer(stopwatch);
                 retry = false;
 
                 DebugUtils.DebugLogMsg($"Result received: [{result}].", DebugUtils.DebugType.Temporary);
@@ -161,8 +162,8 @@ namespace Actors.AI.LlmAI
             }
 
             DebugUtils.DebugLogMsg(actions.reasoning, DebugUtils.DebugType.System);
-            RecordReasoning(actions.reasoning);
-            
+            RecordReasoning(actions.reasoning, responseTimer);
+
             var shouldMove = false;
             var shouldAttack = false;
             var shouldMoveAfterAttack = false;
@@ -207,13 +208,14 @@ namespace Actors.AI.LlmAI
             FinishAITurn();
             yield break;
 
-            void StopTimer(Stopwatch stopwatch)
+            float StopTimer(Stopwatch stopwatch)
             {
                 stopwatch.Stop();
                 var elapsed = stopwatch.ElapsedMilliseconds;
                 var timeText = $"Request response in {elapsed} ms.";
                 DebugUtils.DebugLogMsg(timeText,
                     DebugUtils.DebugType.System);
+                return elapsed;
             }
         }
 
@@ -279,10 +281,10 @@ namespace Actors.AI.LlmAI
             recorder.RecordNewEntry(command);
         }
 
-        private void RecordReasoning(string reasoning)
+        private void RecordReasoning(string reasoning, float responseTime)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var reason = new ReasoningRecordEntry(name, GetFaction(), reasoning);
+            var reason = new ReasoningRecordEntry(name, GetFaction(), reasoning, responseTime);
             recorder.RecordNewEntry(reason);
         }
 

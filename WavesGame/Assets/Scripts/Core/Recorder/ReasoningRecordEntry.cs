@@ -18,23 +18,28 @@ namespace Core.Recorder
     public class ReasoningRecordEntryJson : ActorRecordEntryJson
     {
         [SerializeField] public string reasoning;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        public float responseTime;
 
         public ReasoningRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
-            string reasoning,
+            string reasoning, float responseTime,
             string comment = "") : base(actorId, faction, eventType, turn, timeStamp, comment)
         {
             this.reasoning = reasoning;
+            this.responseTime = responseTime;
         }
     }
 
     public class ReasoningRecordEntry : ActorRecordEntry
     {
         private readonly string _reasoning;
+        private float _responseTime;
 
         public ReasoningRecordEntry(string actorId, Faction faction,
-            string reasoning) : base(actorId, faction, WavesRecordEntryType.Reasoning)
+            string reasoning, float responseTime) : base(actorId, faction, WavesRecordEntryType.Reasoning)
         {
             _reasoning = reasoning;
+            _responseTime = responseTime;
         }
 
         public override void PerformEntry()
@@ -47,7 +52,7 @@ namespace Core.Recorder
         protected override string ToJson()
         {
             return JsonConvert.SerializeObject(new ReasoningRecordEntryJson(ActorID, faction,
-                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _reasoning,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _reasoning, _responseTime,
                 comment), GetJsonSerializerSettings());
         }
     }
