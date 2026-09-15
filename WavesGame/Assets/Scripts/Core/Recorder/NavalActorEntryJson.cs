@@ -43,7 +43,37 @@ namespace Core.Recorder
             decay = genes.decay;
         }
     }
-    
+
+    [Serializable]
+    public class NavalActorShortEntryJson
+    {
+        [SerializeField] public string name;
+        [SerializeField] public int currentHealth;
+        [SerializeField] public string faction;
+        [SerializeField] public SimpleVector2Int position;
+
+        public NavalActorShortEntryJson(string name, int currentHealth, string faction, SimpleVector2Int position)
+        {
+            this.name = name;
+            this.currentHealth = currentHealth;
+            this.faction = faction;
+            this.position = position;
+        }
+
+        public NavalActorShortEntryJson(NavalActor navalActor)
+        {
+            name = navalActor.name;
+            currentHealth = navalActor.GetCurrentHealth();
+            var gridUnit = navalActor.GetUnit();
+            position = gridUnit != null ? new SimpleVector2Int(gridUnit.Index()) : new SimpleVector2Int(-1, -1);
+            faction = "Missing Type";
+            if (navalActor is NavalShip navalShip)
+            {
+                faction = navalShip.GetFaction().ToString();
+            }
+        }
+    }
+
     [Serializable]
     public class NavalActorEntryJson
     {
@@ -55,22 +85,28 @@ namespace Core.Recorder
         [SerializeField] public string navalCannon;
         [SerializeField] public SimpleVector2Int position;
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [SerializeField]
         public GeneEntryJson genesData = null;
-        
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [SerializeField]
         public string machineBrain = null;
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [SerializeField]
         public string basePrompt = null;
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [SerializeField]
         public string llmInfo = null;
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [SerializeField]
         public string llmType = null;
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [SerializeField]
         public string llmModel = null;
 
         public NavalActorEntryJson(NavalActor navalActor)
@@ -102,7 +138,6 @@ namespace Core.Recorder
                     var llmCaller = llmAINavalShip.GetCaller();
                     llmType = llmCaller.GetLlmType().ToString();
                     llmModel = llmCaller.GetLlmModel();
-
                     GetInfoFromNavalShip(llmAINavalShip);
                 }
                     break;
@@ -111,7 +146,6 @@ namespace Core.Recorder
                 {
                     genesData = new GeneEntryJson(aiNavalShip.GetGenesData());
                     machineBrain = aiNavalShip.GetBrain().name;
-                    
                     GetInfoFromNavalShip(aiNavalShip);
                 }
                     break;

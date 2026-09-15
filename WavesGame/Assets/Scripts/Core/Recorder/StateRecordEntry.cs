@@ -18,13 +18,13 @@ namespace Core.Recorder
     [Serializable]
     public class StateRecordEntryJson : WavesEntryJson
     {
-        [SerializeField] public List<NavalActorEntryJson> navalActorEntryJsons;
+        [SerializeField] public List<NavalActorShortEntryJson> navalActorEntryJsons;
 
         public StateRecordEntryJson(string eventType, int turn, long timeStamp, List<NavalActor> navalActors)
             : base(eventType, turn, timeStamp)
         {
             navalActors = navalActors.FindAll(actor => actor != null);
-            navalActorEntryJsons = navalActors.Select(ship => new NavalActorEntryJson(ship)).ToList();
+            navalActorEntryJsons = navalActors.Select(ship => new NavalActorShortEntryJson(ship)).ToList();
         }
     }
 
