@@ -37,9 +37,10 @@ namespace Core.Simulation.Editor
             var simulationFactionPlayerTypePairs = simulation.FactionPlayerTypePairs;
             foreach (var pair in simulationFactionPlayerTypePairs)
             {
+				if(pair == null || pair.One == null || pair.Two == null) return;
                 var rect = EditorGUILayout.BeginVertical();
                 var faction = pair.One;
-                EditorGUI.DrawRect(rect, faction.factionColor); // green tint
+                EditorGUI.DrawRect(rect, faction.factionColor);
                 CreateCachedEditor(pair.Two, null, ref _scriptableObjectEditor);
                 _scriptableObjectEditor.OnInspectorGUI();
                 EditorGUILayout.EndVertical();
