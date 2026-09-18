@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Actors.AI.LlmAI;
 using Core;
 using Grid;
+using Unity.VisualScripting;
 using UnityEngine;
 using UUtils;
 
@@ -22,7 +23,7 @@ namespace Actors.AI
 
         public AIGridUnitUtility(GridUnit unit)
         {
-            Utility = -1.0f;
+            Utility = float.MinValue;
             _unit = unit;
         }
 
@@ -36,7 +37,10 @@ namespace Actors.AI
         {
             var genes = aiNavalShip.GetGenesData();
             var faction = aiNavalShip.GetFaction();
+            
+            //If there is nothing on the tile, just use the patience gene
             if (unit.ActorsCount() <= 0) return genes.patience;
+            
             var actorEnumerator = unit.GetActorEnumerator();
             var utility = 0.0f;
             while (actorEnumerator.MoveNext())
@@ -46,6 +50,9 @@ namespace Actors.AI
 
                 switch (current)
                 {
+                    case ObstacleActor:
+                        utility += float.MinValue;
+                        break;
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
@@ -56,7 +63,7 @@ namespace Actors.AI
                     case AIBaseShip:
                     case NavalShip:
                         //If there is an enemy there, then the AI cannot move there
-                        utility = float.MinValue;
+                        utility += float.MinValue;
                         break;
                     case WaveActor waveActor:
                         //If moving towards a wave, check if the waves is in the direction of the movement (good)
@@ -75,16 +82,16 @@ namespace Actors.AI
                                 utility -= waveActor.GetDamage();
                                 break;
                             case GridMoveType.Up:
-                                utility = direction.y >= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                utility += direction.y >= 0 ? -waveActor.GetDamage() : float.MinValue;
                                 break;
                             case GridMoveType.Down:
-                                utility = direction.y <= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                utility += direction.y <= 0 ? -waveActor.GetDamage() : float.MinValue;
                                 break;
                             case GridMoveType.Left:
-                                utility = direction.x <= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                utility += direction.x <= 0 ? -waveActor.GetDamage() : float.MinValue;
                                 break;
                             case GridMoveType.Right:
-                                utility = direction.x >= 0 ? -waveActor.GetDamage() : float.MinValue;
+                                utility += direction.x >= 0 ? -waveActor.GetDamage() : float.MinValue;
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException();
@@ -93,8 +100,10 @@ namespace Actors.AI
                         break;
                 }
             }
-
             actorEnumerator.Dispose();
+            
+            //TODO Also consider if the tile can be hit by another unit
+            
             return utility;
         }
 
@@ -110,8 +119,11 @@ namespace Actors.AI
         {
             var genes = aiNavalShip.GetGenesData();
             var faction = aiNavalShip.GetFaction();
+            
+            //If there is nothing on the tile, just use the patience gene
             if (unit.ActorsCount() <= 0) return genes.patience;
             var actorEnumerator = unit.GetActorEnumerator();
+            
             var utility = 0.0f;
             while (actorEnumerator.MoveNext())
             {
@@ -120,6 +132,9 @@ namespace Actors.AI
 
                 switch (current)
                 {
+                    case ObstacleActor:
+                        utility += genes.patience;
+                        break;
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
@@ -157,12 +172,13 @@ namespace Actors.AI
         /// <returns></returns>
         private static float CalculateActorsGridUnit(AINavalShip aiNavalShip, GridUnit unit)
         {
-            //TODO
             var actorEnumerator = GameController.GetSingleton().GetNavalActorsEnumerator();
             
             var genes = aiNavalShip.GetGenesData();
             var faction = aiNavalShip.GetFaction();
+            
             var utility = 0.0f;
+            
             while (actorEnumerator.MoveNext())
             {
                 var current = actorEnumerator.Current;
@@ -176,7 +192,7 @@ namespace Actors.AI
 
                 var distance = unit.DistanceTo(current.GetUnit());
                 var maxDistance = genes.sight;
-                var distanceFactor = 1.05f - Mathf.Min(distance, maxDistance) / maxDistance;
+                var distanceFactor = 1.075f - Mathf.Min(distance, maxDistance) / maxDistance;
 
                 switch (current)
                 {
@@ -185,6 +201,12 @@ namespace Actors.AI
                         break;
                     case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         utility += distanceFactor * (2.0f - aiNavalShip.GetHealthRatio()) * genes.friendliness;
+                        break;
+                    case LlmAINavalShip ally when ally.GetFaction().Equals(faction):
+                        utility += distanceFactor * (2.0f - aiNavalShip.GetHealthRatio()) * genes.friendliness;
+                        break;
+                    case LlmAINavalShip llmAINavalShip:
+                        utility += distanceFactor * AttackUtility(llmAINavalShip, aiNavalShip, genes);
                         break;
                     case AIBaseShip enemyAI:
                         utility += distanceFactor * AttackUtility(enemyAI, aiNavalShip, genes);
@@ -220,11 +242,17 @@ namespace Actors.AI
 
                 switch (current)
                 {
+                    case ObstacleActor:
+                        utility = float.MinValue;
+                        break;
                     case NavalTarget:
                         utility += genes.targetInterest;
                         break;
                     case AIBaseShip ally when ally.GetFaction().Equals(faction):
-                        //Possibly aiming at an ally has no impact in the utility
+                        utility = float.MinValue;
+                        break;
+                    case LlmAINavalShip enemyLlm:
+                        utility += AttackUtility(enemyLlm, aiNavalShip, genes);
                         break;
                     case AIBaseShip enemyAI:
                         utility += AttackUtility(enemyAI, aiNavalShip, genes);
@@ -302,7 +330,14 @@ namespace Actors.AI
         {
             var targetHealthRatio = targetActor.GetHealthRatio();
             var selfHealthRatio = selfActor.GetHealthRatio();
-            return genes.aggressiveness + (selfHealthRatio - targetHealthRatio) * genes.selfPreservation;
+            
+            var baseAttackUtility = genes.aggressiveness
+                                + (selfHealthRatio - targetHealthRatio) * genes.selfPreservation;
+            
+            //Adds exponential behavior to increase the utility when attack can deliver a kill
+            var finisherBonus = genes.finisherWeight * (1.0f - targetHealthRatio) * (1.0f - targetHealthRatio);
+            
+            return baseAttackUtility + finisherBonus;
         }
 
         /// <summary>
@@ -316,14 +351,21 @@ namespace Actors.AI
             var affectedByWave = waveActor.GetUnitsAffectedByWaveAttack();
             var waveUtility = 0.0f;
             var enemiesHitByWave = 0;
-            affectedByWave.ForEach(waveUnit =>
+            affectedByWave.ForEach(unitAffectedByWave =>
             {
-                if (waveUnit.ActorsCount() <= 0) return;
-                var waveEnumerator = waveUnit.GetActorEnumerator();
+                if (unitAffectedByWave.ActorsCount() <= 0)
+                {
+                    //Remove the utility of hitting a wave that reaches nothing.
+                    waveUtility += float.MinValue;
+                }
+                var waveEnumerator = unitAffectedByWave.GetActorEnumerator();
                 while (waveEnumerator.MoveNext())
                 {
                     var waveCurrent = waveEnumerator.Current;
-                    if (waveCurrent == null) continue;
+                    if (waveCurrent == null)
+                    {
+                        waveUtility += float.MinValue;
+                    }
                     waveUtility += CalculateActorInWaveRangeUtility(waveActor, aiNavalShip, waveCurrent,
                         out var hitEnemy);
                     if (hitEnemy) enemiesHitByWave++;
@@ -346,41 +388,45 @@ namespace Actors.AI
         /// </summary>
         /// <param name="waveActor"></param>
         /// <param name="aiNavalShip"></param>
-        /// <param name="actor"></param>
+        /// <param name="actorHitByWave"></param>
         /// <param name="hitEnemy"></param>
         /// <returns></returns>
         private static float CalculateActorInWaveRangeUtility(WaveActor waveActor, AINavalShip aiNavalShip,
-            GridActor actor,
+            GridActor actorHitByWave,
             out bool hitEnemy)
         {
             hitEnemy = false;
             var actorInWaveRangeUtility = 0.0f;
             var genes = aiNavalShip.GetGenesData();
-            if (actor.Equals(aiNavalShip)) return -genes.selfPreservation; //Negative utility if attacks itself
+            if (actorHitByWave.Equals(aiNavalShip)) return float.MinValue; //Negative utility if attacks itself
 
             var faction = aiNavalShip.GetFaction();
-            if (actor.Equals(waveActor)) return 0; //No utility for self-wave-attack + prevent infinite recursion
+            if (actorHitByWave.Equals(waveActor)) return 0; //No utility for self-wave-attack + prevent infinite recursion
 
             hitEnemy = true;
-            switch (actor)
+            switch (actorHitByWave)
             {
                 case NavalTarget:
                     //Utility is equal the likeliness of attacking a target
-                    actorInWaveRangeUtility += genes.targetInterest;
+                    actorInWaveRangeUtility = genes.targetInterest;
                     break;
                 case AIBaseShip ally when ally.GetFaction().Equals(faction):
                     //Generates negative utility for hitting an ally
-                    actorInWaveRangeUtility -= genes.friendliness;
+                    actorInWaveRangeUtility = - 10.0f * genes.friendliness;
                     //Negate the hit enemy flag so to prevent waves that only hit allies from having a positive utility
                     hitEnemy = false;
                     break;
+                case LlmAINavalShip llmAI:
+                    //2.0f instead of 1.0f, so enemies with full health (1.0f) still generate positive utility
+                    actorInWaveRangeUtility = genes.aggressiveness * (3.0f - llmAI.GetHealthRatio());
+                    break;
                 case AIBaseShip enemyAI:
                     //2.0f instead of 1.0f, so enemies with full health (1.0f) still generate positive utility
-                    actorInWaveRangeUtility = genes.aggressiveness * (2.0f - enemyAI.GetHealthRatio());
+                    actorInWaveRangeUtility = genes.aggressiveness * (3.0f - enemyAI.GetHealthRatio());
                     break;
                 case NavalShip navalShip:
                     //Same as enemyAI
-                    actorInWaveRangeUtility = genes.aggressiveness * (2.0f - navalShip.GetHealthRatio());
+                    actorInWaveRangeUtility = genes.aggressiveness * (3.0f - navalShip.GetHealthRatio());
                     break;
                 case WaveActor anotherWaveActor:
                     //Uses the damage of the wave as utility.

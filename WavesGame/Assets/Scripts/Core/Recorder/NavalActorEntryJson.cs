@@ -20,6 +20,7 @@ namespace Core.Recorder
     public class GeneEntryJson
     {
         [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float aggressiveness;
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float finisherWeight;
         [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float patience;
         [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float friendliness;
         [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float selfPreservation;
@@ -33,6 +34,7 @@ namespace Core.Recorder
         public GeneEntryJson(AIGenesSO genes)
         {
             aggressiveness = MathF.Round(genes.aggressiveness, 2);
+            finisherWeight = MathF.Round(genes.finisherWeight, 2);
             patience = MathF.Round(genes.patience, 2);
             friendliness = MathF.Round(genes.friendliness, 2);
             selfPreservation = MathF.Round(genes.selfPreservation, 2);

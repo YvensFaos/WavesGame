@@ -37,7 +37,6 @@ namespace Core.Simulation.Editor
             var simulationFactionPlayerTypePairs = simulation.FactionPlayerTypePairs;
             foreach (var pair in simulationFactionPlayerTypePairs)
             {
-                // EditorGUILayout.HelpBox($"{pair.One.name}", MessageType.Info);
                 var rect = EditorGUILayout.BeginVertical();
                 var faction = pair.One;
                 EditorGUI.DrawRect(rect, faction.factionColor); // green tint

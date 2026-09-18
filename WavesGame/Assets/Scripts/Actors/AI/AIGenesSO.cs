@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  * 
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
@@ -16,6 +16,7 @@ namespace Actors.AI
     {
         [Header("Behavior Genes")]
         public float aggressiveness = 1.0f;
+        public float finisherWeight = 10.0f;
         public float patience = 1.0f;
         public float friendliness = 1.0f;
         public float selfPreservation = 1.0f;
