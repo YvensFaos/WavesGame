@@ -32,7 +32,7 @@ namespace Core.Simulation
         {
             var players = factionPlayerTypePairs.Aggregate("", (current, pair) => current + $"{pair.Two.GetName()}-{pair.One} x ");
             players = players[..^2];
-            return $"{players} {battleGroundScene}";
+            return $"{battleGroundScene}-{players}";
         }
     }
 }

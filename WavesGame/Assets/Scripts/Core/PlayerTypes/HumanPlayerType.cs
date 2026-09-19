@@ -14,7 +14,7 @@ namespace Core.PlayerTypes
 
         public override string GetName()
         {
-            return "Human";
+            return "H";
         }
     }
 }

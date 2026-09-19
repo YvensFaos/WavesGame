@@ -24,13 +24,19 @@ namespace Actors.AI.LlmAI
     internal class LlmAction
     {
         public string reasoning = "";
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public int[] movement = { -1, -1 };
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public int[] attack = { -1, -1 };
-        [JsonProperty("move_after_attack")] public int[] moveAfterAttack = { -1, -1 };
+
+        [JsonProperty("move_after_attack", NullValueHandling = NullValueHandling.Include)]
+        public int[] moveAfterAttack = { -1, -1 };
 
         public static Vector2Int GetAsVector2Int(int[] pair)
         {
-            return pair == null ? new Vector2Int(-1, -1) : new Vector2Int(pair[0], pair[1]);
+            return pair is not { Length: 2 } ? new Vector2Int(-1, -1) : new Vector2Int(pair[0], pair[1]);
         }
     }
 

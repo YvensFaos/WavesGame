@@ -38,7 +38,7 @@ namespace Core.PlayerTypes
 
         public override string GetName()
         {
-            return $"AIPlayerType-{aiBrainMachine}-{aiGenesSo.name}";
+            return $"AI-{aiBrainMachine}-{aiGenesSo.name}";
         }
     }
 }

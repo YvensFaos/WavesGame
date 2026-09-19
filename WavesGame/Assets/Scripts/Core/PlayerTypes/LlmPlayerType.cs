@@ -49,7 +49,7 @@ namespace Core.PlayerTypes
 
         public override string GetName()
         {
-            return $"LlmPlayerType-{modelPair}-{promptSo.name}";
+            return $"LLM-{modelPair}-{promptSo.name}";
         }
     }
 }
