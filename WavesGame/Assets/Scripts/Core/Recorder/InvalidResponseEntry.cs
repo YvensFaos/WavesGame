@@ -18,7 +18,8 @@ namespace Core.Recorder
     {
         Exception,
         NoResponse,
-        InvalidOutput
+        InvalidOutput,
+        InvalidAction
     }
 
     [Serializable]

@@ -34,9 +34,20 @@ namespace Actors.AI.LlmAI
         [JsonProperty("move_after_attack", NullValueHandling = NullValueHandling.Include)]
         public int[] moveAfterAttack = { -1, -1 };
 
-        public static Vector2Int GetAsVector2Int(int[] pair)
+        public static Vector2Int GetAsVector2Int(LlmAINavalShip owner, int[] pair, string actionName)
         {
-            return pair is not { Length: 2 } ? new Vector2Int(-1, -1) : new Vector2Int(pair[0], pair[1]);
+            if (pair is { Length: 2 }) return new Vector2Int(pair[0], pair[1]);
+            RecordInvalidLlmAction(owner, pair, actionName);
+            return new Vector2Int(-1, -1);
+        }
+
+        private static void RecordInvalidLlmAction(LlmAINavalShip owner, int[] pair, string actionName)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var pairString = pair == null ? "pair is null" : $"pair has length {pair.Length} != 2";
+            var invalidResponse = new InvalidResponseEntry(owner.name, owner.GetFaction(),
+                InvalidResponseType.InvalidAction, $"Invalid Llm Action {actionName}: {pairString}");
+            recorder.RecordNewEntry(invalidResponse);
         }
     }
 
@@ -179,9 +190,9 @@ namespace Actors.AI.LlmAI
 
             try
             {
-                movement = LlmAction.GetAsVector2Int(actions.movement);
-                attack = LlmAction.GetAsVector2Int(actions.attack);
-                moveAfterAttack = LlmAction.GetAsVector2Int(actions.moveAfterAttack);
+                movement = LlmAction.GetAsVector2Int(this, actions.movement, "movement");
+                attack = LlmAction.GetAsVector2Int(this, actions.attack, "attack");
+                moveAfterAttack = LlmAction.GetAsVector2Int(this, actions.moveAfterAttack, "moveAfterAttack");
                 RecordCommands(movement, attack, moveAfterAttack);
 
                 shouldMove = IsValidLlmAction(movement);
