@@ -53,7 +53,7 @@ namespace Actors.AI.LlmAI
 
     public class LlmAINavalShip : AIBaseShip
     {
-        [Header("LLM")] [SerializeField] private LlmCallerObject llmCaller;
+        [Header("LLM")] [SerializeField] private LlmSingleCallerObject llmSingleCaller;
         [SerializeField] private float requestTimeOutTimer = 1.0f;
         [SerializeField] private LlmPromptSo basePrompt;
         [SerializeField] private List<Faction> enemyFactions;
@@ -61,23 +61,16 @@ namespace Actors.AI.LlmAI
         protected override void Start()
         {
             base.Start();
-            AssessUtils.CheckRequirement(ref llmCaller, this);
+            AssessUtils.CheckRequirement(ref llmSingleCaller, this);
             UpdateName();
         }
 
         public override void UpdateName()
         {
             var internalIDStr = internalID.ToString();
-            if (llmCaller == null || llmCaller.GetLlmType() == LlmType.Custom)
-            {
-                name = $"LLMAgent|Utility|{internalIDStr}";
-            }
-            else
-            {
-                var llmName = $"{llmCaller.GetLlmType().ToString()}|{llmCaller.GetLlmModel()}";
-                var factionName = GetFaction().name;
-                name = $"LLMAgent|{llmName}|{factionName}|{internalIDStr}";
-            }
+            var llmName = $"{llmSingleCaller.GetLlmType().ToString()}|{llmSingleCaller.GetModel()}";
+            var factionName = GetFaction().name;
+            name = $"LLM|{llmName}|{factionName}|{internalIDStr}";
         }
 
         private static bool IsValidLlmAction(Vector2Int action)
@@ -114,7 +107,7 @@ namespace Actors.AI.LlmAI
                 DebugUtils.DebugLogMsg("Prompt sent...", DebugUtils.DebugType.Temporary);
                 try
                 {
-                    llmCaller.CallLlm(prompt);
+                    llmSingleCaller.CallLlm(prompt);
                 }
                 catch (Exception e)
                 {
@@ -134,13 +127,13 @@ namespace Actors.AI.LlmAI
                     continue;
                 }
 
-                yield return new WaitUntil(() => llmCaller.IsReady());
+                yield return new WaitUntil(() => llmSingleCaller.IsReady());
 
-                var llmGenericResponse = llmCaller.GetResponse();
-                if (!llmGenericResponse.Success || string.IsNullOrEmpty(llmGenericResponse.Response))
+                var llmGenericResponse = llmSingleCaller.GetResponse();
+                if (!llmGenericResponse.success || string.IsNullOrEmpty(llmGenericResponse.response))
                 {
                     var msg =
-                        $"No response exception: {llmGenericResponse.Response} Success:{llmGenericResponse.Success}.";
+                        $"No response exception: {llmGenericResponse.response} Success:{llmGenericResponse.success}.";
                     DebugUtils.DebugLogMsg(
                         msg,
                         DebugUtils.DebugType.Error);
@@ -153,7 +146,7 @@ namespace Actors.AI.LlmAI
                     continue;
                 }
 
-                result = llmGenericResponse.Response;
+                result = llmGenericResponse.response;
                 responseTimer = StopTimer(stopwatch);
                 retry = false;
 
@@ -342,14 +335,14 @@ namespace Actors.AI.LlmAI
 
         public string GetLlmInfo()
         {
-            return llmCaller != null && llmCaller.GetLlmType() != LlmType.Custom
-                ? $"{llmCaller.GetLlmType().ToString()}-{llmCaller.GetLlmModel()}-{basePrompt.name}"
+            return llmSingleCaller != null && llmSingleCaller.GetLlmType() != LlmType.Custom
+                ? $"{llmSingleCaller.GetLlmType().ToString()}-{llmSingleCaller.GetModel()}-{basePrompt.name}"
                 : "Utility";
         }
 
-        public void SetCaller(LlmCallerObject caller)
+        public void SetCaller(LlmSingleCallerObject llmSingleCallerObject)
         {
-            llmCaller = caller;
+            llmSingleCaller = llmSingleCallerObject;
         }
 
         public void ChangeBasePrompt(LlmPromptSo promptSo)
@@ -364,6 +357,6 @@ namespace Actors.AI.LlmAI
 
         public LlmPromptSo GetPrompt() => basePrompt;
 
-        public LlmCallerObject GetCaller() => llmCaller;
+        public LlmSingleCallerObject GetCaller() => llmSingleCaller;
     }
 }

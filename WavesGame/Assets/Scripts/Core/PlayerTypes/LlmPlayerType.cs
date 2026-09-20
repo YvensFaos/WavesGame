@@ -20,17 +20,14 @@ namespace Core.PlayerTypes
     public class LlmPlayerType : PlayerTypeBaseSo
     {
         public LlmModelPairSo modelPair;
-        public string typeKey;
         public LlmPromptSo promptSo;
-        public LlmCallerObject callerObjectPrefab;
+        public LlmSingleCallerObject llmSingleCaller;
 
         public override void InitializeType(NavalShip navalShip, HashSet<Faction> factions)
         {
             if (navalShip is LlmAINavalShip llmAINavalShip)
             {
-                var caller = Instantiate(callerObjectPrefab, navalShip.transform);
-                var llmModelPair = modelPair.modelPair; 
-                caller.Initialize(llmModelPair.One, llmModelPair.Two, typeKey);
+                var caller = Instantiate(llmSingleCaller, navalShip.transform);
                 llmAINavalShip.SetCaller(caller);
                 llmAINavalShip.ChangeBasePrompt(promptSo);
                 llmAINavalShip.UpdateName();

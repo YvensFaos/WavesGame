@@ -140,7 +140,7 @@ namespace Core.Recorder
                     llmInfo = llmAINavalShip.GetLlmInfo();
                     var llmCaller = llmAINavalShip.GetCaller();
                     llmType = llmCaller.GetLlmType().ToString();
-                    llmModel = llmCaller.GetLlmModel();
+                    llmModel = llmCaller.GetModel();
                     GetInfoFromNavalShip(llmAINavalShip);
                 }
                     break;

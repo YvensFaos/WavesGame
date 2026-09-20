@@ -22,7 +22,7 @@ namespace Actors.AI.LlmAI
 {
     public class LlmLevelScheduler : StrongSingleton<LlmLevelScheduler>
     {
-        [SerializeField, ReadOnly] private List<LlmCallerObject> callers;
+        [SerializeField, ReadOnly] private List<LlmListCallerObject> callers;
         [SerializeField] private List<LlmScheduleSo> schedules;
         [SerializeField, ReadOnly] private LlmScheduleSo currentSchedule;
         [SerializeField, ReadOnly] private int internalCounter;
@@ -39,7 +39,7 @@ namespace Actors.AI.LlmAI
 
         public void BeginNewLevel()
         {
-            callers = FindObjectsByType<LlmCallerObject>(FindObjectsSortMode.None).ToList();
+            callers = FindObjectsByType<LlmListCallerObject>(FindObjectsSortMode.None).ToList();
         }
 
         public bool CheckValidLevel()
@@ -72,11 +72,11 @@ namespace Actors.AI.LlmAI
             {
                 var factionLlmActors = llmActors.FindAll(actor => actor.GetFaction().Equals(aiFaction));
                 var pair = currentSchedule.GetFactionPair(aiFaction);
-                pair.SetCaller(callers);
+                // pair.SetCaller(callers);
 
                 foreach (var llmAINavalShip in factionLlmActors)
                 {
-                    llmAINavalShip.SetCaller(pair.Caller);
+                    llmAINavalShip.SetCaller(pair.LlmSingleCaller);
                     var prompt = pair.GetPromptSo();
                     if (prompt != null)
                     {
