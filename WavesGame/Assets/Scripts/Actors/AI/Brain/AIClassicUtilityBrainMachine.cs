@@ -140,7 +140,7 @@ namespace Actors.AI.Brain
         
         public override string ToString()
         {
-            return $"Classic{base.ToString()}";
+            return $"C{base.ToString()}";
         }
     }
 }

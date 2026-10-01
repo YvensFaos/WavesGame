@@ -151,7 +151,7 @@ namespace Actors.AI.Brain
         
         public override string ToString()
         {
-            return $"Utility{base.ToString()}";
+            return $"U{base.ToString()}";
         }
     }
 }
