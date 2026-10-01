@@ -28,7 +28,7 @@ namespace Actors.AI.Brain
             _state = AIClassicState.Start;
         }
 
-        public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, out AIGridUnitUtility moveTo)
+        public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack, out AIGridUnitUtility moveTo)
         {
             var position = aiNavalShip.GetUnit().Index();
             var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(position, stepsAvailable);
@@ -69,7 +69,14 @@ namespace Actors.AI.Brain
                     attackableTilesFromUnit.Remove(unit);
                     attackableTilesFromUnit.ForEach(attackableTile =>
                     {
-                        attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackableTile);
+                        if (afterAttack)
+                        {
+                            attackUtility += AIGridUnitUtility.CalculatePossibilityOfBeingAttackedUtility(aiNavalShip, attackableTile);
+                        }
+                        else
+                        {
+                            attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackableTile);    
+                        }
                     });
                 }
 
@@ -79,7 +86,7 @@ namespace Actors.AI.Brain
                 utilities.Add(gridUnitUtility);
             }
             
-            DisplayHeatMap(utilities, 5.0f);
+            DisplayHeatMap(utilities);
 
             AIGridUnitUtility chosenAction = null;
             var best = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
@@ -102,7 +109,7 @@ namespace Actors.AI.Brain
             {
                 var gridUnitUtility = new AIGridUnitUtility(unit);
                 var utility = AIGridUnitUtility.CalculateAttackUtility(aiNavalShip, unit);
-                if (Mathf.Approximately(utility, float.MinValue)) continue;
+                if (Mathf.Approximately(utility, AIGridUnitUtility.GetLowestUtility())) continue;
                 gridUnitUtility.Utility = utility;
                 var gridUnit = gridUnitUtility.GetUnit();
                 if (gridUnit.HasValidActors() && gridUnit.ActorsCount() > 0)
@@ -111,7 +118,7 @@ namespace Actors.AI.Brain
                 }
             }
 
-            DisplayHeatMap(utilities, 5.0f);
+            DisplayHeatMap(utilities);
             
             AIGridUnitUtility chosenAction = null;
             if (utilities.Count <= 0) return false;
@@ -120,7 +127,7 @@ namespace Actors.AI.Brain
             return best;
         }
 
-        public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable,
+        public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack,
             out AIGridUnitUtility target)
         {
             target = null;
@@ -129,7 +136,7 @@ namespace Actors.AI.Brain
             {
                 case AIClassicState.Start: //Start by moving
                     _state = AIClassicState.Move;
-                    CalculateMovement(aiNavalShip, stepsAvailable, out target);
+                    CalculateMovement(aiNavalShip, stepsAvailable, false, out target);
                     return AIAction.Movement;
                 
                 case AIClassicState.Move: //Attack after moving
@@ -137,7 +144,8 @@ namespace Actors.AI.Brain
                     return CalculateAttack(aiNavalShip, out target) ? AIAction.Attack : AIAction.None;
                 case AIClassicState.Attack:
                     _state = AIClassicState.MoveAgain; //Move again after attacking, if possible
-                    if (stepsAvailable > 0 && CalculateMovement(aiNavalShip, stepsAvailable, out target))
+                    //TODO change this to calculate a movement after attack
+                    if (stepsAvailable > 0 && CalculateMovement(aiNavalShip, stepsAvailable, true, out target))
                     {
                         return AIAction.Movement;
                     }

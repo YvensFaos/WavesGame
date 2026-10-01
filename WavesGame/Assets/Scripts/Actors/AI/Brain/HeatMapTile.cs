@@ -18,7 +18,7 @@ namespace Actors.AI.Brain
 
         [SerializeField, ReadOnly] private float heat;
 
-        public void ShowHeatTile(float setHeat, float destroyAfter = 0.0f)
+        public void ShowHeatTile(float setHeat, float destroyAfter = 2.0f)
         {
             heat = setHeat;
             heatTileSprite.gameObject.SetActive(true);

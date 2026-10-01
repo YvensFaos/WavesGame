@@ -36,12 +36,13 @@ namespace Actors.AI
             var remainingSteps = RemainingSteps;
             DebugUtils.DebugLogMsg($"{name} has {actionsLeft} actions and steps {remainingSteps}!", DebugUtils.DebugType.System);
             brain.StartTurn(this);
+            var attackedAlready = false;
             var cursorController = CursorController.GetSingleton();
             
             AIAction act;
             do
             {
-                act = brain.CalculateAction(this, actionsLeft, remainingSteps, out var target);
+                act = brain.CalculateAction(this, actionsLeft, remainingSteps, attackedAlready, out var target);
                 yield return new WaitForSeconds(2.0f);
                 
                 var targetString = target != null ? target.ToString() : "[No Target]";
@@ -65,11 +66,11 @@ namespace Actors.AI
 
                         var moveTo = target.GetUnit();
                         yield return new WaitForSeconds(0.5f);
-                        cursorController.MoveToIndex(moveTo.Index(), true);
+                        cursorController.MoveToIndex(moveTo.Index());
                         
                         yield return new WaitUntil(() => !cursorController.MovingAnimation());
                         
-                        var move = MoveTo(target.GetUnit(), unit =>
+                        var move = MoveTo(target.GetUnit(), _ =>
                         {
                             _calculatingAction = false;
                         }, true);
@@ -95,8 +96,8 @@ namespace Actors.AI
                         {
                             var attackAt = target.GetUnit();
                             yield return new WaitForSeconds(0.5f);
-                            cursorController.MoveToIndex(attackAt.Index(), true);
-                        
+                            cursorController.MoveToIndex(attackAt.Index());
+                            attackedAlready = true;
                             yield return new WaitUntil(() => !cursorController.MovingAnimation());
                             
                             --actionsLeft;

@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using Actors.AI.LlmAI;
 using Core;
 using Grid;
-using Unity.VisualScripting;
 using UnityEngine;
 using UUtils;
 
@@ -280,6 +279,51 @@ namespace Actors.AI
         }
 
         /// <summary>
+        /// Calculates the utility of being attacked by actors at the given unit.
+        /// </summary>
+        /// <param name="aiNavalShip"></param>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        public static float CalculatePossibilityOfBeingAttackedUtility(AINavalShip aiNavalShip, GridUnit unit)
+        {
+            var genes = aiNavalShip.GetGenesData();
+            var faction = aiNavalShip.GetFaction();
+            var utility = 0.0f;
+            if (unit.ActorsCount() <= 0) return 0.0f;
+            var actorEnumerator = unit.GetActorEnumerator();
+            
+            while (actorEnumerator.MoveNext())
+            {
+                var current = actorEnumerator.Current;
+                if (current == null) continue;
+            
+                switch (current)
+                {
+                    case ObstacleActor:
+                    case NavalTarget:
+                    case WaveActor waveActor:
+                    case AIBaseShip ally when ally.GetFaction().Equals(faction):
+                        utility = 0.0f;
+                        break;
+                    // Consider that if we can attack an enemy, the enemy can attack us, then move away
+                    case LlmAINavalShip enemyLlm:
+                        utility -= AttackUtility(enemyLlm, aiNavalShip, genes);
+                        break;
+                    case AIBaseShip enemyAI:
+                        utility -= AttackUtility(enemyAI, aiNavalShip, genes);
+                        break;
+                    case NavalShip navalShip:
+                        utility -= AttackUtility(navalShip, aiNavalShip, genes);
+                        break;
+                }
+            }
+
+            actorEnumerator.Dispose();
+            CapLowestBoundUtility(ref utility);
+            return utility;
+        }
+        
+        /// <summary>
         /// Calculates the utility of attacking at the given unit.
         /// Possible attacks at allies contribute with LOWEST_UTILITY as utility to prevent friendly fire.
         /// </summary>
@@ -487,6 +531,8 @@ namespace Actors.AI
             //Force the utility to never go below LOWEST_UTILITY
             utility = Mathf.Max(utility, LowestUtility);
         }
+        
+        public static float GetLowestUtility() => LowestUtility;
 
         public override string ToString()
         {

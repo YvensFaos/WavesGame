@@ -20,7 +20,7 @@ namespace Actors.AI.Brain
             
         }
 
-        public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable,
+        public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack,
             out AIGridUnitUtility moveTo)
         {
             var position = aiNavalShip.GetUnit();
@@ -64,7 +64,15 @@ namespace Actors.AI.Brain
                     attackableFromUnit.Remove(unit);
                     attackableFromUnit.ForEach(attackUnit =>
                     {
-                        attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackUnit);
+                        if (afterAttack)
+                        {
+                            attackUtility += AIGridUnitUtility.CalculatePossibilityOfBeingAttackedUtility(aiNavalShip, attackUnit);    
+                        }
+                        else
+                        {
+                            attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackUnit);
+                        }
+                        
                     });
                 }
 
@@ -105,7 +113,7 @@ namespace Actors.AI.Brain
             return best;
         }
 
-        public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable,
+        public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack,
             out AIGridUnitUtility target)
         {
             target = null;
@@ -116,7 +124,7 @@ namespace Actors.AI.Brain
             var shouldMove = stepsAvailable > 0;
             if (shouldMove)
             {
-                shouldMove = CalculateMovement(aiNavalShip, stepsAvailable, out moveTo);
+                shouldMove = CalculateMovement(aiNavalShip, stepsAvailable, afterAttack, out moveTo);
                 if (moveTo.GetUnit().Equals(aiNavalShip.GetUnit()))
                 {
                     //Trying to move to the same position

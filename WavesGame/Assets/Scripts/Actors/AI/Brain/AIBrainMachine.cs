@@ -28,12 +28,12 @@ namespace Actors.AI.Brain
         
         public abstract void StartTurn(AINavalShip aiNavalShip);
         
-        public abstract bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable,
+        public abstract bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack,
             out AIGridUnitUtility moveTo);
 
         public abstract bool CalculateAttack(AINavalShip aiNavalShip, out AIGridUnitUtility attack);
 
-        public abstract AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, out AIGridUnitUtility target);
+        public abstract AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack, out AIGridUnitUtility target);
 
         private static void DebugUtilityChoices(AIGridUnitUtility chosenAction, int index,
             List<AIGridUnitUtility> utilities)
@@ -48,7 +48,7 @@ namespace Actors.AI.Brain
             #endif
         }
 
-        protected void DisplayHeatMap(List<AIGridUnitUtility> utilities, float destroyAfter = 0.0f)
+        protected void DisplayHeatMap(List<AIGridUnitUtility> utilities, float destroyAfter = 2.0f)
         {
             if (!showHeatmap) return;
             DebugUtils.DebugLogMsg($"Displaying heat map for {destroyAfter} seconds.", DebugUtils.DebugType.Temporary);
@@ -57,7 +57,7 @@ namespace Actors.AI.Brain
             normalize = normalize == 0.0f ? 1.0f : normalize;
             foreach(var utility in utilities)
             {
-                var heatTile = Instantiate<HeatMapTile>(heatMapTilePrefab, utility.GetUnit().transform);
+                var heatTile = Instantiate(heatMapTilePrefab, utility.GetUnit().transform);
                 var ratio = utilitiesExtreme.x;
                 if (!float.IsInfinity(utility.Utility))
                 {
@@ -102,7 +102,7 @@ namespace Actors.AI.Brain
             }
             var possibleActionsCount = Mathf.Min(utilities.Count, aiGenesSo.topUtilitiesChosen);
             var possibleActions = utilities.GetRange(0, possibleActionsCount);
-            var index = -1;
+            int index;
             switch (selection)
             {
                 case AIUtilitySelection.UniformDistribution:
@@ -130,7 +130,7 @@ namespace Actors.AI.Brain
         
         private static AIGridUnitUtility BoostedBestUtility(List<AIGridUnitUtility> utilities, out int index)
         {
-            //Boost highest utility
+            //Boost the highest utility
             utilities.Add(utilities[0]);
             return RandomHelper<AIGridUnitUtility>.GetRandomFromListWithIndex(utilities, out index);
         }
