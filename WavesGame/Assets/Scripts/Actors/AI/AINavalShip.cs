@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using Actors.AI.Brain;
+using Core;
 using UnityEngine;
 using UUtils;
 
@@ -35,14 +36,19 @@ namespace Actors.AI
             var remainingSteps = RemainingSteps;
             DebugUtils.DebugLogMsg($"{name} has {actionsLeft} actions and steps {remainingSteps}!", DebugUtils.DebugType.System);
             brain.StartTurn(this);
+            var cursorController = CursorController.GetSingleton();
             
             AIAction act;
             do
             {
                 act = brain.CalculateAction(this, actionsLeft, remainingSteps, out var target);
+                yield return new WaitForSeconds(2.0f);
+                
                 var targetString = target != null ? target.ToString() : "[No Target]";
+                
                 var utilityReasoning = $"{name} has selected action {act} with target {targetString}.";
                 DebugUtils.DebugLogMsg($"{utilityReasoning}", DebugUtils.DebugType.System);
+                
                 switch (act)
                 {
                     case AIAction.None:
@@ -56,7 +62,13 @@ namespace Actors.AI
                             break;
                         }
                         _calculatingAction = true;
-                        //TODO
+
+                        var moveTo = target.GetUnit();
+                        yield return new WaitForSeconds(0.5f);
+                        cursorController.MoveToIndex(moveTo.Index(), true);
+                        
+                        yield return new WaitUntil(() => !cursorController.MovingAnimation());
+                        
                         var move = MoveTo(target.GetUnit(), unit =>
                         {
                             _calculatingAction = false;
@@ -64,6 +76,7 @@ namespace Actors.AI
                         yield return new WaitUntil(() => !_calculatingAction);
                         remainingSteps = move ? RemainingSteps : 0;
                         break;
+                    
                     case AIAction.Attack:
                         if (target == null)
                         {
@@ -80,11 +93,17 @@ namespace Actors.AI
                         DebugUtils.DebugLogMsg($"{name} attacks {firstActor}!", DebugUtils.DebugType.System);
                         if (TryToAct())
                         {
+                            var attackAt = target.GetUnit();
+                            yield return new WaitForSeconds(0.5f);
+                            cursorController.MoveToIndex(attackAt.Index(), true);
+                        
+                            yield return new WaitUntil(() => !cursorController.MovingAnimation());
+                            
                             --actionsLeft;
                             var damage = CalculateDamage();
                             RecordAttack(firstActor, targetUnit, damage, utilityReasoning);
                             kills += targetUnit.DamageActors(damage);
-                            yield return new WaitForSeconds(0.7f);
+                            yield return new WaitForSeconds(0.75f);
                         }
                         else
                         {
@@ -93,6 +112,8 @@ namespace Actors.AI
                         break;
                     case AIAction.EndTurn:
                         DebugUtils.DebugLogMsg($"{name} finishes its turn!", DebugUtils.DebugType.System);
+                        
+                        //TODO return the cursor to the unit
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

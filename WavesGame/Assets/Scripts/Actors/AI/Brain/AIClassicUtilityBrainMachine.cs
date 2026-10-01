@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using Grid;
 using UnityEngine;
+using UUtils;
 
 namespace Actors.AI.Brain
 {
@@ -72,9 +73,13 @@ namespace Actors.AI.Brain
                     });
                 }
 
-                gridUnitUtility.Utility = movementUtility + awarenessUtility + attackUtility;
+                var resultingUtility  = movementUtility + awarenessUtility + attackUtility;
+                AIGridUnitUtility.CapLowestBoundUtility(ref resultingUtility);
+                gridUnitUtility.Utility = resultingUtility;
                 utilities.Add(gridUnitUtility);
             }
+            
+            DisplayHeatMap(utilities, 5.0f);
 
             AIGridUnitUtility chosenAction = null;
             var best = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
@@ -102,6 +107,8 @@ namespace Actors.AI.Brain
                 utilities.Add(gridUnitUtility);
             }
 
+            DisplayHeatMap(utilities, 5.0f);
+            
             AIGridUnitUtility chosenAction = null;
             var best = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
             attack = chosenAction;
@@ -115,15 +122,16 @@ namespace Actors.AI.Brain
             
             switch (_state)
             {
-                case AIClassicState.Start:
+                case AIClassicState.Start: //Start by moving
                     _state = AIClassicState.Move;
                     CalculateMovement(aiNavalShip, stepsAvailable, out target);
                     return AIAction.Movement;
-                case AIClassicState.Move:
+                
+                case AIClassicState.Move: //Attack after moving
                     _state = AIClassicState.Attack;
                     return CalculateAttack(aiNavalShip, out target) ? AIAction.Attack : AIAction.None;
                 case AIClassicState.Attack:
-                    _state = AIClassicState.MoveAgain;
+                    _state = AIClassicState.MoveAgain; //Move again after attacking, if possible
                     if (stepsAvailable > 0 && CalculateMovement(aiNavalShip, stepsAvailable, out target))
                     {
                         return AIAction.Movement;

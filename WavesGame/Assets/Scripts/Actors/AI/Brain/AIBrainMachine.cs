@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
 using Random = UnityEngine.Random;
@@ -18,6 +19,11 @@ namespace Actors.AI.Brain
     {
         [SerializeField]
         protected AIUtilitySelection selection;
+        [SerializeField]
+        protected bool showHeatmap;
+
+        [SerializeField, EnableIf("showHeatmap")]
+        protected HeatMapTile heatMapTilePrefab;
         
         public abstract void StartTurn(AINavalShip aiNavalShip);
         
@@ -39,6 +45,49 @@ namespace Actors.AI.Brain
                 DebugUtils.DebugLogMsg($"Utils => {i} {utilities[i]}", DebugUtils.DebugType.Verbose);
             }
             #endif
+        }
+
+        protected void DisplayHeatMap(List<AIGridUnitUtility> utilities, float destroyAfter = 0.0f)
+        {
+            if (!showHeatmap) return;
+            DebugUtils.DebugLogMsg("Dislaying heat map.", DebugUtils.DebugType.Temporary);
+            var utilitiesExtreme = CalculateUtilitiesExtreme();
+
+            foreach(var utility in utilities)
+            {
+                var heatTile = Instantiate<HeatMapTile>(heatMapTilePrefab, utility.GetUnit().transform);
+                var ratio = utilitiesExtreme.x;
+                if (!float.IsInfinity(utility.Utility))
+                {
+                    ratio = (utility.Utility - utilitiesExtreme.x) / (utilitiesExtreme.y - utilitiesExtreme.x);
+                }
+                DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio} [{utility.Utility} -> {utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Temporary);
+                heatTile.ShowHeatTile(ratio, destroyAfter);
+            }
+
+            Vector2 CalculateUtilitiesExtreme()
+            {
+                var utilitiesExtreme = new Vector2(float.MaxValue, float.MinValue);
+                foreach (var utility in utilities)
+                {
+                    var utilityValue = utility.Utility;
+                    if (float.IsInfinity(utilityValue))
+                    {
+                        continue;
+                    }
+                    if (utilityValue < utilitiesExtreme.x)
+                    {
+                        utilitiesExtreme.x = utilityValue;
+                    }
+
+                    if (utilityValue > utilitiesExtreme.y)
+                    {
+                        utilitiesExtreme.y = utilityValue;
+                    }
+                }
+
+                return utilitiesExtreme;
+            }
         }
         
         protected bool PickBestUtility(AINavalShip aiNavalShip, ref AIGridUnitUtility chosenAction,
