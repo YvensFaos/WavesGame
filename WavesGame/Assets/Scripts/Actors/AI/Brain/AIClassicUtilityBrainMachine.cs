@@ -61,19 +61,19 @@ namespace Actors.AI.Brain
                 }
 
                 //Finally, calculate the utilities of attacking from this position
-                var attackableFromUnit = GridManager.GetSingleton().GetGridUnitsForMoveType(cannonData.targetAreaType,
+                var attackableTilesFromUnit = GridManager.GetSingleton().GetGridUnitsForMoveType(cannonData.targetAreaType,
                     unit.Index(), cannonData.area, cannonData.deadZone);
-                if (attackableFromUnit.Count >= 0)
+                if (attackableTilesFromUnit.Count >= 0)
                 {
                     //Remove self position
-                    attackableFromUnit.Remove(unit);
-                    attackableFromUnit.ForEach(attackUnit =>
+                    attackableTilesFromUnit.Remove(unit);
+                    attackableTilesFromUnit.ForEach(attackableTile =>
                     {
-                        attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackUnit);
+                        attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackableTile);
                     });
                 }
 
-                var resultingUtility  = movementUtility + awarenessUtility + attackUtility;
+                var resultingUtility = movementUtility + awarenessUtility + attackUtility;
                 AIGridUnitUtility.CapLowestBoundUtility(ref resultingUtility);
                 gridUnitUtility.Utility = resultingUtility;
                 utilities.Add(gridUnitUtility);

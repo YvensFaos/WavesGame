@@ -6,24 +6,27 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using NaughtyAttributes;
 using UnityEngine;
-using UUtils;
 
-public class HeatMapTile : MonoBehaviour
+namespace Actors.AI.Brain
 {
-    [SerializeField]
-    private SpriteRenderer heatTileSprite;
-    [SerializeField]
-    private Gradient heatGradient;
-    
-    public void ShowHeatTile(float intensity, float destroyAfter = 0.0f)
+    public class HeatMapTile : MonoBehaviour
     {
-        heatTileSprite.gameObject.SetActive(true);
-        DebugUtils.DebugLogMsg($"Intensity: {intensity}.", DebugUtils.DebugType.Temporary);
-        heatTileSprite.color = heatGradient.Evaluate(intensity);
-        if (destroyAfter > 0.0f)
+        [SerializeField] private SpriteRenderer heatTileSprite;
+        [SerializeField] private Gradient heatGradient;
+
+        [SerializeField, ReadOnly] private float heat;
+
+        public void ShowHeatTile(float setHeat, float destroyAfter = 0.0f)
         {
-            Destroy(gameObject, destroyAfter);
+            heat = setHeat;
+            heatTileSprite.gameObject.SetActive(true);
+            heatTileSprite.color = heatGradient.Evaluate(setHeat);
+            if (destroyAfter > 0.0f)
+            {
+                Destroy(gameObject, destroyAfter);
+            }
         }
     }
 }

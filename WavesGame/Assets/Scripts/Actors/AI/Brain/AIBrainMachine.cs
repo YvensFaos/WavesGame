@@ -65,7 +65,7 @@ namespace Actors.AI.Brain
                     ratio = (utility.Utility - utilitiesExtreme.x) / normalize;
                 }
                 
-                DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio} [{utility.Utility} -> {utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Temporary);
+                DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio}. U:{utility.Utility} -> [{utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Temporary);
                 heatTile.ShowHeatTile(ratio, destroyAfter);
             }
 

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebe969863b346d2b8320b98dacdeabd, type: 3}
   m_Name: AggressiveGenes
   m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.AIGenesSO
-  aggressiveness: 5
+  aggressiveness: 10
+  finisherWeight: 10
   patience: 0.1
   friendliness: 0.25
   selfPreservation: 0.5
@@ -20,5 +21,5 @@ MonoBehaviour:
   sight: 7
   targetInterest: 0.125
   sortUtilities: 1
-  doubleBestUtilityChance: 1
-  possibleActionsCount: 3
+  topUtilitiesChosen: 4
+  decay: 0.15
