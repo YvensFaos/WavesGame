@@ -104,12 +104,17 @@ namespace Actors.AI.Brain
                 var utility = AIGridUnitUtility.CalculateAttackUtility(aiNavalShip, unit);
                 if (Mathf.Approximately(utility, float.MinValue)) continue;
                 gridUnitUtility.Utility = utility;
-                utilities.Add(gridUnitUtility);
+                var gridUnit = gridUnitUtility.GetUnit();
+                if (gridUnit.HasValidActors() && gridUnit.ActorsCount() > 0)
+                {
+                    utilities.Add(gridUnitUtility);    
+                }
             }
 
             DisplayHeatMap(utilities, 5.0f);
             
             AIGridUnitUtility chosenAction = null;
+            if (utilities.Count <= 0) return false;
             var best = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
             attack = chosenAction;
             return best;

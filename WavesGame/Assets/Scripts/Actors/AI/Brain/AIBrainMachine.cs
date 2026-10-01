@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
@@ -50,43 +51,43 @@ namespace Actors.AI.Brain
         protected void DisplayHeatMap(List<AIGridUnitUtility> utilities, float destroyAfter = 0.0f)
         {
             if (!showHeatmap) return;
-            DebugUtils.DebugLogMsg("Dislaying heat map.", DebugUtils.DebugType.Temporary);
+            DebugUtils.DebugLogMsg($"Displaying heat map for {destroyAfter} seconds.", DebugUtils.DebugType.Temporary);
             var utilitiesExtreme = CalculateUtilitiesExtreme();
-
+            var normalize = (utilitiesExtreme.y - utilitiesExtreme.x);
+            normalize = normalize == 0.0f ? 1.0f : normalize;
             foreach(var utility in utilities)
             {
                 var heatTile = Instantiate<HeatMapTile>(heatMapTilePrefab, utility.GetUnit().transform);
                 var ratio = utilitiesExtreme.x;
                 if (!float.IsInfinity(utility.Utility))
                 {
-                    ratio = (utility.Utility - utilitiesExtreme.x) / (utilitiesExtreme.y - utilitiesExtreme.x);
+                    
+                    ratio = (utility.Utility - utilitiesExtreme.x) / normalize;
                 }
+                
                 DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio} [{utility.Utility} -> {utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Temporary);
                 heatTile.ShowHeatTile(ratio, destroyAfter);
             }
 
+            return;
+
             Vector2 CalculateUtilitiesExtreme()
             {
-                var utilitiesExtreme = new Vector2(float.MaxValue, float.MinValue);
-                foreach (var utility in utilities)
+                var extreme = new Vector2(float.MaxValue, float.MinValue);
+                foreach (var utilityValue in utilities.Select(utility => utility.Utility).Where(utilityValue => !float.IsInfinity(utilityValue)))
                 {
-                    var utilityValue = utility.Utility;
-                    if (float.IsInfinity(utilityValue))
+                    if (utilityValue < extreme.x)
                     {
-                        continue;
-                    }
-                    if (utilityValue < utilitiesExtreme.x)
-                    {
-                        utilitiesExtreme.x = utilityValue;
+                        extreme.x = utilityValue;
                     }
 
-                    if (utilityValue > utilitiesExtreme.y)
+                    if (utilityValue > extreme.y)
                     {
-                        utilitiesExtreme.y = utilityValue;
+                        extreme.y = utilityValue;
                     }
                 }
 
-                return utilitiesExtreme;
+                return extreme;
             }
         }
         
