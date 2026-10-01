@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 8, y: -8}
-  m_SizeDelta: {x: -8, y: 25}
+  m_SizeDelta: {x: -8, y: 72}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4144968276277195523
 CanvasRenderer:
@@ -92,15 +92,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -171,7 +171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8, y: -32}
+  m_AnchoredPosition: {x: 8, y: -82}
   m_SizeDelta: {x: -8, y: 25}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3047329430611901501
@@ -229,15 +229,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 4148648766449009811}
   - component: {fileID: 913369808289765188}
   m_Layer: 5
-  m_Name: Scenario Text (TMP)
+  m_Name: Versus Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,15 +468,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 4
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -561,11 +561,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Simulation.SimulationController
   actorTurnsHolder: {fileID: 6083566847110664292}
   actorTurnUIPrefab: {fileID: -1617867583042874006, guid: 9c238bb53b36f44568f48311cc7362a6, type: 3}
-  simulationText: {fileID: 9062066714074881783}
-  turnText: {fileID: 7564764353939222306}
   actorTurnUIs: []
+  levelActionableActors: []
+  levelNavalActors: []
+  turnText: {fileID: 7564764353939222306}
+  randomSeed: 6
   levelActors: []
   levelGoal: {fileID: 7390738602509195094}
+  simulationText: {fileID: 9062066714074881783}
+  versusText: {fileID: 913369808289765188}
 --- !u!114 &7390738602509195094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,7 +590,7 @@ MonoBehaviour:
   levelShips: []
   playerLevelShips: []
   enemyLevelShips: []
-  enemyFactionShips: []
+  factionShips: []
 --- !u!1 &7807069033430891384
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +651,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0

@@ -28,10 +28,16 @@ namespace Core.Simulation
         public int Iterations => iterations;
         public bool Record => record;
 
-        public override string ToString()
+        public string GetPlayers()
         {
             var players = factionPlayerTypePairs.Aggregate("", (current, pair) => current + $"{pair.Two.GetName()}-{pair.One} x ");
             players = players[..^2];
+            return players;
+        }
+        
+        public override string ToString()
+        {
+            var players = GetPlayers();
             return $"{battleGroundScene}-{players}";
         }
     }

@@ -146,7 +146,10 @@ namespace Core.Simulation
 
             var simulationController = Instantiate(simulationControllerPrefab);
             simulationController.Initialize(factionNavalShipsDictionary);
-
+            var simulationInfo =
+                $"{simulation.BattleGroundScene}-{extra}-iteration[{iterationNumber}]\n\n";
+            simulationController.AddSimulationInfo(simulationInfo, $"{simulation.GetPlayers()}");
+            
             //Wait for the naval actors to load their indices
             yield return new WaitForEndOfFrame();
 

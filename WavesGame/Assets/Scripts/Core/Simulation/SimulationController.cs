@@ -26,6 +26,7 @@ namespace Core.Simulation
     public class SimulationController : GameController
     {
         [SerializeField] private TextMeshProUGUI simulationText;
+        [SerializeField] private TextMeshProUGUI versusText;
 
         private Dictionary<Faction, List<NavalShip>> _navalShips;
 
@@ -59,7 +60,6 @@ namespace Core.Simulation
             levelGoal.Initialize(levelActors);
             yield return null;
 
-            simulationText.text = "Simulation";
             turnText.text = "Turns - ";
 
             if (TurnManager.TryToGetSingleton(out var turnManager))
@@ -228,6 +228,12 @@ namespace Core.Simulation
         protected override void FinishLevel(bool win)
         {
             running = false;
+        }
+
+        public void AddSimulationInfo(string simulationInfo, string versusInfo)
+        {
+            simulationText.text = $"{levelGoal.GetLevelMessage()}\n\n{simulationInfo}";
+            versusText.text = versusInfo;
         }
 
         public SimulationOutcome Outcome => _outcome;
