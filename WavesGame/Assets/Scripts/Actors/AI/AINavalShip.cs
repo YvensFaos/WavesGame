@@ -57,6 +57,7 @@ namespace Actors.AI
                         act = AIAction.EndTurn;
                         goto case AIAction.EndTurn;
                     case AIAction.Movement:
+                        brain.DisplayMoveTiles(this, remainingSteps);
                         if (target == null)
                         {
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
@@ -76,9 +77,12 @@ namespace Actors.AI
                         }, true);
                         yield return new WaitUntil(() => !_calculatingAction);
                         remainingSteps = move ? RemainingSteps : 0;
+                        
+                        brain.HideTiles();
                         break;
                     
                     case AIAction.Attack:
+                        brain.DisplayAttackTiles(this);
                         if (target == null)
                         {
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
@@ -110,10 +114,10 @@ namespace Actors.AI
                         {
                             DebugUtils.DebugLogErrorMsg($"{name} cannot act! No more valid actions this turn.");
                         }
+                        brain.HideTiles();
                         break;
                     case AIAction.EndTurn:
                         DebugUtils.DebugLogMsg($"{name} finishes its turn!", DebugUtils.DebugType.System);
-                        
                         //TODO return the cursor to the unit
                         break;
                     default:

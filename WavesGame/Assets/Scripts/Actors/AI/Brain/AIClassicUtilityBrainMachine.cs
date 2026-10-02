@@ -87,6 +87,7 @@ namespace Actors.AI.Brain
             }
             
             DisplayHeatMap(utilities);
+            //TODO DisplayTiles(utilities);
 
             AIGridUnitUtility chosenAction = null;
             var best = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
@@ -119,6 +120,7 @@ namespace Actors.AI.Brain
             }
 
             DisplayHeatMap(utilities);
+            //TODO DisplayTiles(utilities);
             
             AIGridUnitUtility chosenAction = null;
             if (utilities.Count <= 0) return false;

@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Grid;
 using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
@@ -25,7 +26,16 @@ namespace Actors.AI.Brain
 
         [SerializeField, EnableIf("showHeatmap")]
         protected HeatMapTile heatMapTilePrefab;
+        [SerializeField]
+        private AIDisplayTile displayTilePrefab;
         
+        private List<AIDisplayTile> _displayTiles;
+
+        private void Awake()
+        {
+            _displayTiles = new List<AIDisplayTile>();
+        }
+
         public abstract void StartTurn(AINavalShip aiNavalShip);
         
         public abstract bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack,
@@ -89,6 +99,41 @@ namespace Actors.AI.Brain
 
                 return extreme;
             }
+        }
+
+        public void DisplayMoveTiles(AINavalShip aiNavalShip, int availableSteps)
+        {
+            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(aiNavalShip.GetUnit().Index(), availableSteps);
+            DisplayTiles(walkableUnits);
+        }
+
+        public void DisplayAttackTiles(AINavalShip aiNavalShip)
+        {
+            var position = aiNavalShip.GetUnit().Index();
+            var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
+            var attackableFromUnit = GridManager.GetSingleton().GetGridUnitsForMoveType(cannonData.targetAreaType,
+                position, cannonData.area, cannonData.deadZone);
+            DisplayTiles(attackableFromUnit);
+        }
+
+        private void DisplayTiles(List<GridUnit> units)
+        {
+            HideTiles();
+            foreach (var displayTile in units.Select(unit => Instantiate(displayTilePrefab, unit.transform)))
+            {
+                _displayTiles.Add(displayTile);
+            }
+        }
+
+        public void HideTiles()
+        {
+            if (_displayTiles == null || _displayTiles.Count <= 0) return;
+            for (var i = _displayTiles.Count - 1; i >= 0; i--)
+            {
+                DestroyImmediate(_displayTiles[i].gameObject);
+            }
+            _displayTiles.Clear();
+            _displayTiles = new List<AIDisplayTile>();
         }
         
         protected bool PickBestUtility(AINavalShip aiNavalShip, ref AIGridUnitUtility chosenAction,
