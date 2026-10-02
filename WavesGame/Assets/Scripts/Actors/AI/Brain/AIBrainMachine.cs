@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Grid;
+using Lean.Pool;
 using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
@@ -67,7 +68,7 @@ namespace Actors.AI.Brain
             normalize = normalize == 0.0f ? 1.0f : normalize;
             foreach(var utility in utilities)
             {
-                var heatTile = Instantiate(heatMapTilePrefab, utility.GetUnit().transform);
+                var heatTile = LeanPool.Spawn(heatMapTilePrefab, utility.GetUnit().transform);
                 var ratio = utilitiesExtreme.x;
                 if (!float.IsInfinity(utility.Utility))
                 {
@@ -119,7 +120,7 @@ namespace Actors.AI.Brain
         private void DisplayTiles(List<GridUnit> units)
         {
             HideTiles();
-            foreach (var displayTile in units.Select(unit => Instantiate(displayTilePrefab, unit.transform)))
+            foreach (var displayTile in units.Select(unit => LeanPool.Spawn(displayTilePrefab, unit.transform)))
             {
                 _displayTiles.Add(displayTile);
             }
@@ -130,7 +131,7 @@ namespace Actors.AI.Brain
             if (_displayTiles == null || _displayTiles.Count <= 0) return;
             for (var i = _displayTiles.Count - 1; i >= 0; i--)
             {
-                DestroyImmediate(_displayTiles[i].gameObject);
+                LeanPool.Despawn(_displayTiles[i].gameObject);
             }
             _displayTiles.Clear();
             _displayTiles = new List<AIDisplayTile>();

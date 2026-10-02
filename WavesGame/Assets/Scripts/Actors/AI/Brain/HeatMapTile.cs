@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using Lean.Pool;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Actors.AI.Brain
         [SerializeField] private SpriteRenderer heatTileSprite;
         [SerializeField] private Gradient heatGradient;
 
+        // ReSharper disable once NotAccessedField.Local
         [SerializeField, ReadOnly] private float heat;
 
         public void ShowHeatTile(float setHeat, float destroyAfter = 2.0f)
@@ -25,7 +27,7 @@ namespace Actors.AI.Brain
             heatTileSprite.color = heatGradient.Evaluate(setHeat);
             if (destroyAfter > 0.0f)
             {
-                Destroy(gameObject, destroyAfter);
+                LeanPool.Despawn(gameObject, destroyAfter);
             }
         }
     }
