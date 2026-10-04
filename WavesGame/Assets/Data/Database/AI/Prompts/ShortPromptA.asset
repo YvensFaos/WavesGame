@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: ShortPromptA
   m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
   prompt: "WavesST. You = @faction@. Enemies = @enemy_factions@.\nYour ship @self_status@
-    at (@self_x@,@self_y@).\n\n\u2694\uFE0F ATTACK RULE\nValid attack tiles are EXACTLY
-    2 tiles from your ship (Manhattan = |dx|+|dy| = 2).\nDistance 1 and distance
-    3+ are invalid.\nOnly enemy ships may be attacked.\n\nMOVE-HERE-TO-ATTACK (each
-    line: move to X, then attack Y):\n@attack_enabling_tiles@\n\n\u2713 SAFE MOVE
-    TILES:\n@safe_movement_positions@\n\n\u274C DO NOT MOVE HERE (waves or blocked):\n@blocked_movement_positions@\n\nRULES\n1.
-    If MOVE-HERE-TO-ATTACK is non-empty: set movement to one of its tiles and attack
-    to the listed enemy. Prefer the enemy with the lowest HP.\n2. Else: set movement
-    to a SAFE tile closer to the nearest enemy, and attack to [-1,-1].\n3. move_after_attack
-    = [-1,-1] unless you have a specific reason.\n\nReply JSON only:\n{\"reasoning\":
-    \"brief\", \"movement\": [x, y], \"attack\": [x, y], \"move_after_attack\": [x,
-    y]}"
+    at (@self_x@,@self_y@).\nEnemies: @grid_overview_enemies@\nWaves: @grid_overview_waves@\n\n\u2694\uFE0F
+    Attack is valid ONLY at exactly 2 tiles away.\nOnly enemy ships may be attacked.\n\n\u2694\uFE0F
+    ATTACK NOW (no move needed):\n@current_attack_positions@\n\nMOVE + ATTACK PAIRS
+    (move to X, attack Y):\n@attack_enabling_tiles@\n\n\u2713 SAFE MOVE TILES:\n@safe_movement_positions@\n\n\u274C
+    DO NOT MOVE HERE (waves or blocked):\n@blocked_movement_positions@\n\nRULES\n1.
+    If ATTACK NOW is not empty: attack the listed enemy, do not move.\n2. Else if
+    MOVE + ATTACK PAIRS is not empty: pick one pair.\n3. Else: move to a SAFE tile
+    closer to nearest enemy, attack = [-1,-1].\n4. Never move to a tile not on the
+    SAFE list.\n5. After attacking, if you can still move, move away to prevent being
+    attacked back.\n\nReply JSON only:\n{\"reasoning\": \"brief\", \"movement\":
+    [x1, y1], \"attack\": [x2, y2], \"move_after_attack\": [x3, y3]}"
   includeEmptySpaces: 0

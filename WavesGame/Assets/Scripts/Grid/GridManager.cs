@@ -272,8 +272,8 @@ namespace Grid
                 if (currentRadius < 0) continue;
 
                 var firstUnit = gridUnit == startUnit;
-                // //Ignores the first unit
-                if (gridUnit.Type() == GridUnitType.Blocked && (!firstUnit || ignoreBlocked)) continue;
+                // Ignores the first unit
+                if (!firstUnit && gridUnit.Type() == GridUnitType.Blocked && ignoreBlocked) continue;
                 inRadius.Add(gridUnit);
 
                 DebugUtils.DebugLogMsg($"Visiting next nodes from {gridUnit} [{visited.Count}].",
