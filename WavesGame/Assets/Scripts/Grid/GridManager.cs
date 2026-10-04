@@ -146,9 +146,17 @@ namespace Grid
                    position.y < _grid.GetLength(1);
         }
 
+        /// <summary>
+        /// Gets the list of units that can be reached given a certain position, radius, and cannon.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="cannonSo"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
         public List<GridUnit> GetAttackableUnitsInRadiusManhattan(Vector2Int position, CannonSo cannonSo, int radius)
         {
             var attackableHash = new HashSet<GridUnit>();
+            //Gets all positions this unit can walk to, ignoring blocked positions.
             var walkableUnits = GetGridUnitsInRadiusManhattan(position, radius, true);
             var currentPosition = _grid[position.x, position.y];
             attackableHash.AddRange(walkableUnits);
@@ -157,7 +165,50 @@ namespace Grid
                 positions.Remove(currentPosition);
                 attackableHash.AddRange(positions);
             }
+
             return attackableHash.ToList();
+        }
+
+        /// <summary>
+        /// Check from all possible move positions which actors can be hit per grid unit given the CannonSo properties.
+        /// The movement positions are calculated using the GetGridUnitsInRadiusManhattan and the given radius.
+        /// The list only return gridUnits that have at least one actor on them.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="cannonSo"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public List<GridUnitListActorsPair> GetAttackableActorsInRadiusManhattan(Vector2Int position, CannonSo cannonSo,
+            int radius)
+        {
+            //Gets all positions this unit can walk to, ignoring blocked positions.
+            var walkableUnits = GetGridUnitsInRadiusManhattan(position, radius, true);
+            var list = new List<GridUnitListActorsPair>();
+
+            foreach (var walkableUnit in walkableUnits)
+            {
+                var gridUnitListActorsPair = new GridUnitListActorsPair(walkableUnit);
+                var attackableFrom = GetGridUnitsForMoveType(cannonSo, walkableUnit.Index());
+                
+                // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+                foreach (var attackableUnit in attackableFrom)
+                {
+                    if (attackableUnit.IsEmpty()) continue;
+                    var actorEnumerator = attackableUnit.GetActorEnumerator();
+                    while (actorEnumerator.MoveNext())
+                    {
+                        gridUnitListActorsPair.AddGridActor(actorEnumerator.Current);
+                    }
+                    actorEnumerator.Dispose();
+                }
+
+                list.Add(gridUnitListActorsPair);
+            }
+
+            //Remove all units that are empty from the list.
+            list = list.FindAll(p => !p.IsEmpty());
+            
+            return list;
         }
 
         /// <summary>
@@ -245,7 +296,7 @@ namespace Grid
             }
         }
 
-        public List<GridUnit> GetGridUnitsForMoveType(CannonSo cannonSo, Vector2Int position)
+        private List<GridUnit> GetGridUnitsForMoveType(CannonSo cannonSo, Vector2Int position)
         {
             return GetGridUnitsForMoveType(cannonSo.targetAreaType, position, cannonSo.area, cannonSo.deadZone);
         }

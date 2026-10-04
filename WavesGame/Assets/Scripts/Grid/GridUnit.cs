@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -19,6 +20,30 @@ using UnityEditor;
 
 namespace Grid
 {
+    [Serializable]
+    public class GridUnitListActorsPair : Pair<GridUnit, List<GridActor>>
+    {
+        public GridUnitListActorsPair(GridUnit one, List<GridActor> two) : base(one, two)
+        {
+        }
+
+        public GridUnitListActorsPair(GridUnit one) : base(one, new List<GridActor>())
+        {
+            
+        }
+
+        public void AddGridActor(GridActor actor)
+        {
+            Two ??= new List<GridActor>();
+            Two.Add(actor);
+        }
+
+        public bool IsEmpty()
+        {
+            return Two == null || Two.Count == 0;
+        }
+    }
+    
     public class GridUnit : MonoBehaviour
     {
         [SerializeField] private GridUnitType originalType;

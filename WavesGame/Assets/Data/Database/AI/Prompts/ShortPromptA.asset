@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
+  m_Name: ShortPromptA
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
+  prompt: "WavesST. You = @faction@. Enemies = @enemy_factions@.\nYour ship @self_status@
+    at (@self_x@,@self_y@).\n\n\u2694\uFE0F ATTACK RULE\nValid attack tiles are EXACTLY
+    2 tiles from your ship (Manhattan = |dx|+|dy| = 2).\nDistance 1 and distance
+    3+ are invalid.\nOnly enemy ships may be attacked.\n\nMOVE-HERE-TO-ATTACK (each
+    line: move to X, then attack Y):\n@attack_enabling_tiles@\n\n\u2713 SAFE MOVE
+    TILES:\n@safe_movement_positions@\n\n\u274C DO NOT MOVE HERE (waves or blocked):\n@blocked_movement_positions@\n\nRULES\n1.
+    If MOVE-HERE-TO-ATTACK is non-empty: set movement to one of its tiles and attack
+    to the listed enemy. Prefer the enemy with the lowest HP.\n2. Else: set movement
+    to a SAFE tile closer to the nearest enemy, and attack to [-1,-1].\n3. move_after_attack
+    = [-1,-1] unless you have a specific reason.\n\nReply JSON only:\n{\"reasoning\":
+    \"brief\", \"movement\": [x, y], \"attack\": [x, y], \"move_after_attack\": [x,
+    y]}"
+  includeEmptySpaces: 0

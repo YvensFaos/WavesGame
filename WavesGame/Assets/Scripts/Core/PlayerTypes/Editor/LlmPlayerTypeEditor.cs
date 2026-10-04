@@ -21,9 +21,18 @@ namespace Core.PlayerTypes.Editor
 
             EditorGUILayout.Space(10);
             var llmPlayerType = (LlmPlayerType) target;
+            
             if (GUILayout.Button("Rename LLM Player Type"))
             {
                 RenameScriptableObjectHelper.RenameAssetFile(llmPlayerType, llmPlayerType.GetName());
+            }
+            
+            EditorGUILayout.Space(10);
+            // ReSharper disable once InvertIf
+            if (GUILayout.Button("Ping in Project"))
+            {
+                EditorGUIUtility.PingObject(target);
+                Selection.activeObject = target;
             }
         }
     }

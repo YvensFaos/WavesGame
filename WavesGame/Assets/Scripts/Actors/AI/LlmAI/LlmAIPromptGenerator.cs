@@ -33,13 +33,18 @@ namespace Actors.AI.LlmAI
             template = ReplaceTagWithText(template, "self_x", index.x.ToString());
             template = ReplaceTagWithText(template, "self_y", index.y.ToString());
             template = ReplaceTagWithText(template, "movement_range", shipData.stats.speed.Two.ToString());
-            var dimensions = GridManager.GetSingleton().GetDimensions();
+            var gridManager = GridManager.GetSingleton();
+            var dimensions = gridManager.GetDimensions();
             template = ReplaceTagWithText(template, "grid_size", dimensions.ToString());
 
-            var walkableUnits = GridManager.GetSingleton()
+            var walkableUnits = gridManager
                 .GetGridUnitsInRadiusManhattan(index, llmAINavalShip.RemainingSteps);
             var movementPositions = ListGridUnitIndicesToString(walkableUnits);
             template = ReplaceTagWithText(template, "movement_positions", movementPositions);
+            
+            var attackableActorsInRadiusManhattan = gridManager.GetAttackableActorsInRadiusManhattan(index, cannonData.GetCannonSo, llmAINavalShip.RemainingSteps);
+            var attackableActors = ListGridUnitListActorsPairToString(attackableActorsInRadiusManhattan, selfFaction, "\r\n");
+            template = ReplaceTagWithText(template, "attack_enabling_tiles", attackableActors);
 
             var safePositions = walkableUnits.FindAll(position => position.IsEmpty());
             template = ReplaceTagWithText(template, "safe_movement_positions",
@@ -61,14 +66,14 @@ namespace Actors.AI.LlmAI
             template = ReplaceTagWithText(template, "blocked_movement_positions",
                 ListGridActorsIndicesToString(nearbyShipsPositions, selfFaction, true, "\r\n"));
 
-            var attackableUnits = GridManager.GetSingleton()
+            var attackableUnits = gridManager
                 .GetAttackableUnitsInRadiusManhattan(index, cannonData.GetCannonSo, llmAINavalShip.RemainingSteps);
             attackableUnits = attackableUnits.FindAll(unit => !unit.IsEmpty());
 
             template = ReplaceTagWithText(template, "possible_attack_positions",
                 ListGridUnitsToString(attackableUnits, templatePrompt));
 
-            var currentAttackableUnits = GridManager.GetSingleton()
+            var currentAttackableUnits = gridManager
                 .GetGridUnitsForMoveType(cannonData.GetCannonSo.targetAreaType, index, cannonData.GetCannonSo.area,
                     cannonData.GetCannonSo.deadZone);
             var currentAttackableActors = new List<GridActor>();
@@ -91,11 +96,11 @@ namespace Actors.AI.LlmAI
             template = ReplaceTagWithText(template, "current_attack_positions",
                 ListGridActorsIndicesToString(currentAttackableActors, selfFaction, true, "\r\n"));
 
-            var grid = GridManager.GetSingleton().Grid();
+            var grid = gridManager.Grid();
 
             template = ReplaceTagWithText(template, "grid_overview",
                 ListGridToString(llmAINavalShip, grid, templatePrompt.includeEmptySpaces));
-
+            
             var enemiesOnTheGrid = grid.FindAll(gridUnit =>
             {
                 var actor = gridUnit.GetActor();
@@ -117,7 +122,7 @@ namespace Actors.AI.LlmAI
 
             template = ReplaceTagWithText(template, "grid_overview_symbolic",
                 ListSymbolicGridToString(llmAINavalShip, grid));
-
+            
             return template;
         }
 
@@ -290,6 +295,55 @@ namespace Actors.AI.LlmAI
             return text[..^1] + "]";
         }
 
+        private static string ListGridUnitListActorsPairToString(List<GridUnitListActorsPair> list, Faction selfFaction, string separator = ", ")
+        {
+            if (list == null || list.Count == 0)
+            {
+                return "Nothing";
+            }
+            var text = "";
+            foreach (var gridUnitListActorsPair in list)
+            {
+                var attackable = gridUnitListActorsPair.Two;
+                var shouldInclude = false;
+                var line = $"{gridUnitListActorsPair.One.Index()} → ";
+                foreach(var actor in attackable)
+                {
+                    switch (actor)
+                    {
+                        case NavalTarget navalTarget:
+                            line += $"🎯 health:{navalTarget.GetCurrentHealth()}{separator}, ";
+                            shouldInclude = true;
+                            break;
+                        case AIBaseShip aiBaseShip:
+                        {
+                            if (!selfFaction.Equals(aiBaseShip.GetFaction()))
+                            {
+                                line += $"🚢 {aiBaseShip.GetFaction()} health:{aiBaseShip.GetCurrentHealth()} ratio: {aiBaseShip.GetHealthRatio()}, ";
+                                shouldInclude = true;
+                            }
+                            //If it is the from the same faction, then do not include.
+                        }
+                            break;
+                        case WaveActor wave:
+                            line += $"{GridMoveTypeExtensions.GridMovementSymbol(wave.GetWaveDirection)}, ";
+                            shouldInclude = true;
+                            break;
+                    }
+                }
+
+                if (!shouldInclude) continue;
+                if (line.Length > 0)
+                {
+                    //Remove the last ", " from the line
+                    line =  line[..^2];
+                }
+
+                text += $"{line}{separator}";
+            }
+            return text;
+        }
+        
         private static string ListGridUnitIndicesToString(List<GridUnit> gridUnits, bool includeEmpty = true,
             string separator = ",")
         {
