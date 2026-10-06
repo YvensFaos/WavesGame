@@ -25,7 +25,7 @@ namespace Actors.AI
         protected override void Awake()
         {
             base.Awake();
-            AIName = AINamer.GetRandomName();
+            AIName = AINamer.GetRandomFullName();
             kills = 0;
         }
 

@@ -29,12 +29,29 @@ namespace Actors.AI
             "Verso","Gustave","Sciel","Lune",
             "Lufia","Chrono","Marle","Lucca",
         };
+        
+        private static readonly string[] AISurnames =
+        {
+            "A.","von B.","S.","el O.",
+            "D.","vaan G.","C.","da P.",
+            "X.","Mc F.","R.","of J.",
+            "X.","Mc F.","R.","of J.",
+        };
+        
         private static List<string> _aiNamesList;
+        private static List<string> _aiSurnamesList;
         
         public static string GetRandomName()
         {
             _aiNamesList ??= AINames.ToList();
             return RandomHelper<string>.GetRandomFromList(_aiNamesList);
+        }
+        
+        public static string GetRandomFullName() 
+        {
+            _aiNamesList ??= AINames.ToList();
+            _aiSurnamesList ??= AISurnames.ToList();
+            return $"{RandomHelper<string>.GetRandomFromList(_aiNamesList)} {RandomHelper<string>.GetRandomFromList(_aiSurnamesList)}";
         }
     }
 }
