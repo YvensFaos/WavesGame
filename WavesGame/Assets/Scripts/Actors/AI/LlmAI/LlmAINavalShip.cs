@@ -70,7 +70,7 @@ namespace Actors.AI.LlmAI
             var internalIDStr = internalID.ToString();
             var llmName = $"{llmSingleCaller.GetLlmType().ToString()}|{llmSingleCaller.GetModel()}";
             var factionName = GetFaction().name;
-            name = $"LLM|{llmName}|{aiName}|{factionName}|{internalIDStr}";
+            name = $"LLM|{llmName}|{AIName}|{factionName}|{internalIDStr}";
         }
 
         private static bool IsValidLlmAction(Vector2Int action)

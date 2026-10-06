@@ -128,10 +128,13 @@ namespace Actors.AI.Brain
 
         public void HideTiles()
         {
-            if (_displayTiles == null || _displayTiles.Count <= 0) return;
+            if (_displayTiles is not { Count: > 0 }) return;
             for (var i = _displayTiles.Count - 1; i >= 0; i--)
             {
-                LeanPool.Despawn(_displayTiles[i].gameObject);
+                if (_displayTiles[i] != null)
+                {
+                    LeanPool.Despawn(_displayTiles[i].gameObject);    
+                }
             }
             _displayTiles.Clear();
             _displayTiles = new List<AIDisplayTile>();

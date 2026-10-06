@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using Grid;
+using UnityEngine;
 
 namespace Actors.AI.LlmAI
 {
@@ -189,9 +190,12 @@ namespace Actors.AI.LlmAI
             {
                 var opposingFaction = !selfLlmShip.GetFaction().Equals(navalShip.GetFaction());
                 var factionText = opposingFaction ? $"**Enemy**" : "**Ally**";
-                var health = navalShip.GetCurrentHealth();
-                var ratio = navalShip.GetHealthRatio();
-                symbolicText += $"🚢 {factionText} health:{health} ratio: {ratio}\r\n";
+                var shipName = "";
+                if (navalShip is AIBaseShip aiBaseShip)
+                {
+                    shipName = $"{aiBaseShip.GetAIName()} ";
+                }
+                symbolicText += $"🚢 {shipName}{factionText} health:{navalShip.GetCurrentHealth()}/{navalShip.GetMaxHealth()}\n";
                 return symbolicText;
             }
         }
@@ -312,14 +316,14 @@ namespace Actors.AI.LlmAI
                     switch (actor)
                     {
                         case NavalTarget navalTarget:
-                            line += $"🎯 health:{navalTarget.GetCurrentHealth()}{separator}, ";
+                            line += $"{GetTargetLine(navalTarget)}{separator}, ";
                             shouldInclude = true;
                             break;
                         case AIBaseShip aiBaseShip:
                         {
                             if (!selfFaction.Equals(aiBaseShip.GetFaction()))
                             {
-                                line += $"🚢 {aiBaseShip.GetFaction()} health:{aiBaseShip.GetCurrentHealth()} ratio: {aiBaseShip.GetHealthRatio()}, ";
+                                line += $"{GetAIBaseShipLine(aiBaseShip, aiBaseShip.GetFaction().ToString())}, ";
                                 shouldInclude = true;
                             }
                             //If it is the from the same faction, then do not include.
@@ -385,14 +389,13 @@ namespace Actors.AI.LlmAI
                     switch (gridActor)
                     {
                         case NavalTarget navalTarget:
-                            text += $"{index} = 🎯 health:{navalTarget.GetCurrentHealth()}{separator}";
+                            text += $"{index} = {GetTargetLine(navalTarget)}{separator}";
                             break;
                         case AIBaseShip aiBaseShip:
                         {
                             var opposingFaction = !selfFaction.Equals(aiBaseShip.GetFaction());
                             var factionText = opposingFaction ? $"Enemy {aiBaseShip.GetFaction()}" : "Ally";
-                            text +=
-                                $"{index} = 🚢 {factionText} health:{aiBaseShip.GetCurrentHealth()} ratio: {aiBaseShip.GetHealthRatio()}{separator}";
+                            text += $"{index} = {GetAIBaseShipLine(aiBaseShip, factionText)}" ;
                         }
                             break;
                         case WaveActor wave:
@@ -410,6 +413,16 @@ namespace Actors.AI.LlmAI
             }
 
             return separator.Equals(",") ? text[..^1] : text + "\r\n";
+        }
+
+        private static string GetAIBaseShipLine(AIBaseShip aiBaseShip, string factionText)
+        {
+            return $"🚢 {aiBaseShip.GetAIName()} {factionText} health:{aiBaseShip.GetCurrentHealth()}/{aiBaseShip.GetMaxHealth()}";  
+        }
+
+        private static string GetTargetLine(NavalTarget navalTarget)
+        {
+            return $"🎯 health:{navalTarget.GetCurrentHealth()}/{navalTarget.GetMaxHealth()}";
         }
     }
 }
