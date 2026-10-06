@@ -20,9 +20,12 @@ namespace Actors.AI
         [Header("Score")] [SerializeField, ReadOnly]
         protected int kills;
 
+        protected string aiName;
+
         protected override void Awake()
         {
             base.Awake();
+            aiName = AINamer.GetRandomName();
             kills = 0;
         }
 
@@ -52,7 +55,7 @@ namespace Actors.AI
                 {
                     simulationController.EndTurnForCurrentActor();
                 }
-                DebugUtils.DebugLogMsg($"{name} has finished its turn.", DebugUtils.DebugType.System);
+                DebugUtils.DebugLogMsg($"{name}|{aiName} has finished its turn.", DebugUtils.DebugType.System);
             });
         }
         
@@ -60,12 +63,12 @@ namespace Actors.AI
 
         public override string ToString()
         {
-            return $"{base.ToString()}; faction={GetFaction()}; kills={kills}";
+            return $"{base.ToString()};[{aiName}]; faction={GetFaction()}; kills={kills}";
         }
 
         public string ToLlmString()
         {
-            return $"[{name}]; faction={GetFaction()}; currentHealth={GetCurrentHealth()}.";
+            return $"[{name}];[{aiName}]; faction={GetFaction()}; currentHealth={GetCurrentHealth()}.";
         }
     }
 }

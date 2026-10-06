@@ -14,6 +14,9 @@ namespace Actors.AI
     // ReSharper disable once InconsistentNaming
     public class AIGenesSO : ScriptableObject
     {
+        [Header("Definitions")]
+        public string shortName = "genes";
+        
         [Header("Behavior Genes")]
         public float aggressiveness = 1.0f;
         public float finisherWeight = 10.0f;
