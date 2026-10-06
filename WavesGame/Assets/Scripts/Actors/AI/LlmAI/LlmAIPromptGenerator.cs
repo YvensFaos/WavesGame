@@ -7,6 +7,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using Grid;
 using UnityEngine;
 
@@ -42,9 +43,12 @@ namespace Actors.AI.LlmAI
                 .GetGridUnitsInRadiusManhattan(index, llmAINavalShip.RemainingSteps);
             var movementPositions = ListGridUnitIndicesToString(walkableUnits);
             template = ReplaceTagWithText(template, "movement_positions", movementPositions);
-            
-            var attackableActorsInRadiusManhattan = gridManager.GetAttackableActorsInRadiusManhattan(index, cannonData.GetCannonSo, llmAINavalShip.RemainingSteps);
-            var attackableActors = ListGridUnitListActorsPairToString(attackableActorsInRadiusManhattan, selfFaction, "\r\n");
+
+            var attackableActorsInRadiusManhattan =
+                gridManager.GetAttackableActorsInRadiusManhattan(index, cannonData.GetCannonSo,
+                    llmAINavalShip.RemainingSteps);
+            var attackableActors =
+                ListGridUnitListActorsPairToString(attackableActorsInRadiusManhattan, selfFaction, "\r\n");
             template = ReplaceTagWithText(template, "attack_enabling_tiles", attackableActors);
 
             var safePositions = walkableUnits.FindAll(position => position.IsEmpty());
@@ -101,7 +105,7 @@ namespace Actors.AI.LlmAI
 
             template = ReplaceTagWithText(template, "grid_overview",
                 ListGridToString(llmAINavalShip, grid, templatePrompt.includeEmptySpaces));
-            
+
             var enemiesOnTheGrid = grid.FindAll(gridUnit =>
             {
                 var actor = gridUnit.GetActor();
@@ -123,7 +127,7 @@ namespace Actors.AI.LlmAI
 
             template = ReplaceTagWithText(template, "grid_overview_symbolic",
                 ListSymbolicGridToString(llmAINavalShip, grid));
-            
+
             return template;
         }
 
@@ -195,7 +199,9 @@ namespace Actors.AI.LlmAI
                 {
                     shipName = $"{aiBaseShip.GetAIName()} ";
                 }
-                symbolicText += $"🚢 {shipName}{factionText} health:{navalShip.GetCurrentHealth()}/{navalShip.GetMaxHealth()}\n";
+
+                symbolicText +=
+                    $"🚢 {shipName}{factionText} health:{navalShip.GetCurrentHealth()}/{navalShip.GetMaxHealth()}\n";
                 return symbolicText;
             }
         }
@@ -248,7 +254,7 @@ namespace Actors.AI.LlmAI
                                 $"{index} = {GridMoveTypeExtensions.GridMovementSymbol(wave.GetWaveDirection)}\r\n";
                             break;
                         case NavalTarget target:
-                            text += $"{index} = 🎯 health:{target.GetCurrentHealth()}\r\n";
+                            text += $"{index} = {GetTargetLine(target)}\r\n";
                             break;
                     }
                 }
@@ -260,9 +266,16 @@ namespace Actors.AI.LlmAI
             {
                 var opposingFaction = !selfNavalShip.GetFaction().Equals(otherNavalShip.GetFaction());
                 var factionText = opposingFaction ? $"Enemy {otherNavalShip.GetFaction()}" : "Ally";
-                var health = otherNavalShip.GetCurrentHealth();
-                var ratio = otherNavalShip.GetHealthRatio();
-                symbolicText += $"🚢 {factionText} health:{health} ratio: {ratio}\r\n";
+                if (otherNavalShip is AIBaseShip aiBaseShip)
+                {
+                    symbolicText += $"{GetAIBaseShipLine(aiBaseShip, factionText)}\r\n";
+                }
+                else
+                {
+                    symbolicText +=
+                        $"🚢 {factionText} health:{otherNavalShip.GetCurrentHealth()}/{otherNavalShip.GetMaxHealth()}";
+                }
+
                 return symbolicText;
             }
         }
@@ -299,39 +312,41 @@ namespace Actors.AI.LlmAI
             return text[..^1] + "]";
         }
 
-        private static string ListGridUnitListActorsPairToString(List<GridUnitListActorsPair> list, Faction selfFaction, string separator = ", ")
+        private static string ListGridUnitListActorsPairToString(List<GridUnitListActorsPair> list, Faction selfFaction,
+            string separator = ", ")
         {
             if (list == null || list.Count == 0)
             {
                 return "Nothing";
             }
+
             var text = "";
             foreach (var gridUnitListActorsPair in list)
             {
                 var attackable = gridUnitListActorsPair.Two;
                 var shouldInclude = false;
                 var line = $"{gridUnitListActorsPair.One.Index()} → ";
-                foreach(var actor in attackable)
+                foreach (var actor in attackable)
                 {
                     switch (actor)
                     {
                         case NavalTarget navalTarget:
-                            line += $"{GetTargetLine(navalTarget)}{separator}, ";
+                            line += $"{navalTarget.GetUnit().Index()} {GetTargetLine(navalTarget)}{separator}, ";
                             shouldInclude = true;
                             break;
                         case AIBaseShip aiBaseShip:
-                        {
                             if (!selfFaction.Equals(aiBaseShip.GetFaction()))
                             {
-                                line += $"{GetAIBaseShipLine(aiBaseShip, aiBaseShip.GetFaction().ToString())}, ";
+                                line += $"{aiBaseShip.GetUnit().Index()} {GetAIBaseShipLine(aiBaseShip, aiBaseShip.GetFaction().ToString())}, ";
                                 shouldInclude = true;
                             }
                             //If it is the from the same faction, then do not include.
-                        }
                             break;
                         case WaveActor wave:
-                            line += $"{GridMoveTypeExtensions.GridMovementSymbol(wave.GetWaveDirection)}, ";
+                            line += $"{wave.GetUnit().Index()} {GridMoveTypeExtensions.GridMovementSymbol(wave.GetWaveDirection)}, ";
                             shouldInclude = true;
+                            break;
+                        default: shouldInclude = false;
                             break;
                     }
                 }
@@ -340,14 +355,15 @@ namespace Actors.AI.LlmAI
                 if (line.Length > 0)
                 {
                     //Remove the last ", " from the line
-                    line =  line[..^2];
+                    line = line[..^2];
                 }
 
                 text += $"{line}{separator}";
             }
+
             return text;
         }
-        
+
         private static string ListGridUnitIndicesToString(List<GridUnit> gridUnits, bool includeEmpty = true,
             string separator = ",")
         {
@@ -379,6 +395,8 @@ namespace Actors.AI.LlmAI
             }
 
             var text = "\r\n";
+            var jumpLine = false;
+            var dataAdded = false;
             // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
             foreach (var gridActor in gridActors)
             {
@@ -390,34 +408,70 @@ namespace Actors.AI.LlmAI
                     {
                         case NavalTarget navalTarget:
                             text += $"{index} = {GetTargetLine(navalTarget)}{separator}";
+                            jumpLine = true;
+                            dataAdded = true;
                             break;
                         case AIBaseShip aiBaseShip:
                         {
                             var opposingFaction = !selfFaction.Equals(aiBaseShip.GetFaction());
                             var factionText = opposingFaction ? $"Enemy {aiBaseShip.GetFaction()}" : "Ally";
-                            text += $"{index} = {GetAIBaseShipLine(aiBaseShip, factionText)}" ;
+                            text += $"{index} = {GetAIBaseShipLine(aiBaseShip, factionText)}";
+                            jumpLine = true;
+                            dataAdded = true;
                         }
                             break;
                         case WaveActor wave:
                             text +=
                                 $"{index} = {GridMoveTypeExtensions.GridMovementSymbol(wave.GetWaveDirection)}{separator}";
+                            jumpLine = true;
+                            dataAdded = true;
                             break;
                     }
 
-                    text += $"{separator}";
+                    if (jumpLine)
+                    {
+                        text += $"{separator}";
+                    }
+
+                    jumpLine = false;
                 }
                 else
                 {
                     text += $"{gridActor.GetUnit().Index()}{separator}";
+                    dataAdded = true;
                 }
             }
 
-            return separator.Equals(",") ? text[..^1] : text + "\r\n";
+            if (dataAdded)
+                return separator.Equals(",") ? text[..^1] : text + "\r\n";
+            return "[Nothing]";
         }
 
+        private static string GetWaveLine(WaveActor wave, bool hasWaveTargets = false)
+        {
+            var waveLine = $"{GridMoveTypeExtensions.GridMovementSymbol(wave.GetWaveDirection)}";
+            if (hasWaveTargets)
+            {
+                var unitsAffectedByWaveAttack = wave.GetUnitsAffectedByWaveAttack();
+                // var actorsAffectedByWaveAttack = unitsAffectedByWaveAttack.FindAll(u => !u.IsEmpty());
+                var actorsAffectedByWaveAttack = unitsAffectedByWaveAttack.Select(u => u.GetActor()).ToList().FindAll(a => a != null);
+                if (actorsAffectedByWaveAttack.Count == 0)
+                {
+                    waveLine += "[Nothing]";
+                }
+                else
+                {
+                    
+                }
+            }
+            
+            return waveLine;
+        }
+        
         private static string GetAIBaseShipLine(AIBaseShip aiBaseShip, string factionText)
         {
-            return $"🚢 {aiBaseShip.GetAIName()} {factionText} health:{aiBaseShip.GetCurrentHealth()}/{aiBaseShip.GetMaxHealth()}";  
+            return
+                $"🚢 {aiBaseShip.GetAIName()} {factionText} health:{aiBaseShip.GetCurrentHealth()}/{aiBaseShip.GetMaxHealth()}";
         }
 
         private static string GetTargetLine(NavalTarget navalTarget)

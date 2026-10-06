@@ -15,9 +15,9 @@ MonoBehaviour:
   prompt: "WavesST. You = @faction@. Enemies = @enemy_factions@.\nYour ship @self_status@
     at (@self_x@,@self_y@).\nEnemies: @grid_overview_enemies@\nWaves: @grid_overview_waves@\n\n\u2694\uFE0F
     Attack is valid ONLY at exactly 2 tiles away.\nOnly enemy ships may be attacked.\n\n\u2694\uFE0F
-    ATTACK NOW (no move needed):\n@current_attack_positions@\n\nMOVE + ATTACK PAIRS
-    (move to X, attack Y):\n@attack_enabling_tiles@\n\n\u2713 SAFE MOVE TILES:\n@safe_movement_positions@\n\n\u274C
-    DO NOT MOVE HERE (waves or blocked):\n@blocked_movement_positions@\n\nRULES\n1.
+    ATTACK NOW (no move needed):@current_attack_positions@\n\nMOVE + ATTACK PAIRS
+    (move to X, attack Y):\n@attack_enabling_tiles@\n\n\u2713 SAFE MOVE TILES:@safe_movement_positions@\n\n\u274C
+    DO NOT MOVE HERE (waves or blocked):@blocked_movement_positions@\n\nRULES\n1.
     If ATTACK NOW is not empty: attack the listed enemy, do not move.\n2. Else if
     MOVE + ATTACK PAIRS is not empty: pick one pair.\n3. Else: move to a SAFE tile
     closer to nearest enemy, attack = [-1,-1].\n4. Never move to a tile not on the

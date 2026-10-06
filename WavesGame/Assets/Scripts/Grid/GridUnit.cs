@@ -128,6 +128,7 @@ namespace Grid
 
         public GridActor GetActor()
         {
+            if (_actors == null || _actors.Count == 0) return null;
             var enumerator = _actors.GetEnumerator();
             enumerator.MoveNext();
             var current = enumerator.Current;
