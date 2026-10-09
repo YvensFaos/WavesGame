@@ -5,11 +5,12 @@ Usage:
     python game_parser.py path/to/log.txt
 """
 
+SCHEMA_VERSION = "1.0.0"
+
 import json
 import argparse
 import statistics
 from collections import defaultdict, Counter
-
 
 # ---------------------------------------------------------------------------
 # Loading
@@ -121,6 +122,7 @@ def new_actor(name, faction=None, health=None, pos=None, meta=None):
 
         # Existing counters
         "moves": 0,               # MOVE events (tile steps actually taken)
+        "tiles_walked": 0,        # NEW: sum of Manhattan distances across MOVE events
         "attacks": 0,             # ATTK events (successful attacks)
         "damage_dealt": 0.0,      # ATTK damage (potential)
         "damage_dealt_actual": 0.0,  # NEW: DAMG damage attributed to attacker
@@ -208,6 +210,7 @@ def summarise(events):
 
         # Faction counters
         "moves_by_faction": Counter(),
+        "tiles_walked_by_faction": Counter(),
         "attacks_by_faction": Counter(),
         "damage_dealt_by_faction": Counter(),           # legacy (ATTK)
         "damage_dealt_actual_by_faction": Counter(),    # NEW (DAMG)
@@ -336,8 +339,18 @@ def summarise(events):
             if actor_id:
                 a = get_actor(summary, actor_id, faction)
                 a["moves"] += 1
+
+                mf = ev.get("moveFrom") or {}
+                mt = ev.get("moveTo") or {}
+                if "x" in mf and "x" in mt:
+                    dist = abs(mt["x"] - mf["x"]) + abs(mt["y"] - mf["y"])
+                else:
+                    dist = 1  # fallback: treat each MOVE event as one tile
+                a["tiles_walked"] += dist
+
             if faction:
                 summary["moves_by_faction"][faction] += 1
+                summary["tiles_walked_by_faction"][faction] += dist if actor_id else 0
 
         # ------------------------------------------------------------------
         elif et == "ATTK":
@@ -786,6 +799,7 @@ def print_summary(s):
         role = s["faction_roles"].get(fac, "?")
         print(f"  {fac} [{role}]:")
         print(f"    moves (events): {s['moves_by_faction'].get(fac, 0)}")
+        print(f"    tiles walked:   {s['tiles_walked_by_faction'].get(fac, 0)}")
         print(f"    attacks (successful): {s['attacks_by_faction'].get(fac, 0)}")
         print(
             f"    damage dealt (potential, ATTK): "
@@ -855,14 +869,15 @@ def print_summary(s):
         if kind == "LLM":
             moves_str = (
                 f"moves {a['moves']}/{a.get('moves_attempted', 0)} "
-                f"(fail {a.get('moves_failed', 0)})"
+                f"(fail {a.get('moves_failed', 0)}) "
+                f"tiles {a.get('tiles_walked', 0)}"
             )
             attacks_str = (
                 f"attacks {a['attacks']}/{a.get('attacks_attempted', 0)} "
                 f"(fail {a.get('attacks_failed', 0)})"
             )
         else:
-            moves_str = f"moves {a['moves']}"
+            moves_str = f"moves {a['moves']} tiles {a.get('tiles_walked', 0)}"
             attacks_str = f"attacks {a['attacks']}"
 
         print(
@@ -897,16 +912,60 @@ def print_summary(s):
                     f"turn {kd['turn']} ({kd['method']})"
                 )
 
+def to_jsonable(obj):
+    """Recursively convert Counter / defaultdict / set to JSON-friendly types."""
+    if isinstance(obj, Counter):
+        return dict(obj)
+    if isinstance(obj, defaultdict):
+        return {k: to_jsonable(v) for k, v in obj.items()}
+    if isinstance(obj, dict):
+        return {str(k): to_jsonable(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [to_jsonable(v) for v in obj]
+    if isinstance(obj, set):
+        return sorted(to_jsonable(v) for v in obj)
+    return obj
+
+
+def summary_to_jsonl(summary, source_file=None, lean=False):
+    s = dict(summary)
+    if lean:
+        s.pop("actors", None)
+        s.pop("kills", None)
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "source_file": source_file,
+        "summary": to_jsonable(s),
+    }
+    return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
 
 def main():
     parser = argparse.ArgumentParser(description="Summarise a Battleground JSONL log.")
     parser.add_argument("logfile", help="Path to the Battleground JSONL log.")
+    parser.add_argument(
+        "--format",
+        choices=("text", "jsonl", "both"),
+        default="text",
+        help="Output format (default: text).",
+    )
+    parser.add_argument(
+        "--lean",
+        action="store_true",
+        help="Drop per-actor and per-kill data from JSONL output.",
+    )
     args = parser.parse_args()
 
     events = load_events(args.logfile)
     summary = summarise(events)
-    print_summary(summary)
 
+    if args.format in ("text", "both"):
+        print_summary(summary)
+    if args.format in ("jsonl", "both"):
+        print(summary_to_jsonl(
+            summary,
+            source_file=args.logfile,
+            lean=args.lean,
+        ))
 
 if __name__ == "__main__":
     main()
