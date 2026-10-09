@@ -75,6 +75,11 @@ def summarise(events):
         "winner_message": None,
         "final_turn": 0,
         "final_timestamp": 0,
+        "fleet_sizes": {},
+        "scenario_shape": None,
+        "waves": [],
+        "wave_count": 0,
+        "neutral_count": 0,
 
         "event_counts": Counter(),
         "event_counts_by_faction": defaultdict(Counter),
@@ -115,6 +120,8 @@ def summarise(events):
             summary["map"] = ev.get("map")
             summary["randomSeed"] = ev.get("randomSeed")
             summary["maxTurns"] = ev.get("maxTurns")
+            summary["waves"] = [w.get("name") for w in ev.get("waveActorEntryJsons", [])]
+            summary["wave_count"] = len(summary["waves"])
 
             for actor in ev.get("navalActorEntryJsons", []):
                 name = actor.get("name")
@@ -214,6 +221,21 @@ def summarise(events):
             sum(times) / len(times) if times else 0.0
         )
 
+    sizes = Counter()
+    for a in summary["actors"].values():
+        if a.get("kind") in ("LLM", "AI Unit") and a.get("faction"):
+            sizes[a["faction"]] += 1
+    summary["fleet_sizes"] = dict(sizes)
+
+    if sizes:
+        summary["scenario_shape"] = "v".join(
+            str(v) for v in sorted(sizes.values(), reverse=True)
+        )
+
+    summary["neutral_count"] = sum(
+        1 for name in summary["actors"] if name.startswith("Target")
+    )
+
     return summary
 
 def describe_faction_composition(summary, faction):
@@ -252,6 +274,13 @@ def print_summary(s):
     print(f"MaxTurns: {s['maxTurns']}")
     print(f"Winner: {s['winner']}")
     print(f"Goal: {s['winner_message']}")
+    shape = s["scenario_shape"] or "?"
+    print(
+        f"Scenario: {shape} "
+        f"({', '.join(f'{f}: {n}' for f, n in s['fleet_sizes'].items())}), "
+        f"{s['wave_count']} wave(s) {s['waves']}, "
+        f"{s['neutral_count']} neutral(s)"
+    )
 
     if s["winner"]:
         winner_actors = [a for a in s["actors"].values() if a.get("deaths", 0) == 0]
