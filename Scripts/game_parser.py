@@ -19,22 +19,45 @@ def load_events(path):
                 print(f"[warn] skipping line {line_no}: {exc}")
     return events
 
+def kind_is_combatant(kind):
+    return kind not in ("Target", "Wave", "Unknown", None)
+
+def kind_from_name(name):
+    if not name:
+        return "Unknown"
+    if name.startswith("Target"):
+        return "Target"
+    if name.startswith("Wave"):
+        return "Wave"
+    if name.startswith("LLM|"):
+        return "LLM"
+    if name.startswith("AU|"):
+        return "AI Unit"
+    # Anything else that has a faction and a real name is a human-controlled ship
+    if "|" in name:
+        return "Human"
+    return "Unknown"
+
 def classify_actor(actor_info):
     prefab = actor_info.get("shipPrefabType") or ""
     name = actor_info.get("name") or ""
 
+    kind = None
     if name.startswith("Target"):
         kind = "Target"
     elif "Llm" in prefab or name.startswith("LLM|"):
         kind = "LLM"
     elif "AI" in prefab or name.startswith("AU|"):
         kind = "AI Unit"
-    else:
-        kind = "Unknown"
+    elif prefab == "NavalShip" or ("|" in name and not name.startswith(("Target", "Wave"))):
+        kind = "Human"
+    if kind is None:
+        kind = kind_from_name(name)
 
     return {
         "kind": kind,
         "ship_prefab": prefab,
+        "ship_data": actor_info.get("shipData"),
         "llm_type": actor_info.get("llmType"),
         "llm_model": actor_info.get("llmModel"),
         "llm_prompt": actor_info.get("basePrompt"),
@@ -83,7 +106,11 @@ def new_actor(name, faction=None, health=None, pos=None, meta=None):
 
 def get_actor(summary, actor_id, faction=None):
     if actor_id not in summary["actors"]:
-        summary["actors"][actor_id] = new_actor(actor_id, faction)
+        summary["actors"][actor_id] = new_actor(
+            actor_id,
+            faction,
+            meta={"kind": kind_from_name(actor_id)},
+        )
     return summary["actors"][actor_id]
 
 def summarise(events):
@@ -99,7 +126,6 @@ def summarise(events):
         "scenario_shape": None,
         "waves": [],
         "wave_count": 0,
-        "neutral_count": 0,
 
         "event_counts": Counter(),
         "event_counts_by_faction": defaultdict(Counter),
@@ -154,6 +180,23 @@ def summarise(events):
                 for w in ev.get("waveActorEntryJsons", [])
             ]
             summary["wave_count"] = len(summary["waves"])
+
+            for w in ev.get("waveActorEntryJsons", []):
+                wname = w.get("name")
+                if not wname:
+                    continue
+                summary["actors"][wname] = new_actor(
+                    wname,
+                    faction="Neutral",
+                    health=None,
+                    pos=None,
+                    meta={
+                        "kind": "Wave",
+                        "wave_direction": w.get("direction"),
+                        "wave_damage": w.get("damage"),
+                        "wave_aoe": w.get("areaOfEffect"),
+                    },
+                )
 
             for actor in ev.get("navalActorEntryJsons", []):
                 name = actor.get("name")
@@ -254,21 +297,26 @@ def summarise(events):
 
     sizes = Counter()
     for a in summary["actors"].values():
-        if a.get("kind") in ("LLM", "AI Unit") and a.get("faction"):
+        if a.get("faction") and kind_is_combatant(a.get("kind")):
             sizes[a["faction"]] += 1
     summary["fleet_sizes"] = dict(sizes)
-
     if sizes:
-        summary["scenario_shape"] = "v".join(
-            str(v) for v in sorted(sizes.values(), reverse=True)
-        )
+        counts = sorted(sizes.values(), reverse=True)
+        summary["scenario_shape"] = "v".join(str(v) for v in counts)
 
     neutral_names = [n for n in summary["actors"] if n.startswith("Target")]
+    wave_names = [n for n in summary["actors"] if n.startswith("Wave")]
+
     summary["neutral_count"] = len(neutral_names)
     summary["neutral_destroyed"] = sum(
         1 for n in neutral_names if summary["actors"][n].get("deaths", 0) > 0
     )
     summary["neutral_alive"] = summary["neutral_count"] - summary["neutral_destroyed"]
+
+    summary["wave_actor_count"] = len(wave_names)
+    summary["wave_actor_damage_taken"] = sum(
+        summary["actors"][n].get("damage_taken", 0) for n in wave_names
+    )
 
     return summary
 
@@ -276,7 +324,7 @@ def describe_combatants(summary):
     factions = sorted({
         a.get("faction")
         for a in summary["actors"].values()
-        if a.get("kind") in ("LLM", "AI Unit") and a.get("faction")
+        if kind_is_combatant(a.get("kind")) and a.get("faction")
     })
 
     if not factions:
@@ -285,10 +333,10 @@ def describe_combatants(summary):
     lines = []
     for fac in factions:
         actors = [a for a in summary["actors"].values() if a.get("faction") == fac]
-        llms = [a for a in actors if a.get("kind") == "LLM"]
-        aus  = [a for a in actors if a.get("kind") == "AI Unit"]
 
         parts = []
+
+        llms = [a for a in actors if a.get("kind") == "LLM"]
         if llms:
             models = sorted({
                 f"{a.get('llm_type')}/{a.get('llm_model')}"
@@ -298,23 +346,31 @@ def describe_combatants(summary):
             parts.append(
                 f"{len(llms)} LLM ({', '.join(models)}; prompts: {', '.join(prompts)})"
             )
+
+        aus = [a for a in actors if a.get("kind") == "AI Unit"]
         if aus:
             brains = sorted({a.get("machine_brain") for a in aus if a.get("machine_brain")})
             parts.append(f"{len(aus)} AI Unit ({', '.join(brains)})")
+
+        humans = [a for a in actors if a.get("kind") == "Human"]
+        if humans:
+            ships = sorted({a.get("ship_data") or a.get("ship_prefab") or "?"
+                            for a in humans})
+            parts.append(f"{len(humans)} Human ({', '.join(ships)})")
 
         lines.append(f"  {fac}: {' + '.join(parts) if parts else '?'}")
     return "\n".join(lines)
 
 def describe_faction_composition(summary, faction):
-    actors = [a for a in summary["actors"].values()
-              if a.get("faction") == faction]
+    actors = [a for a in summary["actors"].values() if a.get("faction") == faction]
     if not actors:
         return f"  (no actor metadata found for faction '{faction}')"
 
-    kinds = Counter(a.get("kind", "Unknown") for a in actors)
-    lines = [f"  Actors: {len(actors)} -> {dict(kinds)}"]
+    combatants = [a for a in actors if kind_is_combatant(a.get("kind"))]
+    kinds = Counter(a.get("kind", "Unknown") for a in combatants)
+    lines = [f"  Actors: {len(combatants)} -> {dict(kinds)}"]
 
-    llms = [a for a in actors if a.get("kind") == "LLM"]
+    llms = [a for a in combatants if a.get("kind") == "LLM"]
     if llms:
         providers = sorted({a.get("llm_type") for a in llms if a.get("llm_type")})
         models = sorted({a.get("llm_model") for a in llms if a.get("llm_model")})
@@ -323,14 +379,15 @@ def describe_faction_composition(summary, faction):
         lines.append(f"    LLM models:    {models}")
         lines.append(f"    LLM prompts:   {prompts}")
 
-    aus = [a for a in actors if a.get("kind") == "AI Unit"]
+    aus = [a for a in combatants if a.get("kind") == "AI Unit"]
     if aus:
         brains = sorted({a.get("machine_brain") for a in aus if a.get("machine_brain")})
         lines.append(f"    AI brains:     {brains}")
 
-    targets = [a for a in actors if a.get("kind") == "Target"]
-    if targets:
-        lines.append(f"    Targets:       {len(targets)}")
+    humans = [a for a in combatants if a.get("kind") == "Human"]
+    if humans:
+        ships = sorted({a.get("ship_data") or "?" for a in humans})
+        lines.append(f"    Human ships:   {ships}")
 
     return "\n".join(lines)
 
