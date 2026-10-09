@@ -18,9 +18,31 @@ def load_events(path):
                 print(f"[warn] skipping line {line_no}: {exc}")
     return events
 
+def classify_actor(actor_info):
+    prefab = actor_info.get("shipPrefabType") or ""
+    name = actor_info.get("name") or ""
 
-def new_actor(name, faction=None, health=None, pos=None):
+    if name.startswith("Target"):
+        kind = "Target"
+    elif "Llm" in prefab or name.startswith("LLM|"):
+        kind = "LLM"
+    elif "AI" in prefab or name.startswith("AU|"):
+        kind = "AI Unit"
+    else:
+        kind = "Unknown"
+
     return {
+        "kind": kind,
+        "ship_prefab": prefab,
+        "llm_type": actor_info.get("llmType"),
+        "llm_model": actor_info.get("llmModel"),
+        "llm_prompt": actor_info.get("basePrompt"),
+        "llm_info": actor_info.get("llmInfo"),
+        "machine_brain": actor_info.get("machineBrain"),
+    }
+
+def new_actor(name, faction=None, health=None, pos=None, meta=None):
+    a = {
         "name": name,
         "faction": faction,
         "initial_health": health,
@@ -35,6 +57,9 @@ def new_actor(name, faction=None, health=None, pos=None):
         "commands": 0,
         "response_times": [],
     }
+    if meta:
+        a.update(meta)
+    return a
 
 def get_actor(summary, actor_id, faction=None):
     if actor_id not in summary["actors"]:
@@ -100,6 +125,7 @@ def summarise(events):
                     faction=actor.get("faction"),
                     health=actor.get("currentHealth"),
                     pos=actor.get("position"),
+                    meta=classify_actor(actor),
                 )
 
         elif et == "OVER":
@@ -190,12 +216,51 @@ def summarise(events):
 
     return summary
 
+def describe_faction_composition(summary, faction):
+    actors = [a for a in summary["actors"].values()
+              if a.get("faction") == faction]
+    if not actors:
+        return f"  (no actor metadata found for faction '{faction}')"
+
+    kinds = Counter(a.get("kind", "Unknown") for a in actors)
+    lines = [f"  Actors: {len(actors)} -> {dict(kinds)}"]
+
+    llms = [a for a in actors if a.get("kind") == "LLM"]
+    if llms:
+        providers = sorted({a.get("llm_type") for a in llms if a.get("llm_type")})
+        models = sorted({a.get("llm_model") for a in llms if a.get("llm_model")})
+        prompts = sorted({a.get("llm_prompt") for a in llms if a.get("llm_prompt")})
+        lines.append(f"    LLM providers: {providers}")
+        lines.append(f"    LLM models:    {models}")
+        lines.append(f"    LLM prompts:   {prompts}")
+
+    aus = [a for a in actors if a.get("kind") == "AI Unit"]
+    if aus:
+        brains = sorted({a.get("machine_brain") for a in aus if a.get("machine_brain")})
+        lines.append(f"    AI brains:     {brains}")
+
+    targets = [a for a in actors if a.get("kind") == "Target"]
+    if targets:
+        lines.append(f"    Targets:       {len(targets)}")
+
+    return "\n".join(lines)
 
 def print_summary(s):
     print("=== Battle Summary ===")
     print(f"Map: {s['map']}")
     print(f"Seed: {s['randomSeed']}, maxTurns: {s['maxTurns']}")
     print(f"Winner: {s['winner']} ({s['winner_message']})")
+
+    if s["winner"]:
+        winner_actors = [a for a in s["actors"].values() if a.get("deaths", 0) == 0]
+        winning_factions = Counter(
+            a.get("faction") for a in winner_actors if a.get("faction")
+        )
+        if winning_factions:
+            winning_faction = winning_factions.most_common(1)[0][0]
+            print(f"Winning faction composition ({winning_faction}):")
+            print(describe_faction_composition(s, winning_faction))
+
     print(f"Final turn: {s['final_turn']}, final timestamp: {s['final_timestamp']}")
     print()
 
