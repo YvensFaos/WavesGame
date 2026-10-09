@@ -130,7 +130,7 @@ def summarise(events):
 
         elif et == "OVER":
             summary["winner"] = ev.get("winningFaction")
-            summary["winner_message"] = ev.get("goalMessage")
+            summary["winner_message"] = (ev.get("goalMessage") or "").strip()
 
         elif et == "GSTT":
             for actor in ev.get("navalActorEntryJsons", []):
@@ -248,8 +248,10 @@ def describe_faction_composition(summary, faction):
 def print_summary(s):
     print("=== Battle Summary ===")
     print(f"Map: {s['map']}")
-    print(f"Seed: {s['randomSeed']}, maxTurns: {s['maxTurns']}")
-    print(f"Winner: {s['winner']} ({s['winner_message']})")
+    print(f"Seed: {s['randomSeed']}")
+    print(f"MaxTurns: {s['maxTurns']}")
+    print(f"Winner: {s['winner']}")
+    print(f"Goal: {s['winner_message']}")
 
     if s["winner"]:
         winner_actors = [a for a in s["actors"].values() if a.get("deaths", 0) == 0]
@@ -261,7 +263,8 @@ def print_summary(s):
             print(f"Winning faction composition ({winning_faction}):")
             print(describe_faction_composition(s, winning_faction))
 
-    print(f"Final turn: {s['final_turn']}, final timestamp: {s['final_timestamp']}")
+    print(f"Final turn: {s['final_turn']}")
+    print(f"Final timestamp: {s['final_timestamp']}")
     print()
 
     print("Event counts overall:")
