@@ -36,12 +36,10 @@ def new_actor(name, faction=None, health=None, pos=None):
         "response_times": [],
     }
 
-
 def get_actor(summary, actor_id, faction=None):
     if actor_id not in summary["actors"]:
         summary["actors"][actor_id] = new_actor(actor_id, faction)
     return summary["actors"][actor_id]
-
 
 def summarise(events):
     summary = {
@@ -206,7 +204,6 @@ def print_summary(s):
         print(f"  {et}: {cnt}")
     print()
 
-    # Collect all factions seen
     factions = set()
     for key in [
         "moves_by_faction",
@@ -254,8 +251,8 @@ def print_summary(s):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Summarise a BaseBattlegroundScene JSONL log.")
-    parser.add_argument("logfile", help="Path to the log file")
+    parser = argparse.ArgumentParser(description="Summarise a Waves JSONL log.")
+    parser.add_argument("logfile", help="Path to the Waves JSONL log file.")
     args = parser.parse_args()
 
     events = load_events(args.logfile)
