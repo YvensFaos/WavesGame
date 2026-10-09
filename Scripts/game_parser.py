@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 import argparse
+import statistics
 from collections import defaultdict, Counter
 
 
@@ -39,6 +40,25 @@ def classify_actor(actor_info):
         "llm_prompt": actor_info.get("basePrompt"),
         "llm_info": actor_info.get("llmInfo"),
         "machine_brain": actor_info.get("machineBrain"),
+    }
+
+def compute_stats(values):
+    if not values:
+        return {
+            "count": 0,
+            "sum": 0.0,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "stdev": 0.0,
+        }
+    return {
+        "count": len(values),
+        "sum": sum(values),
+        "mean": statistics.fmean(values),
+        "min": min(values),
+        "max": max(values),
+        "stdev": statistics.pstdev(values) if len(values) > 1 else 0.0,
     }
 
 def new_actor(name, faction=None, health=None, pos=None, meta=None):
@@ -94,12 +114,16 @@ def summarise(events):
         "invalid_by_faction": defaultdict(Counter),
 
         "response_times_by_faction": defaultdict(list),
-        "avg_response_time_by_faction": {},
+        "response_stats_by_faction": {},
+        "response_stats_overall": {},
+
+        "neutral_count": 0,
+        "neutral_destroyed": 0,
+        "neutral_alive": 0,
 
         "actors": {},
     }
 
-    # Used to infer kills: targetId -> (attackerId, attackerFaction)
     last_attacker_by_target = {}
 
     for ev in events:
@@ -120,7 +144,15 @@ def summarise(events):
             summary["map"] = ev.get("map")
             summary["randomSeed"] = ev.get("randomSeed")
             summary["maxTurns"] = ev.get("maxTurns")
-            summary["waves"] = [w.get("name") for w in ev.get("waveActorEntryJsons", [])]
+            summary["waves"] = [
+                {
+                    "name": w.get("name"),
+                    "direction": w.get("direction"),
+                    "damage": w.get("damage"),
+                    "aoe": w.get("areaOfEffect"),
+                }
+                for w in ev.get("waveActorEntryJsons", [])
+            ]
             summary["wave_count"] = len(summary["waves"])
 
             for actor in ev.get("navalActorEntryJsons", []):
@@ -185,7 +217,6 @@ def summarise(events):
             if faction:
                 summary["deaths_by_faction"][faction] += 1
 
-            # Optional kill inference: last attacker before death gets credit.
             killer = last_attacker_by_target.get(actor_id)
             if killer:
                 killer_id, killer_faction = killer
@@ -215,11 +246,11 @@ def summarise(events):
             if faction:
                 summary["invalid_by_faction"][faction][ev.get("type", "unknown")] += 1
 
-    # Average response time per faction
     for fac, times in summary["response_times_by_faction"].items():
-        summary["avg_response_time_by_faction"][fac] = (
-            sum(times) / len(times) if times else 0.0
-        )
+        summary["response_stats_by_faction"][fac] = compute_stats(times)
+
+    all_times = [t for times in summary["response_times_by_faction"].values() for t in times]
+    summary["response_stats_overall"] = compute_stats(all_times)
 
     sizes = Counter()
     for a in summary["actors"].values():
@@ -232,11 +263,47 @@ def summarise(events):
             str(v) for v in sorted(sizes.values(), reverse=True)
         )
 
-    summary["neutral_count"] = sum(
-        1 for name in summary["actors"] if name.startswith("Target")
+    neutral_names = [n for n in summary["actors"] if n.startswith("Target")]
+    summary["neutral_count"] = len(neutral_names)
+    summary["neutral_destroyed"] = sum(
+        1 for n in neutral_names if summary["actors"][n].get("deaths", 0) > 0
     )
+    summary["neutral_alive"] = summary["neutral_count"] - summary["neutral_destroyed"]
 
     return summary
+
+def describe_combatants(summary):
+    factions = sorted({
+        a.get("faction")
+        for a in summary["actors"].values()
+        if a.get("kind") in ("LLM", "AI Unit") and a.get("faction")
+    })
+
+    if not factions:
+        return "  (no combatants found)"
+
+    lines = []
+    for fac in factions:
+        actors = [a for a in summary["actors"].values() if a.get("faction") == fac]
+        llms = [a for a in actors if a.get("kind") == "LLM"]
+        aus  = [a for a in actors if a.get("kind") == "AI Unit"]
+
+        parts = []
+        if llms:
+            models = sorted({
+                f"{a.get('llm_type')}/{a.get('llm_model')}"
+                for a in llms if a.get("llm_type") or a.get("llm_model")
+            })
+            prompts = sorted({a.get("llm_prompt") for a in llms if a.get("llm_prompt")})
+            parts.append(
+                f"{len(llms)} LLM ({', '.join(models)}; prompts: {', '.join(prompts)})"
+            )
+        if aus:
+            brains = sorted({a.get("machine_brain") for a in aus if a.get("machine_brain")})
+            parts.append(f"{len(aus)} AI Unit ({', '.join(brains)})")
+
+        lines.append(f"  {fac}: {' + '.join(parts) if parts else '?'}")
+    return "\n".join(lines)
 
 def describe_faction_composition(summary, faction):
     actors = [a for a in summary["actors"].values()
@@ -273,13 +340,34 @@ def print_summary(s):
     print(f"Seed: {s['randomSeed']}")
     print(f"MaxTurns: {s['maxTurns']}")
     print(f"Winner: {s['winner']}")
+    print()
+    print("Combatants:")
+    print(describe_combatants(s))
+    print()
+
+    overall = s["response_stats_overall"]
+    if overall["count"]:
+        print(
+            f"Response times (overall, {overall['count']} responses, ms): "
+            f"sum={overall['sum']:.1f}, "
+            f"mean={overall['mean']:.1f}, "
+            f"min={overall['min']:.1f}, "
+            f"max={overall['max']:.1f}, "
+            f"stdev={overall['stdev']:.1f}"
+        )
+        print()
     print(f"Goal: {s['winner_message']}")
     shape = s["scenario_shape"] or "?"
+    wave_desc = ", ".join(
+        f"{w['name']} ({w.get('direction', '?')}, dmg {w.get('damage', '?')})"
+        for w in s["waves"]
+    ) or "none"
     print(
         f"Scenario: {shape} "
         f"({', '.join(f'{f}: {n}' for f, n in s['fleet_sizes'].items())}), "
-        f"{s['wave_count']} wave(s) {s['waves']}, "
-        f"{s['neutral_count']} neutral(s)"
+        f"{s['wave_count']} wave(s): [{wave_desc}], "
+        f"{s['neutral_count']} neutral(s) "
+        f"({s['neutral_destroyed']} destroyed, {s['neutral_alive']} alive)"
     )
 
     if s["winner"]:
@@ -325,10 +413,16 @@ def print_summary(s):
         print(f"    kills (inferred): {s['kills_by_faction'].get(fac, 0)}")
         print(f"    deaths: {s['deaths_by_faction'].get(fac, 0)}")
         print(f"    commands: {s['commands_by_faction'].get(fac, 0)}")
-        print(
-            f"    avg response time: "
-            f"{s['avg_response_time_by_faction'].get(fac, 0.0):.1f}"
-        )
+        rs = s["response_stats_by_faction"].get(fac)
+        if rs and rs["count"]:
+            print(
+                f"    response times (ms, {rs['count']}): "
+                f"sum={rs['sum']:.1f}, "
+                f"mean={rs['mean']:.1f}, "
+                f"min={rs['min']:.1f}, "
+                f"max={rs['max']:.1f}, "
+                f"stdev={rs['stdev']:.1f}"
+            )
         inv = s["invalid_by_faction"].get(fac, {})
         if inv:
             print(f"    invalid: {dict(inv)}")
