@@ -11,6 +11,21 @@ import json
 import argparse
 import statistics
 from collections import defaultdict, Counter
+from datetime import datetime
+
+def parse_iso_utc(s):
+    """Parse '2026-10-12T13:11:17.3764860Z' -> aware datetime, or None."""
+    if not s:
+        return None
+    try:
+        # Python 3.11+ handles the trailing Z directly.
+        return datetime.fromisoformat(s)
+    except ValueError:
+        # Python 3.10 and earlier want a manual Z -> +00:00 swap.
+        try:
+            return datetime.fromisoformat(s.replace("Z", "+00:00"))
+        except ValueError:
+            return None
 
 # ---------------------------------------------------------------------------
 # Loading
@@ -138,6 +153,9 @@ def new_actor(name, faction=None, health=None, pos=None, meta=None):
         "attacks_attempted": 0,
         "attacks_failed": 0,
 
+        # NEW: per-actor input telemetry
+        "input_counts": Counter(),
+
         # NEW: friendly fire / wave metrics
         "friendly_fire_attacks": 0,
         "self_damage_attacks": 0,
@@ -176,6 +194,11 @@ def summarise(events):
         "final_timestamp": 0,
         "final_turn": 0,
         "battle_duration": 0,
+
+        "start_time_iso": None,
+        "final_time_iso": None,
+        "real_duration_s": None,
+        "turn_real_timestamps": [],  # list of (turn, iso_string)
 
         # Scenario
         "fleet_sizes": {},
@@ -231,6 +254,17 @@ def summarise(events):
         "response_stats_by_faction": {},
         "response_stats_overall": {},
 
+        # Input telemetry (human + AU + LLM decision-makers)
+        "input_counts_by_action": Counter(),
+        "input_counts_by_device": Counter(),
+        "input_counts_by_phase": Counter(),
+        "input_counts_by_actor": Counter(),
+        "human_commit_times": [],
+        "ai_commit_times": [],
+        "input_first_time": None,
+        "input_last_time": None,
+        "input_wallclock_span": 0.0,
+
         # Actors + kill edges
         "actors": {},
         "kills": [],
@@ -262,6 +296,7 @@ def summarise(events):
             summary["map"] = ev.get("map")
             summary["randomSeed"] = ev.get("randomSeed")
             summary["maxTurns"] = ev.get("maxTurns")
+            summary["start_time_iso"] = ev.get("startTime")
 
             summary["waves"] = [
                 {
@@ -303,12 +338,45 @@ def summarise(events):
                     pos=actor.get("position"),
                     meta=classify_actor(actor),
                 )
-
+        # ------------------------------------------------------------------
+        elif et == "TURN":
+            rt = ev.get("realTimestamp")
+            if rt:
+                summary["turn_real_timestamps"].append((ev.get("turn"), rt))
         # ------------------------------------------------------------------
         elif et == "OVER":
             summary["winner"] = (ev.get("winningFaction") or "").strip()
             summary["winner_message"] = (ev.get("goalMessage") or "").strip()
+            summary["final_time_iso"] = ev.get("finalTime")
+        # ------------------------------------------------------------------
+        elif et == "INPT":
+            action = ev.get("actionName", "?")
+            device = ev.get("actionDevice") or "?"
+            phase = ev.get("actionPhase", "?")
+            t = ev.get("actionStartTime")
+            is_human = ev.get("isHumanTurn") is True
 
+            summary["input_counts_by_action"][action] += 1
+            summary["input_counts_by_device"][device] += 1
+            summary["input_counts_by_phase"][phase] += 1
+
+            if actor_id:
+                a = get_actor(summary, actor_id, faction)
+                a["input_counts"][action] += 1
+                summary["input_counts_by_actor"][actor_id] += 1
+
+            # Commit = Performed Interact, bucket by the explicit flag.
+            if action == "Interact" and phase == "Performed" and t is not None:
+                if is_human:
+                    summary["human_commit_times"].append(t)
+                else:
+                    summary["ai_commit_times"].append(t)
+
+            if t is not None:
+                if summary["input_first_time"] is None or t < summary["input_first_time"]:
+                    summary["input_first_time"] = t
+                if summary["input_last_time"] is None or t > summary["input_last_time"]:
+                    summary["input_last_time"] = t
         # ------------------------------------------------------------------
         elif et == "GSTT":
             for actor in ev.get("navalActorEntryJsons", []):
@@ -510,6 +578,15 @@ def summarise(events):
     all_times = [t for times in summary["response_times_by_faction"].values()
                  for t in times]
     summary["response_stats_overall"] = compute_stats(all_times)
+    start_dt = parse_iso_utc(summary["start_time_iso"])
+    end_dt = parse_iso_utc(summary["final_time_iso"])
+    if start_dt and end_dt:
+        summary["real_duration_s"] = (end_dt - start_dt).total_seconds()
+    if (summary["input_first_time"] is not None
+            and summary["input_last_time"] is not None):
+        summary["input_wallclock_span"] = (
+            summary["input_last_time"] - summary["input_first_time"]
+        )
 
     # Battle duration
     if summary["first_timestamp"] is not None:
@@ -715,6 +792,12 @@ def print_summary(s):
     print(f"Seed: {s['randomSeed']}  MaxTurns: {s['maxTurns']}")
     print(f"Winner: {s['winner']}")
     print(f"Goal: {s['winner_message']}")
+    print(f"Duration (ticks): {s['battle_duration']}")
+    if s.get("real_duration_s") is not None:
+        print(
+            f"Real duration: {s['real_duration_s']:.2f}s "
+            f"({s['start_time_iso']} -> {s['final_time_iso']})"
+        )
     print(f"Matchup: {s['matchup_type']}  ->  {s['matchup_label']}")
     print(
         f"Winner side: {s['winner_side']} "
@@ -756,6 +839,32 @@ def print_summary(s):
         f"{s['neutral_count']} neutral(s) "
         f"({s['neutral_destroyed']} destroyed, {s['neutral_alive']} alive)"
     )
+
+    if s["input_counts_by_action"]:
+        print("Player / AI input summary:")
+        print(f"  By action: {dict(s['input_counts_by_action'])}")
+        print(f"  By device: {dict(s['input_counts_by_device'])}")
+        print(f"  By phase:  {dict(s['input_counts_by_phase'])}")
+
+        if s.get("input_wallclock_span"):
+            print(
+                f"  Input wall-clock span: "
+                f"{s['input_wallclock_span']:.1f}s "
+                f"(from {s['input_first_time']:.1f} "
+                f"to {s['input_last_time']:.1f})"
+            )
+
+        for label, times in (("Human", s["human_commit_times"]),
+                             ("AU",    s["ai_commit_times"])):
+            if times and len(times) > 1:
+                gaps = [times[i + 1] - times[i] for i in range(len(times) - 1)]
+                gs = compute_stats(gaps)
+                print(
+                    f"  {label} commit intervals (s, {gs['count']}): "
+                    f"min={gs['min']:.2f}, mean={gs['mean']:.2f}, "
+                    f"max={gs['max']:.2f}, stdev={gs['stdev']:.2f}"
+                )
+        print()
 
     if s["winner_side"]:
         print(f"Winning faction composition ({s['winner_side']}):")

@@ -19,12 +19,14 @@ namespace Core.Recorder
     {
         [SerializeField] public string goalMessage;
         [SerializeField] public string winningFaction;
+        [SerializeField] public string finalTime;
 
-        public EndGameRecordEntryJson(string eventType, int turn, long timeStamp, string goalMessage,
+        public EndGameRecordEntryJson(string eventType, int turn, string finalTime, long timeStamp, string goalMessage,
             string winningFaction) : base(eventType, turn, timeStamp)
         {
             this.goalMessage = goalMessage;
             this.winningFaction = winningFaction;
+            this.finalTime = finalTime;
         }
     }
 
@@ -33,6 +35,7 @@ namespace Core.Recorder
         private readonly string _goalMessage;
         private readonly bool _victory;
         private readonly Faction _winningFaction;
+        private readonly string _finalTime;
 
         public EndGameRecordEntry(string goalMessage, Faction winningFaction, bool victory) : base(
             WavesRecordEntryType.EndGame)
@@ -40,11 +43,13 @@ namespace Core.Recorder
             _goalMessage = goalMessage;
             _winningFaction = winningFaction;
             _victory = victory;
+            _finalTime = TimestampHelper.GetSimplifiedUTCTimestamp();
         }
 
         public override void PerformEntry()
         {
-            var winnerMessage = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" : _victory ? $"Player Victory!" : "Player Lost!";
+            var winnerMessage = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" :
+                _victory ? $"Player Victory!" : "Player Lost!";
             DebugUtils.DebugLogMsg($"End game reached! {_goalMessage}.{winnerMessage}", DebugUtils.DebugType.Temporary);
             //TODO
             // if (!LevelController.TryToGetSingleton(out var levelController)) return;
@@ -53,9 +58,11 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            var winningFactionName = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" : _victory ? $"Player Victory!" : "Player Lost!";
+            var winningFactionName = _winningFaction != null ? $"Winning Faction is {_winningFaction}!" :
+                _victory ? $"Player Victory!" : "Player Lost!";
             return JsonConvert.SerializeObject(new EndGameRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.EndGame), turn,
+                _finalTime,
                 timeStamp, _goalMessage, winningFactionName), GetJsonSerializerSettings());
         }
 
@@ -70,14 +77,12 @@ namespace Core.Recorder
             }
 
             var levelGoalMessage = parts[1];
-            Faction winningFaction = null;
-            if (parts.Length > 2)
-            {
-                var factionName = parts[2];
-                //TODO convert from the name to a faction
-                winningFaction = ScriptableObject.CreateInstance<Faction>();
-                winningFaction.name = factionName;
-            }
+            if (parts.Length <= 2)
+                return null; //new EndGameRecordEntry(levelGoalMessage, winningFaction, false, -1, -1);
+            var factionName = parts[2];
+            //TODO convert from the name to a faction
+            var winningFaction = ScriptableObject.CreateInstance<Faction>();
+            winningFaction.name = factionName;
 
             return null; //new EndGameRecordEntry(levelGoalMessage, winningFaction, false, -1, -1);
         }

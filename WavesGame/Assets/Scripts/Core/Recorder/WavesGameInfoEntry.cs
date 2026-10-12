@@ -23,11 +23,13 @@ namespace Core.Recorder
         [SerializeField] public string map;
         [SerializeField] public int randomSeed;
         [SerializeField] public int maxTurns;
+        [SerializeField] public string startTime;
         [SerializeField] public List<NavalActorEntryJson> navalActorEntryJsons;
         [SerializeField] public List<WaveActorEntryJson> waveActorEntryJsons;
         [SerializeField] public List<ObstacleEntryJson> obstacleEntryJsons;
 
-        public WavesGameInfoRecordEntryJson(string eventType, int turn, long timeStamp, string map, int randomSeed,
+        public WavesGameInfoRecordEntryJson(string eventType, int turn, long timeStamp, string startTime, string map,
+            int randomSeed,
             int maxTurns,
             List<NavalActor> navalActors, List<WaveActor> waveActors, List<ObstacleActor> obstacleActors) : base(
             eventType, turn, timeStamp)
@@ -35,6 +37,7 @@ namespace Core.Recorder
             this.map = map;
             this.randomSeed = randomSeed;
             this.maxTurns = maxTurns;
+            this.startTime = startTime;
             navalActorEntryJsons = navalActors.Select(ship => new NavalActorEntryJson(ship)).ToList();
             waveActorEntryJsons = waveActors.Select(waveActor => new WaveActorEntryJson(waveActor)).ToList();
             obstacleEntryJsons = obstacleActors.Select(obstacleActor => new ObstacleEntryJson(obstacleActor)).ToList();
@@ -46,6 +49,7 @@ namespace Core.Recorder
         private readonly string _map;
         private readonly int _randomSeed;
         private readonly int _maxTurns;
+        private readonly string _startTime;
         private readonly List<NavalActor> _navalActors;
         private readonly List<WaveActor> _waveActors;
         private readonly List<ObstacleActor> _obstacleActors;
@@ -57,6 +61,7 @@ namespace Core.Recorder
             _map = map;
             _randomSeed = randomSeed;
             _maxTurns = maxTurns;
+            _startTime = TimestampHelper.GetSimplifiedUTCTimestamp();
             _navalActors = navalActors;
             _waveActors = waveActors;
             _obstacleActors = obstacleActors;
@@ -71,8 +76,9 @@ namespace Core.Recorder
         protected override string ToJson()
         {
             var json = JsonConvert.SerializeObject(new WavesGameInfoRecordEntryJson(
-                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Information), turn,
-                timeStamp, _map, _randomSeed, _maxTurns, _navalActors, _waveActors, _obstacleActors), GetJsonSerializerSettings());
+                    WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Information), turn,
+                    timeStamp, _startTime, _map, _randomSeed, _maxTurns, _navalActors, _waveActors, _obstacleActors),
+                GetJsonSerializerSettings());
             return json;
         }
     }
