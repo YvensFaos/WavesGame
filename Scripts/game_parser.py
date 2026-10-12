@@ -724,8 +724,30 @@ def summarise(events):
     summary["matchup_label"] = " vs ".join(labels)
 
     # Winner / loser resolution
-    if summary["winner"] and " is " in summary["winner"]:
-        winner_faction = summary["winner"].rsplit(" is ", 1)[1].rstrip("!").strip()
+    # Known winner-string formats:
+    #   "Winning Faction is Red!"  -> faction follows " is "
+    #   "Player Victory!"          -> engine default when max_turns is reached
+    #                                 without elimination. If a Human faction
+    #                                 exists, that side won; otherwise treat as
+    #                                 a timeout draw.
+    winner_faction = None
+    is_timeout = False
+    if summary["winner"]:
+        w = summary["winner"].strip()
+        if " is " in w:
+            winner_faction = w.rsplit(" is ", 1)[1].rstrip("!").strip()
+        elif w == "Player Victory!":
+            for fac in faction_roles:
+                if any(
+                        a.get("kind") == "Human" and a.get("faction") == fac
+                        for a in summary["actors"].values()
+                ):
+                    winner_faction = fac
+                    break
+            if winner_faction is None:
+                is_timeout = True
+
+    if winner_faction and winner_faction in faction_roles:
         summary["winner_side"] = winner_faction
         summary["winner_role"] = faction_roles.get(winner_faction)
 
@@ -755,11 +777,52 @@ def summarise(events):
 
         summary["win_reason"] = "elimination"
 
-    if (summary["winner"] is None
-            and summary["maxTurns"]
-            and summary["final_turn"] >= summary["maxTurns"]):
-        summary["is_draw"] = True
-        summary["win_reason"] = "draw_max_turns"
+
+    elif is_timeout:
+        # No elimination; fall back to surviving ships.
+        survivors = {}
+        for fac in faction_roles:
+            fac_actors = [
+                a for a in summary["actors"].values()
+                if a.get("faction") == fac
+                   and kind_is_combatant(a.get("kind"))
+            ]
+            survivors[fac] = sum(
+                1 for a in fac_actors if a.get("deaths", 0) == 0
+            )
+
+        ranked = sorted(survivors.items(), key=lambda kv: -kv[1])
+        if ranked and len(ranked) >= 2 and ranked[0][1] > ranked[1][1]:
+            top_fac, top_count = ranked[0]
+            summary["winner_side"] = top_fac
+            summary["winner_role"] = faction_roles.get(top_fac)
+            summary["win_reason"] = "timeout_survivors"
+            models = sorted({
+                a.get("llm_model") or a.get("machine_brain") or a.get("ship_data")
+                for a in summary["actors"].values()
+                if a.get("faction") == top_fac and kind_is_combatant(a.get("kind"))
+            })
+            summary["winner_model"] = (
+                    ", ".join(m for m in models if m) or top_fac
+            )
+            for fac in faction_roles:
+                if fac != top_fac:
+                    summary["loser_side"] = fac
+                    summary["loser_role"] = faction_roles[fac]
+                    models = sorted({
+                        a.get("llm_model") or a.get("machine_brain") or a.get("ship_data")
+                        for a in summary["actors"].values()
+                        if a.get("faction") == fac and kind_is_combatant(a.get("kind"))
+                    })
+                    summary["loser_model"] = (
+                            ", ".join(m for m in models if m) or fac
+                    )
+                    break
+
+            # is_draw stays False
+        else:
+            summary["is_draw"] = True
+            summary["win_reason"] = "timeout_tie"
 
     # LLM side / won
     for fac, role in faction_roles.items():
