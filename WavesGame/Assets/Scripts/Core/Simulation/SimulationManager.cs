@@ -244,6 +244,16 @@ namespace Core.Simulation
                 outcome == SimulationOutcome.Victory));
         }
 
+        public bool ContainsSimulation(Simulation simulation)
+        {
+            return simulations.Contains(simulation);
+        }
+
+        public void AddSimulation(Simulation simulation)
+        {
+            simulations.Add(simulation);
+        }
+
         private static List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction,
             PlayerTypeBaseSo playerType,
             List<PlaceholderActor> placeHolders, HashSet<Faction> factionsHash)

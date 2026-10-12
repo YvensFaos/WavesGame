@@ -164,6 +164,9 @@ namespace Actors.AI.Brain
                     var decay = aiGenesSo.decay;
                     chosenAction = RankDecay(possibleActions, decay, out index);
                     break;
+                case AIUtilitySelection.Random:
+                    chosenAction = RandomHelper<AIGridUnitUtility>.GetRandomFromListWithIndex(possibleActions, out index);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

@@ -12,6 +12,7 @@ namespace Actors.AI.Brain
     {
         UniformDistribution,
         BoostedBestUtility,
-        RankDecay
+        RankDecay,
+        Random
     }
 }
