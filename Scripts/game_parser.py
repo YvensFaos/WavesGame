@@ -188,6 +188,7 @@ def summarise(events):
         "map": None,
         "randomSeed": None,
         "maxTurns": None,
+        "extraText": None,
         "winner": None,
         "winner_message": None,
         "first_timestamp": None,
@@ -297,6 +298,7 @@ def summarise(events):
             summary["randomSeed"] = ev.get("randomSeed")
             summary["maxTurns"] = ev.get("maxTurns")
             summary["start_time_iso"] = ev.get("startTime")
+            summary["extraText"] = ev.get("extraText")
 
             summary["waves"] = [
                 {
@@ -789,7 +791,9 @@ def describe_faction_composition(summary, faction):
 def print_summary(s):
     print("=== Battle Summary ===")
     print(f"Map: {s['map']}")
-    print(f"Seed: {s['randomSeed']}  MaxTurns: {s['maxTurns']}")
+    print(f"Seed: {s['randomSeed']}")
+    print(f"MaxTurns: {s['maxTurns']}")
+    print(f"Extra: {s['extraText']}")
     print(f"Winner: {s['winner']}")
     print(f"Goal: {s['winner_message']}")
     print(f"Duration (ticks): {s['battle_duration']}")

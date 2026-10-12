@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Actors;
-using Core.Recorder.Extras;
 using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
@@ -24,11 +23,13 @@ namespace Core.Recorder
         [SerializeField] public int randomSeed;
         [SerializeField] public int maxTurns;
         [SerializeField] public string startTime;
+        [SerializeField] public string extraText;
         [SerializeField] public List<NavalActorEntryJson> navalActorEntryJsons;
         [SerializeField] public List<WaveActorEntryJson> waveActorEntryJsons;
         [SerializeField] public List<ObstacleEntryJson> obstacleEntryJsons;
 
-        public WavesGameInfoRecordEntryJson(string eventType, int turn, long timeStamp, string startTime, string map,
+        public WavesGameInfoRecordEntryJson(string eventType, int turn, long timeStamp, string startTime,
+            string extraText, string map,
             int randomSeed,
             int maxTurns,
             List<NavalActor> navalActors, List<WaveActor> waveActors, List<ObstacleActor> obstacleActors) : base(
@@ -38,6 +39,7 @@ namespace Core.Recorder
             this.randomSeed = randomSeed;
             this.maxTurns = maxTurns;
             this.startTime = startTime;
+            this.extraText = extraText;
             navalActorEntryJsons = navalActors.Select(ship => new NavalActorEntryJson(ship)).ToList();
             waveActorEntryJsons = waveActors.Select(waveActor => new WaveActorEntryJson(waveActor)).ToList();
             obstacleEntryJsons = obstacleActors.Select(obstacleActor => new ObstacleEntryJson(obstacleActor)).ToList();
@@ -50,11 +52,13 @@ namespace Core.Recorder
         private readonly int _randomSeed;
         private readonly int _maxTurns;
         private readonly string _startTime;
+        private readonly string _extraText;
         private readonly List<NavalActor> _navalActors;
         private readonly List<WaveActor> _waveActors;
         private readonly List<ObstacleActor> _obstacleActors;
 
-        public WavesGameInfoEntry(string map, int randomSeed, int maxTurns, List<NavalActor> navalActors,
+        public WavesGameInfoEntry(string map, int randomSeed, int maxTurns, string extraText,
+            List<NavalActor> navalActors,
             List<WaveActor> waveActors, List<ObstacleActor> obstacleActors) : base(
             WavesRecordEntryType.Information)
         {
@@ -65,6 +69,7 @@ namespace Core.Recorder
             _navalActors = navalActors;
             _waveActors = waveActors;
             _obstacleActors = obstacleActors;
+            _extraText = extraText;
         }
 
         public override void PerformEntry()
@@ -77,7 +82,8 @@ namespace Core.Recorder
         {
             var json = JsonConvert.SerializeObject(new WavesGameInfoRecordEntryJson(
                     WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Information), turn,
-                    timeStamp, _startTime, _map, _randomSeed, _maxTurns, _navalActors, _waveActors, _obstacleActors),
+                    timeStamp, _startTime, _extraText, _map, _randomSeed, _maxTurns, _navalActors, _waveActors,
+                    _obstacleActors),
                 GetJsonSerializerSettings());
             return json;
         }

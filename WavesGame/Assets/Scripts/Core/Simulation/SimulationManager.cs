@@ -149,7 +149,7 @@ namespace Core.Simulation
             var simulationInfo =
                 $"{simulation.BattleGroundScene}-{extra}-iteration[{iterationNumber}]\n\n";
             simulationController.AddSimulationInfo(simulationInfo, $"{simulation.GetPlayers()}");
-            
+
             //Wait for the naval actors to load their indices
             yield return new WaitForEndOfFrame();
 
@@ -177,7 +177,7 @@ namespace Core.Simulation
                 var recordingIdentifier =
                     $"{simulation.BattleGroundScene}-{simulationController.GetLevelMessageAndTime()}-{extra}-iteration[{iterationNumber}]";
                 DebugUtils.DebugLogMsg($"Starting recording...", DebugUtils.DebugType.System);
-                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, simulationSeed, maxTurns, navalActors,
+                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, simulationSeed, maxTurns, navalActors, extra,
                     waveActors, obstacleActors, recordingIdentifier);
             }
 

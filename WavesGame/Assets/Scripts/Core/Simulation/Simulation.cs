@@ -21,7 +21,7 @@ namespace Core.Simulation
         [SerializeField] private bool record = true;
         [SerializeField] private List<FactionPlayerTypePair> factionPlayerTypePairs;
 
-        public string BattleGroundScene => battleGroundScene;
+        public string BattleGroundScene => battleGroundScene.Trim();
 
         public List<FactionPlayerTypePair> FactionPlayerTypePairs => factionPlayerTypePairs;
 
