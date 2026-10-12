@@ -260,8 +260,8 @@ def summarise(events):
         "input_counts_by_device": Counter(),
         "input_counts_by_phase": Counter(),
         "input_counts_by_actor": Counter(),
-        "human_commit_times": [],
-        "ai_commit_times": [],
+        "human_commit_times": defaultdict(list),
+        "ai_commit_times": defaultdict(list),
         "input_first_time": None,
         "input_last_time": None,
         "input_wallclock_span": 0.0,
@@ -368,11 +368,11 @@ def summarise(events):
                 summary["input_counts_by_actor"][actor_id] += 1
 
             # Commit = Performed Interact, bucket by the explicit flag.
-            if action == "Interact" and phase == "Performed" and t is not None:
+            if action == "Interact" and phase == "Performed" and t is not None and faction:
                 if is_human:
-                    summary["human_commit_times"].append(t)
+                    summary["human_commit_times"][faction].append(t)
                 else:
-                    summary["ai_commit_times"].append(t)
+                    summary["ai_commit_times"][faction].append(t)
 
             if t is not None:
                 if summary["input_first_time"] is None or t < summary["input_first_time"]:
@@ -596,6 +596,15 @@ def summarise(events):
             summary["final_timestamp"] - summary["first_timestamp"]
         )
 
+    human_commit_stats_by_faction = {
+        fac: compute_stats(times)
+        for fac, times in summary["human_commit_times"].items()
+    }
+    ai_commit_stats_by_faction = {
+        fac: compute_stats(times)
+        for fac, times in summary["ai_commit_times"].items()
+    }
+
     # Fleet sizes + scenario shape
     sizes = Counter()
     for a in summary["actors"].values():
@@ -638,6 +647,45 @@ def summarise(events):
                       if a.get("faction") == fac]
         faction_roles[fac] = resolve_role(fac_actors)
     summary["faction_roles"] = faction_roles
+
+
+    decision_stats = {}
+    for fac in sizes:
+        role = faction_roles.get(fac)
+        if role == "LLM":
+            rs = summary["response_stats_by_faction"].get(fac)
+            if rs and rs["count"]:
+                decision_stats[fac] = {**rs, "source": "llm_response"}
+        elif role == "Human":
+            cs = human_commit_stats_by_faction.get(fac)
+            if cs and cs["count"]:
+                decision_stats[fac] = {**cs, "source": "commit_interval"}
+        elif role == "AU":
+            cs = ai_commit_stats_by_faction.get(fac)
+            if cs and cs["count"]:
+                decision_stats[fac] = {**cs, "source": "commit_interval"}
+    summary["decision_stats_by_faction"] = decision_stats
+
+    # Structured model/prompt per faction (mirrors matchup_label, but parseable).
+    faction_models = {}
+    faction_prompts = {}
+    for fac in sizes:
+        fac_actors = [
+            a for a in summary["actors"].values()
+            if a.get("faction") == fac and kind_is_combatant(a.get("kind"))
+        ]
+        models = sorted({
+            a.get("llm_model") or a.get("machine_brain") or a.get("ship_data")
+            for a in fac_actors
+            if a.get("llm_model") or a.get("machine_brain") or a.get("ship_data")
+        })
+        prompts = sorted({
+            a.get("llm_prompt") for a in fac_actors if a.get("llm_prompt")
+        })
+        faction_models[fac] = ";".join(models) if models else None
+        faction_prompts[fac] = ";".join(prompts) if prompts else None
+    summary["faction_models"] = faction_models
+    summary["faction_prompts"] = faction_prompts
 
     roles_sorted = sorted(set(faction_roles.values()))
     if len(roles_sorted) >= 2:
@@ -693,6 +741,16 @@ def summarise(events):
             if fac != winner_faction:
                 summary["loser_side"] = fac
                 summary["loser_role"] = faction_roles[fac]
+
+                loser_models = sorted({
+                    a.get("llm_model") or a.get("machine_brain") or a.get("ship_data")
+                    for a in summary["actors"].values()
+                    if a.get("faction") == fac
+                    and kind_is_combatant(a.get("kind"))
+                })
+                summary["loser_model"] = (
+                        ", ".join(m for m in loser_models if m) or fac
+                )
                 break
 
         summary["win_reason"] = "elimination"
