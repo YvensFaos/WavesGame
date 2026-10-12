@@ -41,24 +41,24 @@ namespace Core.Recorder
 
     public class InputRecordEntry : WavesEntry
     {
-        private readonly string _actionName;
-        private readonly string _actionMap;
-        private readonly string _actionPhase;
-        private readonly string _actionValue;
-        private readonly string _actionDevice;
-        private readonly double _actionStartTime;
+        protected readonly string ActionName;
+        protected readonly string ActionMap;
+        protected readonly string ActionPhase;
+        protected readonly string ActionValue;
+        protected readonly string ActionDevice;
+        protected readonly double ActionStartTime;
 
         public InputRecordEntry(InputActionTrace.ActionEventPtr actionEventPtr) : base(
             WavesRecordEntryType.Input)
         {
             var action = actionEventPtr.action;
-            _actionName = action.name;
-            _actionMap = action.actionMap.name;
-            _actionPhase = action.phase.ToString();
-            _actionStartTime = actionEventPtr.startTime;
+            ActionName = action.name;
+            ActionMap = action.actionMap.name;
+            ActionPhase = action.phase.ToString();
+            ActionStartTime = actionEventPtr.startTime;
 
             var readValueAsObject = action.ReadValueAsObject();
-            _actionValue = action.phase switch
+            ActionValue = action.phase switch
             {
                 InputActionPhase.Disabled => readValueAsObject != null ? readValueAsObject.ToString() : "",
                 InputActionPhase.Waiting => "",
@@ -67,24 +67,24 @@ namespace Core.Recorder
                 InputActionPhase.Canceled => "",
                 _ => throw new ArgumentOutOfRangeException()
             };
-            _actionDevice = "";
+            ActionDevice = "";
             if (action.activeControl is { device: not null })
             {
-                _actionDevice = action.activeControl.device.name;
+                ActionDevice = action.activeControl.device.name;
             }
         }
 
         public override void PerformEntry()
         {
             DebugUtils.DebugLogMsg(
-                $"Input: {_actionName}, {_actionPhase}, {_actionValue}, {_actionDevice}, {_actionStartTime}.",
+                $"Input: {ActionName}, {ActionPhase}, {ActionValue}, {ActionDevice}, {ActionStartTime}.",
                 DebugUtils.DebugType.Verbose);
         }
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new InputRecordEntryJson(_actionName, _actionMap, _actionPhase,
-                _actionValue, _actionDevice, _actionStartTime,
+            return JsonConvert.SerializeObject(new InputRecordEntryJson(ActionName, ActionMap, ActionPhase,
+                ActionValue, ActionDevice, ActionStartTime,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
                 turn, timeStamp), GetJsonSerializerSettings());
         }

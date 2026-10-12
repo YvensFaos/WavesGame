@@ -31,20 +31,20 @@ namespace Core.Recorder
 
     public abstract class ActorRecordEntry : WavesEntry
     {
-        protected readonly string faction;
-        protected string comment;
+        protected readonly string Faction;
+        protected string Comment;
 
         protected ActorRecordEntry(string actorId, Faction faction, WavesRecordEntryType type) :
             base(type)
         {
             ActorID = actorId;
-            this.faction = faction != null ? faction.name : "No Faction";
-            comment = "";
+            Faction = faction != null ? faction.name : "No Faction";
+            Comment = "";
         }
 
         public void AppendComment(string appendComment)
         {
-            comment += $"{appendComment}";
+            Comment += $"{appendComment}";
         }
 
         protected virtual string Content()
@@ -54,9 +54,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new ActorRecordEntryJson(ActorID, faction,
+            return JsonConvert.SerializeObject(new ActorRecordEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
-                turn, timeStamp, comment), GetJsonSerializerSettings());
+                turn, timeStamp, Comment), GetJsonSerializerSettings());
         }
 
         protected string ActorID { get; }

@@ -54,13 +54,15 @@ namespace Core.Recorder
         [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int currentHealth;
         [SerializeField] public string faction;
         [SerializeField] public SimpleVector2Int position;
+        [SerializeField] public bool isHumanControlled;
 
-        public NavalActorShortEntryJson(string name, int currentHealth, string faction, SimpleVector2Int position)
+        public NavalActorShortEntryJson(string name, int currentHealth, string faction, SimpleVector2Int position, bool isHumanControlled)
         {
             this.name = name;
             this.currentHealth = currentHealth;
             this.faction = faction;
             this.position = position;
+            this.isHumanControlled = isHumanControlled;
         }
 
         public NavalActorShortEntryJson(NavalActor navalActor)
@@ -70,10 +72,9 @@ namespace Core.Recorder
             var gridUnit = navalActor.GetUnit();
             position = gridUnit != null ? new SimpleVector2Int(gridUnit.Index()) : new SimpleVector2Int(-1, -1);
             faction = Faction.GetNeutralFaction().name;
-            if (navalActor is NavalShip navalShip)
-            {
-                faction = navalShip.GetFaction().ToString();
-            }
+            if (navalActor is not NavalShip navalShip) return;
+            faction = navalShip.GetFaction().ToString();
+            isHumanControlled = navalShip.HumanControlled;
         }
     }
 
@@ -87,30 +88,31 @@ namespace Core.Recorder
         [SerializeField] public string shipData;
         [SerializeField] public string navalCannon;
         [SerializeField] public SimpleVector2Int position;
+        [SerializeField] public bool isHumanControlled;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [SerializeField]
-        public GeneEntryJson genesData = null;
+        public GeneEntryJson genesData;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [SerializeField]
-        public string machineBrain = null;
+        public string machineBrain;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [SerializeField]
-        public string basePrompt = null;
+        public string basePrompt;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [SerializeField]
-        public string llmInfo = null;
+        public string llmInfo;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [SerializeField]
-        public string llmType = null;
+        public string llmType;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [SerializeField]
-        public string llmModel = null;
+        public string llmModel;
 
         public NavalActorEntryJson(NavalActor navalActor)
         {
@@ -167,6 +169,7 @@ namespace Core.Recorder
                 faction = navalShip.GetFaction().ToString();
                 shipData = navalShip.ShipData.name;
                 navalCannon = navalShip.NavalCannon.GetCannonDataName();
+                isHumanControlled = navalShip.HumanControlled;
             }
         }
     }

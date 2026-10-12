@@ -87,7 +87,7 @@ namespace Core.Recorder
                                 var waveDirection = waveActor.GetWaveDirection;
                                 row = GridMoveTypeExtensions.GridMovementSimplifiedSymbol(waveDirection) + row;
                                 break;
-                            case ObstacleActor obstacleActor:
+                            case ObstacleActor:
                                 row = "&" + row;
                                 break;
                             default:

@@ -57,9 +57,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new MovementRecordEntryJson(ActorID, faction,
+            return JsonConvert.SerializeObject(new MovementRecordEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Movement), turn,
-                timeStamp, MoveFrom, MoveTo, comment), GetJsonSerializerSettings());
+                timeStamp, MoveFrom, MoveTo, Comment), GetJsonSerializerSettings());
         }
 
         public Vector2Int MoveFrom { get; }

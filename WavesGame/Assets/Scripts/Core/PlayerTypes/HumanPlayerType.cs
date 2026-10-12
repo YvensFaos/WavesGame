@@ -10,6 +10,7 @@ namespace Core.PlayerTypes
         public override void InitializeType(NavalShip navalShip, HashSet<Faction> factions)
         {
             navalShip.UpdateName();
+            navalShip.HumanControlled = true;
         }
 
         public override string GetName()

@@ -15,6 +15,7 @@ using Core;
 using Core.Recorder;
 using DG.Tweening;
 using Grid;
+using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
 
@@ -28,6 +29,7 @@ namespace Actors
         [SerializeField] private Faction faction;
         [SerializeField] private int initiative;
         [SerializeField] private int overrideInitiative = -1;
+        [SerializeField, ReadOnly] private bool humanControlled;
 
         private int _stepsAvailable;
 
@@ -326,6 +328,12 @@ namespace Actors
         {
             get => initiative;
             private set => initiative = value;
+        }
+
+        public bool HumanControlled
+        {
+            get => humanControlled;
+            set => humanControlled = value;
         }
 
         public Sprite GetSprite() => spriteRenderer.sprite;

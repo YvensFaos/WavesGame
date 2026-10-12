@@ -34,10 +34,10 @@ namespace Core
             RecordTurn();
         }
 
-        private void RecordTurn()
+        private static void RecordTurn()
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new TurnRecordEntry(turnNumber));
+            recorder.RecordNewEntry(new TurnRecordEntry());
         }
         
         public int GetTurnNumber() => turnNumber;

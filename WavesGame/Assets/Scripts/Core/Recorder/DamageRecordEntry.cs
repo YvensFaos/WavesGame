@@ -52,9 +52,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new DamageRecordEntryJson(ActorID, faction,
+            return JsonConvert.SerializeObject(new DamageRecordEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Damage), turn,
-                timeStamp, _damage, comment), GetJsonSerializerSettings());
+                timeStamp, _damage, Comment), GetJsonSerializerSettings());
         }
 
         /// <summary>

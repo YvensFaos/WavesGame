@@ -59,9 +59,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new InvalidResponseEntryJson(ActorID, faction,
+            return JsonConvert.SerializeObject(new InvalidResponseEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp,
-                _type.ToString(), _message, comment), GetJsonSerializerSettings());
+                _type.ToString(), _message, Comment), GetJsonSerializerSettings());
         }
     }
 }

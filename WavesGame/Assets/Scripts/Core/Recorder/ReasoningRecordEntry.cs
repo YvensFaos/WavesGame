@@ -51,9 +51,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new ReasoningRecordEntryJson(ActorID, faction,
+            return JsonConvert.SerializeObject(new ReasoningRecordEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _reasoning, _responseTime,
-                comment), GetJsonSerializerSettings());
+                Comment), GetJsonSerializerSettings());
         }
     }
 }

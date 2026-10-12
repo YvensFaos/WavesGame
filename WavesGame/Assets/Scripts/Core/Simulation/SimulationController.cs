@@ -122,6 +122,14 @@ namespace Core.Simulation
                         var turnUI = GetActorTurnUI(navalShip);
                         turnUI.ToggleAvailability(true);
 
+                        if (WavesInputTracer.TryToGetSingleton(out var inputTracer))
+                        {
+                            if (inputTracer is WavesInputTracer wavesInputTracer)
+                            {
+                                wavesInputTracer.SetCurrentNavalShip(navalShip);    
+                            }
+                        }
+
                         // Move the cursor to the ship
                         if (cursorController.MovingAnimation())
                         {

@@ -41,9 +41,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID, faction,
+            return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Death), turn,
-                timeStamp, comment), GetJsonSerializerSettings());
+                timeStamp, Comment), GetJsonSerializerSettings());
         }
 
         /// <summary>

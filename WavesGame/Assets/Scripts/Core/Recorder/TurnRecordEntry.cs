@@ -8,37 +8,40 @@
 
 using System;
 using Newtonsoft.Json;
-using UnityEngine;
+using UUtils;
 
 namespace Core.Recorder
 {
     [Serializable]
     public class TurnRecordEntryJson : WavesEntryJson
     {
-        public TurnRecordEntryJson(string eventType, int turn, long timeStamp) : base(eventType,
+        public string realTimestamp;
+
+        public TurnRecordEntryJson(string realTimestamp, string eventType, int turn, long timeStamp) : base(eventType,
             turn, timeStamp)
         {
+            this.realTimestamp = realTimestamp;
         }
     }
 
     public class TurnRecordEntry : WavesEntry
     {
-        private readonly int _turnNumber;
+        private readonly string _realTimestamp;
 
-        public TurnRecordEntry(int turnNumber) : base(WavesRecordEntryType.Turn)
+        public TurnRecordEntry() : base(WavesRecordEntryType.Turn)
         {
-            _turnNumber = turnNumber;
+            _realTimestamp = TimestampHelper.GetSimplifiedUTCTimestamp();
         }
 
         public override void PerformEntry()
         {
-            if (!LevelController.TryToGetSingleton(out var levelController)) return;
-            //TODO implement
+            //TODO
+            //if (!LevelController.TryToGetSingleton(out var _)) return;
         }
-        
+
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new TurnRecordEntryJson(
+            return JsonConvert.SerializeObject(new TurnRecordEntryJson(_realTimestamp,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Turn), turn,
                 timeStamp), GetJsonSerializerSettings());
         }
