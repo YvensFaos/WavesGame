@@ -70,6 +70,18 @@ def kind_from_name(name):
         return "Human"
     return "Unknown"
 
+def variant_from_name(name):
+    """Fallback: extract the 3rd |-segment of an actor name.
+
+    Used for old logs that lack genesData.geneName / genesData.shortName.
+    Returns None if the name doesn't have the expected shape.
+
+    Example: 'AU|Lune Mc F.|MD|Red|1' -> 'MD'
+    """
+    if not name:
+        return None
+    parts = name.split("|")
+    return parts[2] if len(parts) >= 3 else None
 
 def classify_actor(actor_info):
     """Extract kind + subtype metadata from an INFO navalActorEntryJsons entry."""
@@ -90,6 +102,9 @@ def classify_actor(actor_info):
 
     return {
         "kind": kind,
+        "variant_tag": variant_from_name(name),  # NEW
+        "gene_name": (actor_info.get("genesData") or {}).get("geneName"),  # NEW
+        "gene_short_name": (actor_info.get("genesData") or {}).get("shortName"),  # NEW
         "ship_prefab": prefab,
         "ship_data": actor_info.get("shipData"),
         "llm_type": actor_info.get("llmType"),
@@ -173,7 +188,13 @@ def new_actor(name, faction=None, health=None, pos=None, meta=None):
 def get_actor(summary, actor_id, faction=None):
     if actor_id not in summary["actors"]:
         summary["actors"][actor_id] = new_actor(
-            actor_id, faction, meta={"kind": kind_from_name(actor_id)}
+            actor_id, faction,
+            meta={
+                "kind": kind_from_name(actor_id),
+                "variant_tag": variant_from_name(actor_id),
+                "gene_name": None,
+                "gene_short_name": None,
+            },
         )
     return summary["actors"][actor_id]
 
@@ -686,6 +707,30 @@ def summarise(events):
         faction_prompts[fac] = ";".join(prompts) if prompts else None
     summary["faction_models"] = faction_models
     summary["faction_prompts"] = faction_prompts
+    # Per-faction AU variant info. Prefers explicit genesData fields;
+    # falls back to the actor name's 3rd segment for old logs.
+    faction_variants = {}         # short form, e.g. "RU", "MD", "AG"
+    faction_variant_names = {}    # long form, e.g. "RevengeOneUtility"
+    for fac in sizes:
+        fac_actors = [
+            a for a in summary["actors"].values()
+            if a.get("faction") == fac and kind_is_combatant(a.get("kind"))
+        ]
+
+        shorts = sorted({
+            (a.get("gene_short_name") or a.get("variant_tag"))
+            for a in fac_actors
+            if (a.get("gene_short_name") or a.get("variant_tag"))
+        })
+        longs = sorted({
+            a.get("gene_name") for a in fac_actors if a.get("gene_name")
+        })
+
+        faction_variants[fac] = ";".join(shorts) if shorts else None
+        faction_variant_names[fac] = ";".join(longs) if longs else None
+
+    summary["faction_variants"] = faction_variants
+    summary["faction_variant_names"] = faction_variant_names
 
     roles_sorted = sorted(set(faction_roles.values()))
     if len(roles_sorted) >= 2:

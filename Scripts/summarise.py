@@ -50,6 +50,8 @@ def llm_records(battles):
         roles = s.get("faction_roles", {}) or {}
         models = s.get("faction_models", {}) or {}
         prompts = s.get("faction_prompts", {}) or {}
+        variants = s.get("faction_variants", {}) or {}
+        variant_names = s.get("faction_variant_names", {}) or {}
 
         opponent_side = next((f for f in roles if f != llm_side), None)
 
@@ -75,6 +77,9 @@ def llm_records(battles):
             "opponent_side": opponent_side,
             "opponent_role": roles.get(opponent_side) if opponent_side else None,
             "opponent_model": models.get(opponent_side) if opponent_side else None,
+            "opponent_variant": variants.get(opponent_side) if opponent_side else None,
+            "opponent_variant_name": variant_names.get(opponent_side) if opponent_side else None,
+            "llm_variant": variants.get(llm_side),
             "winner_side": winner_side,
             "won": won,
             "is_draw": is_draw,
@@ -187,6 +192,17 @@ def view_overview(battles, records):
     print(f"  Scenario shapes:      {', '.join(shapes) or '—'}")
     print(f"  Models:               {', '.join(models) or '—'}")
     print(f"  Prompts:              {', '.join(prompts) or '—'}")
+    variant_pairs = sorted({
+        (r.get("opponent_variant"), r.get("opponent_variant_name"))
+        for r in records
+        if r.get("opponent_variant")
+    })
+    if variant_pairs:
+        pretty = ", ".join(
+            f"{short}({long})" if long else short
+            for short, long in variant_pairs
+        )
+        print(f"  AU variants:          {pretty}")
     print()
 
 
@@ -264,6 +280,52 @@ def view_wins_by_model_and_opponent(records):
     )
     print()
 
+def view_variants(records):
+    print("=" * 88)
+    print("WINS BY AU VARIANT × LLM MODEL")
+    print("=" * 88)
+
+    # Lookup: short -> long (from the first record that has both)
+    long_by_short = {}
+    for r in records:
+        sh = r.get("opponent_variant")
+        if sh and sh not in long_by_short:
+            long_by_short[sh] = r.get("opponent_variant_name") or ""
+
+    buckets = defaultdict(lambda: {"w": 0, "l": 0, "d": 0})
+    for r in records:
+        variant = r.get("opponent_variant") or "(none)"
+        model = r["model"] or "?"
+        key = (variant, model)
+        if r["is_draw"]:
+            buckets[key]["d"] += 1
+        elif r["won"]:
+            buckets[key]["w"] += 1
+        else:
+            buckets[key]["l"] += 1
+
+    rows = []
+    for (v, m), b in buckets.items():
+        total = b["w"] + b["l"] + b["d"]
+        rows.append([
+            v,
+            long_by_short.get(v, ""),
+            m,
+            b["w"],
+            b["l"],
+            b["d"],
+            total,
+            pct(b["w"], total),
+            f"[{fmt_ci(b['w'], total)}]",
+        ])
+
+    rows.sort(key=lambda x: (x[0], x[2]))
+    fmt_table(
+        ["AU", "name", "model", "W", "L", "D", "Total", "Win%", "95% CI"],
+        rows,
+        aligns=["<", "<", "<", ">", ">", ">", ">", ">", "<"],
+    )
+    print()
 
 def view_response_times(records):
     print("=" * 70)
@@ -321,6 +383,7 @@ def view_raw(records):
         rows.append([
             src,
             r["model"] or "?",
+            r.get("opponent_variant") or "—",
             (r["map"] or "?")[:22],
             result,
             r["win_reason"] or "—",
@@ -451,6 +514,7 @@ VIEWS = {
     "lengths": view_battle_lengths,
     "matchups": view_matchups,
     "decisions": view_decisions,
+    "variants": view_variants,
     "raw": view_raw,
 }
 
