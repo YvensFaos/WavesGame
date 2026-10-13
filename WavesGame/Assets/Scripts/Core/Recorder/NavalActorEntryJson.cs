@@ -19,6 +19,8 @@ namespace Core.Recorder
     [Serializable]
     public class GeneEntryJson
     {
+        [SerializeField] public string geneName;
+        [SerializeField] public string shortName;
         [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float aggressiveness;
         [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float finisherWeight;
         [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float patience;
@@ -33,6 +35,8 @@ namespace Core.Recorder
 
         public GeneEntryJson(AIGenesSO genes)
         {
+            geneName = genes.name;
+            shortName = genes.shortName;
             aggressiveness = MathF.Round(genes.aggressiveness, 2);
             finisherWeight = MathF.Round(genes.finisherWeight, 2);
             patience = MathF.Round(genes.patience, 2);
