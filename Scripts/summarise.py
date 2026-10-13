@@ -530,6 +530,9 @@ def main():
     ap.add_argument("--exclude-draws", action="store_true",
                     help="Drop draw records before aggregating.")
     ap.add_argument("--source", help="Filter by source filename (substring).")
+    ap.add_argument("--gene",
+                    help="Filter by AU variant short name(s), comma-separated "
+                         "for multiple, e.g. --gene CA or --gene CA,MD.")
     args = ap.parse_args()
 
     battles = load_battles(args.jsonl)
@@ -552,6 +555,13 @@ def main():
         records = [r for r in records if not r["is_draw"]]
     if args.source:
         records = [r for r in records if args.source in (r["source"] or "")]
+    if args.gene:
+        wanted = {g.strip() for g in args.gene.split(",") if g.strip()}
+        records = [
+            r for r in records
+            if r.get("opponent_variant")
+            and wanted & set(r["opponent_variant"].split(";"))
+        ]
 
     if args.view:
         if args.view == "overview":
