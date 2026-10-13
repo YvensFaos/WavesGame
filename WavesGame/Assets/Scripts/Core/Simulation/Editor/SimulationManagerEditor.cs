@@ -21,7 +21,7 @@ namespace Core.Simulation.Editor
 
             if (GUILayout.Button("Add simulations from folder..."))
             {
-                var path = EditorUtility.OpenFolderPanel("Pick folder", "Assets", "");
+                var path = EditorUtility.OpenFolderPanel("Pick folder", "Assets/Data/Database/Simulations", "");
                 if (string.IsNullOrEmpty(path)) return;
 
                 var relative = "Assets" + path[Application.dataPath.Length..];

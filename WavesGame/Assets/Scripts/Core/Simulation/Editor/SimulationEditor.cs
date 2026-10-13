@@ -13,6 +13,7 @@ using UUtils.Editor;
 namespace Core.Simulation.Editor
 {
     [CustomEditor(typeof(Simulation))]
+    [CanEditMultipleObjects]
     public class SimulationEditor : UnityEditor.Editor
     {
         private UnityEditor.Editor _scriptableObjectEditor;
@@ -27,10 +28,33 @@ namespace Core.Simulation.Editor
                 EditorGUIUtility.PingObject(target);
                 Selection.activeObject = target;
             }
-            var simulation = (Simulation)target;
-            if (GUILayout.Button("Rename Simulation"))
+            var simulation = (Simulation) target;
+            if (GUILayout.Button(
+                    targets.Length > 1
+                        ? $"Rename {targets.Length} Simulations"
+                        : "Rename Simulation"))
             {
-                RenameScriptableObjectHelper.RenameAssetFile(simulation, simulation.ToString());
+                if (targets.Length > 1)
+                {
+                    foreach (var t in targets)
+                    {
+                        var singleSimulation = t as Simulation;
+                        if (singleSimulation != null)
+                            RenameScriptableObjectHelper.RenameAssetFile(singleSimulation, singleSimulation.ToString());
+                    }
+                }
+                else
+                {
+                    RenameScriptableObjectHelper.RenameAssetFile(simulation, simulation.ToString());
+                }
+            }
+            if (targets.Length > 1)
+            {
+                EditorGUILayout.HelpBox(
+                    $"{targets.Length} Simulations selected. " +
+                    "Select a single Simulation to edit its faction pairs.",
+                    MessageType.Info);
+                return;
             }
             
             EditorGUILayout.Space(15);
