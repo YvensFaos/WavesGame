@@ -193,7 +193,7 @@ def view_overview(battles, records):
     print(f"  Models:               {', '.join(models) or '—'}")
     print(f"  Prompts:              {', '.join(prompts) or '—'}")
     variant_pairs = sorted({
-        (r.get("opponent_variant"), r.get("opponent_variant_name"))
+        (r.get("opponent_variant"), r.get("opponent_variant_name") or "")
         for r in records
         if r.get("opponent_variant")
     })
