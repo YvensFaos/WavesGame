@@ -476,6 +476,34 @@ def view_matchups(records):
     )
     print()
 
+def view_sides(records):
+    print("=" * 78)
+    print("SIDE SPLIT BY (AU VARIANT × LLM MODEL)")
+    print("=" * 78)
+
+    buckets = defaultdict(lambda: {"Red": 0, "Green": 0})
+    for r in records:
+        variant = r.get("opponent_variant") or "(none)"
+        model = r["model"] or "?"
+        side = r.get("llm_side")
+        key = (variant, model)
+        if side in ("Red", "Green"):
+            buckets[key][side] += 1
+
+    rows = []
+    for (v, m), b in sorted(buckets.items()):
+        total = b["Red"] + b["Green"]
+        rows.append([v, m, b["Red"], b["Green"], total])
+
+    fmt_table(
+        ["AU", "model", "Red-LLM", "Green-LLM", "Total"],
+        rows,
+        aligns=["<", "<", ">", ">", ">"],
+    )
+    print()
+    print("Red-LLM   = LLM plays Red, AU plays Green.")
+    print("Green-LLM = LLM plays Green, AU plays Red.")
+    print()
 
 def view_decisions(records):
     """How the LLM did per decision type — placeholder for future use."""
@@ -520,9 +548,9 @@ VIEWS = {
     "matchups": view_matchups,
     "decisions": view_decisions,
     "variants": view_variants,
+    "sides": view_sides,
     "raw": view_raw,
 }
-
 
 def main():
     ap = argparse.ArgumentParser(description="Summarise a compiled battles JSONL.")
