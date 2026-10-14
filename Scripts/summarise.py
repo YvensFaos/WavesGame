@@ -192,15 +192,20 @@ def view_overview(battles, records):
     print(f"  Scenario shapes:      {', '.join(shapes) or '—'}")
     print(f"  Models:               {', '.join(models) or '—'}")
     print(f"  Prompts:              {', '.join(prompts) or '—'}")
-    variant_pairs = sorted({
-        (r.get("opponent_variant"), r.get("opponent_variant_name") or "")
-        for r in records
-        if r.get("opponent_variant")
-    })
+    variant_pairs = {}
+    for r in records:
+        short = r.get("opponent_variant")
+        if not short:
+            continue
+        long = r.get("opponent_variant_name") or ""
+        # Prefer a non-empty long name if we've seen one
+        if short not in variant_pairs or (not variant_pairs[short] and long):
+            variant_pairs[short] = long
+
     if variant_pairs:
         pretty = ", ".join(
-            f"{short}({long})" if long else short
-            for short, long in variant_pairs
+            f"{s}({l})" if l else s
+            for s, l in sorted(variant_pairs.items())
         )
         print(f"  AU variants:          {pretty}")
     print()
