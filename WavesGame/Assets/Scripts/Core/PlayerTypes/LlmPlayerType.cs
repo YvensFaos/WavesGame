@@ -51,7 +51,7 @@ namespace Core.PlayerTypes
 
         public override string GetName()
         {
-            return $"LLM-{llmType}-{llmConfig.model}-{promptSo.name}";
+            return $"LLM-{llmConfig.model}-{llmType}-{promptSo.name}";
         }
     }
 }

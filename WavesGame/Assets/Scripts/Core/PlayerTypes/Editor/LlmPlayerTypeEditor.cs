@@ -14,6 +14,7 @@ using UUtils.Editor;
 namespace Core.PlayerTypes.Editor
 {
     [CustomEditor(typeof(LlmPlayerType))]
+    [CanEditMultipleObjects]
     public class LlmPlayerTypeEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
@@ -23,9 +24,24 @@ namespace Core.PlayerTypes.Editor
             EditorGUILayout.Space(10);
             var llmPlayerType = (LlmPlayerType) target;
             
-            if (GUILayout.Button("Rename LLM Player Type"))
+            if (GUILayout.Button(
+                    targets.Length > 1
+                        ? $"Rename {targets.Length} LLM Player Types"
+                        : "Rename LLM Player Type"))
             {
-                RenameScriptableObjectHelper.RenameAssetFile(llmPlayerType, llmPlayerType.GetName());
+                if (targets.Length > 1)
+                {
+                    foreach (var targetObject in targets)
+                    {
+                        var playerType = targetObject as LlmPlayerType;
+                        if (playerType != null)
+                            RenameScriptableObjectHelper.RenameAssetFile(playerType, playerType.GetName());
+                    }
+                }
+                else
+                {
+                    RenameScriptableObjectHelper.RenameAssetFile(llmPlayerType, llmPlayerType.GetName());
+                }
             }
             // ReSharper disable once InvertIf
             if (GUILayout.Button("Load Default Config"))
