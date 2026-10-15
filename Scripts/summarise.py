@@ -13,6 +13,7 @@ import argparse
 import json
 import math
 import sys
+import statistics
 from collections import defaultdict
 from datetime import datetime
 
@@ -91,6 +92,10 @@ def llm_records(battles):
             "response_min": rs.get("min"),
             "response_max": rs.get("max"),
             "response_stdev": rs.get("stdev"),
+            "response_times": (
+                    (s.get("response_times_by_faction", {}) or {}).get(llm_side, [])
+                    or []
+            ),
             "wave_attacks": wave_attacks,
             "invalid_total": invalid_total,
             "damage_dealt": damage_dealt,
@@ -106,6 +111,65 @@ def llm_records(battles):
 def fmt_row(cols, widths):
     return "  ".join(str(c).ljust(w) for c, w in zip(cols, widths))
 
+def percentile(sorted_vals, p):
+    """Linear-interpolated percentile. p in [0, 1]."""
+    if not sorted_vals:
+        return 0.0
+    if len(sorted_vals) == 1:
+        return float(sorted_vals[0])
+    k = (len(sorted_vals) - 1) * p
+    f = int(k)
+    c = min(f + 1, len(sorted_vals) - 1)
+    return sorted_vals[f] + (sorted_vals[c] - sorted_vals[f]) * (k - f)
+
+
+def compute_timing_stats(values):
+    """Full + P95 + trimmed stats for a list of response times."""
+    if not values:
+        return {
+            "count": 0,
+            "min": 0.0, "max": 0.0, "mean": 0.0, "stdev": 0.0,
+            "p95": 0.0,
+            "trimmed_count": 0,
+            "trimmed_min": 0.0, "trimmed_max": 0.0,
+            "trimmed_mean": 0.0, "trimmed_stdev": 0.0,
+        }
+
+    sorted_vals = sorted(values)
+    n = len(sorted_vals)
+    p95 = percentile(sorted_vals, 0.95)
+
+    # Keep values <= p95; drops roughly the worst 5%
+    trimmed = [v for v in sorted_vals if v <= p95]
+    if not trimmed:
+        trimmed = sorted_vals[:]
+
+    p05 = percentile(sorted_vals, 0.05)
+    middle = [v for v in sorted_vals if p05 <= v <= p95]
+    if not middle:
+        middle = sorted_vals[:]
+
+    return {
+        "count": n,
+        "min": float(sorted_vals[0]),
+        "max": float(sorted_vals[-1]),
+        "mean": statistics.fmean(sorted_vals),
+        "stdev": statistics.pstdev(sorted_vals) if n > 1 else 0.0,
+        "p95": p95,
+        "median": statistics.median(sorted_vals),
+        "trimmed_count": len(trimmed),
+        "trimmed_min": float(trimmed[0]),
+        "trimmed_max": float(trimmed[-1]),
+        "trimmed_mean": statistics.fmean(trimmed),
+        "trimmed_stdev": statistics.pstdev(trimmed) if len(trimmed) > 1 else 0.0,
+        "middle_90_count": len(middle),
+        "middle_90_min": float(middle[0]),
+        "middle_90_max": float(middle[-1]),
+        "middle_90_mean": statistics.fmean(middle),
+        "middle_90_stdev": (
+            statistics.pstdev(middle) if len(middle) > 1 else 0.0
+        ),
+    }
 
 def fmt_table(headers, rows, aligns=None):
     """Simple fixed-width table."""
@@ -333,43 +397,46 @@ def view_variants(records):
     print()
 
 def view_response_times(records):
-    print("=" * 70)
-    print("RESPONSE TIMES BY MODEL (ms)")
-    print("=" * 70)
+    print("=" * 100)
+    print("RESPONSE TIMES BY MODEL (ms) — with P95 and trimmed stats")
+    print("=" * 100)
 
-    # Weighted aggregate across battles per model.
-    # Uses per-battle mean/min/max/stdev as reported by the parser.
-    buckets = defaultdict(list)
+    pooled = defaultdict(list)
     for r in records:
-        if r["response_count"] and r["response_mean"] is not None:
-            buckets[r["model"] or "(unknown)"].append(r)
+        model = r["model"] or "(unknown)"
+        pooled[model].extend(r.get("response_times", []))
 
     rows = []
-    for model, rs in buckets.items():
-        total_n = sum(r["response_count"] for r in rs)
-        # Mean of means, weighted by count.
-        weighted_mean = (
-            sum(r["response_mean"] * r["response_count"] for r in rs) / total_n
-        )
-        overall_min = min(r["response_min"] for r in rs if r["response_min"] is not None)
-        overall_max = max(r["response_max"] for r in rs if r["response_max"] is not None)
-        mean_stdev = sum(r["response_stdev"] or 0 for r in rs) / len(rs)
-
+    for model, values in sorted(pooled.items()):
+        st = compute_timing_stats(values)
         rows.append([
             model,
-            total_n,
-            f"{weighted_mean:.0f}",
-            f"{mean_stdev:.0f}",
-            f"{overall_min:.0f}",
-            f"{overall_max:.0f}",
+            st["count"],
+            f"{st['min']:.0f}",
+            f"{st['mean']:.0f}",
+            f"{st['p95']:.0f}",
+            f"{st['max']:.0f}",
+            f"{st['trimmed_mean']:.0f}",
+            f"{st['trimmed_count']}",
+            f"{st['median']:.0f}",
+            f"{st['stdev']:.0f}",
+            f"{st['middle_90_mean']:.0f}",
         ])
 
-    rows.sort(key=lambda r: r[0])
     fmt_table(
-        ["model", "n", "mean", "avg stdev", "min", "max"],
+        ["model", "n", "min", "mean", "p95", "max", "trim mean", "trim n", "median", "stdev", "mid 90 m"],
         rows,
-        aligns=["<", ">", ">", ">", ">", ">"],
+        aligns=["<", ">", ">", ">", ">", ">", ">", ">", ">", ">", ">"],
     )
+    print()
+    print("p95        = 95th percentile of all calls for that model (ms).")
+    print("trim mean  = mean of the bottom 95% (outliers above p95 excluded).")
+    print("trim n     = number of calls used for the trimmed stats.")
+    print("median     = 50th percentile (P50); robust to outliers.")
+    print("stdev      = population standard deviation of all calls; "
+          "inflated by load-time spikes.")
+    print("mid 90 m   = mean of the middle 90% of calls "
+          "(between p05 and p95); removes both tails.")
     print()
 
 def view_raw(records):
