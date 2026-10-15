@@ -17,6 +17,18 @@ MonoBehaviour:
     two: {fileID: 991280728885483339, guid: 0bc925396065f4527904c6b17945b667, type: 3}
   - one: {fileID: 11400000, guid: efaed8e15acbb4065a9d24eab268d4aa, type: 2}
     two: {fileID: 7709005125112646230, guid: f3177e4d03af7422495c05d1d5237a53, type: 3}
-  modelPair: {fileID: 11400000, guid: 7e779a53146d14676ba71d466cdc4d05, type: 2}
+  llmType: 0
   promptSo: {fileID: 11400000, guid: 384fde96738044c688cae3872d241b4c, type: 2}
-  llmSingleCaller: {fileID: 5015627924079372195, guid: 3874f2142a67344a78be064df5b55edd, type: 3}
+  llmConfig:
+    apiKeyIdentifier: gemini
+    apiKeyFile: llm_api_keys.json
+    apiUrl: https://generativelanguage.googleapis.com/v1beta/models/
+    model: gemini-2.5-flash-lite
+    think: 0
+    temperature: 0.2
+    topK: 40
+    topP: 1
+    maxOutputTokens: 4096
+    local: 0
+    version: 
+  llmCallerPrefab: {fileID: 3743749454680652023, guid: b769171471413479699fefd7f9dc18e8, type: 3}

@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using FALLA;
 using UnityEditor;
 using UnityEngine;
 using UUtils.Editor;
@@ -26,8 +27,13 @@ namespace Core.PlayerTypes.Editor
             {
                 RenameScriptableObjectHelper.RenameAssetFile(llmPlayerType, llmPlayerType.GetName());
             }
-            
-            EditorGUILayout.Space(10);
+            // ReSharper disable once InvertIf
+            if (GUILayout.Button("Load Default Config"))
+            {
+                var config = LLmFactory.LoadDefaultConfig(llmPlayerType.llmType);
+                config.apiKeyFile = "llm_api_keys.json";
+                llmPlayerType.llmConfig = config;
+            }
             // ReSharper disable once InvertIf
             if (GUILayout.Button("Ping in Project"))
             {

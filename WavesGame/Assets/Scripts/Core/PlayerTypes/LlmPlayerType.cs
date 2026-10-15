@@ -19,17 +19,17 @@ namespace Core.PlayerTypes
     [CreateAssetMenu(fileName = "LLM Player Type", menuName = "Waves/Player Type/LLM Player", order = 3)]
     public class LlmPlayerType : PlayerTypeBaseSo
     {
-        public LlmModelPairSo modelPair;
         public LlmType llmType;
         public LlmPromptSo promptSo;
         public LlmConfig llmConfig;
-        public LlmSingleCallerObject llmSingleCaller;
+        public LlmSingleCallerObject llmCallerPrefab;
 
         public override void InitializeType(NavalShip navalShip, HashSet<Faction> factions)
         {
             if (navalShip is LlmAINavalShip llmAINavalShip)
             {
-                var caller = Instantiate(llmSingleCaller, navalShip.transform);
+                var caller = Instantiate(llmCallerPrefab, navalShip.transform);
+                caller.SetLlmType(llmType);
                 caller.SetConfig(llmConfig);
                 caller.LoadModel();
                 
