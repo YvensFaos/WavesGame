@@ -334,15 +334,17 @@ namespace Actors.AI.LlmAI
                             line += $"attacks {navalTarget.GetUnit().Index()} {GetTargetLine(navalTarget)}{separator}, ";
                             shouldInclude = true;
                             break;
+                        case LlmAINavalShip llmAINavalShip:
+                            line = HandleAttackOnShip(llmAINavalShip, line, ref shouldInclude);
+                            break;
+                        case AINavalShip navalShip:
+                            line = HandleAttackOnShip(navalShip, line, ref shouldInclude);
+                            break;
                         case AIBaseShip aiBaseShip:
-                            if (!selfFaction.Equals(aiBaseShip.GetFaction()))
-                            {
-                                line +=
-                                    $"attacks {aiBaseShip.GetUnit().Index()} {GetAIBaseShipLine(aiBaseShip, aiBaseShip.GetFaction().ToString())}, ";
-                                shouldInclude = true;
-                            }
-
-                            //If it is the from the same faction, then do not include.
+                            line = HandleAttackOnShip(aiBaseShip, line, ref shouldInclude);
+                            break;
+                        case NavalShip navalShip:
+                            line = HandleAttackOnShip(navalShip, line, ref shouldInclude);
                             break;
                         case WaveActor wave:
                             line += $"attacks {wave.GetUnit().Index()} {GetWaveLine(wave, selfFaction, true)}, ";
@@ -369,6 +371,21 @@ namespace Actors.AI.LlmAI
             }
 
             return text;
+
+            string HandleAttackOnShip(NavalShip navalShip, string line, ref bool shouldInclude)
+            {
+                if (selfFaction.Equals(navalShip.GetFaction())) return line;
+                line += navalShip switch
+                {
+                    AIBaseShip aiBaseShip =>
+                        $"attacks {aiBaseShip.GetUnit().Index()} {GetAIBaseShipLine(aiBaseShip, aiBaseShip.GetFaction().ToString())}, ",
+                    _ =>
+                        $"attacks {navalShip.GetUnit().Index()} {GetNavalShipLine(navalShip, navalShip.GetFaction().ToString())}, "
+                };
+                shouldInclude = true;
+
+                return line;
+            }
         }
 
         private static string ListGridUnitIndicesToString(List<GridUnit> gridUnits, bool includeEmpty = true,
@@ -499,6 +516,12 @@ namespace Actors.AI.LlmAI
             }
 
             return waveLine;
+        }
+
+        private static string GetNavalShipLine(NavalShip navalShip, string factionText)
+        {
+            return
+                $"🚢 {navalShip.name} {factionText} health:{navalShip.GetCurrentHealth()}/{navalShip.GetMaxHealth()}";
         }
 
         private static string GetAIBaseShipLine(AIBaseShip aiBaseShip, string factionText)
