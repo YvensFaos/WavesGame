@@ -57,7 +57,7 @@ namespace Actors.AI
                         act = AIAction.EndTurn;
                         goto case AIAction.EndTurn;
                     case AIAction.Movement:
-                        brain.DisplayMoveTiles(this, remainingSteps);
+                        DisplayMoveTiles(this, remainingSteps);
                         if (target == null)
                         {
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
@@ -78,11 +78,11 @@ namespace Actors.AI
                         yield return new WaitUntil(() => !_calculatingAction);
                         remainingSteps = move ? RemainingSteps : 0;
                         
-                        brain.HideTiles();
+                        HideTiles();
                         break;
                     
                     case AIAction.Attack:
-                        brain.DisplayAttackTiles(this);
+                        DisplayAttackTiles(this);
                         if (target == null)
                         {
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
@@ -114,7 +114,7 @@ namespace Actors.AI
                         {
                             DebugUtils.DebugLogErrorMsg($"{name} cannot act! No more valid actions this turn.");
                         }
-                        brain.HideTiles();
+                        HideTiles();
                         break;
                     case AIAction.EndTurn:
                         DebugUtils.DebugLogMsg($"{name} finishes its turn!", DebugUtils.DebugType.System);
@@ -131,7 +131,7 @@ namespace Actors.AI
         {
             var internalIDStr = internalID.ToString();
             var factionName = GetFaction().name;
-            name = $"AU|{AIName}|{GenesData.shortName}|{factionName}|{internalIDStr}";
+            name = $"AU|{aiName}|{GenesData.shortName}|{factionName}|{internalIDStr}";
         }
 
         public override string ToString()

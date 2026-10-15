@@ -7,8 +7,12 @@
  */
 
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Core;
 using Core.Simulation;
+using Grid;
+using Lean.Pool;
 using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
@@ -20,13 +24,19 @@ namespace Actors.AI
         [Header("Score")] [SerializeField, ReadOnly]
         protected int kills;
 
-        protected string AIName;
+        protected string aiName;
+        
+        [SerializeField]
+        protected AIDisplayTile displayTilePrefab;
+
+        private List<AIDisplayTile> _displayTiles;
 
         protected override void Awake()
         {
             base.Awake();
-            AIName = AINamer.GetRandomFullName();
+            aiName = AINamer.GetRandomFullName();
             kills = 0;
+            _displayTiles = new List<AIDisplayTile>();
         }
 
         public override void StartTurn()
@@ -63,7 +73,7 @@ namespace Actors.AI
 
         public string GetAIName()
         {
-            return AIName;
+            return aiName;
         }
 
         public override string ToString()
@@ -74,6 +84,44 @@ namespace Actors.AI
         public string ToLlmString()
         {
             return $"[{name}]; faction={GetFaction()}; currentHealth={GetCurrentHealth()}.";
+        }
+
+        protected void DisplayMoveTiles(AIBaseShip aiBaseShip, int availableSteps)
+        {
+            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(aiBaseShip.GetUnit().Index(), availableSteps);
+            DisplayTiles(walkableUnits);
+        }
+        
+        private void DisplayTiles(List<GridUnit> units)
+        {
+            HideTiles();
+            foreach (var displayTile in units.Select(unit => LeanPool.Spawn(displayTilePrefab, unit.transform)))
+            {
+                _displayTiles.Add(displayTile);
+            }
+        }
+
+        protected void DisplayAttackTiles(AIBaseShip aiBaseShip)
+        {
+            var position = aiBaseShip.GetUnit().Index();
+            var cannonData = aiBaseShip.NavalCannon.GetCannonSo;
+            var attackableFromUnit = GridManager.GetSingleton().GetGridUnitsForMoveType(cannonData.targetAreaType,
+                position, cannonData.area, cannonData.deadZone);
+            DisplayTiles(attackableFromUnit);
+        }
+
+        protected void HideTiles()
+        {
+            if (_displayTiles is not { Count: > 0 }) return;
+            for (var i = _displayTiles.Count - 1; i >= 0; i--)
+            {
+                if (_displayTiles[i] != null)
+                {
+                    LeanPool.Despawn(_displayTiles[i].gameObject);    
+                }
+            }
+            _displayTiles.Clear();
+            _displayTiles = new List<AIDisplayTile>();
         }
     }
 }

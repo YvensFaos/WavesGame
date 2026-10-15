@@ -35,7 +35,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8810062026556063228
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,6 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!95 &8254892809401635116
 Animator:
   serializedVersion: 7
@@ -180,11 +181,15 @@ MonoBehaviour:
   shipData: {fileID: 11400000, guid: 43f494d61b5cd48f28f7a6eff95158d6, type: 2}
   navalCannon: {fileID: 1207828299174444129}
   faction: {fileID: 11400000, guid: cfb967da26c2946d89664483c5a76968, type: 2}
-  kills: 0
-  llmCaller: {fileID: 0}
-  requestTimeOutTimer: 1
-  basePrompt: {fileID: 0}
+  initiative: 0
   overrideInitiative: 0
+  humanControlled: 0
+  kills: 0
+  displayTilePrefab: {fileID: 1634155092604529095, guid: 7fb4fd6b3a3d94e28baa43c26dabddeb, type: 3}
+  llmSingleCaller: {fileID: 0}
+  requestTimeOutTimer: 1
+  basePrompt: {fileID: 11400000, guid: 384fde96738044c688cae3872d241b4c, type: 2}
+  enemyFactions: []
 --- !u!114 &1207828299174444129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +237,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1311062052833505652
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -289,6 +294,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1001 &1499915208522762829
 PrefabInstance:
   m_ObjectHideFlags: 0

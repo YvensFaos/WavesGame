@@ -68,8 +68,10 @@ MonoBehaviour:
   faction: {fileID: 11400000, guid: cfb967da26c2946d89664483c5a76968, type: 2}
   initiative: 0
   overrideInitiative: 0
+  humanControlled: 0
   kills: 0
-  <GenesData>k__BackingField: {fileID: 11400000, guid: cee14c0b324364f2ebc98f9725f1de87, type: 2}
+  displayTilePrefab: {fileID: 1634155092604529095, guid: 7fb4fd6b3a3d94e28baa43c26dabddeb, type: 3}
+  <GenesData>k__BackingField: {fileID: 11400000, guid: 90fff659b77ee458cb8ed3474a5b568e, type: 2}
   brain: {fileID: 11400000, guid: 5522c25df06b74657b1dc76c0484f364, type: 2}
 --- !u!114 &7889225319036759644
 MonoBehaviour:
@@ -118,7 +120,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &386411791612610567
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -175,6 +177,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &2387021722008431629
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +213,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2759963361646680205
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -267,6 +270,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!95 &7240622926782663119
 Animator:
   serializedVersion: 7

@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Core;
 using Core.Recorder;
 using FALLA;
 using FALLA.Helper;
@@ -70,7 +71,7 @@ namespace Actors.AI.LlmAI
             var internalIDStr = internalID.ToString();
             var llmName = $"{llmSingleCaller.GetLlmType().ToString()}|{llmSingleCaller.GetModel()}";
             var factionName = GetFaction().name;
-            name = $"LLM|{llmName}|{AIName}|{factionName}|{internalIDStr}";
+            name = $"LLM|{llmName}|{aiName}|{factionName}|{internalIDStr}";
         }
 
         private static bool IsValidLlmAction(Vector2Int action)
@@ -180,6 +181,9 @@ namespace Actors.AI.LlmAI
             var movement = new Vector2Int(-1, -1);
             var attack = new Vector2Int(-1, -1);
             var moveAfterAttack = new Vector2Int(-1, -1);
+            
+            var originalPosition = GetUnit().Index();
+            var remainingMovement = shipData.stats.speed.Two;
 
             try
             {
@@ -202,17 +206,26 @@ namespace Actors.AI.LlmAI
 
             if (shouldMove)
             {
-                yield return StartCoroutine(LlmMoveCoroutine(movement, actions.reasoning));
+                yield return StartCoroutine(LlmMoveCoroutine(movement, actions.reasoning, remainingMovement));
+                HideTiles();
             }
 
             if (shouldAttack)
             {
                 yield return StartCoroutine(LlmAttackCoroutine(attack, actions.reasoning));
+                HideTiles();
             }
 
             if (shouldMoveAfterAttack)
             {
-                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack, actions.reasoning, true));
+                if (shouldMove)
+                {
+                    //Calculate the difference
+                    var stepsTaken = Mathf.Abs(originalPosition.x - movement.x) + Mathf.Abs(originalPosition.y - movement.y);
+                    remainingMovement = Mathf.Max(0, remainingMovement - stepsTaken);
+                }
+                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack, actions.reasoning, remainingMovement, true));
+                HideTiles();
             }
 
             FinishAITurn();
@@ -229,10 +242,17 @@ namespace Actors.AI.LlmAI
             }
         }
 
-        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, bool moveAfterAttack = false)
+        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, int remainingMovement, bool moveAfterAttack = false)
         {
             var canMove = GridManager.GetSingleton().CheckGridPosition(moveToPosition, out var moveGridUnit);
             var finishedMoving = false;
+            
+            DisplayMoveTiles(this, remainingMovement);
+            yield return new WaitForSeconds(1.25f);
+            var cursorController = CursorController.GetSingleton();
+            cursorController.MoveToIndex(moveToPosition);
+            yield return new WaitUntil(() => !cursorController.MovingAnimation());
+            
             if (canMove)
             {
                 var moved = MoveTo(moveGridUnit, _ => { finishedMoving = true; }, true);
@@ -264,10 +284,16 @@ namespace Actors.AI.LlmAI
 
                 var canAttack = GridManager.GetSingleton()
                     .CanAttackFrom(currentUnit.Index(), attackPosition, navalCannon.GetCannonSo);
+                
+                DisplayAttackTiles(this);
+                yield return new WaitForSeconds(1.25f);
+                var cursorController = CursorController.GetSingleton();
+                cursorController.MoveToIndex(attackPosition);
+                yield return new WaitUntil(() => !cursorController.MovingAnimation());
+                
                 if (canAttack)
                 {
                     DebugUtils.DebugLogMsg($"{name} attacks {targetUnit}!", DebugUtils.DebugType.System);
-                    // TODO LevelController.GetSingleton().AddAttackLog(targetUnit.Index(), this, name);
                     var damage = CalculateDamage();
                     RecordAttack(targetUnit.GetActor(), targetUnit, damage, reasoning);
                     kills = targetUnit.DamageActors(damage);
