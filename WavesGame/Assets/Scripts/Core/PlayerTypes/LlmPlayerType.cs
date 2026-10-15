@@ -20,7 +20,9 @@ namespace Core.PlayerTypes
     public class LlmPlayerType : PlayerTypeBaseSo
     {
         public LlmModelPairSo modelPair;
+        public LlmType llmType;
         public LlmPromptSo promptSo;
+        public LlmConfig llmConfig;
         public LlmSingleCallerObject llmSingleCaller;
 
         public override void InitializeType(NavalShip navalShip, HashSet<Faction> factions)
@@ -28,6 +30,9 @@ namespace Core.PlayerTypes
             if (navalShip is LlmAINavalShip llmAINavalShip)
             {
                 var caller = Instantiate(llmSingleCaller, navalShip.transform);
+                caller.SetConfig(llmConfig);
+                caller.LoadModel();
+                
                 llmAINavalShip.SetCaller(caller);
                 llmAINavalShip.ChangeBasePrompt(promptSo);
                 llmAINavalShip.UpdateName();
@@ -46,7 +51,7 @@ namespace Core.PlayerTypes
 
         public override string GetName()
         {
-            return $"LLM-{modelPair}-{promptSo.name}";
+            return $"LLM-{llmType}-{llmConfig.model}-{promptSo.name}";
         }
     }
 }
