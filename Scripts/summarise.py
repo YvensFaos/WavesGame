@@ -401,13 +401,13 @@ def view_raw(records):
         ])
 
     # Sort by map, then model, then source
-    rows.sort(key=lambda x: (x[2], x[1], x[0]))
+    rows.sort(key=lambda x: (x[3], x[1], x[0]))
 
     fmt_table(
-        ["source", "model", "map", "R", "reason",
+        ["source", "model", "AU-var", "map", "R", "reason",
          "turns", "wave", "inval", "dmgD", "dmgT", "resp"],
         rows,
-        aligns=["<", "<", "<", "<", "<", ">", ">", ">", ">", ">", ">"],
+        aligns=["<", "<", "<", "<", "<", "<", ">", ">", ">", ">", ">", ">"],
     )
     print()
 

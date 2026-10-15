@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f11753a9594441c4bec23974d50dee03, type: 3}
-  m_Name: LLM-Ollama-qwen3.54b-ShortPromptA
+  m_Name: LLM-Ollama-llama3.21b-ShortPromptA
   m_EditorClassIdentifier: Assembly-CSharp::Core.PlayerTypes.LlmPlayerType
   actorPairs:
   - one: {fileID: 11400000, guid: cfb967da26c2946d89664483c5a76968, type: 2}
@@ -23,7 +23,7 @@ MonoBehaviour:
     apiKeyIdentifier: 
     apiKeyFile: llm_api_keys.json
     apiUrl: http://192.168.2.50:11434/v1/chat/completions
-    model: qwen3.5:4b
+    model: llama3.2:1b
     think: 0
     temperature: 0.2
     topK: 40
