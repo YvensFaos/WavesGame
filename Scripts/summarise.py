@@ -396,6 +396,65 @@ def view_variants(records):
     )
     print()
 
+def view_side_results(records):
+    print("=" * 92)
+    print("WIN/LOSS BY SIDE (AU VARIANT × LLM MODEL)")
+    print("=" * 92)
+
+    # buckets[(variant, model)] = {"Red": {"w":..,"l":..,"d":..},
+    #                              "Green": {"w":..,"l":..,"d":..}}
+    buckets = defaultdict(lambda: {
+        "Red": {"w": 0, "l": 0, "d": 0},
+        "Green": {"w": 0, "l": 0, "d": 0},
+    })
+
+    for r in records:
+        variant = r.get("opponent_variant") or "(none)"
+        model = r["model"] or "?"
+        side = r.get("llm_side")
+        if side not in ("Red", "Green"):
+            continue
+
+        b = buckets[(variant, model)][side]
+        if r["is_draw"]:
+            b["d"] += 1
+        elif r["won"]:
+            b["w"] += 1
+        else:
+            b["l"] += 1
+
+    rows = []
+    for (v, m), sides in sorted(buckets.items()):
+        red = sides["Red"]
+        green = sides["Green"]
+
+        red_total = red["w"] + red["l"] + red["d"]
+        green_total = green["w"] + green["l"] + green["d"]
+
+        red_pct = pct(red["w"], red_total)
+        green_pct = pct(green["w"], green_total)
+
+        rows.append([
+            v, m,
+            red["w"], red["l"], red["d"], red_total, red_pct,
+            green["w"], green["l"], green["d"], green_total, green_pct,
+        ])
+
+    fmt_table(
+        ["AU", "model",
+         "R-W", "R-L", "R-D", "R-n", "R%",
+         "G-W", "G-L", "G-D", "G-n", "G%"],
+        rows,
+        aligns=["<", "<",
+                ">", ">", ">", ">", ">",
+                ">", ">", ">", ">", ">"],
+    )
+    print()
+    print("R-* = LLM plays Red, AU plays Green.")
+    print("G-* = LLM plays Green, AU plays Red.")
+    print("A large R% vs G% gap in the same row suggests a side effect.")
+    print()
+
 def view_response_times(records):
     print("=" * 100)
     print("RESPONSE TIMES BY MODEL (ms) — with P95 and trimmed stats")
@@ -616,6 +675,7 @@ VIEWS = {
     "decisions": view_decisions,
     "variants": view_variants,
     "sides": view_sides,
+    "side-results": view_side_results,
     "raw": view_raw,
 }
 
