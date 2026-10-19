@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using UnityEngine;
 using UUtils;
 
@@ -14,6 +15,7 @@ namespace Core
     public class GameManager : StrongSingleton<GameManager>
     {
         [SerializeField] private GameManagerSettings gameManagerSettings;
+        [SerializeField] private string gameSessionUid;
 
         protected override void Awake()
         {
@@ -21,6 +23,8 @@ namespace Core
             if (MarkedToDie) return;
             DebugUtils.enabledDebugTypes = gameManagerSettings.enabledDebugTypes;
             DebugUtils.enabledDebugLogTypes = gameManagerSettings.enabledDebugLogTypes;
+            
+            gameSessionUid = Guid.NewGuid().ToString("N")[..10];
         }
 
         private void Start()
@@ -44,5 +48,6 @@ namespace Core
         }
 
         public GameManagerSettings GetSettings() => gameManagerSettings;
+        public string GetSessionUid() => gameSessionUid;
     }
 }

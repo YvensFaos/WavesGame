@@ -10,7 +10,6 @@ using System.Collections;
 using System.Linq;
 using Actors;
 using Core.Recorder;
-using Grid;
 using NaughtyAttributes;
 using TMPro;
 using UI;
@@ -20,8 +19,6 @@ using UUtils;
 
 namespace Core
 {
-    //TODO simplify the level controller for game levels only, instead of also dealing with AI/LLM/Battle simulations
-
     public class LevelController : GameController
     {
         [SerializeField] private bool initiativeBased = true;
@@ -34,6 +31,7 @@ namespace Core
         [SerializeField] private string extra = "";
         [SerializeField] private EndLevelPanelUI endLevelPanelUI;
         [SerializeField] private TextMeshProUGUI levelGoalText;
+        [SerializeField] private TextMeshProUGUI uidText;
 
         private bool _finishedLevel;
         private WavesRecorder _recorder;
@@ -99,12 +97,13 @@ namespace Core
             var firstActor = levelActionableActors[0].One;
             CursorController.GetSingleton().MoveToIndex(firstActor.GetUnit().Index());
 
-            var gridDimensions = GridManager.GetSingleton().GetDimensions();
-
             if (TurnManager.TryToGetSingleton(out turnManager))
             {
                 turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
             }
+
+            var uid = GameManager.GetSingleton().GetSessionUid();
+            uidText.text = uid;
 
             if (recordLevel && WavesRecorder.TryToGetSingleton(out _recorder))
             {
@@ -121,9 +120,9 @@ namespace Core
                 
                 _recorder.LogGameStart(SceneManager.GetActiveScene().name, 
                     randomSeed, 
-                    100, 
+                    levelGoal.GetMaxTurns(), 
                     navalActors,
-                    extra,
+                    $"{extra}[uid]",
                     waveActors,
                     obstacleActors,
                     recorderInfo);

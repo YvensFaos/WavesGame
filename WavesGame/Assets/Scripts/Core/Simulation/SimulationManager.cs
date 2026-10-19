@@ -173,7 +173,7 @@ namespace Core.Simulation
                         .ToList();
 
                 var obstacleActors = FindObjectsByType<ObstacleActor>(FindObjectsInactive.Exclude).ToList();
-
+                var uid = GameManager.GetSingleton().GetSessionUid();
                 var recordingIdentifier =
                     $"{simulation.BattleGroundScene}-{simulationController.GetLevelMessageAndTime()}-{extra}-iteration[{iterationNumber}]";
                 DebugUtils.DebugLogMsg($"Starting recording...", DebugUtils.DebugType.System);
@@ -181,7 +181,7 @@ namespace Core.Simulation
                     simulationSeed, 
                     maxTurns, 
                     navalActors, 
-                    extra,
+                    $"{extra}[{uid}]",
                     waveActors, 
                     obstacleActors, 
                     recordingIdentifier);
