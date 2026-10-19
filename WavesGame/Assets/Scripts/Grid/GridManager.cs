@@ -182,7 +182,7 @@ namespace Grid
             int radius)
         {
             //Gets all positions this unit can walk to, ignoring blocked positions.
-            var walkableUnits = GetGridUnitsInRadiusManhattan(position, radius, true);
+            var walkableUnits = GetGridUnitsInRadiusManhattan(position, radius);
             var list = new List<GridUnitListActorsPair>();
 
             foreach (var walkableUnit in walkableUnits)
