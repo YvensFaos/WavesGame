@@ -131,19 +131,19 @@ namespace Core
             levelGoal.RemoveFactionCount(aiBaseShip);
         }
 
-        public string GetLevelRecordingName()
+        protected string GetLevelRecordingName()
         {
             return
                 $"{SceneManager.GetActiveScene().name}-{TimestampHelper.GetSimplifiedTimestamp()}-{levelGoal.GetLevelMessage()}";
         }
 
-        protected void RecordGameState(List<NavalActor> actors)
+        protected static void RecordGameState(List<NavalActor> actors)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(new StateRecordEntry(actors));
         }
 
-        protected void RecordScenario(GridManager gridManager)
+        protected static void RecordScenario(GridManager gridManager)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(new ScenarioEntry(gridManager));

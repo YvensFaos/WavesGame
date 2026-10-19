@@ -177,8 +177,14 @@ namespace Core.Simulation
                 var recordingIdentifier =
                     $"{simulation.BattleGroundScene}-{simulationController.GetLevelMessageAndTime()}-{extra}-iteration[{iterationNumber}]";
                 DebugUtils.DebugLogMsg($"Starting recording...", DebugUtils.DebugType.System);
-                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, simulationSeed, maxTurns, navalActors, extra,
-                    waveActors, obstacleActors, recordingIdentifier);
+                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, 
+                    simulationSeed, 
+                    maxTurns, 
+                    navalActors, 
+                    extra,
+                    waveActors, 
+                    obstacleActors, 
+                    recordingIdentifier);
             }
 
             DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);

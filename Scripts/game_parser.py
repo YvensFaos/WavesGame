@@ -210,6 +210,10 @@ def summarise(events):
         "randomSeed": None,
         "maxTurns": None,
         "extraText": None,
+        "player_id": None,  # NEW: player UID from extraText
+        "session_id": None,  # NEW: startTime (session grouping key)
+        "level_goal": None,  # NEW: from GOAL event
+        "level_type": None,  # NEW: "tutorial" | "match" | "mirror"
         "winner": None,
         "winner_message": None,
         "first_timestamp": None,
@@ -282,7 +286,7 @@ def summarise(events):
         "input_counts_by_phase": Counter(),
         "input_counts_by_actor": Counter(),
         "human_commit_times": defaultdict(list),
-        "ai_commit_times": defaultdict(list),
+        "human_off_turn_commits": [],
         "input_first_time": None,
         "input_last_time": None,
         "input_wallclock_span": 0.0,
@@ -320,6 +324,8 @@ def summarise(events):
             summary["maxTurns"] = ev.get("maxTurns")
             summary["start_time_iso"] = ev.get("startTime")
             summary["extraText"] = ev.get("extraText")
+            summary["player_id"] = (ev.get("extraText") or "").strip() or None
+            summary["session_id"] = ev.get("startTime")
 
             summary["waves"] = [
                 {
@@ -377,7 +383,6 @@ def summarise(events):
             device = ev.get("actionDevice") or "?"
             phase = ev.get("actionPhase", "?")
             t = ev.get("actionStartTime")
-            is_human = ev.get("isHumanTurn") is True
 
             summary["input_counts_by_action"][action] += 1
             summary["input_counts_by_device"][device] += 1
@@ -388,12 +393,52 @@ def summarise(events):
                 a["input_counts"][action] += 1
                 summary["input_counts_by_actor"][actor_id] += 1
 
-            # Commit = Performed Interact, bucket by the explicit flag.
-            if action == "Interact" and phase == "Performed" and t is not None and faction:
-                if is_human:
-                    summary["human_commit_times"][faction].append(t)
-                else:
-                    summary["ai_commit_times"][faction].append(t)
+            # --- Context faction: which unit is currently "active" at input time ---
+            context_faction = faction
+            if not context_faction and actor_id:
+                actor = summary["actors"].get(actor_id)
+                if actor:
+                    context_faction = actor.get("faction")
+            if not context_faction:
+                combatant_factions = {
+                    a.get("faction") for a in summary["actors"].values()
+                    if kind_is_combatant(a.get("kind")) and a.get("faction")
+                }
+                if len(combatant_factions) == 1:
+                    context_faction = next(iter(combatant_factions))
+
+            # --- Human faction(s) in this battle ---
+            human_factions = {
+                a.get("faction") for a in summary["actors"].values()
+                if a.get("kind") == "Human" and a.get("faction")
+            }
+
+            human_faction = None
+            if context_faction in human_factions:
+                human_faction = context_faction
+            elif len(human_factions) == 1:
+                human_faction = next(iter(human_factions))
+
+            # Off-turn = human pressing keys while a non-human unit is active
+            is_off_turn = (
+                    human_faction is not None
+                    and context_faction is not None
+                    and context_faction not in human_factions
+            )
+
+            # --- Commit events ---
+            if action == "Interact" and phase == "Performed" and t is not None:
+                if human_faction is not None:
+                    if is_off_turn:
+                        summary["human_off_turn_commits"].append({
+                            "human_faction": human_faction,
+                            "context_faction": context_faction,
+                            "actor_id": actor_id,
+                            "turn": ev.get("turn"),
+                            "t": t,
+                        })
+                    else:
+                        summary["human_commit_times"][human_faction].append(t)
 
             if t is not None:
                 if summary["input_first_time"] is None or t < summary["input_first_time"]:
@@ -621,10 +666,6 @@ def summarise(events):
         fac: compute_stats(times)
         for fac, times in summary["human_commit_times"].items()
     }
-    ai_commit_stats_by_faction = {
-        fac: compute_stats(times)
-        for fac, times in summary["ai_commit_times"].items()
-    }
 
     # Fleet sizes + scenario shape
     sizes = Counter()
@@ -669,7 +710,6 @@ def summarise(events):
         faction_roles[fac] = resolve_role(fac_actors)
     summary["faction_roles"] = faction_roles
 
-
     decision_stats = {}
     for fac in sizes:
         role = faction_roles.get(fac)
@@ -680,11 +720,8 @@ def summarise(events):
         elif role == "Human":
             cs = human_commit_stats_by_faction.get(fac)
             if cs and cs["count"]:
-                decision_stats[fac] = {**cs, "source": "commit_interval"}
-        elif role == "AU":
-            cs = ai_commit_stats_by_faction.get(fac)
-            if cs and cs["count"]:
-                decision_stats[fac] = {**cs, "source": "commit_interval"}
+                decision_stats[fac] = {**cs, "source": "human_commit_interval"}
+        # AU: no reliable timing signal available from the logs
     summary["decision_stats_by_faction"] = decision_stats
 
     # Structured model/prompt per faction (mirrors matchup_label, but parseable).
@@ -735,10 +772,19 @@ def summarise(events):
     roles_sorted = sorted(set(faction_roles.values()))
     if len(roles_sorted) >= 2:
         summary["matchup_type"] = "_vs_".join(roles_sorted)
+        summary["level_type"] = "match"
     elif len(roles_sorted) == 1:
-        summary["matchup_type"] = roles_sorted[0] + "_mirror"
+        only = roles_sorted[0]
+        if only == "Human":
+            # Tutorial / single-player scenario
+            summary["matchup_type"] = "Human_vs_Scenario"
+            summary["level_type"] = "tutorial"
+        else:
+            summary["matchup_type"] = only + "_mirror"
+            summary["level_type"] = "mirror"
     else:
         summary["matchup_type"] = "Unknown"
+        summary["level_type"] = "Unknown"
 
     labels = []
     for fac in sorted(faction_roles.keys()):
@@ -1024,8 +1070,7 @@ def print_summary(s):
                 f"to {s['input_last_time']:.1f})"
             )
 
-        for label, times in (("Human", s["human_commit_times"]),
-                             ("AU",    s["ai_commit_times"])):
+        for label, times in ("Human", s["human_commit_times"]):
             if times and len(times) > 1:
                 gaps = [times[i + 1] - times[i] for i in range(len(times) - 1)]
                 gs = compute_stats(gaps)
@@ -1034,6 +1079,11 @@ def print_summary(s):
                     f"min={gs['min']:.2f}, mean={gs['mean']:.2f}, "
                     f"max={gs['max']:.2f}, stdev={gs['stdev']:.2f}"
                 )
+        if s.get("human_off_turn_commits"):
+            per_fac = Counter(
+                c["context_faction"] for c in s["human_off_turn_commits"]
+            )
+            print(f"  Human off-turn commits by AI faction: {dict(per_fac)}")
         print()
 
     if s["winner_side"]:

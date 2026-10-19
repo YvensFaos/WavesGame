@@ -39,6 +39,63 @@ def load_battles(path):
 # Flattening
 # ---------------------------------------------------------------------------
 
+def human_records(battles):
+    """One record per battle with a Human faction, from the Human's POV."""
+    out = []
+    for b in battles:
+        s = b.get("summary", {})
+        roles = s.get("faction_roles", {}) or {}
+        human_side = next(
+            (f for f, r in roles.items() if r == "Human"), None
+        )
+        if not human_side:
+            continue
+
+        opponent_side = next((f for f in roles if f != human_side), None)
+        winner_side = s.get("winner_side")
+        is_draw = bool(s.get("is_draw"))
+        won = bool(winner_side and winner_side == human_side)
+
+        rs = (s.get("decision_stats_by_faction", {}) or {}).get(human_side, {}) or {}
+        invalid_dict = (s.get("invalid_by_faction", {}) or {}).get(human_side, {}) or {}
+        invalid_total = sum(invalid_dict.values())
+
+        out.append({
+            "source": b.get("source_file"),
+            "map": s.get("map"),
+            "player_id": s.get("player_id"),
+            "session_id": s.get("session_id"),
+            "level_goal": s.get("level_goal"),
+            "level_type": s.get("level_type"),
+            "matchup_type": s.get("matchup_type"),
+            "human_side": human_side,
+            "opponent_side": opponent_side,
+            "opponent_role": roles.get(opponent_side) if opponent_side else None,
+            "opponent_model": (s.get("faction_models") or {}).get(opponent_side) if opponent_side else None,
+            "opponent_variant": (s.get("faction_variants") or {}).get(opponent_side) if opponent_side else None,
+            "opponent_variant_name": (s.get("faction_variant_names") or {}).get(opponent_side) if opponent_side else None,
+            "winner_side": winner_side,
+            "won": won,
+            "is_draw": is_draw,
+            "win_reason": s.get("win_reason"),
+            "final_turn": s.get("final_turn"),
+            "battle_duration": s.get("battle_duration"),
+            "real_duration_s": s.get("real_duration_s"),
+            "response_count": rs.get("count", 0),
+            "response_mean": rs.get("mean"),
+            "response_times": (
+                (s.get("human_commit_times") or {}).get(human_side, []) or []
+            ),
+            "invalid_total": invalid_total,
+            "damage_dealt": (s.get("damage_dealt_actual_by_faction") or {}).get(human_side, 0),
+            "damage_taken": (s.get("damage_taken_by_faction") or {}).get(human_side, 0),
+            "off_turn_commit_count": sum(
+                1 for c in (s.get("human_off_turn_commits") or [])
+                if c.get("human_faction") == human_side
+            ),
+        })
+    return out
+
 def llm_records(battles):
     """One record per battle in which an LLM participated, from the LLM's POV."""
     out = []
@@ -274,6 +331,107 @@ def view_overview(battles, records):
         print(f"  AU variants:          {pretty}")
     print()
 
+def view_humans(records):
+    """Per-player win rates — the human equivalent of 'wins' view."""
+    print("=" * 78)
+    print("HUMAN RESULTS BY PLAYER")
+    print("=" * 78)
+    buckets = defaultdict(lambda: {"w": 0, "l": 0, "d": 0})
+    for r in records:
+        pid = r.get("player_id") or "(unknown)"
+        if r["is_draw"]:
+            buckets[pid]["d"] += 1
+        elif r["won"]:
+            buckets[pid]["w"] += 1
+        else:
+            buckets[pid]["l"] += 1
+
+    rows = []
+    for pid, b in buckets.items():
+        total = b["w"] + b["l"] + b["d"]
+        rows.append([pid, b["w"], b["l"], b["d"], total,
+                     pct(b["w"], total), f"[{fmt_ci(b['w'], total)}]"])
+    rows.sort(key=lambda r: (-r[1], r[0]))
+    fmt_table(
+        ["player_id", "W", "L", "D", "Total", "Win%", "95% CI"],
+        rows, aligns=["<", ">", ">", ">", ">", ">", "<"],
+    )
+    print()
+
+
+def view_human_vs_au(records):
+    """Human win% by opponent type — the thesis baseline table."""
+    print("=" * 92)
+    print("HUMAN WIN% BY OPPONENT TYPE (AU variant / LLM model / scenario)")
+    print("=" * 92)
+    buckets = defaultdict(lambda: {"w": 0, "l": 0, "d": 0})
+    for r in records:
+        if r.get("level_type") == "tutorial":
+            continue  # handle via 'levels' view instead
+        key = (
+            r["opponent_role"] or "?",
+            r.get("opponent_variant") or "—",
+            r.get("opponent_model") or "—",
+        )
+        if r["is_draw"]:
+            buckets[key]["d"] += 1
+        elif r["won"]:
+            buckets[key]["w"] += 1
+        else:
+            buckets[key]["l"] += 1
+
+    rows = []
+    for (role, variant, model), b in buckets.items():
+        total = b["w"] + b["l"] + b["d"]
+        rows.append([role, variant, model,
+                     b["w"], b["l"], b["d"], total,
+                     pct(b["w"], total), f"[{fmt_ci(b['w'], total)}]"])
+    rows.sort(key=lambda r: (r[0], r[1], r[2]))
+    fmt_table(
+        ["opponent", "variant", "model", "W", "L", "D", "Total", "Win%", "95% CI"],
+        rows, aligns=["<", "<", "<", ">", ">", ">", ">", ">", "<"],
+    )
+    print()
+
+
+def view_levels(records):
+    """Per-level completion + duration (tutorials + matches pooled)."""
+    print("=" * 96)
+    print("PER-LEVEL COMPLETION & DURATION")
+    print("=" * 96)
+    buckets = defaultdict(lambda: {
+        "n": 0, "wins": 0, "draws": 0, "times": [], "turns": [],
+    })
+    for r in records:
+        lvl = r["map"] or "?"
+        b = buckets[lvl]
+        b["n"] += 1
+        if r["is_draw"]:
+            b["draws"] += 1
+        elif r["won"]:
+            b["wins"] += 1
+        if r.get("real_duration_s") is not None:
+            b["times"].append(r["real_duration_s"])
+        if r.get("final_turn") is not None:
+            b["turns"].append(r["final_turn"])
+
+    rows = []
+    for lvl, b in buckets.items():
+        mean_s = statistics.fmean(b["times"]) if b["times"] else None
+        mean_t = statistics.fmean(b["turns"]) if b["turns"] else None
+        rows.append([
+            lvl, b["n"], b["wins"],
+            b["n"] - b["wins"] - b["draws"], b["draws"],
+            pct(b["wins"], b["n"]),
+            f"{mean_s:.1f}" if mean_s is not None else "—",
+            f"{mean_t:.1f}" if mean_t is not None else "—",
+        ])
+    rows.sort(key=lambda r: r[0])
+    fmt_table(
+        ["level", "n", "W", "L", "D", "Win%", "mean s", "mean turn"],
+        rows, aligns=["<", ">", ">", ">", ">", ">", ">", ">"],
+    )
+    print()
 
 def view_wins_by_model(records):
     print("=" * 70)
@@ -677,6 +835,9 @@ VIEWS = {
     "sides": view_sides,
     "side-results": view_side_results,
     "raw": view_raw,
+    "humans": view_humans,
+    "human-vs-au": view_human_vs_au,
+    "levels": view_levels,
 }
 
 def main():
@@ -693,6 +854,9 @@ def main():
     ap.add_argument("--gene",
                     help="Filter by AU variant short name(s), comma-separated "
                          "for multiple, e.g. --gene CA or --gene CA,MD.")
+    ap.add_argument("--player", help="Filter by player_id (extraText).")
+    ap.add_argument("--matchup", help="Filter by matchup_type.")
+
     args = ap.parse_args()
 
     battles = load_battles(args.jsonl)
@@ -706,6 +870,12 @@ def main():
                    if b.get("summary", {}).get("map") == args.map]
 
     records = llm_records(battles)
+
+    human_recs = human_records(battles)
+    if args.player:
+        human_recs = [r for r in human_recs if r.get("player_id") == args.player]
+    if args.matchup:
+        human_recs = [r for r in human_recs if r.get("matchup_type") == args.matchup]
 
     if args.model:
         records = [r for r in records if r["model"] == args.model]
@@ -723,8 +893,12 @@ def main():
             and wanted & set(r["opponent_variant"].split(";"))
         ]
 
+    human_views = {"humans", "human-vs-au", "levels"}
+
     if args.view:
-        if args.view == "overview":
+        if args.view in human_views:
+            VIEWS[args.view](human_recs)
+        elif args.view == "overview":
             view_overview(battles, records)
         else:
             VIEWS[args.view](records)
@@ -736,7 +910,11 @@ def main():
         view_battle_lengths(records)
         view_matchups(records)
         view_decisions(records)
-
+        # Human-facing views (only if there's human data)
+        if human_recs:
+            view_humans(human_recs)
+            view_human_vs_au(human_recs)
+            view_levels(human_recs)
 
 if __name__ == "__main__":
     main()
