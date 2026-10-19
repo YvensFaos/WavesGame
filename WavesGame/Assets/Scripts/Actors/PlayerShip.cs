@@ -15,11 +15,24 @@ namespace Actors
     public class PlayerShip : NavalShip
     {
         [SerializeField] private Rigidbody2D playerBody;
+        [SerializeField] private GameObject currentTurnVisual;
 
         protected override void Awake()
         {
             base.Awake();
             AssessUtils.CheckRequirement(ref playerBody, this);
+        }
+
+        public override void StartTurn()
+        {
+            base.StartTurn();
+            currentTurnVisual.SetActive(true);
+        }
+
+        public override void EndTurn()
+        {
+            base.EndTurn();
+            currentTurnVisual.SetActive(false);
         }
     }
 }
