@@ -77,7 +77,6 @@ namespace Actors.AI.Brain
                 }
 
                 gridUnitUtility.Utility = movementUtility + awarenessUtility + attackUtility;
-                utilities.Add(gridUnitUtility);
             }
 
             AIGridUnitUtility chosenAction = null;
@@ -100,6 +99,12 @@ namespace Actors.AI.Brain
             var utilities = new List<AIGridUnitUtility>();
             foreach (var unit in attackableFromUnit)
             {
+                //Skip naval targets if they are forbidden from being targeted
+                if (aiNavalShip.GenesData.forbidTargetAttacking && unit.HasValidActors() && unit.GetActor() is NavalTarget)
+                {
+                    continue;
+                }
+                
                 var gridUnitUtility = new AIGridUnitUtility(unit);
                 var utility = AIGridUnitUtility.CalculateAttackUtility(aiNavalShip, unit);
                 if (Mathf.Approximately(utility, float.MinValue)) continue;

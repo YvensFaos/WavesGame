@@ -30,6 +30,7 @@ namespace Actors.AI
 
         [Header("Interests")] 
         public float targetInterest = 0.1f;
+        public bool forbidTargetAttacking;
         
         [Header("Utility Distributions")]
         public bool sortUtilities = true;

@@ -253,7 +253,7 @@ namespace Actors.AI
                         utility = 0.0f;
                         break;
                     case NavalTarget:
-                        utility += genes.targetInterest;
+                        utility += genes.forbidTargetAttacking ? LowestUtility : genes.targetInterest;
                         break;
                     case AIBaseShip ally when ally.GetFaction().Equals(faction):
                         utility = 0.0f;
@@ -345,7 +345,7 @@ namespace Actors.AI
                 switch (current)
                 {
                     case NavalTarget:
-                        utility += genes.targetInterest;
+                        utility += genes.forbidTargetAttacking ? LowestUtility : genes.targetInterest;
                         break;
                     case ObstacleActor:
                     case AIBaseShip ally when ally.GetFaction().Equals(faction):
@@ -466,7 +466,7 @@ namespace Actors.AI
             {
                 case NavalTarget:
                     //Utility is equal the likeliness of attacking a target
-                    actorInWaveRangeUtility = genes.targetInterest;
+                    actorInWaveRangeUtility = genes.forbidTargetAttacking ? LowestUtility : genes.targetInterest;
                     break;
                 case AIBaseShip ally when ally.GetFaction().Equals(faction):
                     //Generates negative utility for hitting an ally
