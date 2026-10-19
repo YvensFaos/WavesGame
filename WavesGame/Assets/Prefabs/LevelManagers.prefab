@@ -61,6 +61,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1526,7 +1527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gemini (Red) x Mistral (Green)
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6b00ccf0cfcbd4d80b4dcbd788e1072f, type: 2}
   m_sharedMaterial: {fileID: -4579875570549820816, guid: 6b00ccf0cfcbd4d80b4dcbd788e1072f, type: 2}
@@ -1967,21 +1968,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287115102b0647cdb228e14ee4927bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.LevelController
-  levelActors: []
-  levelNavalActors: []
-  levelActionableActors: []
-  actorTurnUIs: []
-  initiativeBased: 1
-  randomSeed: 6
-  logLevel: 1
-  levelGoal: {fileID: 0}
-  nextLevelName: SampleScene
-  recordLevel: 1
   actorTurnsHolder: {fileID: 4692900238076265019}
   actorTurnUIPrefab: {fileID: -1617867583042874006, guid: 9c238bb53b36f44568f48311cc7362a6, type: 3}
+  actorTurnUIs: []
+  levelActionableActors: []
+  levelNavalActors: []
+  turnText: {fileID: 453933874880876722}
+  randomSeed: 6
+  levelActors: []
+  levelGoal: {fileID: 0}
+  initiativeBased: 1
+  logLevel: 1
+  nextLevelName: SampleScene
+  recordLevel: 1
+  extra: 
   endLevelPanelUI: {fileID: 8448852345309879333}
   levelGoalText: {fileID: 6101326321233279750}
-  turnText: {fileID: 453933874880876722}
+  uidText: {fileID: 1176851337833353954}
 --- !u!1 &7844259365899479518
 GameObject:
   m_ObjectHideFlags: 0
