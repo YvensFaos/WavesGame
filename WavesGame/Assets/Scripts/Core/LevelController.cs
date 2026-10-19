@@ -17,7 +17,6 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UUtils;
-using Logger = UUtils.Logger;
 
 namespace Core
 {
@@ -138,6 +137,8 @@ namespace Core
             var gameOver = false;
             while (continueLevel)
             {
+                //TODO log level
+                
                 //There are no actors left. Finish the level cycle.
                 if (actorTurnUIs.Count == 0)
                 {

@@ -304,6 +304,7 @@ namespace Core
             switch (type)
             {
                 case LevelGoalType.DestroyAllTargets:
+                    return playerLevelShips.Count <= 0;
                 case LevelGoalType.Battleground:
                 case LevelGoalType.AIWars:
                     if (TurnManager.TryToGetSingleton(out var turnManager))
