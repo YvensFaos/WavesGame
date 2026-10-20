@@ -10,6 +10,7 @@ using System.Collections;
 using System.Linq;
 using Actors;
 using Core.Recorder;
+using Grid;
 using NaughtyAttributes;
 using TMPro;
 using UI;
@@ -94,8 +95,9 @@ namespace Core
                 AddLevelActorToTurnBar(actorPair.One);
             });
 
+            var cursorController = CursorController.GetSingleton();
             var firstActor = levelActionableActors[0].One;
-            CursorController.GetSingleton().MoveToIndex(firstActor.GetUnit().Index());
+            cursorController.MoveToIndex(firstActor.GetUnit().Index());
 
             if (TurnManager.TryToGetSingleton(out turnManager))
             {
@@ -134,6 +136,10 @@ namespace Core
             var continueLevel = true;
             var victory = false;
             var gameOver = false;
+            
+            var gridManager = GridManager.GetSingleton();
+            RecordScenario(gridManager);
+            
             while (continueLevel)
             {
                 //TODO log level
@@ -155,9 +161,27 @@ namespace Core
                     {
                         var turnUI = GetActorTurnUI(navalShip);
                         turnUI.ToggleAvailability(true);
-                        navalShip.StartTurn();
+                        
+                        if (WavesInputTracer.TryToGetSingleton(out var inputTracer))
+                        {
+                            if (inputTracer is WavesInputTracer wavesInputTracer)
+                            {
+                                wavesInputTracer.SetCurrentNavalShip(navalShip);    
+                            }
+                        }
+                        
                         // Move the cursor to the ship
-                        CursorController.GetSingleton().MoveToIndex(navalShip.GetUnit().Index());
+                        if (cursorController.MovingAnimation())
+                        {
+                            DebugUtils.DebugLogMsg($"Cursor is still moving...", DebugUtils.DebugType.System);
+                            yield return new WaitUntil(() => !cursorController.MovingAnimation());
+                        }
+
+                        // Move the cursor to the ship
+                        cursorController.MoveToIndex(navalShip.GetUnit().Index());
+                        yield return 0.75f;
+                        
+                        navalShip.StartTurn();
 
                         yield return new WaitUntil(() => endTurn);
                         // Check if the naval ship was not destroyed during its own turn.
@@ -184,6 +208,11 @@ namespace Core
                     turnManager.NextTurn();
                     turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
                 }
+                
+                RecordScenario(gridManager);
+                var currentActors = levelActors.Where(actor => actor != null && actor is NavalActor)
+                    .Select(actor => (NavalActor)actor).ToList();
+                RecordGameState(currentActors);
 
                 victory = levelGoal.CheckGoal();
                 gameOver = levelGoal.CheckGameOver();
