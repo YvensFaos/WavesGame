@@ -27,6 +27,7 @@ namespace Core.Simulation
     {
         [SerializeField] private TextMeshProUGUI simulationText;
         [SerializeField] private TextMeshProUGUI versusText;
+        [SerializeField] private bool showUid;
 
         private Dictionary<Faction, List<NavalShip>> _navalShips;
 
@@ -241,7 +242,7 @@ namespace Core.Simulation
         public void AddSimulationInfo(string simulationInfo, string versusInfo)
         {
             simulationText.text = $"{levelGoal.GetLevelMessage()}\n\n{simulationInfo}";
-            versusText.text = versusInfo;
+            versusText.text = showUid ? GameManager.GetSingleton().GetSessionUid() : versusInfo;
         }
 
         public SimulationOutcome Outcome => _outcome;
