@@ -8,6 +8,7 @@
 
 using Core;
 using UnityEngine;
+using UnityEngine.Events;
 using UUtils;
 
 namespace Actors
@@ -16,8 +17,9 @@ namespace Actors
     {
         [SerializeField]
         private NavalActorStats stats;
+        [SerializeField]
+        private UnityEvent eventOnDestruction;
 
-        //TODO move this repeated code from Target and Ship to NavalActor with sturdiness as a parameter.
         public override bool TakeDamage(int damage)
         {
             var damageTaken = damage - stats.sturdiness.Two;
@@ -31,6 +33,12 @@ namespace Actors
             {
                 controller.NotifyDestroyedActor(this);
             });
+        }
+        
+        protected override void DestroyActor()
+        {
+            base.DestroyActor();
+            eventOnDestruction.Invoke();
         }
 
         public NavalActorStats GetStats() => stats;

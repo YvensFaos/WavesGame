@@ -37,6 +37,7 @@ namespace Core
 
         public void InteractOnUnit(GridUnit unit)
         {
+            if (unit == null) return;
             switch (CurrentState)
             {
                 case CursorState.Roaming:
@@ -55,12 +56,15 @@ namespace Core
                         _cursorController.MoveToIndex(index);
                         ChangeStateTo(CursorState.Roaming);
                     }
+
                     break;
                 case CursorState.Moving:
                     //TODO change this because it is acting synchronously
                     var move = _cursorController.MoveSelectedActorTo(unit, (final) =>
                     {
-                        DebugUtils.DebugLogMsg($"Going to final position {final} {(final != null ? final.Index() : "[Invalid]")}.", DebugUtils.DebugType.Verbose);
+                        DebugUtils.DebugLogMsg(
+                            $"Going to final position {final} {(final != null ? final.Index() : "[Invalid]")}.",
+                            DebugUtils.DebugType.Verbose);
                         _currentGridUnit = final == null ? unit : final;
                         var index = _currentGridUnit.Index();
                         DebugUtils.DebugLogMsg($"Move to the index: {index}.", DebugUtils.DebugType.Verbose);
@@ -70,6 +74,7 @@ namespace Core
                     {
                         ChangeStateTo(CursorState.OnTheMove);
                     }
+
                     break;
                 case CursorState.OnTheMove:
                     break;
@@ -110,7 +115,7 @@ namespace Core
 
             CurrentState = newState;
             DebugUtils.DebugLogMsg($"Stated changed to {CurrentState}.", DebugUtils.DebugType.System);
-            
+
             switch (CurrentState)
             {
                 case CursorState.Roaming:
@@ -118,11 +123,13 @@ namespace Core
                     _cursorController.ResetWalkableUnits();
                     break;
                 case CursorState.SelectGridUnit:
-                    DebugUtils.DebugLogMsg($"Selecting grid unit {_currentGridUnit} | Contains {_currentGridUnit.ActorsCount()} actors.", DebugUtils.DebugType.Verbose);
+                    DebugUtils.DebugLogMsg(
+                        $"Selecting grid unit {_currentGridUnit} | Contains {_currentGridUnit.ActorsCount()} actors.",
+                        DebugUtils.DebugType.Verbose);
                     if (_currentGridUnit.ActorsCount() > 0)
                     {
                         var actorEnumerator = _currentGridUnit.GetActorEnumerator();
-                        while(actorEnumerator.MoveNext())
+                        while (actorEnumerator.MoveNext())
                         {
                             var getTopActor = actorEnumerator.Current;
                             if (getTopActor is not NavalActor navalActor) continue;
@@ -134,6 +141,7 @@ namespace Core
                             ChangeStateTo(CursorState.ShowingOptions);
                             return;
                         }
+
                         actorEnumerator.Dispose();
                         NoValidActorFound();
                     }
@@ -168,7 +176,8 @@ namespace Core
 
             void NoValidActorFound()
             {
-                DebugUtils.DebugLogMsg($"No valid actors found in grid unit {_currentGridUnit}.", DebugUtils.DebugType.Verbose);
+                DebugUtils.DebugLogMsg($"No valid actors found in grid unit {_currentGridUnit}.",
+                    DebugUtils.DebugType.Verbose);
                 ChangeStateTo(CursorState.Roaming);
                 // If select a grid unit with no actor, then just return back to roaming
             }

@@ -96,12 +96,18 @@ namespace Core
         public void MoveToIndex(Vector2Int newIndex, bool animate = true)
         {
             if (_movingAnimation) return;
+            _movingAnimation = false;
             if (newIndex.x == index.x && newIndex.y == index.y) return;
 
             if (!GridManager.TryToGetSingleton(out var gridManager)) return;
-            
+
             var validPosition = gridManager.CheckGridPosition(newIndex, out var gridUnit);
-            if (!validPosition) InvalidPosition();
+            if (!validPosition)
+            {
+                _movingAnimation = false;
+                InvalidPosition();
+            }
+
             _movingAnimation = true;
             if (animate)
             {
@@ -144,11 +150,11 @@ namespace Core
                 case NavalActorType.Player:
                 {
                     ShowWalkablePathForUnit();
-                    
+
                     GameController.TryToUseGameController(gameController =>
                     {
                         var isCurrentTurnPlayer = gameController.IsCurrentActor(_selectedActor);
-                        navalShipOptionsPanel.ShowOptions(isCurrentTurnPlayer);    
+                        navalShipOptionsPanel.ShowOptions(isCurrentTurnPlayer);
                     });
                 }
                     break;
@@ -276,11 +282,11 @@ namespace Core
                     DebugUtils.DebugLogMsg($"Act upon {targetActor.name}!", DebugUtils.DebugType.Verbose);
 
                     var damage = navalShip.CalculateDamage();
-                    
+
                     var attackedWave = targetActor is WaveActor;
                     var reasoning = attackedWave ? "Attacked a wave" : "Regular attack";
                     navalShip.RecordAttack(targetActor, gridUnit, damage, reasoning);
-                  
+
                     targetActor.TakeDamage(damage);
                     attackHappened = true;
                 }
