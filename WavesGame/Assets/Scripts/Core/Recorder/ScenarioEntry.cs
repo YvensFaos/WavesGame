@@ -50,6 +50,8 @@ namespace Core.Recorder
                 var row = "";
                 for (var j = 0; j < dimensions.x && index < grid.Count; j++)
                 {
+                    if (index < 0) break;
+                    
                     var gridUnit = grid[index--];
                     if (gridUnit.IsEmpty())
                     {

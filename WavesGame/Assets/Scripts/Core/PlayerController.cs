@@ -46,5 +46,12 @@ namespace Core
             if (!context.performed) return;
             onCancel?.Invoke();
         }
+
+        public void OnResetLevel(InputAction.CallbackContext context)
+        {
+            DebugUtils.DebugLogMsg($"On Reset Level called. S[{context.started}] P[{context.performed}] C[{context.canceled}]", DebugUtils.DebugType.Verbose);
+            if (!context.performed) return;
+            ApplicationHelper.RestartLevel();
+        }
     }
 }
