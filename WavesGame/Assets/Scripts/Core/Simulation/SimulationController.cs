@@ -31,11 +31,15 @@ namespace Core.Simulation
 
         private Dictionary<Faction, List<NavalShip>> _navalShips;
 
+        private SimulationManager _simulationManager;
         private SimulationOutcome _outcome;
         private Faction _winningFaction;
+        private bool _runningSimulation;
+        private bool _interrupt;
 
-        public void Initialize(Dictionary<Faction, List<NavalShip>> navalShipsDictionary)
+        public void Initialize(SimulationManager simulationManager, Dictionary<Faction, List<NavalShip>> navalShipsDictionary)
         {
+            _simulationManager = simulationManager;
             _navalShips = navalShipsDictionary;
         }
 
@@ -48,6 +52,7 @@ namespace Core.Simulation
 
         private IEnumerator SimulationCoroutine()
         {
+            _runningSimulation = true;
             running = true;
             yield return new WaitForEndOfFrame();
             //Wait for one frame for all elements to be initialized
@@ -188,6 +193,7 @@ namespace Core.Simulation
 
             enumerator.Dispose();
             running = false;
+            _runningSimulation = false;
         }
 
         public override void NotifyDestroyedActor(NavalShip navalShip)
@@ -239,14 +245,32 @@ namespace Core.Simulation
             running = false;
         }
 
+        public override void ResetController()
+        {
+            DebugUtils.DebugLogMsg("Resetting controller", DebugUtils.DebugType.System);
+            StopCoroutine(controllerCoroutine);
+            _simulationManager.InterruptSimulation();
+            _runningSimulation = false;
+        }
+
         public void AddSimulationInfo(string simulationInfo, string versusInfo)
         {
             simulationText.text = $"{levelGoal.GetLevelMessage()}\n\n{simulationInfo}";
             versusText.text = showUid ? GameManager.GetSingleton().GetSessionUid() : versusInfo;
         }
 
+        public void StopSimulation()
+        {
+            _runningSimulation = false;
+            running = false;
+        }
+
+        public bool IsRunningSimulation() => _runningSimulation;
+        
+        // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
         public SimulationOutcome Outcome => _outcome;
 
+        // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
         public Faction WinningFaction => _winningFaction;
     }
 }

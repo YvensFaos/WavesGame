@@ -40,6 +40,9 @@ namespace Core.Simulation
         [SerializeField, ReadOnly] private Faction firstFaction;
 
         private WavesRecorder _wavesRecorder;
+        private bool _resetSimulation;
+        private Coroutine _simulationHandle;
+        private SimulationController _simulationController;
 
         private void Start()
         {
@@ -59,8 +62,10 @@ namespace Core.Simulation
 
             DebugUtils.DebugLogMsg($"Simulations on the list: {simulations.Count}", DebugUtils.DebugType.System);
             var internalCounter = 1;
-            foreach (var simulation in simulations)
+
+            for (var simulationIndex = 0; simulationIndex < simulations.Count;)
             {
+                var simulation = simulations[simulationIndex];
                 var iterations = simulation.Iterations;
                 DebugUtils.DebugLogMsg(
                     $"Loading simulation {internalCounter}: {simulation.name}. Internal repetitions: {iterations}.",
@@ -68,13 +73,16 @@ namespace Core.Simulation
                 for (var i = 1; i <= iterations; i++)
                 {
                     yield return RunSimulation(i, simulation);
+                    if (!_resetSimulation) continue;
+                    --i;
+                    _resetSimulation = false;
                 }
 
                 ++internalCounter;
+                ++simulationIndex;
             }
 
             DebugUtils.DebugLogMsg($"All simulations completed!", DebugUtils.DebugType.System);
-
             yield return WaitUntilAsyncAdditiveUnloadScene(controllerScene);
             DebugUtils.DebugLogMsg("Controller scene unloaded!", DebugUtils.DebugType.System);
             yield return null;
@@ -144,18 +152,18 @@ namespace Core.Simulation
 
             PerformFlags(factionNavalShipsDictionary);
 
-            var simulationController = Instantiate(simulationControllerPrefab);
-            simulationController.Initialize(factionNavalShipsDictionary);
+            _simulationController = Instantiate(simulationControllerPrefab);
+            _simulationController.Initialize(this, factionNavalShipsDictionary);
             var simulationInfo =
                 $"{simulation.BattleGroundScene}-{extra}-iteration[{iterationNumber}]\n\n";
-            simulationController.AddSimulationInfo(simulationInfo, $"{simulation.GetPlayers()}");
+            _simulationController.AddSimulationInfo(simulationInfo, $"{simulation.GetPlayers()}");
 
             //Wait for the naval actors to load their indices
             yield return new WaitForEndOfFrame();
 
             //Start recorder, if the simulation should be recorded
             var shouldRecord = simulation.Record;
-            var levelGoal = simulationController.GetLevelGoal();
+            var levelGoal = _simulationController.GetLevelGoal();
             var levelGoalMessage = levelGoal.GetLevelMessage();
             if (shouldRecord)
             {
@@ -175,25 +183,26 @@ namespace Core.Simulation
                 var obstacleActors = FindObjectsByType<ObstacleActor>(FindObjectsInactive.Exclude).ToList();
                 var uid = GameManager.GetSingleton().GetSessionUid();
                 var recordingIdentifier =
-                    $"{simulation.BattleGroundScene}-{simulationController.GetLevelMessageAndTime()}-{extra}-iteration[{iterationNumber}]";
+                    $"{simulation.BattleGroundScene}-{_simulationController.GetLevelMessageAndTime()}-{extra}-iteration[{iterationNumber}]";
                 DebugUtils.DebugLogMsg($"Starting recording...", DebugUtils.DebugType.System);
-                _wavesRecorder.LogGameStart(simulation.BattleGroundScene, 
-                    simulationSeed, 
-                    maxTurns, 
-                    navalActors, 
+                _wavesRecorder.LogGameStart(simulation.BattleGroundScene,
+                    simulationSeed,
+                    maxTurns,
+                    navalActors,
                     $"{extra}[{uid}]",
-                    waveActors, 
-                    obstacleActors, 
+                    waveActors,
+                    obstacleActors,
                     recordingIdentifier);
             }
 
             DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);
-            yield return simulationController.StartSimulation(simulationSeed);
+            _simulationHandle = _simulationController.StartSimulation(simulationSeed);
+            yield return new WaitUntil(() => !_simulationController.IsRunningSimulation());
             DebugUtils.DebugLogMsg($"Simulation completed!", DebugUtils.DebugType.System);
 
-            var outcome = simulationController.Outcome;
+            var outcome = _simulationController.Outcome;
             var winningString = "";
-            var winningFaction = simulationController.WinningFaction;
+            var winningFaction = _simulationController.WinningFaction;
             if (outcome == SimulationOutcome.Victory)
             {
                 winningString = $"Winning Faction: {winningFaction}";
@@ -203,10 +212,10 @@ namespace Core.Simulation
 
             if (shouldRecord)
             {
-                RecordSimulationOutcome(levelGoalMessage, outcome, simulationController.WinningFaction);
+                RecordSimulationOutcome(levelGoalMessage, outcome, _simulationController.WinningFaction);
             }
 
-            Destroy(simulationController.gameObject);
+            Destroy(_simulationController.gameObject);
 
             if (shouldRecord)
             {
@@ -258,6 +267,13 @@ namespace Core.Simulation
         public void AddSimulation(Simulation simulation)
         {
             simulations.Add(simulation);
+        }
+
+        public void InterruptSimulation()
+        {
+            DebugUtils.DebugLogMsg($"Simulation was interrupted!", DebugUtils.DebugType.System);
+            StopCoroutine(_simulationHandle);
+            _simulationController?.StopSimulation();
         }
 
         private static List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction,

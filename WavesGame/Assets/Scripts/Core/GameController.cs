@@ -167,6 +167,8 @@ namespace Core
             }
         }
 
+        public abstract void ResetController();
+
         public LevelGoal GetLevelGoal() => levelGoal;
         public int GetRandomSeed() => randomSeed;
         public List<NavalActor>.Enumerator GetNavalActorsEnumerator() => levelNavalActors.GetEnumerator();

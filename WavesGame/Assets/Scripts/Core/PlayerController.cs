@@ -51,7 +51,14 @@ namespace Core
         {
             DebugUtils.DebugLogMsg($"On Reset Level called. S[{context.started}] P[{context.performed}] C[{context.canceled}]", DebugUtils.DebugType.Verbose);
             if (!context.performed) return;
-            ApplicationHelper.RestartLevel();
+            if (GameController.TryToGetSingleton(out var gameController))
+            {
+                gameController.ResetController();
+            }
+            else
+            {
+                ApplicationHelper.RestartLevel();    
+            }
         }
     }
 }

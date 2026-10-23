@@ -311,5 +311,19 @@ namespace Core
                 endLevelPanelUI.OpenEndLevelPanel(nextLevelName, win);
             });
         }
+
+        public override void ResetController()
+        {
+            DebugUtils.DebugLogMsg($"Level was reset!", DebugUtils.DebugType.System);
+            
+            if (_recorder != null)
+            {
+                _recorder.RecordNewEntry(new EndGameRecordEntry("Level reset by player.", null, false));
+                DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
+                _recorder.Stop();
+            }
+            
+            ApplicationHelper.RestartLevel();
+        }
     }
 }
