@@ -263,9 +263,12 @@ namespace Core.Simulation
         {
             _runningSimulation = false;
             running = false;
+            _interrupt = true;
         }
 
         public bool IsRunningSimulation() => _runningSimulation;
+
+        public bool WasInterrupted() => _interrupt;
         
         // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
         public SimulationOutcome Outcome => _outcome;

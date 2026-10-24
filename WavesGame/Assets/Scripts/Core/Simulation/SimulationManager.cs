@@ -198,7 +198,11 @@ namespace Core.Simulation
             DebugUtils.DebugLogMsg($"Starting simulation...", DebugUtils.DebugType.System);
             _simulationHandle = _simulationController.StartSimulation(simulationSeed);
             yield return new WaitUntil(() => !_simulationController.IsRunningSimulation());
-            DebugUtils.DebugLogMsg($"Simulation completed!", DebugUtils.DebugType.System);
+
+            var wasInterrupted = _simulationController.WasInterrupted();
+            DebugUtils.DebugLogMsg(wasInterrupted ? $"Simulation completed!" : $"Simulation interrupted!",
+                DebugUtils.DebugType.System);
+            _resetSimulation = wasInterrupted;
 
             var outcome = _simulationController.Outcome;
             var winningString = "";
