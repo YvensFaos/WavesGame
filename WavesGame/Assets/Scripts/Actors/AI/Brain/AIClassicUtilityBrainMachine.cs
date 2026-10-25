@@ -9,7 +9,6 @@
 using System.Collections.Generic;
 using Grid;
 using UnityEngine;
-using UUtils;
 
 namespace Actors.AI.Brain
 {
@@ -118,12 +117,11 @@ namespace Actors.AI.Brain
                     utilities.Add(gridUnitUtility);    
                 }
             }
-
-            DisplayHeatMap(utilities);
-            //TODO DisplayTiles(utilities);
             
             AIGridUnitUtility chosenAction = null;
             if (utilities.Count <= 0) return false;
+            DisplayHeatMap(utilities);
+            
             var best = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
             attack = chosenAction;
             return best;

@@ -27,6 +27,12 @@ namespace Actors.AI
             _unit = unit;
         }
 
+        public AIGridUnitUtility(GridUnit unit, float utility)
+        {
+            _unit = unit;
+            Utility = utility;
+        }
+
         /// <summary>
         /// Calculates the utility of moving to the given unit.
         /// </summary>
