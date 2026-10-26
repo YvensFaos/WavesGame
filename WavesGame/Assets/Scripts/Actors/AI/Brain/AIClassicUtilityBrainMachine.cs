@@ -12,11 +12,6 @@ using UnityEngine;
 
 namespace Actors.AI.Brain
 {
-    internal enum AIClassicState
-    {
-        Start, Move, Attack, MoveAgain
-    }
-    
     [CreateAssetMenu(fileName = "New Classic Utility AI Brain", menuName = "Waves/AI/Classic Utility AI Brain", order = 2)]
     public class AIClassicUtilityBrainMachine : AIBrainMachine
     {
@@ -86,7 +81,6 @@ namespace Actors.AI.Brain
             }
             
             DisplayHeatMap(utilities);
-            //TODO DisplayTiles(utilities);
 
             AIGridUnitUtility chosenAction = null;
             var best = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
