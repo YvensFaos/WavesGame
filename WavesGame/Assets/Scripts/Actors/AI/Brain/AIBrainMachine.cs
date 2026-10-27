@@ -34,7 +34,7 @@ namespace Actors.AI.Brain
 
         public abstract bool CalculateAttack(AINavalShip aiNavalShip, out AIGridUnitUtility attack);
 
-        public abstract AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack, out AIGridUnitUtility target);
+        public abstract AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack, out List<AIGridUnitUtility> targets);
 
         private static void DebugUtilityChoices(AIGridUnitUtility chosenAction, int index,
             List<AIGridUnitUtility> utilities)

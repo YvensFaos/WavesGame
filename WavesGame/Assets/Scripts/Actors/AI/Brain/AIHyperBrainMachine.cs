@@ -24,51 +24,71 @@ namespace Actors.AI.Brain
             var genes = aiNavalShip.GetGenesData();
             var path = new List<GridUnit>();
             unitToAttack = null;
-            
+            var currentUnit = aiNavalShip.GetUnit();
+                
             //If can attack, then it is in aggressive mode; if it cannot attack, then it is in retreat mode.
             if (canAttack)
             {
-                var currentUnit = aiNavalShip.GetUnit();
-                var shouldAttack = false;
-                while(!shouldAttack && path.Count < stepsAvailable)
+                while(path.Count < stepsAvailable)
                 {
-                    shouldAttack = CanAttackImmediately(aiNavalShip, currentUnit, out var target);
+                    var shouldAttack = CanAttackImmediately(aiNavalShip, currentUnit, out var target);
                     if (shouldAttack)
                     {
                         unitToAttack = target.GetUnit();
-                        
+                        break;
+                    }
+                    var walkableUnits = GridManager.GetSingleton().
+                        GetGridUnitsInRadiusManhattan(currentUnit.Index(), 1);
+                    var utilities = walkableUnits.Select(gridUnit => CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, gridUnit, genes, cannonData)).ToList();
+                    DisplayHeatMap(utilities);
+                    AIGridUnitUtility chosenAction = null;
+                    var hasBestOption = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
+                    if (hasBestOption)
+                    {
+                        var chosenUnit = chosenAction.GetUnit();
+                        path.Add(chosenUnit);
+                        currentUnit = chosenUnit;
                     }
                     else
                     {
-                        var walkableUnits = GridManager.GetSingleton().
-                            GetGridUnitsInRadiusManhattan(currentUnit.Index(), 1);
-                        var utilities = walkableUnits.Select(gridUnit => CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, gridUnit, genes, cannonData)).ToList();
-                        DisplayHeatMap(utilities);
-                        AIGridUnitUtility chosenAction = null;
-                        var hasBestOption = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
-                        if (hasBestOption)
-                        {
-                            var chosenUnit = chosenAction.GetUnit();
-                            path.Add(chosenUnit);
-                            currentUnit = chosenUnit;
-                        }
-                        else
-                        {
-                            DebugUtils.DebugLogErrorMsg($"Failed to find a best utility position from {currentUnit.Index()}!");
-                            //TODO return from here with the path
-                        }
+                        DebugUtils.DebugLogErrorMsg($"Failed to find a best utility position from {currentUnit.Index()}!");
+                        break;
                     }
-                    // else
-                    // {
-                    //     //Found a good target from the current position
-                    //     
-                    //     return null;
-                    // }
+                }
+            }
+            else
+            {
+                while (path.Count < stepsAvailable)
+                {
+                    var walkableUnits = GridManager.GetSingleton().
+                        GetGridUnitsInRadiusManhattan(currentUnit.Index(), 1);
+                    var utilities = walkableUnits.Select(gridUnit => CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, gridUnit, genes, cannonData)).ToList();
+                    var utilityStaying =
+                        CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, currentUnit, genes, cannonData);
+                    utilities.Add(utilityStaying);
+                    DisplayHeatMap(utilities);
+                    AIGridUnitUtility chosenAction = null;
+                    var hasBestOption = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
+                    if (hasBestOption)
+                    {
+                        var chosenUnit = chosenAction.GetUnit();
+                        path.Add(chosenUnit);
+                        if (chosenUnit.Equals(currentUnit))
+                        {
+                            //Staying in the same position
+                            break;
+                        }
+                        currentUnit = chosenUnit;
+                    }
+                    else
+                    {
+                        DebugUtils.DebugLogErrorMsg($"Failed to find a best utility position from {currentUnit.Index()}!");
+                        break;
+                    }
                 }
             }
 
-            //TODO
-            return null;
+            return path;
         }
 
         public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack,
@@ -149,9 +169,9 @@ namespace Actors.AI.Brain
 
         public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable,
             bool afterAttack,
-            out AIGridUnitUtility target)
+            out List<AIGridUnitUtility> targets)
         {
-            target = null;
+            targets = new List<AIGridUnitUtility>();
 
             switch (_state)
             {
@@ -161,17 +181,28 @@ namespace Actors.AI.Brain
                     if (CanAttackImmediately(aiNavalShip, aiNavalShip.GetUnit(), out var attackTarget))
                     {
                         _state = AIClassicState.Attack;
-                        target = attackTarget;
+                        targets.Add(attackTarget);
                         return AIAction.Attack;
                     }
                     // If it can't, then proceed to calculate movement.
                     _state = AIClassicState.Move;
                     
-                    //TODO change
-                    CalculateMovement(aiNavalShip, stepsAvailable, false, out target);
+                    var route = PlanMovementRoute(aiNavalShip, stepsAvailable, true, out var unitToAttack);
+                    if (unitToAttack != null)
+                    {
+                        targets.Add(new AIGridUnitUtility(unitToAttack));
+                        return AIAction.Attack;
+                    }
+                    else
+                    {
+                        if (route.Count > 0)
+                        {
+                            //There is path to walk
+                            
+                        }
+                    }
                     return AIAction.Movement;
                 }
-                    break;
                 case AIClassicState.Move:
                     break;
                 case AIClassicState.Attack:

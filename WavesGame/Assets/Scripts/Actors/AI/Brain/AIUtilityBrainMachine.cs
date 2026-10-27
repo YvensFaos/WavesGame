@@ -119,9 +119,9 @@ namespace Actors.AI.Brain
         }
 
         public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack,
-            out AIGridUnitUtility target)
+            out List<AIGridUnitUtility> targets)
         {
-            target = null;
+            targets = new List<AIGridUnitUtility>();
             if (actionsAvailable <= 0 && stepsAvailable <= 0) return AIAction.EndTurn;
             AIGridUnitUtility moveTo = null;
             AIGridUnitUtility attackAt = null;
@@ -148,16 +148,16 @@ namespace Actors.AI.Brain
                 case true when shouldAttack:
                 {
                     var action = moveTo.Utility > attackAt.Utility ? AIAction.Movement : AIAction.EndTurn;
-                    target = moveTo.Utility > attackAt.Utility ? moveTo : attackAt;
+                    targets.Add(moveTo.Utility > attackAt.Utility ? moveTo : attackAt);
                     return action;
                 }
                 //If should only move and not attack
                 case true:
-                    target = moveTo;
+                    targets.Add(moveTo);
                     return AIAction.Movement;
                 //If should not move but should attack
                 default:
-                    target = attackAt;
+                    targets.Add(attackAt);
                     return AIAction.Attack;
             }
         }

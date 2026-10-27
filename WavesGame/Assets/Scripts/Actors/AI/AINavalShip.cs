@@ -42,10 +42,10 @@ namespace Actors.AI
             AIAction act;
             do
             {
-                act = brain.CalculateAction(this, actionsLeft, remainingSteps, attackedAlready, out var target);
+                act = brain.CalculateAction(this, actionsLeft, remainingSteps, attackedAlready, out var targets);
                 yield return new WaitForSeconds(2.0f);
                 
-                var targetString = target != null ? target.ToString() : "[No Target]";
+                var targetString = targets != null && targets[0] != null ? targets[0].ToString() : "[No Target]";
                 
                 var utilityReasoning = $"{name} has selected action {act} with target {targetString}.";
                 DebugUtils.DebugLogMsg($"{utilityReasoning}", DebugUtils.DebugType.System);
@@ -58,20 +58,20 @@ namespace Actors.AI
                         goto case AIAction.EndTurn;
                     case AIAction.Movement:
                         DisplayMoveTiles(this, remainingSteps);
-                        if (target == null)
+                        if (targets == null || targets.Count == 0)
                         {
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
                             break;
                         }
                         _calculatingAction = true;
 
-                        var moveTo = target.GetUnit();
+                        var moveTo = targets[0].GetUnit();
                         yield return new WaitForSeconds(0.5f);
                         cursorController.MoveToIndex(moveTo.Index());
                         
                         yield return new WaitUntil(() => !cursorController.MovingAnimation());
                         
-                        var move = MoveTo(target.GetUnit(), _ =>
+                        var move = MoveTo(targets[0].GetUnit(), _ =>
                         {
                             _calculatingAction = false;
                         }, true);
@@ -83,12 +83,12 @@ namespace Actors.AI
                     
                     case AIAction.Attack:
                         DisplayAttackTiles(this);
-                        if (target == null)
+                        if (targets == null || targets.Count == 0)
                         {
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
                             break;
                         }
-                        var targetUnit = target.GetUnit();
+                        var targetUnit = targets[0].GetUnit();
                         if (targetUnit.ActorsCount() <= 0)
                         {
                             DebugUtils.DebugLogErrorMsg($"Target position has no valid targets [{targetUnit}].");
@@ -98,7 +98,7 @@ namespace Actors.AI
                         DebugUtils.DebugLogMsg($"{name} attacks {firstActor}!", DebugUtils.DebugType.System);
                         if (TryToAct())
                         {
-                            var attackAt = target.GetUnit();
+                            var attackAt = targets[0].GetUnit();
                             yield return new WaitForSeconds(0.5f);
                             cursorController.MoveToIndex(attackAt.Index());
                             attackedAlready = true;

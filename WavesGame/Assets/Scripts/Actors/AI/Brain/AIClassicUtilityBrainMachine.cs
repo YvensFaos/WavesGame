@@ -122,15 +122,16 @@ namespace Actors.AI.Brain
         }
 
         public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack,
-            out AIGridUnitUtility target)
+            out List<AIGridUnitUtility> targets)
         {
-            target = null;
+            targets = new List<AIGridUnitUtility>();
             
             switch (_state)
             {
                 case AIClassicState.Start: //Start by moving
                     _state = AIClassicState.Move;
-                    CalculateMovement(aiNavalShip, stepsAvailable, false, out target);
+                    CalculateMovement(aiNavalShip, stepsAvailable, false, out var target);
+                    targets.Add(target);
                     return AIAction.Movement;
                 
                 case AIClassicState.Move: //Attack after moving
@@ -141,6 +142,7 @@ namespace Actors.AI.Brain
                     //TODO change this to calculate a movement after attack
                     if (stepsAvailable > 0 && CalculateMovement(aiNavalShip, stepsAvailable, true, out target))
                     {
+                        targets.Add(target);
                         return AIAction.Movement;
                     }
                     //Else, moves to the end of the method and return AIAction.EndTurn
