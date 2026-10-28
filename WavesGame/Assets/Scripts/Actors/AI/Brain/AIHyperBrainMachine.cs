@@ -133,8 +133,7 @@ namespace Actors.AI.Brain
         {
             //TODO change 
             
-            var position = aiNavalShip.GetUnit().Index();
-            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(position, stepsAvailable);
+            var walkableUnits = AIBaseShip.GetFilteredWalkableTiles(aiNavalShip, stepsAvailable); 
             var genes = aiNavalShip.GetGenesData();
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
             

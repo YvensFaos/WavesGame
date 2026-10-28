@@ -295,6 +295,91 @@ namespace Grid
                 }
             }
         }
+        
+        public delegate bool NeighborPredicate(GridUnit currentTile, GridUnit neighborTile);
+        
+        public List<GridUnit> GetGridUnitsInRadiusManhattanGivenCondition(Vector2Int position, int radius, Predicate<GridUnit> gridUnitCondition, NeighborPredicate neighborCondition)
+        {
+            DebugUtils.DebugLogMsg("Start Grid Manhattan Area.", DebugUtils.DebugType.Verbose);
+            var inRadius = new List<GridUnit>();
+            GetValidGridPosition(position, out var validPosition);
+            var startUnit = _grid[validPosition.x, validPosition.y];
+
+            // ReSharper disable once UseObjectOrCollectionInitializer
+            var toVisit = new List<Tuple<GridUnit, int>>();
+            var visited = new HashSet<GridUnit>();
+            var forbidden = new HashSet<GridUnit>();
+            
+            toVisit.Add(new Tuple<GridUnit, int>(startUnit, radius));
+            DebugUtils.DebugLogMsg($"Start from first node {startUnit.Index()} [{visited.Count}].",
+                DebugUtils.DebugType.Verbose);
+            while (toVisit.Count > 0)
+            {
+                var unitTuple = toVisit[0];
+
+                // Stop searching if the unit has been visited already
+                var gridUnit = unitTuple.Item1;
+                // ReSharper disable once CanSimplifySetAddingWithSingleCall
+                if (visited.Contains(gridUnit))
+                {
+                    toVisit.RemoveAt(0);
+                    continue;
+                }
+
+                visited.Add(gridUnit);
+                DebugUtils.DebugLogMsg($"Check node - {gridUnit} [{visited.Count}].",
+                    DebugUtils.DebugType.Verbose);
+
+                var index = gridUnit.Index();
+                var currentRadius = unitTuple.Item2;
+                toVisit.RemoveAt(0);
+
+                // Stop searching once the current radius ends
+                if (currentRadius < 0) continue;
+
+                var firstUnit = gridUnit == startUnit;
+                if (firstUnit || gridUnitCondition(gridUnit))
+                {
+                    Proceed(gridUnit, currentRadius, index);
+                }
+            }
+
+            return inRadius;
+
+            void VisitNextNodeAt(GridUnit current, Vector2Int index, int currentRadius)
+            {
+                if (!CheckPosition(index)) return;
+                var neighbor = _grid[index.x, index.y];
+                if (forbidden.Contains(neighbor))
+                {
+                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* already! [{forbidden.Count} forbidden steps.]", DebugUtils.DebugType.Temporary);
+                    return;
+                }
+                if (neighborCondition(current, neighbor))
+                {
+                    DebugUtils.DebugLogMsg($"{neighbor} *added* for meeting the neighbor condition. Radius = {currentRadius}.", DebugUtils.DebugType.Temporary);
+                    toVisit.Add(new Tuple<GridUnit, int>(neighbor, currentRadius));    
+                }
+                else
+                {
+                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* for not matching the neighbor condition.", DebugUtils.DebugType.Temporary);
+                    forbidden.Add(neighbor);
+                }
+            }
+
+            void Proceed(GridUnit gridUnit, int currentRadius, Vector2Int index)
+            {
+                inRadius.Add(gridUnit);
+                //TODO prevent that a blocked by wave tile be re-added to the visit list
+                DebugUtils.DebugLogMsg($"Visiting next nodes from {gridUnit} [{visited.Count}].",
+                    DebugUtils.DebugType.Verbose);
+                var newRadius = currentRadius - 1;
+                VisitNextNodeAt(gridUnit, new Vector2Int(index.x, index.y + 1), newRadius);
+                VisitNextNodeAt(gridUnit, new Vector2Int(index.x, index.y - 1), newRadius);
+                VisitNextNodeAt(gridUnit, new Vector2Int(index.x + 1, index.y), newRadius);
+                VisitNextNodeAt(gridUnit, new Vector2Int(index.x - 1, index.y), newRadius);
+            }
+        }
 
         private List<GridUnit> GetGridUnitsForMoveType(CannonSo cannonSo, Vector2Int position)
         {

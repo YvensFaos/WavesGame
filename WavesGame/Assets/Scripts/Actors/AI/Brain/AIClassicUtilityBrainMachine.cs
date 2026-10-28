@@ -25,8 +25,7 @@ namespace Actors.AI.Brain
 
         public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack, out AIGridUnitUtility moveTo)
         {
-            var position = aiNavalShip.GetUnit().Index();
-            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(position, stepsAvailable);
+            var walkableUnits = AIBaseShip.GetFilteredWalkableTiles(aiNavalShip, stepsAvailable); 
             var filteredWalkableUnits = new List<GridUnit>();
             foreach (var unit in walkableUnits)
             {

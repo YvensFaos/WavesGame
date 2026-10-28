@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,9 +106,60 @@ namespace Actors.AI
             return $"[{name}]; faction={GetFaction()}; currentHealth={GetCurrentHealth()}.";
         }
 
+        public static List<GridUnit> GetFilteredWalkableTiles(AIBaseShip aiBaseShip, int availableSteps)
+        {
+            return GridManager.GetSingleton().GetGridUnitsInRadiusManhattanGivenCondition(aiBaseShip.GetUnit().Index(), availableSteps,
+                unit => unit.Type() != GridUnitType.Blocked, (tile, neighborTile) =>
+                {
+                    if (neighborTile.Type() == GridUnitType.Blocked) return false;
+                    if (!tile.GetFirstActorOfType<WaveActor>(out var waveActor)) return true;
+                    var affected = waveActor.GetUnitsAffectedByWaveAttack();
+                    if (affected.Contains(neighborTile)) return true;
+                    switch (waveActor.GetWaveDirection)
+                    {
+                        case GridMoveType.Cross:
+                        case GridMoveType.Area:
+                        case GridMoveType.Diagonal:
+                            //TODO
+                            DebugUtils.DebugLogErrorMsg("Wave type not implemented for AI path-finding!");
+                            return true;
+                        case GridMoveType.Up:
+                            //TODO RECHECK ALL THESE RULES
+                            if (tile.Index().x == neighborTile.Index().x && tile.Index().y > neighborTile.Index().y)
+                            {
+                                return false;
+                            }
+                            break;
+                        case GridMoveType.Down:
+                            if (tile.Index().x == neighborTile.Index().x && tile.Index().y < neighborTile.Index().y)
+                            {
+                                return false;
+                            }
+                            break;
+                        case GridMoveType.Left:
+                            if (tile.Index().x < neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
+                            {
+                                return false;
+                            }
+                            break;
+                        case GridMoveType.Right:
+                            if (tile.Index().x > neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
+                            {
+                                return false;
+                            }
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                        
+                    return false;
+
+                });
+        }
+        
         protected void DisplayMoveTiles(AIBaseShip aiBaseShip, int availableSteps)
         {
-            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(aiBaseShip.GetUnit().Index(), availableSteps);
+            var walkableUnits = GetFilteredWalkableTiles(aiBaseShip, availableSteps);
             DisplayTiles(walkableUnits);
         }
         
