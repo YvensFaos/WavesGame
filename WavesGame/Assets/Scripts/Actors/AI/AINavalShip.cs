@@ -85,7 +85,7 @@ namespace Actors.AI
                             yield return new WaitForSeconds(0.5f);
                             cursorController.MoveToIndex(moveTo.Index());
                             yield return new WaitUntil(() => !cursorController.MovingAnimation());
-                            var move = MoveTo(targets[0].GetUnit(), _ =>
+                            var move = MoveTo(moveTo, _ =>
                             {
                                 _calculatingAction = false;
                             }, true);
@@ -145,7 +145,7 @@ namespace Actors.AI
         {
             var internalIDStr = internalID.ToString();
             var factionName = GetFaction().name;
-            name = $"AU|{aiName}|{GenesData.shortName}|{factionName}|{internalIDStr}";
+            name = $"AU|{AIName}|{GenesData.shortName}|{factionName}|{internalIDStr}";
         }
 
         public override string ToString()

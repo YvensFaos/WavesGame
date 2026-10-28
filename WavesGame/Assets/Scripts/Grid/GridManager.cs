@@ -513,23 +513,101 @@ namespace Grid
             // No path found
             DebugUtils.DebugLogMsg($"Could not find path from {from} to {to}.", DebugUtils.DebugType.Error);
             return new List<GridUnit>();
+        }
+        
+        public delegate bool TilePathPredicate(GridUnit currentTile, GridUnit initialUnit, GridUnit finalUnit);
 
-            List<GridUnit> ReconstructPath(Dictionary<Vector2Int, Vector2Int> unitCameFrom, Vector2Int current,
-                Vector2Int start)
+        /// <summary>
+        /// Gets the manhattan path from a unit (from) to another unit (to), given a max distance (maxSteps).
+        /// Only allow units that return true to the given predicate.
+        /// </summary>
+        /// <param name="from">Initial grid unit.</param>
+        /// <param name="to">Final grid unit.</param>
+        /// <param name="maxSteps">Max allowed distance from the initial grid to the final unit.</param>
+        /// <param name="predicate">Condition to allow a given unit to be part of the path.</param>
+        /// <returns>Path from the initial grid unit to the final grid unit as a list.</returns>
+        public List<GridUnit> GetManhattanPathFromToAStarWithCondition(Vector2Int from, Vector2Int to, int maxSteps,
+            TilePathPredicate predicate)
+        {
+            var openSet = new List<AStarNode>();
+            var closedSet = new HashSet<Vector2Int>();
+            var cameFrom = new Dictionary<Vector2Int, Vector2Int>();
+
+            var startNode = new AStarNode(from, 0, ManhattanDistance(from, to));
+            openSet.Add(startNode);
+
+            CheckGridPosition(from, out var initialUnit);
+            CheckGridPosition(from, out var finalUnit);
+            
+            while (openSet.Count > 0)
             {
-                var path = new List<GridUnit>();
-                while (current != start)
+                var current = openSet.OrderBy(node => node.TotalCost).First();
+                if (current.Position == to)
                 {
-                    path.Add(_grid[current.x, current.y]);
-                    current = unitCameFrom[current];
+                    return ReconstructPath(cameFrom, current.Position, from);
                 }
 
-                path.Add(_grid[start.x, start.y]);
-                path.Reverse();
-                return path;
-            }
-        }
+                openSet.Remove(current);
+                closedSet.Add(current.Position);
+                if (current.Cost >= maxSteps)
+                {
+                    continue;
+                }
 
+                Vector2Int[] moves = { new(-1, 0), new(1, 0), new(0, -1), new(0, 1) };
+
+                foreach (var move in moves)
+                {
+                    var neighborPos = current.Position + move;
+                    if (!GetValidGridPosition(neighborPos, out var validPos) || closedSet.Contains(validPos))
+                    {
+                        continue;
+                    }
+
+                    var neighborUnit = _grid[validPos.x, validPos.y];
+                    if (!predicate(neighborUnit, initialUnit, finalUnit))
+                    {
+                        continue;
+                    }
+
+                    var tentativeG = current.Cost + 1;
+                    var existingNode = openSet.FirstOrDefault(n => n.Position == validPos);
+                    if (existingNode != null && tentativeG >= existingNode.Cost) continue;
+                    if (existingNode == null)
+                    {
+                        var hCost = ManhattanDistance(validPos, to);
+                        var newNode = new AStarNode(validPos, tentativeG, hCost);
+                        openSet.Add(newNode);
+                    }
+                    else
+                    {
+                        existingNode.Cost = tentativeG;
+                    }
+
+                    cameFrom[validPos] = current.Position;
+                }
+            }
+
+            // No path found
+            DebugUtils.DebugLogMsg($"Could not find path from {from} to {to}.", DebugUtils.DebugType.Error);
+            return new List<GridUnit>();
+        }
+        
+        private List<GridUnit> ReconstructPath(Dictionary<Vector2Int, Vector2Int> unitCameFrom, Vector2Int current,
+            Vector2Int start)
+        {
+            var path = new List<GridUnit>();
+            while (current != start)
+            {
+                path.Add(_grid[current.x, current.y]);
+                current = unitCameFrom[current];
+            }
+
+            path.Add(_grid[start.x, start.y]);
+            path.Reverse();
+            return path;
+        }
+        
         private static int ManhattanDistance(Vector2Int a, Vector2Int b)
         {
             return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
@@ -543,6 +621,45 @@ namespace Grid
                 GridUnitType.Blocked => visuals.Find(unit => unit.type == GridUnitType.Blocked).sprite,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
+        }
+
+        /// <summary>
+        /// Get all grid actors in the grid that comply wth the predicate.
+        /// Always returns a valid list. If not actors comply with the predicate, then the list returns empty.
+        /// </summary>
+        /// <param name="predicate">Condition to be match by the actor.</param>
+        /// <param name="checkAllActors">If true, it will check all actors in the same grid unit. Else, it will only check the first actor.</param>
+        /// <typeparam name="T">GridActor specific type.</typeparam>
+        /// <returns>A list of T grid actors that comply with the predicate.</returns>
+        public List<T> GetAllGridActorsOf<T>(Predicate<GridActor> predicate, bool checkAllActors = false) where T : GridActor
+        {
+            var result = new List<T>();
+            gridUnits.ForEach(gridUnit =>
+            {
+                if (!gridUnit.HasValidActors() || !gridUnit.HasActorOfType<T>()) return;
+                if (checkAllActors)
+                {
+                    var actorsInUnit = gridUnit.GetActorEnumerator();
+                    while (actorsInUnit.MoveNext())
+                    {
+                        var gridActor = actorsInUnit.Current;
+                        if (predicate(gridActor))
+                        {
+                            result.Add(gridActor as T);
+                        }
+                    }
+                    actorsInUnit.Dispose();
+                } else
+                {
+                    var gridActor = gridUnit.GetActor();
+                    if (!predicate(gridActor)) return;
+                    if (predicate(gridActor))
+                    {
+                        result.Add(gridActor as T);
+                    }
+                }
+            });
+            return result;
         }
 
         public List<GridUnit> Grid() => gridUnits;

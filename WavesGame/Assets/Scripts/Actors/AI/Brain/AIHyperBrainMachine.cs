@@ -20,6 +20,41 @@ namespace Actors.AI.Brain
             _state = AIHyperState.Start;
         }
 
+        private List<GridUnit> PlanTurn(AINavalShip aiNavalShip, int stepsAvailable, bool canAttack,
+            out GridUnit unitToAttack)
+        {
+            var faction =  aiNavalShip.GetFaction();
+            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(actor => actor is NavalShip navalShip && !navalShip.GetFaction().Equals(faction));
+            
+            var position = aiNavalShip.GetUnit().Index();
+            var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(position, stepsAvailable);
+
+            var wavesInPath = new List<WaveActor>();
+            walkableUnits.ForEach(unit =>
+            {
+                if (unit.GetFirstActorOfType<WaveActor>(out var waveActor))
+                {
+                    wavesInPath.Add(waveActor);
+                }
+            });
+            if (wavesInPath.Count > 0)
+            {
+                foreach (var waveActor in wavesInPath)
+                {
+                    var closeTilesToTheWave = GridManager.GetSingleton().GetGridUnitsForMoveType(GridMoveType.Cross, waveActor.GetUnit().Index(), 1);
+                    
+                    // var affectedUnits = waveActor.GetUnitsAffectedByWaveAttack();
+                    // foreach (var affectedUnit in affectedUnits)
+                    // {
+                    //     
+                    // }
+                }
+            }
+            
+            unitToAttack = null;
+            return null;
+        }
+
         private List<GridUnit> PlanMovementRoute(AINavalShip aiNavalShip, int stepsAvailable, bool canAttack, out GridUnit unitToAttack)
         {
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;

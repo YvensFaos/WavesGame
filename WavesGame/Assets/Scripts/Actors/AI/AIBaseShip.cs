@@ -24,7 +24,7 @@ namespace Actors.AI
         [Header("Score")] [SerializeField, ReadOnly]
         protected int kills;
 
-        protected string aiName;
+        protected string AIName;
         
         [SerializeField]
         protected AIDisplayTile displayTilePrefab;
@@ -34,7 +34,7 @@ namespace Actors.AI
         protected override void Awake()
         {
             base.Awake();
-            aiName = AINamer.GetRandomFullName();
+            AIName = AINamer.GetRandomFullName();
             kills = 0;
             _displayTiles = new List<AIDisplayTile>();
         }
@@ -71,9 +71,28 @@ namespace Actors.AI
         
         protected abstract IEnumerator TurnAI();
 
+        protected override List<GridUnit> GetMovementPath(GridUnit unit)
+        {
+            return GridManager.GetSingleton()
+                .GetManhattanPathFromToAStarWithCondition(GetUnit().Index(), unit.Index(), StepsAvailable,
+                    (currentTile, initialUnit, finalUnit) =>
+                    {
+                        //First check if it is blocked
+                        if (currentTile.Type() == GridUnitType.Blocked)
+                        {
+                            return false;
+                        }
+                        if (currentTile.Equals(initialUnit) || currentTile.Equals(finalUnit))
+                        {
+                            return true;
+                        } 
+                        return !currentTile.HasActorOfType<WaveActor>();
+                    });
+        }
+
         public string GetAIName()
         {
-            return aiName;
+            return AIName;
         }
 
         public override string ToString()

@@ -7,6 +7,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using Grid;
 using UnityEngine;
 
@@ -26,6 +27,24 @@ namespace Actors.AI.Brain
         {
             var position = aiNavalShip.GetUnit().Index();
             var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(position, stepsAvailable);
+            var filteredWalkableUnits = new List<GridUnit>();
+            foreach (var unit in walkableUnits)
+            {
+                var neighbors = unit.GetNeighbors();
+                var valid = neighbors.Aggregate(true, (current, neighbor) =>
+                {
+                    if (!neighbor.GetFirstActorOfType<WaveActor>(out var waveNeighbor) ||
+                        !walkableUnits.Contains(neighbor)) return true;
+                    //Neighbor is a wave. Check if the wave affects reaching the unit.
+                    var affectedUnits = waveNeighbor.GetUnitsAffectedByWaveAttack();
+                    return !affectedUnits.Contains(unit);
+                });
+                if(valid)
+                    filteredWalkableUnits.Add(unit);
+            }
+
+            walkableUnits = filteredWalkableUnits;
+            
             var utilities = new List<AIGridUnitUtility>();
             var genes = aiNavalShip.GetGenesData();
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;

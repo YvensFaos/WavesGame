@@ -31,7 +31,7 @@ namespace Actors
         [SerializeField] private int overrideInitiative = -1;
         [SerializeField, ReadOnly] private bool humanControlled;
 
-        private int _stepsAvailable;
+        protected int StepsAvailable;
 
         protected override void Awake()
         {
@@ -44,7 +44,7 @@ namespace Actors
             base.Start();
             if (overrideInitiative >= 1)
             {
-                SetInitiative(OverrideInitiative);    
+                SetInitiative(OverrideInitiative);
             }
         }
 
@@ -52,7 +52,7 @@ namespace Actors
         {
             //Reset turn variables
             ActionsLeft = shipData.stats.spirit.Two;
-            _stepsAvailable = shipData.stats.speed.Two;
+            StepsAvailable = shipData.stats.speed.Two;
         }
 
         public virtual void EndTurn()
@@ -97,6 +97,13 @@ namespace Actors
             return base.TakeDamage(damageTaken);
         }
 
+        protected virtual List<GridUnit> GetMovementPath(GridUnit unit)
+        {
+            return GridManager.GetSingleton()
+                .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), StepsAvailable,
+                    true);
+        }
+
         /// <summary>
         /// Move to a given unit in the grid and reduces the amount of steps available automatically.
         /// </summary>
@@ -110,9 +117,7 @@ namespace Actors
         {
             if (animate)
             {
-                var steps = GridManager.GetSingleton()
-                    .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), _stepsAvailable,
-                        true);
+                var steps = GetMovementPath(unit);
 
                 if (steps.Count == 0)
                 {
@@ -123,7 +128,7 @@ namespace Actors
                 }
 
                 var stepsCount = steps.Count - 1; //Removes the initial (current) step from the movement count.
-                _stepsAvailable = Mathf.Max(_stepsAvailable - stepsCount, 0);
+                StepsAvailable = Mathf.Max(StepsAvailable - stepsCount, 0);
 
                 if (steps.Count <= 0)
                 {
@@ -174,11 +179,11 @@ namespace Actors
                 var stepEffects = current.GetHasStepEffectActors();
                 if (stepEffects.Count <= 0) continue;
                 DebugUtils.DebugLogMsg($"{name} has stepped on something!", DebugUtils.DebugType.Verbose);
-                
+
                 foreach (var effect in stepEffects.Select(stepActor => stepActor.StepEffect(this)))
                 {
                     RecordStepEffect(effect.stepActor, effect.damage);
-                    
+
                     if (effect.causeDamage)
                     {
                         cumulativeDamage += effect.damage;
@@ -197,18 +202,18 @@ namespace Actors
                     // var waveMovementEntry = MakeNewMovementEntry(firstStep, moveToUnit);
                     // waveMovementEntry.AppendComment($"Moved by wave effect!");
                     // RecordMovement(waveMovementEntry);
-                    
+
                     transform.DOMove(moveToUnit.transform.position, time).OnComplete(() =>
                     {
                         DebugUtils.DebugLogMsg($"{name} being pushed by the waves to {moveToUnit.Index()}!",
                             DebugUtils.DebugType.Verbose);
                         UpdateGridUnitOnMovement(moveToUnit);
-                        
+
                         //TODO Add an effect for pushing the naval ship
                         finalStep = moveToUnit;
                         continueSteps = false;
                         nextStep = true;
-                        
+
                         //TODO Being pushed back, but it seems to keep on marking the wrong piece in the map
                     });
                     yield return new WaitUntil(() => nextStep);
@@ -227,17 +232,14 @@ namespace Actors
 
         protected override void NotifyGameController()
         {
-            GameController.TryToUseGameController(controller =>
-            {
-                controller.NotifyDestroyedActor(this);
-            });
+            GameController.TryToUseGameController(controller => { controller.NotifyDestroyedActor(this); });
         }
-        
+
         protected override MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
         {
             return new MovementRecordEntry(name, faction, moveFrom.Index(), moveTo.Index());
         }
-        
+
         public void RecordAttack(GridActor targetActor, GridUnit unit, int damage, string reasoning)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
@@ -278,7 +280,7 @@ namespace Actors
 
             recorder.RecordNewEntry(invalidCannotReachEntry);
         }
-        
+
         protected override void RecordDamage(int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
@@ -290,7 +292,7 @@ namespace Actors
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(new DeathRecordEntry(name, faction));
         }
-        
+
         public virtual void UpdateName()
         {
             var internalIDStr = internalID.ToString();
@@ -299,7 +301,7 @@ namespace Actors
 
         public NavalShipSo ShipData => shipData;
         public BaseCannon NavalCannon => navalCannon;
-        public int RemainingSteps => _stepsAvailable;
+        public int RemainingSteps => StepsAvailable;
         public int ActionsLeft { get; private set; }
         public Faction GetFaction() => faction;
         public SpriteRenderer Renderer() => spriteRenderer;
@@ -315,13 +317,13 @@ namespace Actors
         {
             return $"{base.ToString()}; initiative={Initiative}; ShipData=[{shipData}]; Cannon=[{navalCannon}]";
         }
-        
+
         public void UpdateFaction(Faction newFaction)
         {
             faction = newFaction;
             healthBar.SetFillBarColor(newFaction.factionColor);
         }
-        
+
         public int OverrideInitiative => overrideInitiative;
 
         public int Initiative
