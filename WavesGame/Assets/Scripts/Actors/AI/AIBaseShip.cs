@@ -76,19 +76,7 @@ namespace Actors.AI
         {
             return GridManager.GetSingleton()
                 .GetManhattanPathFromToAStarWithCondition(GetUnit().Index(), unit.Index(), StepsAvailable,
-                    (currentTile, initialUnit, finalUnit) =>
-                    {
-                        //First check if it is blocked
-                        if (currentTile.Type() == GridUnitType.Blocked)
-                        {
-                            return false;
-                        }
-                        if (currentTile.Equals(initialUnit) || currentTile.Equals(finalUnit))
-                        {
-                            return true;
-                        } 
-                        return !currentTile.HasActorOfType<WaveActor>();
-                    });
+                    (currentTile, _, _) => currentTile.Type() != GridUnitType.Blocked);
         }
 
         public string GetAIName()
@@ -112,49 +100,64 @@ namespace Actors.AI
                 unit => unit.Type() != GridUnitType.Blocked, (tile, neighborTile) =>
                 {
                     if (neighborTile.Type() == GridUnitType.Blocked) return false;
-                    if (!tile.GetFirstActorOfType<WaveActor>(out var waveActor)) return true;
-                    var affected = waveActor.GetUnitsAffectedByWaveAttack();
-                    if (affected.Contains(neighborTile)) return true;
-                    switch (waveActor.GetWaveDirection)
+                    if (tile.GetFirstActorOfType<WaveActor>(out var waveActor))
                     {
-                        case GridMoveType.Cross:
-                        case GridMoveType.Area:
-                        case GridMoveType.Diagonal:
-                            //TODO
-                            DebugUtils.DebugLogErrorMsg("Wave type not implemented for AI path-finding!");
-                            return true;
-                        case GridMoveType.Up:
-                            //TODO RECHECK ALL THESE RULES
-                            if (tile.Index().x == neighborTile.Index().x && tile.Index().y > neighborTile.Index().y)
-                            {
-                                return false;
-                            }
-                            break;
-                        case GridMoveType.Down:
-                            if (tile.Index().x == neighborTile.Index().x && tile.Index().y < neighborTile.Index().y)
-                            {
-                                return false;
-                            }
-                            break;
-                        case GridMoveType.Left:
-                            if (tile.Index().x < neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
-                            {
-                                return false;
-                            }
-                            break;
-                        case GridMoveType.Right:
-                            if (tile.Index().x > neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
-                            {
-                                return false;
-                            }
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        return CheckNeighborAgainstWaveActor(waveActor, tile, neighborTile);
                     }
-                        
-                    return false;
-
+                    return true;
+                }, tile =>
+                {
+                    //TODO reconsider this if there are multiple actors affected by the wave
+                    return tile.GetFirstActorOfType<WaveActor>(out var waveActor) ? waveActor.GetUnitsAffectedByWaveAttack() : null;
                 });
+
+            bool CheckNeighborAgainstWaveActor(WaveActor waveActor, GridUnit tile, GridUnit neighborTile)
+            {
+                var affected = waveActor.GetUnitsAffectedByWaveAttack();
+                if (affected.Contains(neighborTile)) return true;
+                DebugUtils.DebugLogMsg($"Test neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                switch (waveActor.GetWaveDirection)
+                {
+                    case GridMoveType.Cross:
+                    case GridMoveType.Area:
+                    case GridMoveType.Diagonal:
+                        //TODO
+                        DebugUtils.DebugLogErrorMsg("Wave type not implemented for AI path-finding!");
+                        break;
+                    case GridMoveType.Up:
+                        if (tile.Index().x == neighborTile.Index().x && tile.Index().y > neighborTile.Index().y)
+                        {
+                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            return false;
+                        }
+                        break;
+                    case GridMoveType.Down:
+                        if (tile.Index().x == neighborTile.Index().x && tile.Index().y < neighborTile.Index().y)
+                        {
+                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            return false;
+                        }
+                        break;
+                    case GridMoveType.Left:
+                        if (tile.Index().x > neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
+                        {
+                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            return false;
+                        }
+                        break;
+                    case GridMoveType.Right:
+                        if (tile.Index().x < neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
+                        {
+                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            return false;
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                        
+                return true;
+            }
         }
         
         protected void DisplayMoveTiles(AIBaseShip aiBaseShip, int availableSteps)

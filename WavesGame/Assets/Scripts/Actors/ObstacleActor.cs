@@ -23,6 +23,7 @@ namespace Actors
                 destructible = false;
                 blockGridUnit = true;
                 hasStepEffect = false;
+                // currentUnit.
             });
         }
     }

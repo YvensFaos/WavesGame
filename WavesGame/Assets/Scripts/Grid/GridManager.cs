@@ -297,8 +297,10 @@ namespace Grid
         }
         
         public delegate bool NeighborPredicate(GridUnit currentTile, GridUnit neighborTile);
+
+        public delegate List<GridUnit> GetNeighbors(GridUnit currentTile);
         
-        public List<GridUnit> GetGridUnitsInRadiusManhattanGivenCondition(Vector2Int position, int radius, Predicate<GridUnit> gridUnitCondition, NeighborPredicate neighborCondition)
+        public List<GridUnit> GetGridUnitsInRadiusManhattanGivenCondition(Vector2Int position, int radius, Predicate<GridUnit> gridUnitCondition, NeighborPredicate neighborCondition, GetNeighbors getNeighbors = null)
         {
             DebugUtils.DebugLogMsg("Start Grid Manhattan Area.", DebugUtils.DebugType.Verbose);
             var inRadius = new List<GridUnit>();
@@ -352,17 +354,17 @@ namespace Grid
                 var neighbor = _grid[index.x, index.y];
                 if (forbidden.Contains(neighbor))
                 {
-                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* already! [{forbidden.Count} forbidden steps.]", DebugUtils.DebugType.Temporary);
+                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* already! [{forbidden.Count} forbidden steps.]", DebugUtils.DebugType.Verbose);
                     return;
                 }
                 if (neighborCondition(current, neighbor))
                 {
-                    DebugUtils.DebugLogMsg($"{neighbor} *added* for meeting the neighbor condition. Radius = {currentRadius}.", DebugUtils.DebugType.Temporary);
+                    DebugUtils.DebugLogMsg($"{neighbor} *added* for meeting the neighbor condition. Radius = {currentRadius}.", DebugUtils.DebugType.Verbose);
                     toVisit.Add(new Tuple<GridUnit, int>(neighbor, currentRadius));    
                 }
                 else
                 {
-                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* for not matching the neighbor condition.", DebugUtils.DebugType.Temporary);
+                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* for not matching the neighbor condition.", DebugUtils.DebugType.Verbose);
                     forbidden.Add(neighbor);
                 }
             }
@@ -374,6 +376,30 @@ namespace Grid
                 DebugUtils.DebugLogMsg($"Visiting next nodes from {gridUnit} [{visited.Count}].",
                     DebugUtils.DebugType.Verbose);
                 var newRadius = currentRadius - 1;
+                if (getNeighbors == null)
+                {
+                    VisitCrossUnits(gridUnit, index, newRadius);
+                }
+                else
+                {
+                    var neighbors = getNeighbors(gridUnit);
+                    if (neighbors != null)
+                    {
+                        foreach (var neighbor in neighbors)
+                        {
+                            VisitNextNodeAt(gridUnit, neighbor.Index(), newRadius);
+                        }    
+                    }
+                    else
+                    {
+                        VisitCrossUnits(gridUnit, index, newRadius);
+                    }
+                }
+                
+            }
+
+            void VisitCrossUnits(GridUnit gridUnit, Vector2Int index, int newRadius)
+            {
                 VisitNextNodeAt(gridUnit, new Vector2Int(index.x, index.y + 1), newRadius);
                 VisitNextNodeAt(gridUnit, new Vector2Int(index.x, index.y - 1), newRadius);
                 VisitNextNodeAt(gridUnit, new Vector2Int(index.x + 1, index.y), newRadius);

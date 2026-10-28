@@ -26,23 +26,6 @@ namespace Actors.AI.Brain
         public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack, out AIGridUnitUtility moveTo)
         {
             var walkableUnits = AIBaseShip.GetFilteredWalkableTiles(aiNavalShip, stepsAvailable); 
-            var filteredWalkableUnits = new List<GridUnit>();
-            foreach (var unit in walkableUnits)
-            {
-                var neighbors = unit.GetNeighbors();
-                var valid = neighbors.Aggregate(true, (current, neighbor) =>
-                {
-                    if (!neighbor.GetFirstActorOfType<WaveActor>(out var waveNeighbor) ||
-                        !walkableUnits.Contains(neighbor)) return true;
-                    //Neighbor is a wave. Check if the wave affects reaching the unit.
-                    var affectedUnits = waveNeighbor.GetUnitsAffectedByWaveAttack();
-                    return !affectedUnits.Contains(unit);
-                });
-                if(valid)
-                    filteredWalkableUnits.Add(unit);
-            }
-
-            walkableUnits = filteredWalkableUnits;
             
             var utilities = new List<AIGridUnitUtility>();
             var genes = aiNavalShip.GetGenesData();
