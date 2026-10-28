@@ -30,6 +30,8 @@ namespace Actors.AI.Brain
             var utilities = new List<AIGridUnitUtility>();
             var genes = aiNavalShip.GetGenesData();
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
+            var gridManager = GridManager.GetSingleton();
+            var allEnemies = gridManager.GetAllGridActorsOf<NavalShip>(gridActor => gridActor is NavalShip ship && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
             
             //First calculate all possible movements
             foreach (var unit in walkableUnits)
@@ -42,21 +44,22 @@ namespace Actors.AI.Brain
 
                 //Then calculate the utility of the surroundings of the given position
                 var awarenessRadius = Mathf.FloorToInt(genes.awareness);
+                
                 if (awarenessRadius >= 1)
                 {
-                    var awarenessUnits = GridManager.GetSingleton()
+                    var awarenessUnits = gridManager
                         .GetGridUnitsInRadiusManhattan(unit.Index(), awarenessRadius);
                     //Remove self position
                     awarenessUnits.Remove(unit);
                     awarenessUnits.ForEach(awarenessUnit =>
                     {
                         awarenessUtility +=
-                            AIGridUnitUtility.CalculateProximityUtility(aiNavalShip, awarenessUnit);
+                            AIGridUnitUtility.CalculateProximityUtility(aiNavalShip, awarenessUnit, allEnemies);
                     });
                 }
 
                 //Finally, calculate the utilities of attacking from this position
-                var attackableTilesFromUnit = GridManager.GetSingleton().GetGridUnitsForMoveType(cannonData.targetAreaType,
+                var attackableTilesFromUnit = gridManager.GetGridUnitsForMoveType(cannonData.targetAreaType,
                     unit.Index(), cannonData.area, cannonData.deadZone);
                 if (attackableTilesFromUnit.Count >= 0)
                 {
@@ -75,7 +78,29 @@ namespace Actors.AI.Brain
                     });
                 }
 
-                var resultingUtility = movementUtility + awarenessUtility + attackUtility;
+                var possibleWaveTargetUtility = 0.0f;
+                var crossTiles = gridManager
+                    .GetGridUnitsForMoveType(GridMoveType.Cross, unit.Index(), 1);
+                foreach (var crossTile in crossTiles)
+                {
+                    if (!crossTile.GetFirstActorOfType<WaveActor>(out var waveActor)) continue;
+                    if (!waveActor.GetUnitsAffectedByWaveAttack().Contains(unit)) continue;
+                    //This wave can be used to target this tile
+                    possibleWaveTargetUtility -= waveActor.GetDamage();
+
+                    var possibleAttackersFromWave = gridManager.GetGridUnitsForMoveType(
+                        cannonData.targetAreaType,
+                        crossTile.Index(), cannonData.area, cannonData.deadZone);
+                    var enemies = possibleAttackersFromWave.FindAll(targetedUnit => targetedUnit.GetFirstActorOfType<NavalShip>(out var ship) && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
+                    enemies.ForEach(enemyGridUnit =>
+                    {
+                        possibleWaveTargetUtility +=
+                            AIGridUnitUtility.CalculatePossibilityOfBeingAttackedUtility(aiNavalShip,
+                                enemyGridUnit);
+                    });
+                }
+
+                var resultingUtility = movementUtility + awarenessUtility + attackUtility + possibleWaveTargetUtility;
                 AIGridUnitUtility.CapLowestBoundUtility(ref resultingUtility);
                 gridUnitUtility.Utility = resultingUtility;
                 utilities.Add(gridUnitUtility);

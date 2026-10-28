@@ -52,7 +52,7 @@ namespace Actors.AI.Brain
         protected void DisplayHeatMap(List<AIGridUnitUtility> utilities, float destroyAfter = 2.0f)
         {
             if (!showHeatmap) return;
-            DebugUtils.DebugLogMsg($"Displaying heat map for {destroyAfter} seconds.", DebugUtils.DebugType.Temporary);
+            DebugUtils.DebugLogMsg($"Displaying heat map for {destroyAfter} seconds.", DebugUtils.DebugType.Verbose);
             var utilitiesExtreme = CalculateUtilitiesExtreme();
             var normalize = (utilitiesExtreme.y - utilitiesExtreme.x);
             normalize = normalize == 0.0f ? 1.0f : normalize;
@@ -66,7 +66,7 @@ namespace Actors.AI.Brain
                     ratio = (utility.Utility - utilitiesExtreme.x) / normalize;
                 }
                 
-                DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio}. U:{utility.Utility} -> [{utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Temporary);
+                DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio}. U:{utility.Utility} -> [{utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Verbose);
                 heatTile.ShowHeatTile(ratio, destroyAfter);
             }
 

@@ -25,10 +25,12 @@ namespace Actors.AI.Brain
         {
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
             //Check only movement for a radius of 1 to considering every movement
+            
             var walkableUnits = AIBaseShip.GetFilteredWalkableTiles(aiNavalShip, stepsAvailable);
             var utilities = new List<AIGridUnitUtility>();
             var genes = aiNavalShip.GetGenesData();
-
+            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(gridActor => gridActor is NavalShip ship && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
+            
             //First calculate all possible movements
             foreach (var unit in walkableUnits)
             {
@@ -49,7 +51,7 @@ namespace Actors.AI.Brain
                     awarenessUnits.ForEach(awarenessUnit =>
                     {
                         awarenessUtility +=
-                            AIGridUnitUtility.CalculateProximityUtility(aiNavalShip, awarenessUnit);
+                            AIGridUnitUtility.CalculateProximityUtility(aiNavalShip, awarenessUnit, allEnemies);
                     });
                 }
 

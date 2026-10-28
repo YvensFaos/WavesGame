@@ -19,7 +19,7 @@ namespace Actors.AI
     public class AIGridUnitUtility : IComparer<AIGridUnitUtility>, IComparable<AIGridUnitUtility>, IComparable
     {
         private readonly GridUnit _unit;
-        private const float LowestUtility = -20.0f;
+        private const float LowestUtility = -30.0f;
 
         public AIGridUnitUtility(GridUnit unit)
         {
@@ -72,37 +72,39 @@ namespace Actors.AI
                         utility += LowestUtility;
                         break;
                     case WaveActor waveActor:
+                        //TODO temporarily removed to prevent ships moving intentionally towards waves without a reason.
                         //If moving towards a wave, check if the waves is in the direction of the movement (good)
                         //or opposite to it (bad)
-                        var currentPosition = aiNavalShip.GetUnit().Index();
-                        var wavePosition = waveActor.GetUnit().Index();
-                        var direction = wavePosition - currentPosition;
-                        var asVector2 = new Vector2(direction.x, direction.y);
-                        asVector2.Normalize();
-                        var waveDirection = waveActor.GetWaveDirection;
-                        switch (waveDirection)
-                        {
-                            case GridMoveType.Cross:
-                            case GridMoveType.Area:
-                            case GridMoveType.Diagonal:
-                                utility -= waveActor.GetDamage();
-                                break;
-                            case GridMoveType.Up:
-                                utility += direction.y >= 0 ? -waveActor.GetDamage() : LowestUtility;
-                                break;
-                            case GridMoveType.Down:
-                                utility += direction.y <= 0 ? -waveActor.GetDamage() : LowestUtility;
-                                break;
-                            case GridMoveType.Left:
-                                utility += direction.x <= 0 ? -waveActor.GetDamage() : LowestUtility;
-                                break;
-                            case GridMoveType.Right:
-                                utility += direction.x >= 0 ? -waveActor.GetDamage() : LowestUtility;
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
+                        // var currentPosition = aiNavalShip.GetUnit().Index();
+                        // var wavePosition = waveActor.GetUnit().Index();
+                        // var direction = wavePosition - currentPosition;
+                        // var asVector2 = new Vector2(direction.x, direction.y);
+                        // asVector2.Normalize();
+                        // var waveDirection = waveActor.GetWaveDirection;
+                        // switch (waveDirection)
+                        // {
+                        //     case GridMoveType.Cross:
+                        //     case GridMoveType.Area:
+                        //     case GridMoveType.Diagonal:
+                        //         utility -= waveActor.GetDamage();
+                        //         break;
+                        //     case GridMoveType.Up:
+                        //         utility += direction.y >= 0 ? -waveActor.GetDamage() : LowestUtility;
+                        //         break;
+                        //     case GridMoveType.Down:
+                        //         utility += direction.y <= 0 ? -waveActor.GetDamage() : LowestUtility;
+                        //         break;
+                        //     case GridMoveType.Left:
+                        //         utility += direction.x <= 0 ? -waveActor.GetDamage() : LowestUtility;
+                        //         break;
+                        //     case GridMoveType.Right:
+                        //         utility += direction.x >= 0 ? -waveActor.GetDamage() : LowestUtility;
+                        //         break;
+                        //     default:
+                        //         throw new ArgumentOutOfRangeException();
+                        //}
                         
+                        utility += LowestUtility;
                         break;
                 }
             }
@@ -124,16 +126,28 @@ namespace Actors.AI
         /// <param name="aiNavalShip"></param>
         /// <param name="unit"></param>
         /// <returns></returns>
-        public static float CalculateProximityUtility(AINavalShip aiNavalShip, GridUnit unit)
+        public static float CalculateProximityUtility(AINavalShip aiNavalShip, GridUnit unit, List<NavalShip> allEnemies)
         {
             var genes = aiNavalShip.GetGenesData();
             var faction = aiNavalShip.GetFaction();
-            
-            //If there is nothing on the tile, just use the patience gene
-            if (unit.ActorsCount() <= 0) return genes.patience;
-            var actorEnumerator = unit.GetActorEnumerator();
-            
             var utility = 0.0f;
+            
+            //If there is nothing on the tile, just then check the distance to the enemies
+            if (unit.ActorsCount() <= 0)
+            {
+                // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+                foreach (var enemy in allEnemies)
+                {
+                    var distantEnemyUtility = AttackUtility(enemy, aiNavalShip, genes);
+                    var distance = Mathf.Min((enemy.GetUnit().Index() - aiNavalShip.GetUnit().Index()).sqrMagnitude, genes.sight);
+                    var distanceFactor = distance / genes.sight;
+                    utility += (1.1f - distanceFactor) * distantEnemyUtility;
+                }
+                
+                return utility;
+            }
+            
+            var actorEnumerator = unit.GetActorEnumerator();
             while (actorEnumerator.MoveNext())
             {
                 var current = actorEnumerator.Current;

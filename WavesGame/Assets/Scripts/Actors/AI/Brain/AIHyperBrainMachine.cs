@@ -62,7 +62,7 @@ namespace Actors.AI.Brain
             var path = new List<GridUnit>();
             unitToAttack = null;
             var currentUnit = aiNavalShip.GetUnit();
-                
+            
             //If can attack, then it is in aggressive mode; if it cannot attack, then it is in retreat mode.
             if (canAttack)
             {
@@ -151,7 +151,7 @@ namespace Actors.AI.Brain
             AIGenesSO genes, CannonSo cannonData)
         {
             //TODO consider calculating the wave utility based on the utility of the position you will move AFTER being pushed
-            
+            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(gridActor => gridActor is NavalShip ship && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
             var gridUnitUtility = new AIGridUnitUtility(unit);
             var movementUtility = AIGridUnitUtility.CalculateUtilityToMoveToGridUnit(aiNavalShip, unit);
             var awarenessUtility = 0.0f;
@@ -168,7 +168,7 @@ namespace Actors.AI.Brain
                 awarenessUnits.ForEach(awarenessUnit =>
                 {
                     awarenessUtility +=
-                        AIGridUnitUtility.CalculateProximityUtility(aiNavalShip, awarenessUnit);
+                        AIGridUnitUtility.CalculateProximityUtility(aiNavalShip, awarenessUnit, allEnemies);
                 });
             }
 
