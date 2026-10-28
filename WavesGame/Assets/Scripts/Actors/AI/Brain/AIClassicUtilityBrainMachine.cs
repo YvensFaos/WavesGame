@@ -136,7 +136,12 @@ namespace Actors.AI.Brain
                 
                 case AIClassicState.Move: //Attack after moving
                     _state = AIClassicState.Attack;
-                    return CalculateAttack(aiNavalShip, out target) ? AIAction.Attack : AIAction.None;
+                    var attack = CalculateAttack(aiNavalShip, out target);
+                    if (attack && target != null)
+                    {
+                        targets.Add(target);
+                    }
+                    return attack ? AIAction.Attack : AIAction.None;
                 case AIClassicState.Attack:
                     _state = AIClassicState.MoveAgain; //Move again after attacking, if possible
                     //TODO change this to calculate a movement after attack

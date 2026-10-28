@@ -11,11 +11,13 @@ namespace Actors.AI.Brain
     [CreateAssetMenu(fileName = "New Hyper Utility AI Brain", menuName = "Waves/AI/Hyper Utility AI Brain", order = 3)]
     public class AIHyperBrainMachine : AIBrainMachine
     {
-        private AIClassicState _state = AIClassicState.Start;
+        private AIHyperState _state = AIHyperState.Start;
+        private List<GridUnit> _route = new List<GridUnit>();
+        private GridUnit _plannedTarget;
         
         public override void StartTurn(AINavalShip aiNavalShip)
         {
-            _state = AIClassicState.Start;
+            _state = AIHyperState.Start;
         }
 
         private List<GridUnit> PlanMovementRoute(AINavalShip aiNavalShip, int stepsAvailable, bool canAttack, out GridUnit unitToAttack)
@@ -176,39 +178,42 @@ namespace Actors.AI.Brain
             switch (_state)
             {
                 // Always start the turn by trying to attack closer enemies
-                case AIClassicState.Start:
+                case AIHyperState.Start:
                 {
                     if (CanAttackImmediately(aiNavalShip, aiNavalShip.GetUnit(), out var attackTarget))
                     {
-                        _state = AIClassicState.Attack;
+                        _state = AIHyperState.Attack;
                         targets.Add(attackTarget);
                         return AIAction.Attack;
                     }
-                    // If it can't, then proceed to calculate movement.
-                    _state = AIClassicState.Move;
                     
-                    var route = PlanMovementRoute(aiNavalShip, stepsAvailable, true, out var unitToAttack);
-                    if (unitToAttack != null)
+                    // If it can't, then proceed to calculate movement.
+                    _route = PlanMovementRoute(aiNavalShip, stepsAvailable, true, out var unitToAttack);
+                    if (_route.Count <= 0) return AIAction.EndTurn;
+                    //There is a path to walk to
+                    targets.AddRange(_route.Select(routeStep => new AIGridUnitUtility(routeStep)));
+                    if (attackTarget != null)
                     {
-                        targets.Add(new AIGridUnitUtility(unitToAttack));
-                        return AIAction.Attack;
+                        //There is a planned target to be attacked
+                        _plannedTarget = attackTarget.GetUnit();
+                        _state = AIHyperState.MoveAndAttack;
                     }
                     else
                     {
-                        if (route.Count > 0)
-                        {
-                            //There is path to walk
-                            
-                        }
+                        //There is no planned target to be attacked, then just proceed to move
+                        _state = AIHyperState.Move;
                     }
                     return AIAction.Movement;
                 }
-                case AIClassicState.Move:
+                case AIHyperState.Move:
                     break;
-                case AIClassicState.Attack:
+                case AIHyperState.Attack:
                     break;
-                case AIClassicState.MoveAgain:
+                case AIHyperState.MoveAgain:
                     break;
+                case AIHyperState.Moving:
+                case AIHyperState.MoveAndAttack:
+                case AIHyperState.MovingAgain:
                 default:
                     throw new ArgumentOutOfRangeException();
             }

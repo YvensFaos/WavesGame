@@ -12,4 +12,9 @@ namespace Actors.AI.Brain
     {
         Start, Move, Attack, MoveAgain
     }
+
+    public enum AIHyperState 
+    {
+        Start, Move, Moving, MoveAndAttack, Attack, MoveAgain, MovingAgain
+    }
 }

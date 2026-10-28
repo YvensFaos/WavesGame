@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections;
+using System.Linq;
 using Actors.AI.Brain;
 using Core;
 using UnityEngine;
@@ -44,9 +45,23 @@ namespace Actors.AI
             {
                 act = brain.CalculateAction(this, actionsLeft, remainingSteps, attackedAlready, out var targets);
                 yield return new WaitForSeconds(2.0f);
-                
-                var targetString = targets != null && targets[0] != null ? targets[0].ToString() : "[No Target]";
-                
+
+                var targetString = "[No Target]";
+                if (targets is { Count: > 0 })
+                {
+                    if (targets.Count == 1)
+                    {
+                        targetString = targets[0].ToString();
+                    }
+                    else
+                    {
+                        //There are multiple targets
+                        targetString = targets.Aggregate(
+                            "multiple targets: [", (current, target) => current + $"{target}, ");
+                        targetString = targetString.Remove(targetString.Length - 2);
+                        targetString += "]";
+                    }
+                }
                 var utilityReasoning = $"{name} has selected action {act} with target {targetString}.";
                 DebugUtils.DebugLogMsg($"{utilityReasoning}", DebugUtils.DebugType.System);
                 
@@ -61,23 +76,22 @@ namespace Actors.AI
                         if (targets == null || targets.Count == 0)
                         {
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
+                            HideTiles();
                             break;
                         }
                         _calculatingAction = true;
-
-                        var moveTo = targets[0].GetUnit();
-                        yield return new WaitForSeconds(0.5f);
-                        cursorController.MoveToIndex(moveTo.Index());
-                        
-                        yield return new WaitUntil(() => !cursorController.MovingAnimation());
-                        
-                        var move = MoveTo(targets[0].GetUnit(), _ =>
+                        foreach (var moveTo in targets.Select(target => target.GetUnit()))
                         {
-                            _calculatingAction = false;
-                        }, true);
-                        yield return new WaitUntil(() => !_calculatingAction);
-                        remainingSteps = move ? RemainingSteps : 0;
-                        
+                            yield return new WaitForSeconds(0.5f);
+                            cursorController.MoveToIndex(moveTo.Index());
+                            yield return new WaitUntil(() => !cursorController.MovingAnimation());
+                            var move = MoveTo(targets[0].GetUnit(), _ =>
+                            {
+                                _calculatingAction = false;
+                            }, true);
+                            yield return new WaitUntil(() => !_calculatingAction);
+                            remainingSteps = move ? RemainingSteps : 0;
+                        }
                         HideTiles();
                         break;
                     
