@@ -67,7 +67,7 @@ namespace Actors.AI.Brain
                 }
                 
                 DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio}. U:{utility.Utility} -> [{utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Verbose);
-                heatTile.ShowHeatTile(ratio, destroyAfter);
+                heatTile.ShowHeatTile(ratio, utility.GetUtilityValues(), destroyAfter);
             }
 
             return;

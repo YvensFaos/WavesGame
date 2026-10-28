@@ -91,7 +91,8 @@ namespace Actors.AI.Brain
                     var possibleAttackersFromWave = gridManager.GetGridUnitsForMoveType(
                         cannonData.targetAreaType,
                         crossTile.Index(), cannonData.area, cannonData.deadZone);
-                    var enemies = possibleAttackersFromWave.FindAll(targetedUnit => targetedUnit.GetFirstActorOfType<NavalShip>(out var ship) && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
+                    var enemies = possibleAttackersFromWave.FindAll(targetedUnit => targetedUnit.GetFirstActorOfType<NavalShip>(out var ship) 
+                        && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
                     enemies.ForEach(enemyGridUnit =>
                     {
                         possibleWaveTargetUtility +=
@@ -103,6 +104,10 @@ namespace Actors.AI.Brain
                 var resultingUtility = movementUtility + awarenessUtility + attackUtility + possibleWaveTargetUtility;
                 AIGridUnitUtility.CapLowestBoundUtility(ref resultingUtility);
                 gridUnitUtility.Utility = resultingUtility;
+                gridUnitUtility.AddUtilityValues(movementUtility);
+                gridUnitUtility.AddUtilityValues(awarenessUtility);
+                gridUnitUtility.AddUtilityValues(attackUtility);
+                gridUnitUtility.AddUtilityValues(possibleWaveTargetUtility);
                 utilities.Add(gridUnitUtility);
             }
             

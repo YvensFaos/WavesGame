@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System.Collections.Generic;
 using Lean.Pool;
 using NaughtyAttributes;
 using UnityEngine;
@@ -19,10 +20,12 @@ namespace Actors.AI.Brain
 
         // ReSharper disable once NotAccessedField.Local
         [SerializeField, ReadOnly] private float heat;
+        [SerializeField, ReadOnly] private List<float> utilities;
 
-        public void ShowHeatTile(float setHeat, float destroyAfter = 2.0f)
+        public void ShowHeatTile(float setHeat, List<float> setUtilities, float destroyAfter = 2.0f)
         {
             heat = setHeat;
+            utilities = setUtilities;
             heatTileSprite.gameObject.SetActive(true);
             heatTileSprite.color = heatGradient.Evaluate(setHeat);
             if (destroyAfter > 0.0f)
