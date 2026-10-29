@@ -75,6 +75,7 @@ namespace Grid
 
         public void HideVisuals()
         {
+            if (spriteRenderer == null || spriteRenderer.gameObject == null) return;
             spriteRenderer.gameObject.SetActive(false);
         }
 

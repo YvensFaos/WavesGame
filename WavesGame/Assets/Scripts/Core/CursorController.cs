@@ -364,7 +364,10 @@ namespace Core
         public void ResetWalkableUnits()
         {
             if (_walkableUnits == null) return;
-            _walkableUnits.ForEach(unit => { unit.HideVisuals(); });
+            _walkableUnits.ForEach(unit => { if(unit != null)
+            {
+                unit.HideVisuals();
+            } });
             _walkableUnits = null;
         }
 
