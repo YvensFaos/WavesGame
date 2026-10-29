@@ -60,5 +60,15 @@ namespace Core
                 ApplicationHelper.RestartLevel();    
             }
         }
+
+        public void OnForceResetCursor(InputAction.CallbackContext context)
+        {
+            DebugUtils.DebugLogMsg($"On OnForceResetCursor Level called. S[{context.started}] P[{context.performed}] C[{context.canceled}]", DebugUtils.DebugType.Verbose);
+            if (!context.performed) return;
+            if (CursorController.TryToGetSingleton(out var cursorController))
+            {
+                cursorController.ForceResetCursor();
+            }
+        }
     }
 }

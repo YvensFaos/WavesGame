@@ -198,6 +198,11 @@ namespace Core
             _cursorController.HideAttackArea();
             ChangeStateTo(CursorState.Roaming);
         }
+        
+        public void ForceResetCursor() 
+        {
+            ChangeStateTo(CursorState.Roaming);
+        }
 
         public CursorState CurrentState { get; private set; }
     }

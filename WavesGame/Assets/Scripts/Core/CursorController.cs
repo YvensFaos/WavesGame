@@ -380,6 +380,11 @@ namespace Core
             _stateMachine.FinishStateMachine();
             RemoveControllerCallbacks();
         }
+        
+        public void ForceResetCursor() 
+        {
+            _stateMachine.ForceResetCursor();
+        }
 
         public bool MovingAnimation() => _movingAnimation;
         public Vector2Int GetIndex() => index;
