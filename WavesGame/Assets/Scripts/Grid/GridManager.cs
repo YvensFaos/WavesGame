@@ -324,6 +324,13 @@ namespace Grid
 
                 // Stop searching if the unit has been visited already
                 var gridUnit = unitTuple.Item1;
+                if (gridUnit == null)
+                {
+                    DebugUtils.DebugLogMsg($"Grid Unit was null!",
+                        DebugUtils.DebugType.Verbose);
+                    toVisit.RemoveAt(0);
+                    continue;
+                }
                 // ReSharper disable once CanSimplifySetAddingWithSingleCall
                 if (visited.Contains(gridUnit))
                 {
@@ -331,7 +338,6 @@ namespace Grid
                     continue;
                 }
 
-                if (gridUnit == null) continue;
                 visited.Add(gridUnit);
                 DebugUtils.DebugLogMsg($"Check node - {gridUnit} [{visited.Count}].",
                     DebugUtils.DebugType.Verbose);
