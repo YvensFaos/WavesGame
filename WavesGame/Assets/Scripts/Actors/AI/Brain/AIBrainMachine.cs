@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -19,34 +19,33 @@ namespace Actors.AI.Brain
 {
     public abstract class AIBrainMachine : ScriptableObject
     {
-        [SerializeField]
-        protected AIUtilitySelection selection;
-        [SerializeField]
-        protected bool showHeatmap;
+        [SerializeField] protected AIUtilitySelection selection;
+        [SerializeField] protected bool showHeatmap;
 
         [SerializeField, EnableIf("showHeatmap")]
         protected HeatMapTile heatMapTilePrefab;
 
         public abstract void StartTurn(AINavalShip aiNavalShip);
-        
+
         public abstract bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack,
             out AIGridUnitUtility moveTo);
 
         public abstract bool CalculateAttack(AINavalShip aiNavalShip, out AIGridUnitUtility attack);
 
-        public abstract AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack, out List<AIGridUnitUtility> targets);
+        public abstract AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable,
+            bool afterAttack, out List<AIGridUnitUtility> targets);
 
         private static void DebugUtilityChoices(AIGridUnitUtility chosenAction, int index,
             List<AIGridUnitUtility> utilities)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             DebugUtils.DebugLogMsg($"Action {index}/{utilities.Count}: {chosenAction} chosen.",
                 DebugUtils.DebugType.Regular);
             for (var i = 0; i < Mathf.Min(5, utilities.Count); i++)
             {
                 DebugUtils.DebugLogMsg($"Utils => {i} {utilities[i]}", DebugUtils.DebugType.Verbose);
             }
-            #endif
+#endif
         }
 
         protected void DisplayHeatMap(List<AIGridUnitUtility> utilities, float destroyAfter = 2.0f)
@@ -56,17 +55,18 @@ namespace Actors.AI.Brain
             var utilitiesExtreme = CalculateUtilitiesExtreme();
             var normalize = (utilitiesExtreme.y - utilitiesExtreme.x);
             normalize = normalize == 0.0f ? 1.0f : normalize;
-            foreach(var utility in utilities)
+            foreach (var utility in utilities)
             {
                 var heatTile = LeanPool.Spawn(heatMapTilePrefab, utility.GetUnit().transform);
                 var ratio = utilitiesExtreme.x;
                 if (!float.IsInfinity(utility.Utility))
                 {
-                    
                     ratio = (utility.Utility - utilitiesExtreme.x) / normalize;
                 }
-                
-                DebugUtils.DebugLogMsg($"{utility.GetUnit()} heat is {ratio}. U:{utility.Utility} -> [{utilitiesExtreme.x}, {utilitiesExtreme.y}]", DebugUtils.DebugType.Verbose);
+
+                DebugUtils.DebugLogMsg(
+                    $"{utility.GetUnit()} heat is {ratio}. U:{utility.Utility} -> [{utilitiesExtreme.x}, {utilitiesExtreme.y}]",
+                    DebugUtils.DebugType.Verbose);
                 heatTile.ShowHeatTile(ratio, utility.GetUtilityValues(), destroyAfter);
             }
 
@@ -75,7 +75,8 @@ namespace Actors.AI.Brain
             Vector2 CalculateUtilitiesExtreme()
             {
                 var extreme = new Vector2(float.MaxValue, float.MinValue);
-                foreach (var utilityValue in utilities.Select(utility => utility.Utility).Where(utilityValue => !float.IsInfinity(utilityValue)))
+                foreach (var utilityValue in utilities.Select(utility => utility.Utility)
+                             .Where(utilityValue => !float.IsInfinity(utilityValue)))
                 {
                     if (utilityValue < extreme.x)
                     {
@@ -91,7 +92,7 @@ namespace Actors.AI.Brain
                 return extreme;
             }
         }
-        
+
         protected bool PickBestUtility(AINavalShip aiNavalShip, ref AIGridUnitUtility chosenAction,
             List<AIGridUnitUtility> utilities)
         {
@@ -101,6 +102,7 @@ namespace Actors.AI.Brain
             {
                 utilities.Sort();
             }
+
             var possibleActionsCount = Mathf.Min(utilities.Count, aiGenesSo.topUtilitiesChosen);
             var possibleActions = utilities.GetRange(0, possibleActionsCount);
             int index;
@@ -117,12 +119,13 @@ namespace Actors.AI.Brain
                     chosenAction = RankDecay(possibleActions, decay, out index);
                     break;
                 case AIUtilitySelection.Random:
-                    chosenAction = RandomHelper<AIGridUnitUtility>.GetRandomFromListWithIndex(possibleActions, out index);
+                    chosenAction =
+                        RandomHelper<AIGridUnitUtility>.GetRandomFromListWithIndex(possibleActions, out index);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             DebugUtilityChoices(chosenAction, index, utilities);
             return true;
         }
@@ -131,7 +134,7 @@ namespace Actors.AI.Brain
         {
             return RandomHelper<AIGridUnitUtility>.GetRandomFromListWithIndex(utilities, out index);
         }
-        
+
         private static AIGridUnitUtility BoostedBestUtility(List<AIGridUnitUtility> utilities, out int index)
         {
             //Boost the highest utility
@@ -151,6 +154,7 @@ namespace Actors.AI.Brain
                 totalWeight += r;
                 r *= decay;
             }
+
             var chance = Random.value * totalWeight;
             var acc = 0f;
             index = -1;
@@ -161,9 +165,10 @@ namespace Actors.AI.Brain
                 index = i;
                 return utilities[i];
             }
+
             return utilities[0];
         }
-        
+
         public override string ToString()
         {
             return $"[{selection}]";

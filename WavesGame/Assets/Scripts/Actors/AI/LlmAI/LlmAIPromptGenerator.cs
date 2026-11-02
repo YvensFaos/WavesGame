@@ -1,13 +1,14 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 using Grid;
 using UnityEngine;
 
@@ -331,7 +332,8 @@ namespace Actors.AI.LlmAI
                     switch (actor)
                     {
                         case NavalTarget navalTarget:
-                            line += $"attacks {navalTarget.GetUnit().Index()} {GetTargetLine(navalTarget)}{separator}, ";
+                            line +=
+                                $"attacks {navalTarget.GetUnit().Index()} {GetTargetLine(navalTarget)}{separator}, ";
                             shouldInclude = true;
                             break;
                         case LlmAINavalShip llmAINavalShip:

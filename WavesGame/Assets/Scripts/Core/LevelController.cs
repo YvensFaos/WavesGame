@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -29,6 +29,7 @@ namespace Core
 
         [Header("Controllers")] [SerializeField]
         private bool recordLevel;
+
         [SerializeField] private string extra = "";
         [SerializeField] private EndLevelPanelUI endLevelPanelUI;
         [SerializeField] private TextMeshProUGUI levelGoalText;
@@ -112,17 +113,17 @@ namespace Core
                 //This is used when the level is being recorded for regular gaming procedures, rather than by the scheduler
                 var recorderInfo = GetLevelRecordingName();
                 DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
-                
+
                 var navalActors =
                     FindObjectsByType<NavalActor>(FindObjectsInactive.Exclude).ToList();
                 var waveActors =
                     FindObjectsByType<WaveActor>(FindObjectsInactive.Exclude)
                         .ToList();
                 var obstacleActors = FindObjectsByType<ObstacleActor>(FindObjectsInactive.Exclude).ToList();
-                
-                _recorder.LogGameStart(SceneManager.GetActiveScene().name, 
-                    randomSeed, 
-                    levelGoal.GetMaxTurns(), 
+
+                _recorder.LogGameStart(SceneManager.GetActiveScene().name,
+                    randomSeed,
+                    levelGoal.GetMaxTurns(),
                     navalActors,
                     $"{extra}[uid]",
                     waveActors,
@@ -136,14 +137,14 @@ namespace Core
             var continueLevel = true;
             var victory = false;
             var gameOver = false;
-            
+
             var gridManager = GridManager.GetSingleton();
             RecordScenario(gridManager);
-            
+
             while (continueLevel)
             {
                 //TODO log level
-                
+
                 //There are no actors left. Finish the level cycle.
                 if (actorTurnUIs.Count == 0)
                 {
@@ -161,15 +162,15 @@ namespace Core
                     {
                         var turnUI = GetActorTurnUI(navalShip);
                         turnUI.ToggleAvailability(true);
-                        
+
                         if (WavesInputTracer.TryToGetSingleton(out var inputTracer))
                         {
                             if (inputTracer is WavesInputTracer wavesInputTracer)
                             {
-                                wavesInputTracer.SetCurrentNavalShip(navalShip);    
+                                wavesInputTracer.SetCurrentNavalShip(navalShip);
                             }
                         }
-                        
+
                         // Move the cursor to the ship
                         if (cursorController.MovingAnimation())
                         {
@@ -180,7 +181,7 @@ namespace Core
                         // Move the cursor to the ship
                         cursorController.MoveToIndex(navalShip.GetUnit().Index());
                         yield return 0.75f;
-                        
+
                         navalShip.StartTurn();
 
                         yield return new WaitUntil(() => endTurn);
@@ -208,7 +209,7 @@ namespace Core
                     turnManager.NextTurn();
                     turnText.text = $"Turn = {turnManager.GetTurnNumber()}";
                 }
-                
+
                 RecordScenario(gridManager);
                 var currentActors = levelActors.Where(actor => actor != null && actor is NavalActor)
                     .Select(actor => (NavalActor)actor).ToList();
@@ -299,7 +300,8 @@ namespace Core
             CursorController.GetSingleton().FinishLevel();
             if (_recorder != null)
             {
-                _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(), levelGoal.GetWinnerFaction(), win));
+                _recorder.RecordNewEntry(new EndGameRecordEntry(levelGoal.GetLevelMessage(),
+                    levelGoal.GetWinnerFaction(), win));
                 DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
                 _recorder.Stop();
             }
@@ -315,14 +317,14 @@ namespace Core
         public override void ResetController()
         {
             DebugUtils.DebugLogMsg($"Level was reset!", DebugUtils.DebugType.System);
-            
+
             if (_recorder != null)
             {
                 _recorder.RecordNewEntry(new EndGameRecordEntry("Level reset by player.", null, false));
                 DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
                 _recorder.Stop();
             }
-            
+
             ApplicationHelper.RestartLevel();
         }
     }

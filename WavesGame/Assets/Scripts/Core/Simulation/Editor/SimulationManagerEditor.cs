@@ -1,14 +1,13 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
 using UnityEditor;
 using UnityEngine;
-using UUtils.Editor;
 
 namespace Core.Simulation.Editor
 {
@@ -27,7 +26,7 @@ namespace Core.Simulation.Editor
                 var relative = "Assets" + path[Application.dataPath.Length..];
                 var guids = AssetDatabase.FindAssets("t:Simulation", new[] { relative });
 
-                var simulationManager = (SimulationManager) target;
+                var simulationManager = (SimulationManager)target;
                 Undo.RecordObject(simulationManager, "Add simulations");
                 foreach (var guid in guids)
                 {
@@ -36,6 +35,7 @@ namespace Core.Simulation.Editor
                     if (simulation != null && !simulationManager.ContainsSimulation(simulation))
                         simulationManager.AddSimulation(simulation);
                 }
+
                 EditorUtility.SetDirty(simulationManager);
             }
         }

@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -17,7 +17,6 @@ namespace Actors.AI.Brain
     {
         public override void StartTurn(AINavalShip aiNavalShip)
         {
-            
         }
 
         public override bool CalculateMovement(AINavalShip aiNavalShip, int stepsAvailable, bool afterAttack,
@@ -25,12 +24,13 @@ namespace Actors.AI.Brain
         {
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
             //Check only movement for a radius of 1 to considering every movement
-            
+
             var walkableUnits = AIBaseShip.GetFilteredWalkableTiles(aiNavalShip, stepsAvailable);
             var utilities = new List<AIGridUnitUtility>();
             var genes = aiNavalShip.GetGenesData();
-            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(gridActor => gridActor is NavalShip ship && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
-            
+            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(gridActor =>
+                gridActor is NavalShip ship && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
+
             //First calculate all possible movements
             foreach (var unit in walkableUnits)
             {
@@ -66,13 +66,13 @@ namespace Actors.AI.Brain
                     {
                         if (afterAttack)
                         {
-                            attackUtility += AIGridUnitUtility.CalculatePossibilityOfBeingAttackedUtility(aiNavalShip, attackUnit);    
+                            attackUtility +=
+                                AIGridUnitUtility.CalculatePossibilityOfBeingAttackedUtility(aiNavalShip, attackUnit);
                         }
                         else
                         {
                             attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackUnit);
                         }
-                        
                     });
                 }
 
@@ -100,11 +100,12 @@ namespace Actors.AI.Brain
             foreach (var unit in attackableFromUnit)
             {
                 //Skip naval targets if they are forbidden from being targeted
-                if (aiNavalShip.GenesData.forbidTargetAttacking && unit.HasValidActors() && unit.GetActor() is NavalTarget)
+                if (aiNavalShip.GenesData.forbidTargetAttacking && unit.HasValidActors() &&
+                    unit.GetActor() is NavalTarget)
                 {
                     continue;
                 }
-                
+
                 var gridUnitUtility = new AIGridUnitUtility(unit);
                 var utility = AIGridUnitUtility.CalculateAttackUtility(aiNavalShip, unit);
                 if (Mathf.Approximately(utility, float.MinValue)) continue;
@@ -118,7 +119,8 @@ namespace Actors.AI.Brain
             return best;
         }
 
-        public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable, bool afterAttack,
+        public override AIAction CalculateAction(AINavalShip aiNavalShip, int actionsAvailable, int stepsAvailable,
+            bool afterAttack,
             out List<AIGridUnitUtility> targets)
         {
             targets = new List<AIGridUnitUtility>();
@@ -136,6 +138,7 @@ namespace Actors.AI.Brain
                     shouldMove = false;
                 }
             }
+
             var shouldAttack = actionsAvailable > 0;
             if (shouldAttack) shouldAttack = CalculateAttack(aiNavalShip, out attackAt);
 
@@ -161,7 +164,7 @@ namespace Actors.AI.Brain
                     return AIAction.Attack;
             }
         }
-        
+
         public override string ToString()
         {
             return $"U{base.ToString()}";

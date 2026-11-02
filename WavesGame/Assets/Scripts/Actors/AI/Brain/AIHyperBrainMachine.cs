@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +22,7 @@ namespace Actors.AI.Brain
         private AIHyperState _state = AIHyperState.Start;
         private List<GridUnit> _route = new List<GridUnit>();
         private GridUnit _plannedTarget;
-        
+
         public override void StartTurn(AINavalShip aiNavalShip)
         {
             _state = AIHyperState.Start;
@@ -23,9 +31,10 @@ namespace Actors.AI.Brain
         private List<GridUnit> PlanTurn(AINavalShip aiNavalShip, int stepsAvailable, bool canAttack,
             out GridUnit unitToAttack)
         {
-            var faction =  aiNavalShip.GetFaction();
-            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(actor => actor is NavalShip navalShip && !navalShip.GetFaction().Equals(faction));
-            
+            var faction = aiNavalShip.GetFaction();
+            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(actor =>
+                actor is NavalShip navalShip && !navalShip.GetFaction().Equals(faction));
+
             var position = aiNavalShip.GetUnit().Index();
             var walkableUnits = GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(position, stepsAvailable);
 
@@ -41,8 +50,9 @@ namespace Actors.AI.Brain
             {
                 foreach (var waveActor in wavesInPath)
                 {
-                    var closeTilesToTheWave = GridManager.GetSingleton().GetGridUnitsForMoveType(GridMoveType.Cross, waveActor.GetUnit().Index(), 1);
-                    
+                    var closeTilesToTheWave = GridManager.GetSingleton()
+                        .GetGridUnitsForMoveType(GridMoveType.Cross, waveActor.GetUnit().Index(), 1);
+
                     // var affectedUnits = waveActor.GetUnitsAffectedByWaveAttack();
                     // foreach (var affectedUnit in affectedUnits)
                     // {
@@ -50,23 +60,24 @@ namespace Actors.AI.Brain
                     // }
                 }
             }
-            
+
             unitToAttack = null;
             return null;
         }
 
-        private List<GridUnit> PlanMovementRoute(AINavalShip aiNavalShip, int stepsAvailable, bool canAttack, out GridUnit unitToAttack)
+        private List<GridUnit> PlanMovementRoute(AINavalShip aiNavalShip, int stepsAvailable, bool canAttack,
+            out GridUnit unitToAttack)
         {
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
             var genes = aiNavalShip.GetGenesData();
             var path = new List<GridUnit>();
             unitToAttack = null;
             var currentUnit = aiNavalShip.GetUnit();
-            
+
             //If can attack, then it is in aggressive mode; if it cannot attack, then it is in retreat mode.
             if (canAttack)
             {
-                while(path.Count < stepsAvailable)
+                while (path.Count < stepsAvailable)
                 {
                     var shouldAttack = CanAttackImmediately(aiNavalShip, currentUnit, out var target);
                     if (shouldAttack)
@@ -74,9 +85,12 @@ namespace Actors.AI.Brain
                         unitToAttack = target.GetUnit();
                         break;
                     }
-                    var walkableUnits = GridManager.GetSingleton().
-                        GetGridUnitsInRadiusManhattan(currentUnit.Index(), 1);
-                    var utilities = walkableUnits.Select(gridUnit => CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, gridUnit, genes, cannonData)).ToList();
+
+                    var walkableUnits =
+                        GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(currentUnit.Index(), 1);
+                    var utilities = walkableUnits.Select(gridUnit =>
+                            CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, gridUnit, genes, cannonData))
+                        .ToList();
                     DisplayHeatMap(utilities);
                     AIGridUnitUtility chosenAction = null;
                     var hasBestOption = PickBestUtility(aiNavalShip, ref chosenAction, utilities);
@@ -88,7 +102,8 @@ namespace Actors.AI.Brain
                     }
                     else
                     {
-                        DebugUtils.DebugLogErrorMsg($"Failed to find a best utility position from {currentUnit.Index()}!");
+                        DebugUtils.DebugLogErrorMsg(
+                            $"Failed to find a best utility position from {currentUnit.Index()}!");
                         break;
                     }
                 }
@@ -97,9 +112,11 @@ namespace Actors.AI.Brain
             {
                 while (path.Count < stepsAvailable)
                 {
-                    var walkableUnits = GridManager.GetSingleton().
-                        GetGridUnitsInRadiusManhattan(currentUnit.Index(), 1);
-                    var utilities = walkableUnits.Select(gridUnit => CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, gridUnit, genes, cannonData)).ToList();
+                    var walkableUnits =
+                        GridManager.GetSingleton().GetGridUnitsInRadiusManhattan(currentUnit.Index(), 1);
+                    var utilities = walkableUnits.Select(gridUnit =>
+                            CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, gridUnit, genes, cannonData))
+                        .ToList();
                     var utilityStaying =
                         CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, false, currentUnit, genes, cannonData);
                     utilities.Add(utilityStaying);
@@ -115,11 +132,13 @@ namespace Actors.AI.Brain
                             //Staying in the same position
                             break;
                         }
+
                         currentUnit = chosenUnit;
                     }
                     else
                     {
-                        DebugUtils.DebugLogErrorMsg($"Failed to find a best utility position from {currentUnit.Index()}!");
+                        DebugUtils.DebugLogErrorMsg(
+                            $"Failed to find a best utility position from {currentUnit.Index()}!");
                         break;
                     }
                 }
@@ -132,13 +151,14 @@ namespace Actors.AI.Brain
             out AIGridUnitUtility moveTo)
         {
             //TODO change 
-            
-            var walkableUnits = AIBaseShip.GetFilteredWalkableTiles(aiNavalShip, stepsAvailable); 
+
+            var walkableUnits = AIBaseShip.GetFilteredWalkableTiles(aiNavalShip, stepsAvailable);
             var genes = aiNavalShip.GetGenesData();
             var cannonData = aiNavalShip.NavalCannon.GetCannonSo;
-            
+
             //First calculate all possible movements
-            var utilities = walkableUnits.Select(unit => CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, afterAttack, unit, genes, cannonData)).ToList();
+            var utilities = walkableUnits.Select(unit =>
+                CalculateTotalUtilityToMoveToGridUnit(aiNavalShip, afterAttack, unit, genes, cannonData)).ToList();
             DisplayHeatMap(utilities);
 
             AIGridUnitUtility chosenAction = null;
@@ -147,11 +167,13 @@ namespace Actors.AI.Brain
             return best;
         }
 
-        private static AIGridUnitUtility CalculateTotalUtilityToMoveToGridUnit(AINavalShip aiNavalShip, bool afterAttack, GridUnit unit,
+        private static AIGridUnitUtility CalculateTotalUtilityToMoveToGridUnit(AINavalShip aiNavalShip,
+            bool afterAttack, GridUnit unit,
             AIGenesSO genes, CannonSo cannonData)
         {
             //TODO consider calculating the wave utility based on the utility of the position you will move AFTER being pushed
-            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(gridActor => gridActor is NavalShip ship && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
+            var allEnemies = GridManager.GetSingleton().GetAllGridActorsOf<NavalShip>(gridActor =>
+                gridActor is NavalShip ship && !ship.GetFaction().Equals(aiNavalShip.GetFaction()));
             var gridUnitUtility = new AIGridUnitUtility(unit);
             var movementUtility = AIGridUnitUtility.CalculateUtilityToMoveToGridUnit(aiNavalShip, unit);
             var awarenessUtility = 0.0f;
@@ -183,11 +205,12 @@ namespace Actors.AI.Brain
                 {
                     if (afterAttack)
                     {
-                        attackUtility += AIGridUnitUtility.CalculatePossibilityOfBeingAttackedUtility(aiNavalShip, attackableTile);
+                        attackUtility +=
+                            AIGridUnitUtility.CalculatePossibilityOfBeingAttackedUtility(aiNavalShip, attackableTile);
                     }
                     else
                     {
-                        attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackableTile);    
+                        attackUtility += AIGridUnitUtility.CalculatePossibleAttackUtility(aiNavalShip, attackableTile);
                     }
                 });
             }
@@ -220,7 +243,7 @@ namespace Actors.AI.Brain
                         targets.Add(attackTarget);
                         return AIAction.Attack;
                     }
-                    
+
                     // If it can't, then proceed to calculate movement.
                     _route = PlanMovementRoute(aiNavalShip, stepsAvailable, true, out var unitToAttack);
                     if (_route.Count <= 0) return AIAction.EndTurn;
@@ -237,6 +260,7 @@ namespace Actors.AI.Brain
                         //There is no planned target to be attacked, then just proceed to move
                         _state = AIHyperState.Move;
                     }
+
                     return AIAction.Movement;
                 }
                 case AIHyperState.Move:
@@ -300,6 +324,7 @@ namespace Actors.AI.Brain
                                     shouldAttack &= navalShip.GetFaction() != aiNavalShip.GetFaction();
                                 }
                             }
+
                             if (shouldAttack)
                             {
                                 shouldAttackImmediately = CalculateUtilityForUnit(unit);

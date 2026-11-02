@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -19,6 +19,7 @@ using UUtils;
 
 namespace Actors.AI.LlmAI
 {
+    [Obsolete]
     public class LlmLevelScheduler : StrongSingleton<LlmLevelScheduler>
     {
         [SerializeField, ReadOnly] private List<LlmListCallerObject> callers;
@@ -48,7 +49,7 @@ namespace Actors.AI.LlmAI
                 DebugUtils.DebugType.System);
             return false;
         }
-        
+
         [Obsolete]
         public List<NavalActor> SetupLevel(List<GridActor> levelActors)
         {
@@ -61,12 +62,13 @@ namespace Actors.AI.LlmAI
                 {
                     return llm;
                 }
+
                 return null;
             }).ToList().FindAll(actor => actor != null);
 
             var aiFactions = currentSchedule.GetFactions();
             var ships = new List<NavalActor>();
-            
+
             foreach (var aiFaction in aiFactions)
             {
                 var factionLlmActors = llmActors.FindAll(actor => actor.GetFaction().Equals(aiFaction));
@@ -103,7 +105,7 @@ namespace Actors.AI.LlmAI
                     {
                         aiBaseShip.GenesData = customFaction.AIGenes;
                         //TODO get the number
-                        aiBaseShip.UpdateName();   
+                        aiBaseShip.UpdateName();
                     }
 
                     //TODO check if this works for the grid
@@ -117,10 +119,11 @@ namespace Actors.AI.LlmAI
                     ships.Add(newAiBaseShip);
                 }
             }
+
             ships = ships.FindAll(ship => ship != null && ship.enabled);
 
             return ships;
-            
+
             // TODO
             // if (!WavesRecorder.TryToGetSingleton(out var wavesRecorder)) return ships;
             // DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);

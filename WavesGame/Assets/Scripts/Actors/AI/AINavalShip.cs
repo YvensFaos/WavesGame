@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -35,11 +35,12 @@ namespace Actors.AI
 
             var actionsLeft = ActionsLeft;
             var remainingSteps = RemainingSteps;
-            DebugUtils.DebugLogMsg($"{name} has {actionsLeft} actions and steps {remainingSteps}!", DebugUtils.DebugType.System);
+            DebugUtils.DebugLogMsg($"{name} has {actionsLeft} actions and steps {remainingSteps}!",
+                DebugUtils.DebugType.System);
             brain.StartTurn(this);
             var attackedAlready = false;
             var cursorController = CursorController.GetSingleton();
-            
+
             AIAction act;
             do
             {
@@ -62,13 +63,16 @@ namespace Actors.AI
                         targetString += "]";
                     }
                 }
+
                 var utilityReasoning = $"{name} has selected action {act} with target {targetString}.";
                 DebugUtils.DebugLogMsg($"{utilityReasoning}", DebugUtils.DebugType.System);
-                
+
                 switch (act)
                 {
                     case AIAction.None:
-                        DebugUtils.DebugLogMsg($"{name} decided on no action! Has still {actionsLeft} actions and {remainingSteps} movements left.", DebugUtils.DebugType.System);
+                        DebugUtils.DebugLogMsg(
+                            $"{name} decided on no action! Has still {actionsLeft} actions and {remainingSteps} movements left.",
+                            DebugUtils.DebugType.System);
                         act = AIAction.EndTurn;
                         goto case AIAction.EndTurn;
                     case AIAction.Movement:
@@ -79,22 +83,21 @@ namespace Actors.AI
                             HideTiles();
                             break;
                         }
+
                         _calculatingAction = true;
                         foreach (var moveTo in targets.Select(target => target.GetUnit()))
                         {
                             yield return new WaitForSeconds(0.5f);
                             cursorController.MoveToIndex(moveTo.Index());
                             yield return new WaitUntil(() => !cursorController.MovingAnimation());
-                            var move = MoveTo(moveTo, _ =>
-                            {
-                                _calculatingAction = false;
-                            }, true);
+                            var move = MoveTo(moveTo, _ => { _calculatingAction = false; }, true);
                             yield return new WaitUntil(() => !_calculatingAction);
                             remainingSteps = move ? RemainingSteps : 0;
                         }
+
                         HideTiles();
                         break;
-                    
+
                     case AIAction.Attack:
                         DisplayAttackTiles(this);
                         if (targets == null || targets.Count == 0)
@@ -102,12 +105,14 @@ namespace Actors.AI
                             DebugUtils.DebugLogErrorMsg($"Invalid target movement position [null].");
                             break;
                         }
+
                         var targetUnit = targets[0].GetUnit();
                         if (targetUnit.ActorsCount() <= 0)
                         {
                             DebugUtils.DebugLogErrorMsg($"Target position has no valid targets [{targetUnit}].");
                             break;
                         }
+
                         var firstActor = targetUnit.GetActor();
                         DebugUtils.DebugLogMsg($"{name} attacks {firstActor}!", DebugUtils.DebugType.System);
                         if (TryToAct())
@@ -117,7 +122,7 @@ namespace Actors.AI
                             cursorController.MoveToIndex(attackAt.Index());
                             attackedAlready = true;
                             yield return new WaitUntil(() => !cursorController.MovingAnimation());
-                            
+
                             --actionsLeft;
                             var damage = CalculateDamage();
                             RecordAttack(firstActor, targetUnit, damage, utilityReasoning);
@@ -128,6 +133,7 @@ namespace Actors.AI
                         {
                             DebugUtils.DebugLogErrorMsg($"{name} cannot act! No more valid actions this turn.");
                         }
+
                         HideTiles();
                         break;
                     case AIAction.EndTurn:
@@ -138,6 +144,7 @@ namespace Actors.AI
                         throw new ArgumentOutOfRangeException();
                 }
             } while (act != AIAction.EndTurn);
+
             FinishAITurn();
         }
 
@@ -145,7 +152,7 @@ namespace Actors.AI
         {
             var internalIDStr = internalID.ToString();
             var factionName = GetFaction().name;
-            name = $"AU|{AIName}|{GenesData.shortName}|{factionName}|{internalIDStr}";
+            name = $"AU|{aiName}|{GenesData.shortName}|{factionName}|{internalIDStr}";
         }
 
         public override string ToString()

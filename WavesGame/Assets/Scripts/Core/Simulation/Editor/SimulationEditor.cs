@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -17,7 +17,7 @@ namespace Core.Simulation.Editor
     public class SimulationEditor : UnityEditor.Editor
     {
         private UnityEditor.Editor _scriptableObjectEditor;
-        
+
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
@@ -28,7 +28,8 @@ namespace Core.Simulation.Editor
                 EditorGUIUtility.PingObject(target);
                 Selection.activeObject = target;
             }
-            var simulation = (Simulation) target;
+
+            var simulation = (Simulation)target;
             if (GUILayout.Button(
                     targets.Length > 1
                         ? $"Rename {targets.Length} Simulations"
@@ -48,6 +49,7 @@ namespace Core.Simulation.Editor
                     RenameScriptableObjectHelper.RenameAssetFile(simulation, simulation.ToString());
                 }
             }
+
             if (targets.Length > 1)
             {
                 EditorGUILayout.HelpBox(
@@ -56,12 +58,12 @@ namespace Core.Simulation.Editor
                     MessageType.Info);
                 return;
             }
-            
+
             EditorGUILayout.Space(15);
             var simulationFactionPlayerTypePairs = simulation.FactionPlayerTypePairs;
             foreach (var pair in simulationFactionPlayerTypePairs)
             {
-				if(pair == null || pair.One == null || pair.Two == null) return;
+                if (pair == null || pair.One == null || pair.Two == null) return;
                 var rect = EditorGUILayout.BeginVertical();
                 var faction = pair.One;
                 EditorGUI.DrawRect(rect, faction.factionColor);

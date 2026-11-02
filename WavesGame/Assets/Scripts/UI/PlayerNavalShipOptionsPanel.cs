@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
- * 
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -29,7 +29,7 @@ namespace UI
 
         private TweenerCore<Vector3, Vector3, VectorOptions> _showUpTween;
         private bool _introAnimation;
-        
+
         private void Awake()
         {
             AssessUtils.CheckRequirement(ref cursorController, this);
@@ -46,7 +46,7 @@ namespace UI
                 attackButton.interactable = cursorController.SelectedActorCanAttack();
             }
         }
-        
+
         private void OnEnable()
         {
             selfRectTransform.localScale = Vector3.zero;

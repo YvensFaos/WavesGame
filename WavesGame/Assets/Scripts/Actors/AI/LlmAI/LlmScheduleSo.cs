@@ -1,5 +1,14 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 using FALLA;
 using NaughtyAttributes;
 using UnityEngine;
@@ -11,8 +20,7 @@ namespace Actors.AI.LlmAI
     public class LlmScheduleSo : ScriptableObject
     {
         public int repetitions;
-        [SerializeField, ReadOnly]
-        private int internalRepetitionsCount;
+        [SerializeField, ReadOnly] private int internalRepetitionsCount;
         public List<FactionLlmPair> factionPairs;
 
         public int InternalRepetitionsCount => internalRepetitionsCount;
@@ -62,15 +70,15 @@ namespace Actors.AI.LlmAI
                     }
                     else
                     {
-                        str += $"{customPrefab}" + "=";    
+                        str += $"{customPrefab}" + "=";
                     }
                 }
-
             });
             if (str.Length > 0)
             {
                 str = str[..^1];
             }
+
             return str;
         }
     }

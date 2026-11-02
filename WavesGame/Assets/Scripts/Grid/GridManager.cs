@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -189,7 +189,7 @@ namespace Grid
             {
                 var gridUnitListActorsPair = new GridUnitListActorsPair(walkableUnit);
                 var attackableFrom = GetGridUnitsForMoveType(cannonSo, walkableUnit.Index());
-                
+
                 // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
                 foreach (var attackableUnit in attackableFrom)
                 {
@@ -199,6 +199,7 @@ namespace Grid
                     {
                         gridUnitListActorsPair.AddGridActor(actorEnumerator.Current);
                     }
+
                     actorEnumerator.Dispose();
                 }
 
@@ -207,7 +208,7 @@ namespace Grid
 
             //Remove all units that are empty from the list.
             list = list.FindAll(p => !p.IsEmpty());
-            
+
             return list;
         }
 
@@ -295,12 +296,14 @@ namespace Grid
                 }
             }
         }
-        
+
         public delegate bool NeighborPredicate(GridUnit currentTile, GridUnit neighborTile);
 
         public delegate List<GridUnit> GetNeighbors(GridUnit currentTile);
-        
-        public List<GridUnit> GetGridUnitsInRadiusManhattanGivenCondition(Vector2Int position, int radius, Predicate<GridUnit> gridUnitCondition, NeighborPredicate neighborCondition, GetNeighbors getNeighbors = null)
+
+        public List<GridUnit> GetGridUnitsInRadiusManhattanGivenCondition(Vector2Int position, int radius,
+            Predicate<GridUnit> gridUnitCondition, NeighborPredicate neighborCondition,
+            GetNeighbors getNeighbors = null)
         {
             DebugUtils.DebugLogMsg("Start Grid Manhattan Area.", DebugUtils.DebugType.Verbose);
             var inRadius = new List<GridUnit>();
@@ -311,7 +314,7 @@ namespace Grid
             var toVisit = new List<Tuple<GridUnit, int>>();
             var visited = new HashSet<GridUnit>();
             var forbidden = new HashSet<GridUnit>();
-            
+
             toVisit.Add(new Tuple<GridUnit, int>(startUnit, radius));
             DebugUtils.DebugLogMsg($"Start from first node {startUnit.Index()} [{visited.Count}].",
                 DebugUtils.DebugType.Verbose);
@@ -355,17 +358,22 @@ namespace Grid
                 var neighbor = _grid[index.x, index.y];
                 if (forbidden.Contains(neighbor))
                 {
-                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* already! [{forbidden.Count} forbidden steps.]", DebugUtils.DebugType.Verbose);
+                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* already! [{forbidden.Count} forbidden steps.]",
+                        DebugUtils.DebugType.Verbose);
                     return;
                 }
+
                 if (neighborCondition(current, neighbor))
                 {
-                    DebugUtils.DebugLogMsg($"{neighbor} *added* for meeting the neighbor condition. Radius = {currentRadius}.", DebugUtils.DebugType.Verbose);
-                    toVisit.Add(new Tuple<GridUnit, int>(neighbor, currentRadius));    
+                    DebugUtils.DebugLogMsg(
+                        $"{neighbor} *added* for meeting the neighbor condition. Radius = {currentRadius}.",
+                        DebugUtils.DebugType.Verbose);
+                    toVisit.Add(new Tuple<GridUnit, int>(neighbor, currentRadius));
                 }
                 else
                 {
-                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* for not matching the neighbor condition.", DebugUtils.DebugType.Verbose);
+                    DebugUtils.DebugLogMsg($"{neighbor} *skipped* for not matching the neighbor condition.",
+                        DebugUtils.DebugType.Verbose);
                     forbidden.Add(neighbor);
                 }
             }
@@ -389,14 +397,13 @@ namespace Grid
                         foreach (var neighbor in neighbors)
                         {
                             VisitNextNodeAt(gridUnit, neighbor.Index(), newRadius);
-                        }    
+                        }
                     }
                     else
                     {
                         VisitCrossUnits(gridUnit, index, newRadius);
                     }
                 }
-                
             }
 
             void VisitCrossUnits(GridUnit gridUnit, Vector2Int index, int newRadius)
@@ -626,7 +633,7 @@ namespace Grid
             DebugUtils.DebugLogMsg($"Could not find path from {from} to {to}.", DebugUtils.DebugType.Error);
             return new List<GridUnit>();
         }
-        
+
         public delegate bool TilePathPredicate(GridUnit currentTile, GridUnit initialUnit, GridUnit finalUnit);
 
         /// <summary>
@@ -650,7 +657,7 @@ namespace Grid
 
             CheckGridPosition(from, out var initialUnit);
             CheckGridPosition(from, out var finalUnit);
-            
+
             while (openSet.Count > 0)
             {
                 var current = openSet.OrderBy(node => node.TotalCost).First();
@@ -704,7 +711,7 @@ namespace Grid
             DebugUtils.DebugLogMsg($"Could not find path from {from} to {to}.", DebugUtils.DebugType.Error);
             return new List<GridUnit>();
         }
-        
+
         private List<GridUnit> ReconstructPath(Dictionary<Vector2Int, Vector2Int> unitCameFrom, Vector2Int current,
             Vector2Int start)
         {
@@ -719,7 +726,7 @@ namespace Grid
             path.Reverse();
             return path;
         }
-        
+
         private static int ManhattanDistance(Vector2Int a, Vector2Int b)
         {
             return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
@@ -743,7 +750,8 @@ namespace Grid
         /// <param name="checkAllActors">If true, it will check all actors in the same grid unit. Else, it will only check the first actor.</param>
         /// <typeparam name="T">GridActor specific type.</typeparam>
         /// <returns>A list of T grid actors that comply with the predicate.</returns>
-        public List<T> GetAllGridActorsOf<T>(Predicate<GridActor> predicate, bool checkAllActors = false) where T : GridActor
+        public List<T> GetAllGridActorsOf<T>(Predicate<GridActor> predicate, bool checkAllActors = false)
+            where T : GridActor
         {
             var result = new List<T>();
             gridUnits.ForEach(gridUnit =>
@@ -760,8 +768,10 @@ namespace Grid
                             result.Add(gridActor as T);
                         }
                     }
+
                     actorsInUnit.Dispose();
-                } else
+                }
+                else
                 {
                     var gridActor = gridUnit.GetActor();
                     if (!predicate(gridActor)) return;

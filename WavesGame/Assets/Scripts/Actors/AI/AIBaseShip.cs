@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -25,17 +25,16 @@ namespace Actors.AI
         [Header("Score")] [SerializeField, ReadOnly]
         protected int kills;
 
-        protected string AIName;
-        
-        [SerializeField]
-        protected AIDisplayTile displayTilePrefab;
+        protected string aiName;
+
+        [SerializeField] protected AIDisplayTile displayTilePrefab;
 
         private List<AIDisplayTile> _displayTiles;
 
         protected override void Awake()
         {
             base.Awake();
-            AIName = AINamer.GetRandomFullName();
+            aiName = AINamer.GetRandomFullName();
             kills = 0;
             _displayTiles = new List<AIDisplayTile>();
         }
@@ -66,22 +65,23 @@ namespace Actors.AI
                 {
                     simulationController.EndTurnForCurrentActor();
                 }
+
                 DebugUtils.DebugLogMsg($"{name} has finished its turn.", DebugUtils.DebugType.System);
             });
         }
-        
+
         protected abstract IEnumerator TurnAI();
 
         protected override List<GridUnit> GetMovementPath(GridUnit unit)
         {
             return GridManager.GetSingleton()
-                .GetManhattanPathFromToAStarWithCondition(GetUnit().Index(), unit.Index(), StepsAvailable,
+                .GetManhattanPathFromToAStarWithCondition(GetUnit().Index(), unit.Index(), stepsAvailable,
                     (currentTile, _, _) => currentTile.Type() != GridUnitType.Blocked);
         }
 
         public string GetAIName()
         {
-            return AIName;
+            return aiName;
         }
 
         public override string ToString()
@@ -96,7 +96,8 @@ namespace Actors.AI
 
         public static List<GridUnit> GetFilteredWalkableTiles(AIBaseShip aiBaseShip, int availableSteps)
         {
-            return GridManager.GetSingleton().GetGridUnitsInRadiusManhattanGivenCondition(aiBaseShip.GetUnit().Index(), availableSteps,
+            return GridManager.GetSingleton().GetGridUnitsInRadiusManhattanGivenCondition(aiBaseShip.GetUnit().Index(),
+                availableSteps,
                 unit => unit.Type() != GridUnitType.Blocked, (tile, neighborTile) =>
                 {
                     if (neighborTile.Type() == GridUnitType.Blocked) return false;
@@ -104,18 +105,23 @@ namespace Actors.AI
                     {
                         return CheckNeighborAgainstWaveActor(waveActor, tile, neighborTile);
                     }
+
                     return true;
                 }, tile =>
                 {
                     //TODO reconsider this if there are multiple actors affected by the wave
-                    return tile.GetFirstActorOfType<WaveActor>(out var waveActor) ? waveActor.GetUnitsAffectedByWaveAttack() : null;
+                    return tile.GetFirstActorOfType<WaveActor>(out var waveActor)
+                        ? waveActor.GetUnitsAffectedByWaveAttack()
+                        : null;
                 });
 
             bool CheckNeighborAgainstWaveActor(WaveActor waveActor, GridUnit tile, GridUnit neighborTile)
             {
                 var affected = waveActor.GetUnitsAffectedByWaveAttack();
                 if (affected.Contains(neighborTile)) return true;
-                DebugUtils.DebugLogMsg($"Test neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                DebugUtils.DebugLogMsg(
+                    $"Test neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}",
+                    DebugUtils.DebugType.Temporary);
                 switch (waveActor.GetWaveDirection)
                 {
                     case GridMoveType.Cross:
@@ -127,45 +133,57 @@ namespace Actors.AI
                     case GridMoveType.Up:
                         if (tile.Index().x == neighborTile.Index().x && tile.Index().y > neighborTile.Index().y)
                         {
-                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            DebugUtils.DebugLogMsg(
+                                $"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}",
+                                DebugUtils.DebugType.Temporary);
                             return false;
                         }
+
                         break;
                     case GridMoveType.Down:
                         if (tile.Index().x == neighborTile.Index().x && tile.Index().y < neighborTile.Index().y)
                         {
-                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            DebugUtils.DebugLogMsg(
+                                $"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}",
+                                DebugUtils.DebugType.Temporary);
                             return false;
                         }
+
                         break;
                     case GridMoveType.Left:
                         if (tile.Index().x > neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
                         {
-                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            DebugUtils.DebugLogMsg(
+                                $"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}",
+                                DebugUtils.DebugType.Temporary);
                             return false;
                         }
+
                         break;
                     case GridMoveType.Right:
                         if (tile.Index().x < neighborTile.Index().x && tile.Index().y == neighborTile.Index().y)
                         {
-                            DebugUtils.DebugLogMsg($"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}", DebugUtils.DebugType.Temporary);
+                            DebugUtils.DebugLogMsg(
+                                $"> Failed neighbor: {tile.Index()}, {neighborTile.Index()}; Wave is {waveActor.GetWaveDirection}",
+                                DebugUtils.DebugType.Temporary);
                             return false;
                         }
+
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                        
+
                 return true;
             }
         }
-        
+
         protected void DisplayMoveTiles(AIBaseShip aiBaseShip, int availableSteps)
         {
             var walkableUnits = GetFilteredWalkableTiles(aiBaseShip, availableSteps);
             DisplayTiles(walkableUnits);
         }
-        
+
         private void DisplayTiles(List<GridUnit> units)
         {
             HideTiles();
@@ -191,9 +209,10 @@ namespace Actors.AI
             {
                 if (_displayTiles[i] != null)
                 {
-                    LeanPool.Despawn(_displayTiles[i].gameObject);    
+                    LeanPool.Despawn(_displayTiles[i].gameObject);
                 }
             }
+
             _displayTiles.Clear();
             _displayTiles = new List<AIDisplayTile>();
         }

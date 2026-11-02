@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -21,17 +21,36 @@ namespace Core.Recorder
     {
         [SerializeField] public string geneName;
         [SerializeField] public string shortName;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float aggressiveness;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float finisherWeight;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float patience;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float friendliness;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float selfPreservation;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float awareness;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float sight;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float targetInterest;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float aggressiveness;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float finisherWeight;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float patience;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float friendliness;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float selfPreservation;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float awareness;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float sight;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float targetInterest;
+
         [SerializeField] public bool sortUtilities;
         [SerializeField] public int topUtilitiesChosen;
-        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))] public float decay;
+
+        [SerializeField] [JsonConverter(typeof(FloatRoundingConverter))]
+        public float decay;
 
         public GeneEntryJson(AIGenesSO genes)
         {
@@ -55,12 +74,16 @@ namespace Core.Recorder
     public class NavalActorShortEntryJson
     {
         [SerializeField] public string name;
-        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int currentHealth;
+
+        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        public int currentHealth;
+
         [SerializeField] public string faction;
         [SerializeField] public SimpleVector2Int position;
         [SerializeField] public bool isHumanControlled;
 
-        public NavalActorShortEntryJson(string name, int currentHealth, string faction, SimpleVector2Int position, bool isHumanControlled)
+        public NavalActorShortEntryJson(string name, int currentHealth, string faction, SimpleVector2Int position,
+            bool isHumanControlled)
         {
             this.name = name;
             this.currentHealth = currentHealth;
@@ -86,7 +109,10 @@ namespace Core.Recorder
     public class NavalActorEntryJson
     {
         [SerializeField] public string name;
-        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int currentHealth;
+
+        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
+        public int currentHealth;
+
         [SerializeField] public string shipPrefabType;
         [SerializeField] public string faction;
         [SerializeField] public string shipData;

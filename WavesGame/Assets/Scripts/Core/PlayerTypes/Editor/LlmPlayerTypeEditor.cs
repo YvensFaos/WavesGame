@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -22,8 +22,8 @@ namespace Core.PlayerTypes.Editor
             DrawDefaultInspector();
 
             EditorGUILayout.Space(10);
-            var llmPlayerType = (LlmPlayerType) target;
-            
+            var llmPlayerType = (LlmPlayerType)target;
+
             if (GUILayout.Button(
                     targets.Length > 1
                         ? $"Rename {targets.Length} LLM Player Types"
@@ -43,6 +43,7 @@ namespace Core.PlayerTypes.Editor
                     RenameScriptableObjectHelper.RenameAssetFile(llmPlayerType, llmPlayerType.GetName());
                 }
             }
+
             // ReSharper disable once InvertIf
             if (GUILayout.Button("Load Default Config"))
             {
@@ -50,6 +51,7 @@ namespace Core.PlayerTypes.Editor
                 config.apiKeyFile = "llm_api_keys.json";
                 llmPlayerType.llmConfig = config;
             }
+
             // ReSharper disable once InvertIf
             if (GUILayout.Button("Ping in Project"))
             {

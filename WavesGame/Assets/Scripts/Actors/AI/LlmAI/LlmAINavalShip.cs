@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -27,12 +27,10 @@ namespace Actors.AI.LlmAI
     {
         public string reasoning = "";
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-        [JsonConverter(typeof(LenientIntArrayConverter))]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)] [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] movement = { -1, -1 };
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
-        [JsonConverter(typeof(LenientIntArrayConverter))]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)] [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] attack = { -1, -1 };
 
         [JsonProperty("move_after_attack", NullValueHandling = NullValueHandling.Include)]
@@ -75,7 +73,7 @@ namespace Actors.AI.LlmAI
             var internalIDStr = internalID.ToString();
             var llmName = $"{llmSingleCaller.GetLlmType().ToString()}|{llmSingleCaller.GetModel()}";
             var factionName = GetFaction().name;
-            name = $"LLM|{llmName}|{AIName}|{factionName}|{internalIDStr}";
+            name = $"LLM|{llmName}|{aiName}|{factionName}|{internalIDStr}";
         }
 
         private static bool IsValidLlmAction(Vector2Int action)
@@ -185,7 +183,7 @@ namespace Actors.AI.LlmAI
             var movement = new Vector2Int(-1, -1);
             var attack = new Vector2Int(-1, -1);
             var moveAfterAttack = new Vector2Int(-1, -1);
-            
+
             var originalPosition = GetUnit().Index();
             var remainingMovement = shipData.stats.speed.Two;
 
@@ -225,10 +223,13 @@ namespace Actors.AI.LlmAI
                 if (shouldMove)
                 {
                     //Calculate the difference
-                    var stepsTaken = Mathf.Abs(originalPosition.x - movement.x) + Mathf.Abs(originalPosition.y - movement.y);
+                    var stepsTaken = Mathf.Abs(originalPosition.x - movement.x) +
+                                     Mathf.Abs(originalPosition.y - movement.y);
                     remainingMovement = Mathf.Max(0, remainingMovement - stepsTaken);
                 }
-                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack, actions.reasoning, remainingMovement, true));
+
+                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack, actions.reasoning, remainingMovement,
+                    true));
                 HideTiles();
             }
 
@@ -246,17 +247,18 @@ namespace Actors.AI.LlmAI
             }
         }
 
-        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, int remainingMovement, bool moveAfterAttack = false)
+        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, int remainingMovement,
+            bool moveAfterAttack = false)
         {
             var canMove = GridManager.GetSingleton().CheckGridPosition(moveToPosition, out var moveGridUnit);
             var finishedMoving = false;
-            
+
             DisplayMoveTiles(this, remainingMovement);
             yield return new WaitForSeconds(1.25f);
             var cursorController = CursorController.GetSingleton();
             cursorController.MoveToIndex(moveToPosition);
             yield return new WaitUntil(() => !cursorController.MovingAnimation());
-            
+
             if (canMove)
             {
                 var moved = MoveTo(moveGridUnit, _ => { finishedMoving = true; }, true);
@@ -288,13 +290,13 @@ namespace Actors.AI.LlmAI
 
                 var canAttack = GridManager.GetSingleton()
                     .CanAttackFrom(currentUnit.Index(), attackPosition, navalCannon.GetCannonSo);
-                
+
                 DisplayAttackTiles(this);
                 yield return new WaitForSeconds(1.25f);
                 var cursorController = CursorController.GetSingleton();
                 cursorController.MoveToIndex(attackPosition);
                 yield return new WaitUntil(() => !cursorController.MovingAnimation());
-                
+
                 if (canAttack)
                 {
                     DebugUtils.DebugLogMsg($"{name} attacks {targetUnit}!", DebugUtils.DebugType.System);

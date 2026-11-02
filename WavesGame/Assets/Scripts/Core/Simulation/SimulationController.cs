@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -37,7 +37,8 @@ namespace Core.Simulation
         private bool _runningSimulation;
         private bool _interrupt;
 
-        public void Initialize(SimulationManager simulationManager, Dictionary<Faction, List<NavalShip>> navalShipsDictionary)
+        public void Initialize(SimulationManager simulationManager,
+            Dictionary<Faction, List<NavalShip>> navalShipsDictionary)
         {
             _simulationManager = simulationManager;
             _navalShips = navalShipsDictionary;
@@ -104,10 +105,10 @@ namespace Core.Simulation
             //Start level
             var enumerator = levelActionableActors.GetEnumerator();
             var continueLevel = true;
-            
+
             var gridManager = GridManager.GetSingleton();
             RecordScenario(gridManager);
-            
+
             while (continueLevel && running)
             {
                 //There are no actors left. Finish the level cycle.
@@ -132,7 +133,7 @@ namespace Core.Simulation
                         {
                             if (inputTracer is WavesInputTracer wavesInputTracer)
                             {
-                                wavesInputTracer.SetCurrentNavalShip(navalShip);    
+                                wavesInputTracer.SetCurrentNavalShip(navalShip);
                             }
                         }
 
@@ -142,7 +143,7 @@ namespace Core.Simulation
                             DebugUtils.DebugLogMsg($"Cursor is still moving...", DebugUtils.DebugType.System);
                             yield return new WaitUntil(() => !cursorController.MovingAnimation());
                         }
-                        
+
                         cursorController.MoveToIndex(navalShip.GetUnit().Index());
                         yield return 0.75f;
 
@@ -166,6 +167,7 @@ namespace Core.Simulation
                     {
                         yield return new WaitUntil(() => endTurn);
                     }
+
                     RecordScenario(gridManager);
                 }
 
@@ -269,7 +271,7 @@ namespace Core.Simulation
         public bool IsRunningSimulation() => _runningSimulation;
 
         public bool WasInterrupted() => _interrupt;
-        
+
         // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
         public SimulationOutcome Outcome => _outcome;
 

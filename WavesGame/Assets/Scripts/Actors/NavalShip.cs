@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -31,7 +31,7 @@ namespace Actors
         [SerializeField] private int overrideInitiative = -1;
         [SerializeField, ReadOnly] private bool humanControlled;
 
-        protected int StepsAvailable;
+        protected int stepsAvailable;
 
         protected override void Awake()
         {
@@ -52,7 +52,7 @@ namespace Actors
         {
             //Reset turn variables
             ActionsLeft = shipData.stats.spirit.Two;
-            StepsAvailable = shipData.stats.speed.Two;
+            stepsAvailable = shipData.stats.speed.Two;
         }
 
         public virtual void EndTurn()
@@ -100,7 +100,7 @@ namespace Actors
         protected virtual List<GridUnit> GetMovementPath(GridUnit unit)
         {
             return GridManager.GetSingleton()
-                .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), StepsAvailable,
+                .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), stepsAvailable,
                     true);
         }
 
@@ -128,7 +128,7 @@ namespace Actors
                 }
 
                 var stepsCount = steps.Count - 1; //Removes the initial (current) step from the movement count.
-                StepsAvailable = Mathf.Max(StepsAvailable - stepsCount, 0);
+                stepsAvailable = Mathf.Max(stepsAvailable - stepsCount, 0);
 
                 if (steps.Count <= 0)
                 {
@@ -301,7 +301,7 @@ namespace Actors
 
         public NavalShipSo ShipData => shipData;
         public BaseCannon NavalCannon => navalCannon;
-        public int RemainingSteps => StepsAvailable;
+        public int RemainingSteps => stepsAvailable;
         public int ActionsLeft { get; private set; }
         public Faction GetFaction() => faction;
         public SpriteRenderer Renderer() => spriteRenderer;

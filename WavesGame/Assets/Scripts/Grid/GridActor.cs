@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
- * 
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -42,12 +42,13 @@ namespace Grid
         public virtual bool TakeDamage(int damage)
         {
             if (!destructible) return false;
-            
+
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
             if (currentHealth <= 0)
             {
                 DestroyActor();
             }
+
             return currentHealth <= 0;
         }
 
@@ -59,7 +60,8 @@ namespace Grid
             Destroy(gameObject);
         }
 
-        public virtual bool MoveTo(GridUnit unit, Action<GridUnit> onFinishMoving, bool animate = false, float time = 0.5f)
+        public virtual bool MoveTo(GridUnit unit, Action<GridUnit> onFinishMoving, bool animate = false,
+            float time = 0.5f)
         {
             UpdateGridUnitOnMovement(unit);
 
@@ -117,15 +119,18 @@ namespace Grid
         {
             if (maxHealth != 0)
             {
-                return (float) currentHealth / maxHealth;
+                return (float)currentHealth / maxHealth;
             }
+
             return 1.0f;
         }
+
         public bool IsMarkedForDeath() => markedForDeath;
-        
+
         public override string ToString()
         {
-            return $"{name} -> position=[{currentUnit.Index().x}, {currentUnit.Index().y}]; maxHealth={maxHealth}; currentHealth={currentHealth}; ratio={GetHealthRatio()}; blockGridUnit={blockGridUnit}; hasStepEffect={hasStepEffect}; markedForDeath={markedForDeath}";
+            return
+                $"{name} -> position=[{currentUnit.Index().x}, {currentUnit.Index().y}]; maxHealth={maxHealth}; currentHealth={currentHealth}; ratio={GetHealthRatio()}; blockGridUnit={blockGridUnit}; hasStepEffect={hasStepEffect}; markedForDeath={markedForDeath}";
         }
     }
 }

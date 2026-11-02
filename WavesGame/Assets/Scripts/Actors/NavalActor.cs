@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -39,9 +39,9 @@ namespace Actors
 
         private void GenerateID()
         {
-            if(GameController.TryToGetSingleton(out var gameController))
+            if (GameController.TryToGetSingleton(out var gameController))
             {
-                internalID = gameController.AddLevelActor(this);    
+                internalID = gameController.AddLevelActor(this);
             }
         }
 
@@ -62,6 +62,7 @@ namespace Actors
                 {
                     RecordDeath();
                 }
+
                 var ratio = GetHealthRatio();
                 healthBar.SetFillFactor(ratio, 1 - ratio);
                 AnimateDamage();
@@ -121,10 +122,7 @@ namespace Actors
 
         protected virtual void NotifyGameController()
         {
-            GameController.TryToUseGameController(gameController =>
-            {
-                gameController.NotifyDestroyedActor(this);
-            });
+            GameController.TryToUseGameController(gameController => { gameController.NotifyDestroyedActor(this); });
         }
 
         private IEnumerator DestroyCoroutine()
@@ -186,7 +184,7 @@ namespace Actors
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(entry);
         }
-        
+
         protected void RecordStepEffect(GridActor stepActor, int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;

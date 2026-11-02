@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
  *
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -18,6 +18,7 @@ namespace Core.Recorder
     public class ReasoningRecordEntryJson : ActorRecordEntryJson
     {
         [SerializeField] public string reasoning;
+
         [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public float responseTime;
 
@@ -52,7 +53,8 @@ namespace Core.Recorder
         protected override string ToJson()
         {
             return JsonConvert.SerializeObject(new ReasoningRecordEntryJson(ActorID, Faction,
-                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _reasoning, _responseTime,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp, _reasoning,
+                _responseTime,
                 Comment), GetJsonSerializerSettings());
         }
     }

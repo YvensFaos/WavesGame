@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
- * 
- * This work is licensed under the Creative Commons Attribution 4.0 International License.
- * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ *
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
  * or see the LICENSE file in the root directory of this repository.
  */
 
@@ -14,28 +14,22 @@ namespace Actors.AI
     // ReSharper disable once InconsistentNaming
     public class AIGenesSO : ScriptableObject
     {
-        [Header("Definitions")]
-        public string shortName = "genes";
-        
-        [Header("Behavior Genes")]
-        public float aggressiveness = 1.0f;
+        [Header("Definitions")] public string shortName = "genes";
+
+        [Header("Behavior Genes")] public float aggressiveness = 1.0f;
         public float finisherWeight = 10.0f;
         public float patience = 1.0f;
         public float friendliness = 1.0f;
         public float selfPreservation = 1.0f;
-        
-        [Header("Stats")]
-        public float awareness = 1.0f;
+
+        [Header("Stats")] public float awareness = 1.0f;
         public float sight = 5.0f;
 
-        [Header("Interests")] 
-        public float targetInterest = 0.1f;
+        [Header("Interests")] public float targetInterest = 0.1f;
         public bool forbidTargetAttacking;
-        
-        [Header("Utility Distributions")]
-        public bool sortUtilities = true;
+
+        [Header("Utility Distributions")] public bool sortUtilities = true;
         public int topUtilitiesChosen = 4;
-        [Range(0.0f, 1.0f)]
-        public float decay = 0.15f;
+        [Range(0.0f, 1.0f)] public float decay = 0.15f;
     }
 }

@@ -1,18 +1,27 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the MIT License.
+ * To view a copy of this license, visit https://opensource.org/licenses/MIT
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using UnityEditor;
 using UnityEngine;
 
 namespace Core.Editor
 {
     [CustomEditor(typeof(LevelGoal))]
-    public class LevelGoalEditor: UnityEditor.Editor
+    public class LevelGoalEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             var levelGoal = (LevelGoal)target;
             var factions = levelGoal.Factions;
-            
-            EditorGUILayout.HelpBox($"Mode: {LevelGoalTypeExtension.LevelGoalTypeToString(levelGoal.Type())}", MessageType.Info);
-            
+
+            EditorGUILayout.HelpBox($"Mode: {LevelGoalTypeExtension.LevelGoalTypeToString(levelGoal.Type())}",
+                MessageType.Info);
+
             DrawDefaultInspector();
 
             if (factions == null) return;
