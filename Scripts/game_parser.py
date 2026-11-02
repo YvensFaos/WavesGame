@@ -656,20 +656,20 @@ def summarise(events):
             if actor_id:
                 a = get_actor(summary, actor_id, faction)
                 a["damage_taken"] += damage
-
-                # Attribute the damage to the last attacker of this actor.
+                # Only count damage to combatant ships toward "dealt" totals.
+                # Targets (1 HP each, 4 per scenario) and Wave propagation would
+                # otherwise inflate the numerator by ~1–2× the real combat damage.
+                target_is_combatant = kind_is_combatant(a.get("kind"))
                 attacker = last_attacker_by_target.get(actor_id)
-                if attacker:
+                if attacker and target_is_combatant:
                     att_id, att_fac, _ = attacker
                     if att_id:
                         aa = get_actor(summary, att_id, att_fac)
                         aa["damage_dealt_actual"] += damage
                     if att_fac:
                         summary["damage_dealt_actual_by_faction"][att_fac] += damage
-
             if faction:
                 summary["damage_taken_by_faction"][faction] += damage
-
         # ------------------------------------------------------------------
         elif et == "DEAD":
             if actor_id:
