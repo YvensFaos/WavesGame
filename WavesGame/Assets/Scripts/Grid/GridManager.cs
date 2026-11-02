@@ -328,6 +328,7 @@ namespace Grid
                     continue;
                 }
 
+                if (gridUnit == null) continue;
                 visited.Add(gridUnit);
                 DebugUtils.DebugLogMsg($"Check node - {gridUnit} [{visited.Count}].",
                     DebugUtils.DebugType.Verbose);

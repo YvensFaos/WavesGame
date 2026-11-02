@@ -15,6 +15,7 @@ using Core.Recorder;
 using FALLA;
 using FALLA.Helper;
 using Grid;
+using Helper;
 using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
@@ -27,12 +28,15 @@ namespace Actors.AI.LlmAI
         public string reasoning = "";
 
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] movement = { -1, -1 };
 
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] attack = { -1, -1 };
 
         [JsonProperty("move_after_attack", NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] moveAfterAttack = { -1, -1 };
 
         public static Vector2Int GetAsVector2Int(LlmAINavalShip owner, int[] pair, string actionName)
