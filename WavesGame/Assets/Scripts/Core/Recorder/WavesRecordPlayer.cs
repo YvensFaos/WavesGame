@@ -18,7 +18,10 @@ namespace Core.Recorder
             //First stop the LevelController
             if (playOnStart)
             {
-                LevelController.GetSingleton().StopLevel();
+                GameController.TryToUseGameController(gameController =>
+                {
+                    gameController.StopLevel();    
+                });
             }
 
             base.Start();
@@ -26,7 +29,10 @@ namespace Core.Recorder
 
         public override void StartPlayingRecord(string file)
         {
-            LevelController.GetSingleton().StopLevel();
+            GameController.TryToUseGameController(gameController =>
+            {
+                gameController.StopLevel();    
+            });
             base.StartPlayingRecord(file);
         }
 

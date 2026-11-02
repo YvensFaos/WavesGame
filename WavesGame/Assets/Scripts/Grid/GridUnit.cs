@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2025 Yvens R Serpa [https://github.com/YvensFaos/]
- * 
+ *
  * This work is licensed under the Creative Commons Attribution 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -19,6 +20,29 @@ using UnityEditor;
 
 namespace Grid
 {
+    [Serializable]
+    public class GridUnitListActorsPair : Pair<GridUnit, List<GridActor>>
+    {
+        public GridUnitListActorsPair(GridUnit one, List<GridActor> two) : base(one, two)
+        {
+        }
+
+        public GridUnitListActorsPair(GridUnit one) : base(one, new List<GridActor>())
+        {
+        }
+
+        public void AddGridActor(GridActor actor)
+        {
+            Two ??= new List<GridActor>();
+            Two.Add(actor);
+        }
+
+        public bool IsEmpty()
+        {
+            return Two == null || Two.Count == 0;
+        }
+    }
+
     public class GridUnit : MonoBehaviour
     {
         [SerializeField] private GridUnitType originalType;
@@ -51,6 +75,7 @@ namespace Grid
 
         public void HideVisuals()
         {
+            if (spriteRenderer == null || spriteRenderer.gameObject == null) return;
             spriteRenderer.gameObject.SetActive(false);
         }
 
@@ -103,6 +128,7 @@ namespace Grid
 
         public GridActor GetActor()
         {
+            if (_actors == null || _actors.Count == 0) return null;
             var enumerator = _actors.GetEnumerator();
             enumerator.MoveNext();
             var current = enumerator.Current;
@@ -122,15 +148,45 @@ namespace Grid
                     hasActorOfType = true;
                 }
             }
+
             enumerator.Dispose();
             return hasActorOfType;
+        }
+
+        /// <summary>
+        /// Returns the list of neighbors for the current grid unit, checking the neighbors on a cross style check
+        /// (x + 1, y), (x - 1, y), (x, y + 1), and (x, y - 1). Only return valid neighbors (checked against the
+        /// GridManager CheckGridPosition function). Returns only unique values using Distinct() before returning. 
+        /// </summary>
+        /// <returns>List of (unique) neighbors.</returns>
+        public List<GridUnit> GetNeighbors()
+        {
+            var neighbors = new List<GridUnit>();
+            var positions = new List<Vector2Int>
+            {
+                new(index.x + 1, index.y),
+                new(index.x - 1, index.y),
+                new(index.x, index.y + 1),
+                new(index.x, index.y - 1)
+            };
+
+            var gridManager = GridManager.GetSingleton();
+            foreach (var position in positions)
+            {
+                if (gridManager.CheckGridPosition(position, out var neighbor))
+                {
+                    neighbors.Add(neighbor);
+                }
+            }
+
+            return neighbors.Distinct().ToList();
         }
 
         public bool GetFirstActorOfType<T>(out T firstActor) where T : GridActor
         {
             var enumerator = _actors.GetEnumerator();
             var hasActorOfType = false;
-            firstActor  = null;
+            firstActor = null;
             while (enumerator.MoveNext())
             {
                 var enumeratorCurrent = enumerator.Current;
@@ -138,6 +194,7 @@ namespace Grid
                 hasActorOfType = true;
                 firstActor = actor;
             }
+
             enumerator.Dispose();
             return hasActorOfType;
         }
@@ -154,6 +211,7 @@ namespace Grid
                     actorsWithStepEffect.Add(enumeratorCurrent);
                 }
             }
+
             enumerator.Dispose();
             return actorsWithStepEffect;
         }
@@ -170,7 +228,7 @@ namespace Grid
 
         public override string ToString()
         {
-            return $"{name} {Index()}";
+            return $"{name} {index}";
         }
 
         public string GetStringInfo()
@@ -185,12 +243,12 @@ namespace Grid
                 // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
                 foreach (var actor in _actors)
                 {
-                    info += $"[{actor.ToString()}]";
+                    info += $"[{actor}]";
                 }
             }
 
             info += "]";
-    
+
             return info;
         }
 
@@ -201,7 +259,8 @@ namespace Grid
         /// <returns></returns>
         public float DistanceTo(GridUnit other)
         {
-            DebugUtils.DebugLogMsg($"Calculating {name}[{index}] distance to {other.name}[{other.Index()}].", DebugUtils.DebugType.Verbose);
+            DebugUtils.DebugLogMsg($"Calculating {name}[{index}] distance to {other.name}[{other.Index()}].",
+                DebugUtils.DebugType.Verbose);
             return Mathf.Abs(other.Index().x - index.x) + Mathf.Abs(other.Index().y - index.y);
         }
 
@@ -215,6 +274,7 @@ namespace Grid
         public Vector2Int Index() => index;
         public bool HasValidActors() => _actors != null;
         public int ActorsCount() => _actors.Count;
+
         [MustDisposeResource]
         public HashSet<GridActor>.Enumerator GetActorEnumerator() => _actors.GetEnumerator();
     }

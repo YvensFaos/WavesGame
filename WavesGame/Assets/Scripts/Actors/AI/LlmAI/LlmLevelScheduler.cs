@@ -6,6 +6,7 @@
  * or see the LICENSE file in the root directory of this repository.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
@@ -14,14 +15,13 @@ using FALLA;
 using Grid;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UUtils;
 
 namespace Actors.AI.LlmAI
 {
     public class LlmLevelScheduler : StrongSingleton<LlmLevelScheduler>
     {
-        [SerializeField, ReadOnly] private List<LlmCallerObject> callers;
+        [SerializeField, ReadOnly] private List<LlmListCallerObject> callers;
         [SerializeField] private List<LlmScheduleSo> schedules;
         [SerializeField, ReadOnly] private LlmScheduleSo currentSchedule;
         [SerializeField, ReadOnly] private int internalCounter;
@@ -38,7 +38,7 @@ namespace Actors.AI.LlmAI
 
         public void BeginNewLevel()
         {
-            callers = FindObjectsByType<LlmCallerObject>(FindObjectsSortMode.None).ToList();
+            callers = FindObjectsByType<LlmListCallerObject>().ToList();
         }
 
         public bool CheckValidLevel()
@@ -49,6 +49,7 @@ namespace Actors.AI.LlmAI
             return false;
         }
         
+        [Obsolete]
         public List<NavalActor> SetupLevel(List<GridActor> levelActors)
         {
             currentSchedule = schedules[internalCounter];
@@ -70,11 +71,11 @@ namespace Actors.AI.LlmAI
             {
                 var factionLlmActors = llmActors.FindAll(actor => actor.GetFaction().Equals(aiFaction));
                 var pair = currentSchedule.GetFactionPair(aiFaction);
-                pair.SetCaller(callers);
+                // pair.SetCaller(callers);
 
                 foreach (var llmAINavalShip in factionLlmActors)
                 {
-                    llmAINavalShip.SetCaller(pair.Caller);
+                    llmAINavalShip.SetCaller(pair.LlmSingleCaller);
                     var prompt = pair.GetPromptSo();
                     if (prompt != null)
                     {
@@ -101,6 +102,8 @@ namespace Actors.AI.LlmAI
                     if (newAiBaseShip is AINavalShip aiBaseShip)
                     {
                         aiBaseShip.GenesData = customFaction.AIGenes;
+                        //TODO get the number
+                        aiBaseShip.UpdateName();   
                     }
 
                     //TODO check if this works for the grid
@@ -110,17 +113,21 @@ namespace Actors.AI.LlmAI
                     newAiBaseShip.SetInitiative(llmFactionShip.OverrideInitiative);
                     levelController.RemoveFactionShip(llmFactionShip);
                     Destroy(llmFactionShip.gameObject);
+                    ships.Remove(llmFactionShip);
                     ships.Add(newAiBaseShip);
                 }
             }
             ships = ships.FindAll(ship => ship != null && ship.enabled);
 
-            if (!WavesRecorder.TryToGetSingleton(out var wavesRecorder)) return ships;
-            DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
-            var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
-            wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), levelController.GetLevelGoal().GetMaxTurns(), ships, recorderFileName);
-            wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
             return ships;
+            
+            // TODO
+            // if (!WavesRecorder.TryToGetSingleton(out var wavesRecorder)) return ships;
+            // DebugUtils.DebugLogMsg("Recorder found. Recording level.", DebugUtils.DebugType.System);
+            // var recorderFileName = $"{currentSchedule}-{internalRepetition}-{TimestampHelper.GetSimplifiedTimestamp()}";
+            // wavesRecorder.LogGameStart(SceneManager.GetActiveScene().name, levelController.GetRandomSeed(), levelController.GetLevelGoal().GetMaxTurns(), ships, recorderFileName);
+            // wavesRecorder.RecordNewEntry(new GoalRecordEntry(levelController.GetLevelGoal()));
+            // return ships;
         }
 
         public void FinishLevel(LevelGoal levelGoal)
@@ -138,16 +145,18 @@ namespace Actors.AI.LlmAI
             {
                 DebugUtils.DebugLogMsg($"Finished level, winner -> {winnerFaction}.", DebugUtils.DebugType.System);
                 var winnerPair = currentSchedule.GetFactionPair(winnerFaction);
-                LevelController.GetSingleton()
-                    .AddInfoLog(
-                        winnerPair.Two.modelPair.One == LlmType.Custom
-                            ? $"Utility {winnerPair.One.name} won."
-                            : $"LLM {winnerPair.Caller} won.", "LevelGoal");
+                //TODO
+                // LevelController.GetSingleton()
+                //     .AddInfoLog(
+                //         winnerPair.Two.modelPair.One == LlmType.Custom
+                //             ? $"Utility {winnerPair.One.name} won."
+                //             : $"LLM {winnerPair.Caller} won.", "LevelGoal");
             }
             else
             {
                 DebugUtils.DebugLogMsg($"Finished level, DRAW!", DebugUtils.DebugType.System);
-                LevelController.GetSingleton().AddInfoLog($"DRAW!", "LevelGoal");
+                //TODO
+                // LevelController.GetSingleton().AddInfoLog($"DRAW!", "LevelGoal");
             }
 
             if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))

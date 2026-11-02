@@ -12,8 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Actors.Cannon;
 using Core;
+using Core.Recorder;
 using DG.Tweening;
 using Grid;
+using NaughtyAttributes;
 using UnityEngine;
 using UUtils;
 
@@ -25,9 +27,11 @@ namespace Actors
         [SerializeField] protected NavalShipSo shipData;
         [SerializeField] protected BaseCannon navalCannon;
         [SerializeField] private Faction faction;
-        [SerializeField] private int overrideInitiative;
+        [SerializeField] private int initiative;
+        [SerializeField] private int overrideInitiative = -1;
+        [SerializeField, ReadOnly] private bool humanControlled;
 
-        protected int stepsAvailable;
+        protected int StepsAvailable;
 
         protected override void Awake()
         {
@@ -38,14 +42,17 @@ namespace Actors
         protected override void Start()
         {
             base.Start();
-            SetInitiative(OverrideInitiative);
+            if (overrideInitiative >= 1)
+            {
+                SetInitiative(OverrideInitiative);
+            }
         }
 
         public virtual void StartTurn()
         {
             //Reset turn variables
             ActionsLeft = shipData.stats.spirit.Two;
-            stepsAvailable = shipData.stats.speed.Two;
+            StepsAvailable = shipData.stats.speed.Two;
         }
 
         public virtual void EndTurn()
@@ -53,9 +60,9 @@ namespace Actors
             ActionsLeft = 0;
         }
 
-        public void SetInitiative(int initiative)
+        public void SetInitiative(int newInitiative)
         {
-            Initiative = initiative;
+            Initiative = newInitiative;
         }
 
         public void RollInitiative()
@@ -90,14 +97,27 @@ namespace Actors
             return base.TakeDamage(damageTaken);
         }
 
+        protected virtual List<GridUnit> GetMovementPath(GridUnit unit)
+        {
+            return GridManager.GetSingleton()
+                .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), StepsAvailable,
+                    true);
+        }
+
+        /// <summary>
+        /// Move to a given unit in the grid and reduces the amount of steps available automatically.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="onFinishMoving"></param>
+        /// <param name="animate"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public override bool MoveTo(GridUnit unit, Action<GridUnit> onFinishMoving, bool animate = false,
             float time = 0.5f)
         {
             if (animate)
             {
-                var steps = GridManager.GetSingleton()
-                    .GetManhattanPathFromToAStar(GetUnit().Index(), unit.Index(), stepsAvailable,
-                        true);
+                var steps = GetMovementPath(unit);
 
                 if (steps.Count == 0)
                 {
@@ -108,7 +128,7 @@ namespace Actors
                 }
 
                 var stepsCount = steps.Count - 1; //Removes the initial (current) step from the movement count.
-                stepsAvailable = Mathf.Max(stepsAvailable - stepsCount, 0);
+                StepsAvailable = Mathf.Max(StepsAvailable - stepsCount, 0);
 
                 if (steps.Count <= 0)
                 {
@@ -121,6 +141,7 @@ namespace Actors
             else
             {
                 transform.position = unit.transform.position;
+                //TODO update the stepsCounts
                 UpdateGridUnitOnMovement(unit);
                 onFinishMoving?.Invoke(unit);
             }
@@ -158,8 +179,11 @@ namespace Actors
                 var stepEffects = current.GetHasStepEffectActors();
                 if (stepEffects.Count <= 0) continue;
                 DebugUtils.DebugLogMsg($"{name} has stepped on something!", DebugUtils.DebugType.Verbose);
+
                 foreach (var effect in stepEffects.Select(stepActor => stepActor.StepEffect(this)))
                 {
+                    RecordStepEffect(effect.stepActor, effect.damage);
+
                     if (effect.causeDamage)
                     {
                         cumulativeDamage += effect.damage;
@@ -175,18 +199,22 @@ namespace Actors
                     nextStep = false;
 
                     //TODO for now, it does not check for the case of multiple waves moving the ship
-                    var waveMovementEntry = MakeNewMovementEntry(firstStep, moveToUnit);
-                    waveMovementEntry.AppendComment($"Moved by wave effect!");
-                    RecordMovement(waveMovementEntry);
+                    // var waveMovementEntry = MakeNewMovementEntry(firstStep, moveToUnit);
+                    // waveMovementEntry.AppendComment($"Moved by wave effect!");
+                    // RecordMovement(waveMovementEntry);
+
                     transform.DOMove(moveToUnit.transform.position, time).OnComplete(() =>
                     {
                         DebugUtils.DebugLogMsg($"{name} being pushed by the waves to {moveToUnit.Index()}!",
                             DebugUtils.DebugType.Verbose);
                         UpdateGridUnitOnMovement(moveToUnit);
+
+                        //TODO Add an effect for pushing the naval ship
                         finalStep = moveToUnit;
                         continueSteps = false;
                         nextStep = true;
-                        //Being pushed back, but it seems to keep on marking the wrong piece in the map
+
+                        //TODO Being pushed back, but it seems to keep on marking the wrong piece in the map
                     });
                     yield return new WaitUntil(() => nextStep);
                 }
@@ -202,15 +230,78 @@ namespace Actors
             onFinishMoving?.Invoke(finalStep);
         }
 
-        protected override void NotifyLevelController()
+        protected override void NotifyGameController()
         {
-            LevelController.GetSingleton().NotifyDestroyedActor(this);
+            GameController.TryToUseGameController(controller => { controller.NotifyDestroyedActor(this); });
+        }
+
+        protected override MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
+        {
+            return new MovementRecordEntry(name, faction, moveFrom.Index(), moveTo.Index());
+        }
+
+        public void RecordAttack(GridActor targetActor, GridUnit unit, int damage, string reasoning)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            if (targetActor == null)
+            {
+                RecordInvalidTargetChosen(unit, reasoning);
+                return;
+            }
+
+            if (targetActor is NavalShip navalShip && navalShip.GetFaction().Equals(GetFaction()))
+            {
+                var invalidAttempt = new InvalidAttemptRecordEntry(name, GetFaction(), InvalidAttemptType.FriendlyFire,
+                    currentUnit.Index(),
+                    targetActor, unit.Index(), reasoning);
+                recorder.RecordNewEntry(invalidAttempt);
+            }
+
+            var attackRecordEntry = new AttackRecordEntry(name, GetFaction(), targetActor.GetUnit().Index(),
+                targetActor.name, damage);
+            if (targetActor is WaveActor)
+            {
+                attackRecordEntry.AppendComment($"Attacked a wave");
+            }
+
+            recorder.RecordNewEntry(attackRecordEntry);
+        }
+
+        protected void RecordInvalidTargetChosen(GridUnit targetUnit, string reasoning)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, GetFaction(),
+                InvalidAttemptType.InvalidTarget, currentUnit.Index(),
+                null, targetUnit.Index(), reasoning);
+            if (targetUnit.ActorsCount() == 0)
+            {
+                invalidCannotReachEntry.AppendComment("No valid targets at the attacked position.");
+            }
+
+            recorder.RecordNewEntry(invalidCannotReachEntry);
+        }
+
+        protected override void RecordDamage(int damage)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DamageRecordEntry(name, faction, damage));
+        }
+
+        protected override void RecordDeath()
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new DeathRecordEntry(name, faction));
+        }
+
+        public virtual void UpdateName()
+        {
+            var internalIDStr = internalID.ToString();
+            name = $"{name}|{faction.name}|{internalIDStr}";
         }
 
         public NavalShipSo ShipData => shipData;
         public BaseCannon NavalCannon => navalCannon;
-        public int RemainingSteps => stepsAvailable;
-        public int Initiative { get; private set; }
+        public int RemainingSteps => StepsAvailable;
         public int ActionsLeft { get; private set; }
         public Faction GetFaction() => faction;
         public SpriteRenderer Renderer() => spriteRenderer;
@@ -219,14 +310,34 @@ namespace Actors
         {
             if (ReferenceEquals(this, other)) return 0;
             // Sort by the largest to the smallest
-            return other is null ? 1 : other.Initiative.CompareTo(other.Initiative);
+            return other is null ? 1 : Initiative.CompareTo(other.Initiative);
         }
 
         public override string ToString()
         {
             return $"{base.ToString()}; initiative={Initiative}; ShipData=[{shipData}]; Cannon=[{navalCannon}]";
         }
-        
+
+        public void UpdateFaction(Faction newFaction)
+        {
+            faction = newFaction;
+            healthBar.SetFillBarColor(newFaction.factionColor);
+        }
+
         public int OverrideInitiative => overrideInitiative;
+
+        public int Initiative
+        {
+            get => initiative;
+            private set => initiative = value;
+        }
+
+        public bool HumanControlled
+        {
+            get => humanControlled;
+            set => humanControlled = value;
+        }
+
+        public Sprite GetSprite() => spriteRenderer.sprite;
     }
 }

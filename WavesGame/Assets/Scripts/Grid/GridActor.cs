@@ -16,18 +16,18 @@ namespace Grid
 {
     public class GridActor : MonoBehaviour
     {
-        [Header("Data")] [SerializeField] private int maxHealth;
-        [SerializeField, ReadOnly] private int currentHealth;
+        [Header("Data")] [SerializeField] protected int maxHealth;
+        [SerializeField, ReadOnly] protected int currentHealth;
 
         [Header("References")] [SerializeField, ReadOnly]
         protected GridUnit currentUnit;
 
         [SerializeField] private SpriteRenderer targetRenderer;
-        [SerializeField] private bool destructible = true;
-        [SerializeField] private bool blockGridUnit;
-        [SerializeField] private bool hasStepEffect;
+        [SerializeField] protected bool destructible = true;
+        [SerializeField] protected bool blockGridUnit;
+        [SerializeField] protected bool hasStepEffect;
 
-        protected bool MarkedForDeath;
+        protected bool markedForDeath;
 
         protected virtual void Start()
         {
@@ -53,7 +53,7 @@ namespace Grid
 
         protected virtual void DestroyActor()
         {
-            MarkedForDeath = true;
+            markedForDeath = true;
             DebugUtils.DebugLogMsg($"Destroying actor {name}.", DebugUtils.DebugType.System);
             currentUnit.RemoveActor(this);
             Destroy(gameObject);
@@ -103,7 +103,7 @@ namespace Grid
         /// <returns>Returns the effects of stepping on this actor.</returns>
         public virtual GridStepEffectResult StepEffect(GridActor stepper)
         {
-            return new GridStepEffectResult(true, null, false, 0);
+            return new GridStepEffectResult(stepper, true, null, false, 0);
         }
 
         public bool BlockGridUnit => blockGridUnit;
@@ -121,11 +121,11 @@ namespace Grid
             }
             return 1.0f;
         }
-        public bool IsMarkedForDeath() => MarkedForDeath;
+        public bool IsMarkedForDeath() => markedForDeath;
         
         public override string ToString()
         {
-            return $"{name} -> position=[{currentUnit.Index().x}, {currentUnit.Index().y}]; maxHealth={maxHealth}; currentHealth={currentHealth}; ratio={GetHealthRatio()}; blockGridUnit={blockGridUnit}; hasStepEffect={hasStepEffect}; markedForDeath={MarkedForDeath}";
+            return $"{name} -> position=[{currentUnit.Index().x}, {currentUnit.Index().y}]; maxHealth={maxHealth}; currentHealth={currentHealth}; ratio={GetHealthRatio()}; blockGridUnit={blockGridUnit}; hasStepEffect={hasStepEffect}; markedForDeath={markedForDeath}";
         }
     }
 }

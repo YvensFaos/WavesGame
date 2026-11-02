@@ -7,6 +7,7 @@
  */
 
 using System;
+using Core.Recorder.Extras;
 using Newtonsoft.Json;
 using UnityEngine;
 using UUtils.GameRecorder;
@@ -19,10 +20,10 @@ namespace Core.Recorder
         [JsonProperty(Order = -2)] [SerializeField]
         public string eventType;
 
-        [JsonProperty(Order = -1)] [SerializeField]
+        [JsonProperty(Order = -1, DefaultValueHandling = DefaultValueHandling.Include)] [SerializeField]
         public int turn;
 
-        [JsonProperty(Order = 0)] [SerializeField]
+        [JsonProperty(Order = 0, DefaultValueHandling = DefaultValueHandling.Include)] [SerializeField]
         public long timeStamp;
 
         public WavesEntryJson(string eventType, int turn, long timeStamp)
@@ -36,14 +37,18 @@ namespace Core.Recorder
     public abstract class WavesEntry : RecordEntry
     {
         protected readonly WavesRecordEntryType eventType;
+
         protected readonly int turn;
         protected readonly long timeStamp;
 
-        protected WavesEntry(WavesRecordEntryType eventType, int turn, long timeStamp)
+        protected WavesEntry(WavesRecordEntryType eventType)
         {
             this.eventType = eventType;
-            this.turn = turn;
-            this.timeStamp = timeStamp;
+            turn = -1;
+            timeStamp = -1;
+            if (!TurnManager.TryToGetSingleton(out var turnManager)) return;
+            turn = turnManager.GetTurnNumber();
+            timeStamp = TurnManager.GetTimeStamp();
         }
 
         public sealed override string ToString()
@@ -53,9 +58,20 @@ namespace Core.Recorder
 
         protected virtual string ToJson()
         {
-            return JsonUtility.ToJson(
+            return JsonConvert.SerializeObject(
                 new WavesEntryJson(WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn,
-                    timeStamp));
+                    timeStamp), GetJsonSerializerSettings());
+        }
+
+        protected static JsonSerializerSettings GetJsonSerializerSettings()
+        {
+            var settings = new JsonSerializerSettings
+            {
+                Converters = { new FloatRoundingConverter() },
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore
+            };
+            return settings;
         }
     }
 }

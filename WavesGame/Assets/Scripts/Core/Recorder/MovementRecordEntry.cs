@@ -7,6 +7,7 @@
  */
 
 using System;
+using Actors;
 using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
@@ -19,9 +20,9 @@ namespace Core.Recorder
         [SerializeField] public SimpleVector2Int moveFrom;
         [SerializeField] public SimpleVector2Int moveTo;
 
-        public MovementRecordEntryJson(string actorId, string eventType, int turn, long timeStamp,
-            Vector2Int moveFrom, Vector2Int moveTo, string comment = "") : base(actorId, comment, eventType, turn,
-            timeStamp)
+        public MovementRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
+            Vector2Int moveFrom, Vector2Int moveTo, string comment = "") : base(actorId, faction, eventType, turn,
+            timeStamp, comment)
         {
             this.moveFrom = new SimpleVector2Int(moveFrom);
             this.moveTo = new SimpleVector2Int(moveTo);
@@ -31,8 +32,8 @@ namespace Core.Recorder
     [Serializable]
     public class MovementRecordEntry : ActorRecordEntry
     {
-        public MovementRecordEntry(string actorId, Vector2Int moveFrom, Vector2Int moveTo, int turn, long timeStamp) :
-            base(actorId, WavesRecordEntryType.Movement, turn, timeStamp)
+        public MovementRecordEntry(string actorId, Faction faction, Vector2Int moveFrom, Vector2Int moveTo) :
+            base(actorId, faction, WavesRecordEntryType.Movement)
         {
             MoveTo = moveTo;
             MoveFrom = moveFrom;
@@ -47,17 +48,18 @@ namespace Core.Recorder
         {
             DebugUtils.DebugLogMsg($"MovementRecordEntry: {ActorID} moves from {MoveFrom} to {MoveTo}.",
                 DebugUtils.DebugType.Temporary);
-            var levelController = LevelController.GetSingleton();
-            var navalShip = levelController.GetNavalShipWithId(ActorID);
-            if (navalShip == null) return;
-            levelController.MoveActor(navalShip, MoveTo);
+            //TODO
+            // var levelController = LevelController.GetSingleton();
+            // var navalShip = levelController.GetNavalShipWithId(ActorID);
+            // if (navalShip == null) return;
+            // levelController.MoveActor(navalShip, MoveTo);
         }
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new MovementRecordEntryJson(ActorID,
+            return JsonConvert.SerializeObject(new MovementRecordEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Movement), turn,
-                timeStamp, MoveFrom, MoveTo, comment));
+                timeStamp, MoveFrom, MoveTo, Comment), GetJsonSerializerSettings());
         }
 
         public Vector2Int MoveFrom { get; }
@@ -92,7 +94,7 @@ namespace Core.Recorder
                 return null;
             }
 
-            return new MovementRecordEntry(actorId, new Vector2Int(-1, -1), new Vector2Int(x, y), -1, -1);
+            return null; //new MovementRecordEntry(actorId, new Vector2Int(-1, -1), new Vector2Int(x, y), -1, -1);
         }
     }
 }

@@ -7,8 +7,8 @@
  */
 
 using System;
+using Actors;
 using Newtonsoft.Json;
-using UnityEngine;
 using UUtils;
 
 namespace Core.Recorder
@@ -16,8 +16,9 @@ namespace Core.Recorder
     [Serializable]
     public class DeathRecordEntryJson : ActorRecordEntryJson
     {
-        public DeathRecordEntryJson(string actorId, string eventType, int turn, long timeStamp, string comment = "") :
-            base(actorId, comment, eventType, turn, timeStamp)
+        public DeathRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
+            string comment = "") :
+            base(actorId, faction, eventType, turn, timeStamp, comment)
         {
         }
     }
@@ -25,8 +26,7 @@ namespace Core.Recorder
     [Serializable]
     public class DeathRecordEntry : ActorRecordEntry
     {
-        public DeathRecordEntry(string actorId, int turn, long timeStamp) : base(actorId, WavesRecordEntryType.Death,
-            turn, timeStamp)
+        public DeathRecordEntry(string actorId, Faction faction) : base(actorId, faction, WavesRecordEntryType.Death)
         {
         }
 
@@ -34,15 +34,16 @@ namespace Core.Recorder
         {
             DebugUtils.DebugLogMsg($"DeathRecordEntry: {ActorID} is destroyed.", DebugUtils.DebugType.Temporary);
             var levelController = LevelController.GetSingleton();
-            var navalActor = levelController.GetNavalActorWithId(ActorID);
-            navalActor.DestroyActorImmediate();
+            //TODO
+            // var navalActor = levelController.GetNavalActorWithId(ActorID);
+            // navalActor.DestroyActorImmediate();
         }
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID,
+            return JsonConvert.SerializeObject(new DeathRecordEntryJson(ActorID, Faction,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Death), turn,
-                timeStamp, comment));
+                timeStamp, Comment), GetJsonSerializerSettings());
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Core.Recorder
 
             var actorId = parts[1];
 
-            return new DeathRecordEntry(actorId, -1, -1);
+            return null; //new DeathRecordEntry(actorId, -1, -1);
         }
     }
 }

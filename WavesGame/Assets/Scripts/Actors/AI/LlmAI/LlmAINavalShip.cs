@@ -1,13 +1,21 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the Creative Commons Attribution 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Core;
 using Core.Recorder;
 using FALLA;
 using FALLA.Helper;
 using Grid;
+using Helper;
 using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
@@ -18,60 +26,56 @@ namespace Actors.AI.LlmAI
     internal class LlmAction
     {
         public string reasoning = "";
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] movement = { -1, -1 };
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] attack = { -1, -1 };
-        [JsonProperty("move_after_attack")]
+
+        [JsonProperty("move_after_attack", NullValueHandling = NullValueHandling.Include)]
+        [JsonConverter(typeof(LenientIntArrayConverter))]
         public int[] moveAfterAttack = { -1, -1 };
 
-        public static Vector2Int GetAsVector2Int(int[] pair)
+        public static Vector2Int GetAsVector2Int(LlmAINavalShip owner, int[] pair, string actionName)
         {
-            return pair == null ? new Vector2Int(-1, -1) : new Vector2Int(pair[0], pair[1]);
+            if (pair is { Length: 2 }) return new Vector2Int(pair[0], pair[1]);
+            RecordInvalidLlmAction(owner, pair, actionName);
+            return new Vector2Int(-1, -1);
+        }
+
+        private static void RecordInvalidLlmAction(LlmAINavalShip owner, int[] pair, string actionName)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            var pairString = pair == null ? "pair is null" : $"pair has length {pair.Length} != 2";
+            var invalidResponse = new InvalidResponseEntry(owner.name, owner.GetFaction(),
+                InvalidResponseType.InvalidAction, $"Invalid Llm Action {actionName}: {pairString}");
+            recorder.RecordNewEntry(invalidResponse);
         }
     }
 
     public class LlmAINavalShip : AIBaseShip
     {
-        [Header("LLM")] [SerializeField] private LlmCallerObject llmCaller;
+        [Header("LLM")] [SerializeField] private LlmSingleCallerObject llmSingleCaller;
         [SerializeField] private float requestTimeOutTimer = 1.0f;
         [SerializeField] private LlmPromptSo basePrompt;
         [SerializeField] private List<Faction> enemyFactions;
 
-        private int _internalWrongMovementCount;
-        private int _internalWrongAttackCount;
-        private int _internalTotalRequestCount;
-        private int _internalMovementAttemptCount;
-        private int _internalAttackAttemptCount;
-        private int _internalFaultyMessageCount;
-        private List<long> _internalTimers;
-        private List<int> _internalAttempts;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            AssessUtils.CheckRequirement(ref llmCaller, this);
-        }
-
         protected override void Start()
         {
             base.Start();
-            _internalTimers = new List<long>();
-            _internalAttempts = new List<int>();
+            AssessUtils.CheckRequirement(ref llmSingleCaller, this);
             UpdateName();
         }
 
-        public void UpdateName()
+        public override void UpdateName()
         {
             var internalIDStr = internalID.ToString();
-            if (llmCaller == null || llmCaller.GetLlmType() == LlmType.Custom)
-            {
-                name = $"LLMAgent|Utility|{internalIDStr}";
-            }
-            else
-            {
-                var llmName = $"{llmCaller.GetLlmType().ToString()}|{llmCaller.GetLlmModel()}";
-                var factionName = GetFaction().name;
-                name = $"LLMAgent|{llmName}|{factionName}|{internalIDStr}";
-            }
+            var llmName = $"{llmSingleCaller.GetLlmType().ToString()}|{llmSingleCaller.GetModel()}";
+            var factionName = GetFaction().name;
+            name = $"LLM|{llmName}|{AIName}|{factionName}|{internalIDStr}";
         }
 
         private static bool IsValidLlmAction(Vector2Int action)
@@ -84,40 +88,38 @@ namespace Actors.AI.LlmAI
             //Wait two frames for the logger to get ready
             yield return null;
 
-            var attempt = 0;
             var maxAttempts = 5;
             var breakTime = 5.0f;
-            LevelController.GetSingleton().AddInfoLog($"Start turn;{maxAttempts},{breakTime}", name);
+
             yield return new WaitForSeconds(0.05f);
 
+            //TODO record the LLM delays and timers
             DebugUtils.DebugLogMsg($"Request Timer. Wait for {requestTimeOutTimer} seconds.",
                 DebugUtils.DebugType.System);
             yield return new WaitForSeconds(requestTimeOutTimer);
             DebugUtils.DebugLogMsg($"Request Timer Finished.", DebugUtils.DebugType.System);
 
-            var prompt = LlmAiPromptGenerator.GeneratePrompt(this, basePrompt, enemyFactions);
-            PromptInfo($"{basePrompt.name};{prompt.Length}");
+            var prompt = LlmAIPromptGenerator.GeneratePrompt(this, basePrompt, enemyFactions);
             DebugUtils.DebugLogMsg(prompt, DebugUtils.DebugType.Temporary);
 
             var retry = true;
             var faultyMessage = false;
             var result = "";
+            var responseTimer = 0.0f;
             do
             {
-                attempt++;
                 var stopwatch = Stopwatch.StartNew();
                 DebugUtils.DebugLogMsg("Prompt sent...", DebugUtils.DebugType.Temporary);
                 try
                 {
-                    llmCaller.CallLlm(prompt);
+                    llmSingleCaller.CallLlm(prompt);
                 }
                 catch (Exception e)
                 {
                     DebugUtils.DebugLogMsg($"Exception: {e.Message}.",
                         DebugUtils.DebugType.Error);
-                    StopTimer(stopwatch);
+                    responseTimer = StopTimer(stopwatch);
                     RecordInvalidResponse(InvalidResponseType.Exception, e.Message);
-                    _internalFaultyMessageCount++;
                     faultyMessage = true;
                 }
 
@@ -130,39 +132,32 @@ namespace Actors.AI.LlmAI
                     continue;
                 }
 
-                _internalTotalRequestCount++;
-                yield return new WaitUntil(() => llmCaller.IsReady());
+                yield return new WaitUntil(() => llmSingleCaller.IsReady());
 
-                var llmGenericResponse = llmCaller.GetResponse();
-                if (!llmGenericResponse.Success || string.IsNullOrEmpty(llmGenericResponse.Response))
+                var llmGenericResponse = llmSingleCaller.GetResponse();
+                if (!llmGenericResponse.success || string.IsNullOrEmpty(llmGenericResponse.response))
                 {
                     var msg =
-                        $"No response exception: {llmGenericResponse.Response} Success:{llmGenericResponse.Success}.";
+                        $"No response exception: {llmGenericResponse.response} Success:{llmGenericResponse.success}.";
                     DebugUtils.DebugLogMsg(
                         msg,
                         DebugUtils.DebugType.Error);
-                    LevelController.GetSingleton()
-                        .AddInfoLog(
-                            msg,
-                            name);
+
                     RecordInvalidResponse(InvalidResponseType.NoResponse, msg);
-                    StopTimer(stopwatch);
-                    _internalFaultyMessageCount++;
+                    responseTimer = StopTimer(stopwatch);
                     DebugUtils.DebugLogMsg($"Retrying in {breakTime} seconds...", DebugUtils.DebugType.Error);
                     yield return new WaitForSeconds(breakTime);
                     breakTime *= 1.25f;
                     continue;
                 }
 
-                result = llmGenericResponse.Response;
-                StopTimer(stopwatch);
+                result = llmGenericResponse.response;
+                responseTimer = StopTimer(stopwatch);
                 retry = false;
 
                 DebugUtils.DebugLogMsg($"Result received: [{result}].", DebugUtils.DebugType.Temporary);
             } while (retry && --maxAttempts >= 0);
 
-            LevelController.GetSingleton().AddDataLog($"\"attempts\":{attempt}", name);
-            _internalAttempts.Add(attempt);
             DebugUtils.DebugLogMsg(result, DebugUtils.DebugType.Verbose);
 
             var jsonResult = Sanitizer.ExtractJson(result);
@@ -176,23 +171,13 @@ namespace Actors.AI.LlmAI
             catch (Exception e)
             {
                 DebugUtils.DebugLogMsg($"Exception {e.Message}.", DebugUtils.DebugType.Error);
-                LevelController.GetSingleton().AddInfoLog($"Casting exception! {e.Message}", name);
-                LevelController.GetSingleton().AddInfoLog($"Output was: [{jsonResult}]", name);
                 RecordInvalidResponse(InvalidResponseType.InvalidOutput,
                     $"Output was: [{jsonResult}]. Error: {e.Message}.");
                 DebugUtils.DebugLogErrorMsg(e.Message);
-                _internalFaultyMessageCount++;
             }
 
             DebugUtils.DebugLogMsg(actions.reasoning, DebugUtils.DebugType.System);
-
-            if (!string.IsNullOrEmpty(actions.reasoning) && WavesRecorder.TryToGetSingleton(out var wavesRecorder))
-            {
-                wavesRecorder.RecordNewEntry(new ReasoningRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                    LevelController.GetSingleton().GetTimeStamp(), actions.reasoning));
-            }
-
-            LevelController.GetSingleton().AddReasonLog(actions.reasoning, name);
+            RecordReasoning(actions.reasoning, responseTimer);
 
             var shouldMove = false;
             var shouldAttack = false;
@@ -200,12 +185,15 @@ namespace Actors.AI.LlmAI
             var movement = new Vector2Int(-1, -1);
             var attack = new Vector2Int(-1, -1);
             var moveAfterAttack = new Vector2Int(-1, -1);
+            
+            var originalPosition = GetUnit().Index();
+            var remainingMovement = shipData.stats.speed.Two;
 
             try
             {
-                movement = LlmAction.GetAsVector2Int(actions.movement);
-                attack = LlmAction.GetAsVector2Int(actions.attack);
-                moveAfterAttack = LlmAction.GetAsVector2Int(actions.moveAfterAttack);
+                movement = LlmAction.GetAsVector2Int(this, actions.movement, "movement");
+                attack = LlmAction.GetAsVector2Int(this, actions.attack, "attack");
+                moveAfterAttack = LlmAction.GetAsVector2Int(this, actions.moveAfterAttack, "moveAfterAttack");
                 RecordCommands(movement, attack, moveAfterAttack);
 
                 shouldMove = IsValidLlmAction(movement);
@@ -215,69 +203,73 @@ namespace Actors.AI.LlmAI
             catch (Exception e)
             {
                 DebugUtils.DebugLogMsg($"Exception {e.Message}.", DebugUtils.DebugType.Error);
-                LevelController.GetSingleton().AddInfoLog($"Casting exception on trying to act! {e.Message}", name);
                 DebugUtils.DebugLogErrorMsg(e.Message);
                 RecordInvalidResponse(InvalidResponseType.InvalidOutput,
                     $"Output was: [{jsonResult}]. Error: {e.Message}.");
             }
 
-            LevelController.GetSingleton()
-                .AddInfoLog($"Flags;{shouldMove};{shouldAttack};{shouldMoveAfterAttack}", name);
-
             if (shouldMove)
             {
-                _internalMovementAttemptCount++;
-                yield return StartCoroutine(LlmMoveCoroutine(movement, actions.reasoning));
+                yield return StartCoroutine(LlmMoveCoroutine(movement, actions.reasoning, remainingMovement));
+                HideTiles();
             }
 
             if (shouldAttack)
             {
-                _internalAttackAttemptCount++;
                 yield return StartCoroutine(LlmAttackCoroutine(attack, actions.reasoning));
+                HideTiles();
             }
 
             if (shouldMoveAfterAttack)
             {
-                _internalMovementAttemptCount++;
-                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack, actions.reasoning, true));
+                if (shouldMove)
+                {
+                    //Calculate the difference
+                    var stepsTaken = Mathf.Abs(originalPosition.x - movement.x) + Mathf.Abs(originalPosition.y - movement.y);
+                    remainingMovement = Mathf.Max(0, remainingMovement - stepsTaken);
+                }
+                yield return StartCoroutine(LlmMoveCoroutine(moveAfterAttack, actions.reasoning, remainingMovement, true));
+                HideTiles();
             }
 
             FinishAITurn();
             yield break;
 
-            void StopTimer(Stopwatch stopwatch)
+            float StopTimer(Stopwatch stopwatch)
             {
                 stopwatch.Stop();
                 var elapsed = stopwatch.ElapsedMilliseconds;
                 var timeText = $"Request response in {elapsed} ms.";
                 DebugUtils.DebugLogMsg(timeText,
                     DebugUtils.DebugType.System);
-                LevelController.GetSingleton().AddTimeInfoToLog($"\"request\":{elapsed}", name);
-                _internalTimers.Add(elapsed);
+                return elapsed;
             }
         }
 
-        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, bool moveAfterAttack = false)
+        private IEnumerator LlmMoveCoroutine(Vector2Int moveToPosition, string reasoning, int remainingMovement, bool moveAfterAttack = false)
         {
             var canMove = GridManager.GetSingleton().CheckGridPosition(moveToPosition, out var moveGridUnit);
             var finishedMoving = false;
+            
+            DisplayMoveTiles(this, remainingMovement);
+            yield return new WaitForSeconds(1.25f);
+            var cursorController = CursorController.GetSingleton();
+            cursorController.MoveToIndex(moveToPosition);
+            yield return new WaitUntil(() => !cursorController.MovingAnimation());
+            
             if (canMove)
             {
-                LevelController.GetSingleton().AddMovementLog(moveGridUnit.Index(), name);
                 var moved = MoveTo(moveGridUnit, _ => { finishedMoving = true; }, true);
                 if (!moved)
                 {
                     RecordFailedToMove(moveGridUnit.Index(), reasoning, moveAfterAttack);
-                    _internalWrongMovementCount++;
                 }
             }
             else
             {
                 DebugUtils.DebugLogMsg($"Could not move to {moveToPosition}.", DebugUtils.DebugType.Error);
-                LevelController.GetSingleton().AddInfoLog($"Failed to move to {moveToPosition}", name);
                 finishedMoving = true;
                 RecordFailedToMove(moveToPosition, reasoning, moveAfterAttack);
-                _internalWrongMovementCount++;
             }
 
             yield return new WaitUntil(() => finishedMoving);
@@ -290,23 +282,25 @@ namespace Actors.AI.LlmAI
                 var hasValidTarget = GridManager.GetSingleton().CheckGridPosition(attackPosition, out var targetUnit);
                 if (!hasValidTarget && targetUnit.ActorsCount() <= 0)
                 {
-                    LevelController.GetSingleton().AddInfoLog($"No valid target chosen", name);
                     RecordInvalidTargetChosen(targetUnit, reasoning);
-                    _internalWrongAttackCount++;
                     continue;
                 }
 
                 var canAttack = GridManager.GetSingleton()
                     .CanAttackFrom(currentUnit.Index(), attackPosition, navalCannon.GetCannonSo);
+                
+                DisplayAttackTiles(this);
+                yield return new WaitForSeconds(1.25f);
+                var cursorController = CursorController.GetSingleton();
+                cursorController.MoveToIndex(attackPosition);
+                yield return new WaitUntil(() => !cursorController.MovingAnimation());
+                
                 if (canAttack)
                 {
                     DebugUtils.DebugLogMsg($"{name} attacks {targetUnit}!", DebugUtils.DebugType.System);
-                    LevelController.GetSingleton().AddAttackLog(targetUnit.Index(), this, name);
                     var damage = CalculateDamage();
                     RecordAttack(targetUnit.GetActor(), targetUnit, damage, reasoning);
                     kills = targetUnit.DamageActors(damage);
-                    LevelController.GetSingleton()
-                        .AddInfoLog($"Attacked succeeded at {targetUnit}. Kill count = {kills}.", name);
                     yield return new WaitForSeconds(1.5f);
                 }
                 else
@@ -314,8 +308,6 @@ namespace Actors.AI.LlmAI
                     var cannotReachMsg = $"Cannot reach target at {targetUnit}.";
                     RecordCannotReachAttack(targetUnit.GetActor(), targetUnit, reasoning);
                     DebugUtils.DebugLogMsg(cannotReachMsg, DebugUtils.DebugType.Error);
-                    LevelController.GetSingleton().AddInfoLog(cannotReachMsg, name);
-                    _internalWrongAttackCount++;
                 }
             }
 
@@ -325,38 +317,29 @@ namespace Actors.AI.LlmAI
         private void RecordCommands(Vector2Int movement, Vector2Int attack, Vector2Int moveAfterAttack)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var command = new CommandRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp(), movement, attack, moveAfterAttack);
+            var command = new CommandRecordEntry(name, GetFaction(), movement, attack, moveAfterAttack);
             recorder.RecordNewEntry(command);
         }
 
-        private void RecordInvalidTargetChosen(GridUnit targetUnit, string reasoning)
+        private void RecordReasoning(string reasoning, float responseTime)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.InvalidTarget, currentUnit.Index(),
-                null, targetUnit.Index(), reasoning);
-            if (targetUnit.ActorsCount() == 0)
-            {
-                invalidCannotReachEntry.AppendComment("No valid targets at the attacked position.");
-            }
-
-            recorder.RecordNewEntry(invalidCannotReachEntry);
+            var reason = new ReasoningRecordEntry(name, GetFaction(), reasoning, responseTime);
+            recorder.RecordNewEntry(reason);
         }
 
         private void RecordInvalidResponse(InvalidResponseType type, string message)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var invalidResponse = new InvalidResponseEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp(), type, message);
+            var invalidResponse = new InvalidResponseEntry(name, GetFaction(), type, message);
             recorder.RecordNewEntry(invalidResponse);
         }
 
         private void RecordCannotReachAttack(GridActor targetActor, GridUnit targetUnit, string reasoning)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.OutOfReach, currentUnit.Index(),
+            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, GetFaction(),
+                InvalidAttemptType.OutOfReach, currentUnit.Index(),
                 targetActor, targetUnit.Index(), reasoning);
             if (targetActor is WaveActor)
             {
@@ -369,8 +352,8 @@ namespace Actors.AI.LlmAI
         private void RecordFailedToMove(Vector2Int targetUnit, string reasoning, bool moveAfterAttack)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.FailedToMove, currentUnit.Index(),
+            var invalidCannotReachEntry = new InvalidAttemptRecordEntry(name, GetFaction(),
+                InvalidAttemptType.FailedToMove, currentUnit.Index(),
                 null, targetUnit, reasoning);
             if (moveAfterAttack)
             {
@@ -380,79 +363,16 @@ namespace Actors.AI.LlmAI
             recorder.RecordNewEntry(invalidCannotReachEntry);
         }
 
-        private void RecordAttack(GridActor targetActor, GridUnit unit, int damage, string reasoning)
-        {
-            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            if (targetActor == null)
-            {
-                RecordInvalidTargetChosen(unit, reasoning);
-                return;
-            }
-
-            if (targetActor is AIBaseShip aiBaseShip && aiBaseShip.GetFaction().Equals(GetFaction()))
-            {
-                var invalidAttempt = new InvalidAttemptRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                    LevelController.GetSingleton().GetTimeStamp(), InvalidAttemptType.FriendlyFire, currentUnit.Index(),
-                    aiBaseShip, unit.Index(), reasoning);
-                recorder.RecordNewEntry(invalidAttempt);
-            }
-
-            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), targetActor.name, damage,
-                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
-            if (targetActor is WaveActor)
-            {
-                attackRecordEntry.AppendComment($"Attacked a wave");
-            }
-
-            recorder.RecordNewEntry(attackRecordEntry);
-        }
-
-        private void PromptInfo(string promptInfo)
-        {
-            LevelController.GetSingleton().AddPromptLog(promptInfo, name);
-        }
-
-        protected override void FinishAITurn()
-        {
-            LevelController.GetSingleton().AddInfoLog("Finish turn", name);
-            base.FinishAITurn();
-        }
-
-        protected override void DestroyActor()
-        {
-            LevelController.GetSingleton().AddInfoLog("Destroyed", name);
-            LogFinalInformation();
-            base.DestroyActor();
-        }
-
-        public void LogFinalInformation()
-        {
-            var averageRequest = (float)_internalTimers.Sum(timer => timer) / _internalTimers.Count;
-            var maxRequest = _internalTimers is { Count: > 0 } ? _internalTimers.Max(timer => timer) : -1;
-            var minRequest = _internalTimers is { Count: > 0 } ? _internalTimers.Min(timer => timer) : -1;
-            var averageAttempts = (float)_internalAttempts.Sum(attempt => attempt) / _internalAttempts.Count;
-            LevelController.GetSingleton().AddDataLog($"\"internalWrongMovementCount\":{_internalWrongMovementCount}" +
-                                                      $",\"internalWrongAttackCount\":{_internalWrongAttackCount}" +
-                                                      $",\"internalTotalRequestCount\":{_internalTotalRequestCount}" +
-                                                      $",\"internalMovementAttemptCount\":{_internalMovementAttemptCount}" +
-                                                      $",\"internalAttackAttemptCount\":{_internalAttackAttemptCount}" +
-                                                      $",\"internalFaultyMessageCount\":{_internalFaultyMessageCount}" +
-                                                      $",\"averageRequestTime\":{averageRequest},\"averageRequestTimeCount\":{_internalTimers.Count}" +
-                                                      $",\"maxRequestTime\":{maxRequest},\"minRequest\":{minRequest}" +
-                                                      $",\"averageAttempts\":{averageAttempts}" +
-                                                      $",\"kills\":{kills}", name);
-        }
-
         public string GetLlmInfo()
         {
-            return llmCaller != null && llmCaller.GetLlmType() != LlmType.Custom
-                ? $"{llmCaller.GetLlmType().ToString()}-{llmCaller.GetLlmModel()}-{basePrompt.name}"
+            return llmSingleCaller != null && llmSingleCaller.GetLlmType() != LlmType.Custom
+                ? $"{llmSingleCaller.GetLlmType().ToString()}-{llmSingleCaller.GetModel()}-{basePrompt.name}"
                 : "Utility";
         }
 
-        public void SetCaller(LlmCallerObject caller)
+        public void SetCaller(LlmSingleCallerObject llmSingleCallerObject)
         {
-            llmCaller = caller;
+            llmSingleCaller = llmSingleCallerObject;
         }
 
         public void ChangeBasePrompt(LlmPromptSo promptSo)
@@ -460,8 +380,13 @@ namespace Actors.AI.LlmAI
             basePrompt = promptSo;
         }
 
+        public void AddEnemyFaction(Faction faction)
+        {
+            enemyFactions.Add(faction);
+        }
+
         public LlmPromptSo GetPrompt() => basePrompt;
 
-        public LlmCallerObject GetCaller() => llmCaller;
+        public LlmSingleCallerObject GetCaller() => llmSingleCaller;
     }
 }

@@ -8,7 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core;
 using Core.Recorder;
 using Grid;
 using NaughtyAttributes;
@@ -70,12 +69,13 @@ namespace Actors
             {
                 if (unit.ActorsCount() > 0)
                 {
-                    unit.DamageActors(damage);
                     var enumerator = unit.GetActorEnumerator();
                     while (enumerator.MoveNext())
                     {
-                        RecordAttack(enumerator.Current, damage);
+                        RecordPropagation(enumerator.Current, damage);
                     }
+
+                    unit.DamageActors(damage);
 
                     enumerator.Dispose();
                 }
@@ -126,34 +126,31 @@ namespace Actors
             var pushUnblockedArea = pushArea.FindAll(unit => unit.Type() != GridUnitType.Blocked);
 
             //If there are no valid places to push, ignore the step effect, cause damage and block movement from proceeding.
-            if (pushUnblockedArea.Count == 0) return new GridStepEffectResult(false, null, true, waveDamage);
+            if (pushUnblockedArea.Count == 0) return new GridStepEffectResult(this, false, null, true, waveDamage);
 
             //Gets a random position from the list of pushable spaces.
             var pushTo = RandomHelper<GridUnit>.GetRandomFromList(pushUnblockedArea);
-            return new GridStepEffectResult(false, pushTo, true, waveDamage);
+            return new GridStepEffectResult(this, false, pushTo, true, waveDamage);
         }
 
         private void RecordDamage(int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp()));
+            var damageRecordEntry = new DamageRecordEntry(name, Faction.GetNeutralFaction(), damage);
+            recorder.RecordNewEntry(damageRecordEntry);
         }
 
-        private void RecordAttack(GridActor targetActor, int damage)
+        private void RecordPropagation(GridActor targetActor, int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            var attackRecordEntry = new AttackRecordEntry(name, targetActor.GetUnit().Index(), targetActor.name, damage,
-                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
-            if (targetActor is WaveActor)
-            {
-                attackRecordEntry.AppendComment($"Attacked a wave");
-            }
-
-            recorder.RecordNewEntry(attackRecordEntry);
+            var targetActorName = targetActor ? targetActor.name : "Empty";
+            var propagationEntry = new PropagationEntry(name, targetActorName, damage);
+            recorder.RecordNewEntry(propagationEntry);
         }
 
         public float GetDamage() => waveDamage;
+        public int GetAreaOfEffect() => areaOfEffect;
+        public int GetStepAreaDistance() => stepAreaDistance;
         public GridMoveType GetWaveDirection => waveDirection;
 
         public override string ToString()

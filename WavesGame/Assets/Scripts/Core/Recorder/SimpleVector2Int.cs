@@ -7,6 +7,7 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Core.Recorder
@@ -14,9 +15,15 @@ namespace Core.Recorder
     [Serializable]
     public class SimpleVector2Int
     {
-        [SerializeField] public int x;
-        [SerializeField] public int y;
+        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int x;
+        [SerializeField, JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public int y;
 
+        public SimpleVector2Int(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        
         public SimpleVector2Int(Vector2Int vector)
         {
             x = vector.x;

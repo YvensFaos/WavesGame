@@ -7,6 +7,7 @@
  */
 
 using System;
+using Actors;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -16,32 +17,34 @@ namespace Core.Recorder
     public class ActorRecordEntryJson : WavesEntryJson
     {
         [SerializeField] public string actorId;
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [SerializeField] public string faction;
         [SerializeField] public string comment;
 
-        public ActorRecordEntryJson(string actorId, string comment, string eventType, int turn, long timeStamp) : base(
-            eventType, turn,
-            timeStamp)
+        public ActorRecordEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
+            string comment) : base(eventType, turn, timeStamp)
         {
             this.actorId = actorId;
+            this.faction = faction;
             this.comment = string.IsNullOrEmpty(comment) ? null : comment;
         }
     }
 
     public abstract class ActorRecordEntry : WavesEntry
     {
-        protected string comment;
+        protected readonly string Faction;
+        protected string Comment;
 
-        protected ActorRecordEntry(string actorId, WavesRecordEntryType type, int turn, long timeStamp) :
-            base(type, turn, timeStamp)
+        protected ActorRecordEntry(string actorId, Faction faction, WavesRecordEntryType type) :
+            base(type)
         {
             ActorID = actorId;
-            comment = "";
+            Faction = faction != null ? faction.name : "No Faction";
+            Comment = "";
         }
 
         public void AppendComment(string appendComment)
         {
-            comment += $"{appendComment}";
+            Comment += $"{appendComment}";
         }
 
         protected virtual string Content()
@@ -51,8 +54,9 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new ActorRecordEntryJson(ActorID, comment,
-                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp));
+            return JsonConvert.SerializeObject(new ActorRecordEntryJson(ActorID, Faction,
+                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
+                turn, timeStamp, Comment), GetJsonSerializerSettings());
         }
 
         protected string ActorID { get; }

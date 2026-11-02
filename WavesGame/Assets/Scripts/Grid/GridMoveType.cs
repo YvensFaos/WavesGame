@@ -34,5 +34,20 @@ namespace Grid
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
+        
+        public static string GridMovementSimplifiedSymbol(GridMoveType type)
+        {
+            return type switch
+            {
+                GridMoveType.Cross => "+",
+                GridMoveType.Area => "*",
+                GridMoveType.Diagonal => "x",
+                GridMoveType.Up => "^",
+                GridMoveType.Down => "V",
+                GridMoveType.Left => "<",
+                GridMoveType.Right => ">",
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
+        }
     }
 }

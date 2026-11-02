@@ -46,5 +46,29 @@ namespace Core
             if (!context.performed) return;
             onCancel?.Invoke();
         }
+
+        public void OnResetLevel(InputAction.CallbackContext context)
+        {
+            DebugUtils.DebugLogMsg($"On Reset Level called. S[{context.started}] P[{context.performed}] C[{context.canceled}]", DebugUtils.DebugType.Verbose);
+            if (!context.performed) return;
+            if (GameController.TryToGetSingleton(out var gameController))
+            {
+                gameController.ResetController();
+            }
+            else
+            {
+                ApplicationHelper.RestartLevel();    
+            }
+        }
+
+        public void OnForceResetCursor(InputAction.CallbackContext context)
+        {
+            DebugUtils.DebugLogMsg($"On OnForceResetCursor Level called. S[{context.started}] P[{context.performed}] C[{context.canceled}]", DebugUtils.DebugType.Verbose);
+            if (!context.performed) return;
+            if (CursorController.TryToGetSingleton(out var cursorController))
+            {
+                cursorController.ForceResetCursor();
+            }
+        }
     }
 }

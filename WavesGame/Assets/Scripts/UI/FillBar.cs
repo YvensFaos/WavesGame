@@ -31,5 +31,10 @@ namespace UI
             _animateMaterial?.Kill();
             _animateMaterial = AnimateMaterialProperty.AnimateProperty(fillBarMaterial, materialProperty, factor, 1.0f * speedFactor);
         }
+        
+        public void SetFillBarColor(Color color)
+        {
+            fillBar.color = color;
+        }
     }
 }

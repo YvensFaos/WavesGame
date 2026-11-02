@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the Creative Commons Attribution 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using System;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -10,12 +18,12 @@ namespace Core.Recorder
     [Serializable]
     public class InputRecordEntryJson : WavesEntryJson
     {
-        [SerializeField] public string actionName;
-        [SerializeField] public string actionMap;
-        [SerializeField] public string actionPhase;
-        [SerializeField] public string actionValue;
-        [SerializeField] public string actionDevice;
-        [SerializeField] public double actionStartTime;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionName;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionMap;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionPhase;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionValue;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public string actionDevice;
+        [SerializeField] [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)] public double actionStartTime;
 
         public InputRecordEntryJson(string actionName, string actionMap, string actionPhase, string actionValue,
             string actionDevice,
@@ -33,24 +41,24 @@ namespace Core.Recorder
 
     public class InputRecordEntry : WavesEntry
     {
-        private readonly string _actionName;
-        private readonly string _actionMap;
-        private readonly string _actionPhase;
-        private readonly string _actionValue;
-        private readonly string _actionDevice;
-        private readonly double _actionStartTime;
+        protected readonly string ActionName;
+        protected readonly string ActionMap;
+        protected readonly string ActionPhase;
+        protected readonly string ActionValue;
+        protected readonly string ActionDevice;
+        protected readonly double ActionStartTime;
 
-        public InputRecordEntry(InputActionTrace.ActionEventPtr actionEventPtr, int turn, long timeStamp) : base(
-            WavesRecordEntryType.Input, turn, timeStamp)
+        public InputRecordEntry(InputActionTrace.ActionEventPtr actionEventPtr) : base(
+            WavesRecordEntryType.Input)
         {
             var action = actionEventPtr.action;
-            _actionName = action.name;
-            _actionMap = action.actionMap.name;
-            _actionPhase = action.phase.ToString();
-            _actionStartTime = actionEventPtr.startTime;
+            ActionName = action.name;
+            ActionMap = action.actionMap.name;
+            ActionPhase = action.phase.ToString();
+            ActionStartTime = actionEventPtr.startTime;
 
             var readValueAsObject = action.ReadValueAsObject();
-            _actionValue = action.phase switch
+            ActionValue = action.phase switch
             {
                 InputActionPhase.Disabled => readValueAsObject != null ? readValueAsObject.ToString() : "",
                 InputActionPhase.Waiting => "",
@@ -59,26 +67,26 @@ namespace Core.Recorder
                 InputActionPhase.Canceled => "",
                 _ => throw new ArgumentOutOfRangeException()
             };
-            _actionDevice = "";
+            ActionDevice = "";
             if (action.activeControl is { device: not null })
             {
-                _actionDevice = action.activeControl.device.name;
+                ActionDevice = action.activeControl.device.name;
             }
         }
 
         public override void PerformEntry()
         {
             DebugUtils.DebugLogMsg(
-                $"Input: {_actionName}, {_actionPhase}, {_actionValue}, {_actionDevice}, {_actionStartTime}.",
+                $"Input: {ActionName}, {ActionPhase}, {ActionValue}, {ActionDevice}, {ActionStartTime}.",
                 DebugUtils.DebugType.Verbose);
         }
 
         protected override string ToJson()
         {
-            return JsonConvert.SerializeObject(new InputRecordEntryJson(_actionName, _actionMap, _actionPhase,
-                _actionValue, _actionDevice, _actionStartTime,
+            return JsonConvert.SerializeObject(new InputRecordEntryJson(ActionName, ActionMap, ActionPhase,
+                ActionValue, ActionDevice, ActionStartTime,
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType),
-                turn, timeStamp));
+                turn, timeStamp), GetJsonSerializerSettings());
         }
     }
 }

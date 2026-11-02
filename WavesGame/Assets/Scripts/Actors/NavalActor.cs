@@ -23,7 +23,7 @@ namespace Actors
         [SerializeField] private ParticleSystem missParticles;
         [SerializeField] private ParticleSystem destroyParticles;
         [SerializeField] private NavalActorType navalType;
-        [SerializeField] private FillBar healthBar;
+        [SerializeField] protected FillBar healthBar;
         protected int internalID;
 
         protected virtual void Awake()
@@ -34,26 +34,34 @@ namespace Actors
         protected override void Start()
         {
             base.Start();
-            internalID = LevelController.GetSingleton().AddLevelActor(this);
+            GenerateID();
+        }
+
+        private void GenerateID()
+        {
+            if(GameController.TryToGetSingleton(out var gameController))
+            {
+                internalID = gameController.AddLevelActor(this);    
+            }
+        }
+
+        public void ConfigureID(int id)
+        {
+            internalID = id;
         }
 
         public override bool TakeDamage(int damage)
         {
-            //TODO replace MaxValue with some more controlled value
-            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            damage = ClampDamage(damage);
             var destroyed = false;
             if (damage > 0)
             {
                 destroyed = base.TakeDamage(damage);
+                RecordDamage(damage);
                 if (destroyed)
                 {
                     RecordDeath();
                 }
-                else
-                {
-                    RecordDamage(damage);
-                }
-
                 var ratio = GetHealthRatio();
                 healthBar.SetFillFactor(ratio, 1 - ratio);
                 AnimateDamage();
@@ -68,11 +76,16 @@ namespace Actors
 
         public void TakeDirectDamage(int damage)
         {
-            //TODO replace MaxValue with some more controlled value
-            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            damage = ClampDamage(damage);
             base.TakeDamage(damage);
             var ratio = GetHealthRatio();
             healthBar.SetFillFactor(ratio, 1 - ratio);
+        }
+
+        private int ClampDamage(int damage)
+        {
+            //TODO replace MaxValue with some more controlled value
+            return Mathf.Clamp(damage, 0, int.MaxValue);
         }
 
         public void AnimateDamage(bool miss = false)
@@ -95,20 +108,23 @@ namespace Actors
         /// </summary>
         public void DestroyActorImmediate()
         {
-            if (MarkedForDeath) return;
+            if (markedForDeath) return;
             DestroyActor();
         }
 
         protected override void DestroyActor()
         {
-            MarkedForDeath = true;
+            markedForDeath = true;
             StartCoroutine(DestroyCoroutine());
-            NotifyLevelController();
+            NotifyGameController();
         }
 
-        protected virtual void NotifyLevelController()
+        protected virtual void NotifyGameController()
         {
-            LevelController.GetSingleton().NotifyDestroyedActor(this);
+            GameController.TryToUseGameController(gameController =>
+            {
+                gameController.NotifyDestroyedActor(this);
+            });
         }
 
         private IEnumerator DestroyCoroutine()
@@ -143,24 +159,21 @@ namespace Actors
             Destroy(gameObject);
         }
 
-        protected MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
+        protected virtual MovementRecordEntry MakeNewMovementEntry(GridUnit moveFrom, GridUnit moveTo)
         {
-            return new MovementRecordEntry(name, moveFrom.Index(), moveTo.Index(),
-                LevelController.GetSingleton().GetTurn(), LevelController.GetSingleton().GetTimeStamp());
+            return new MovementRecordEntry(name, null, moveFrom.Index(), moveTo.Index());
         }
 
-        private void RecordDamage(int damage)
+        protected virtual void RecordDamage(int damage)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DamageRecordEntry(name, damage, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp()));
+            recorder.RecordNewEntry(new DamageRecordEntry(name, Faction.GetNeutralFaction(), damage));
         }
 
-        private void RecordDeath()
+        protected virtual void RecordDeath()
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
-            recorder.RecordNewEntry(new DeathRecordEntry(name, LevelController.GetSingleton().GetTurn(),
-                LevelController.GetSingleton().GetTimeStamp()));
+            recorder.RecordNewEntry(new DeathRecordEntry(name, Faction.GetNeutralFaction()));
         }
 
         protected void RecordMovement(GridUnit moveFrom, GridUnit moveTo)
@@ -168,10 +181,16 @@ namespace Actors
             RecordMovement(MakeNewMovementEntry(moveFrom, moveTo));
         }
 
-        protected static void RecordMovement(MovementRecordEntry entry)
+        private static void RecordMovement(MovementRecordEntry entry)
         {
             if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
             recorder.RecordNewEntry(entry);
+        }
+        
+        protected void RecordStepEffect(GridActor stepActor, int damage)
+        {
+            if (!WavesRecorder.TryToGetSingleton(out var recorder)) return;
+            recorder.RecordNewEntry(new StepEffectEntry(stepActor.name, name, damage));
         }
 
         public NavalActorType NavalType => navalType;

@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the Creative Commons Attribution 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Actors;
-using Actors.AI;
-using Actors.AI.LlmAI;
 using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
@@ -11,102 +17,32 @@ using UUtils;
 namespace Core.Recorder
 {
     [Serializable]
-    public class NavalActorEntryJson
-    {
-        [SerializeField] public string name;
-        [SerializeField] public string shipPrefabType;
-        [SerializeField] public string faction;
-        [SerializeField] public string shipData;
-        [SerializeField] public string navalCannon;
-        [SerializeField] public SimpleVector2Int initialPosition;
-
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
-        public string genesData = null;
-
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
-        public string basePrompt = null;
-
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
-        public string llmInfo = null;
-
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
-        public string llmType = null;
-
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)] [SerializeField]
-        public string llmModel = null;
-
-        public NavalActorEntryJson(NavalActor navalActor)
-        {
-            name = navalActor.name;
-            var shipType = navalActor.GetType();
-            shipPrefabType = shipType.Name;
-            initialPosition = new SimpleVector2Int(navalActor.GetUnit().Index());
-
-            faction = "Missing Type";
-            shipData = "No Ship Data";
-            navalCannon = "No Naval Cannon";
-            basePrompt = null;
-            llmInfo = null;
-            llmType = null;
-            llmModel = null;
-            genesData = null;
-
-            switch (navalActor)
-            {
-                case NavalTarget: faction = "None"; break;
-                case LlmAINavalShip llmAINavalShip:
-                {
-                    basePrompt = llmAINavalShip.GetPrompt().name;
-                    llmInfo = llmAINavalShip.GetLlmInfo();
-                    var llmCaller = llmAINavalShip.GetCaller();
-                    llmType = llmCaller.GetLlmType().ToString();
-                    llmModel = llmCaller.GetLlmModel();
-
-                    GetInfoFromNavalShip(llmAINavalShip);
-                }
-                    break;
-
-                case AINavalShip aiNavalShip:
-                {
-                    genesData = aiNavalShip.GetGenesData().name;
-                    GetInfoFromNavalShip(aiNavalShip);
-                }
-                    break;
-
-                case NavalShip navalShip:
-                {
-                    GetInfoFromNavalShip(navalShip);
-                }
-                    break;
-            }
-
-            return;
-
-            void GetInfoFromNavalShip(NavalShip navalShip)
-            {
-                faction = navalShip.GetFaction().ToString();
-                shipData = navalShip.ShipData.name;
-                navalCannon = navalShip.NavalCannon.GetCannonDataName();
-            }
-        }
-    }
-
-    [Serializable]
     public class WavesGameInfoRecordEntryJson : WavesEntryJson
     {
         [SerializeField] public string map;
         [SerializeField] public int randomSeed;
         [SerializeField] public int maxTurns;
+        [SerializeField] public string startTime;
+        [SerializeField] public string extraText;
         [SerializeField] public List<NavalActorEntryJson> navalActorEntryJsons;
+        [SerializeField] public List<WaveActorEntryJson> waveActorEntryJsons;
+        [SerializeField] public List<ObstacleEntryJson> obstacleEntryJsons;
 
-        public WavesGameInfoRecordEntryJson(string eventType, int turn, long timeStamp, string map, int randomSeed,
+        public WavesGameInfoRecordEntryJson(string eventType, int turn, long timeStamp, string startTime,
+            string extraText, string map,
+            int randomSeed,
             int maxTurns,
-            List<NavalActor> navalActors) : base(eventType, turn, timeStamp)
+            List<NavalActor> navalActors, List<WaveActor> waveActors, List<ObstacleActor> obstacleActors) : base(
+            eventType, turn, timeStamp)
         {
             this.map = map;
             this.randomSeed = randomSeed;
             this.maxTurns = maxTurns;
+            this.startTime = startTime;
+            this.extraText = extraText;
             navalActorEntryJsons = navalActors.Select(ship => new NavalActorEntryJson(ship)).ToList();
+            waveActorEntryJsons = waveActors.Select(waveActor => new WaveActorEntryJson(waveActor)).ToList();
+            obstacleEntryJsons = obstacleActors.Select(obstacleActor => new ObstacleEntryJson(obstacleActor)).ToList();
         }
     }
 
@@ -115,15 +51,25 @@ namespace Core.Recorder
         private readonly string _map;
         private readonly int _randomSeed;
         private readonly int _maxTurns;
+        private readonly string _startTime;
+        private readonly string _extraText;
         private readonly List<NavalActor> _navalActors;
+        private readonly List<WaveActor> _waveActors;
+        private readonly List<ObstacleActor> _obstacleActors;
 
-        public WavesGameInfoEntry(string map, int randomSeed, int maxTurns, List<NavalActor> navalActors) : base(
-            WavesRecordEntryType.Information, -1, -1)
+        public WavesGameInfoEntry(string map, int randomSeed, int maxTurns, string extraText,
+            List<NavalActor> navalActors,
+            List<WaveActor> waveActors, List<ObstacleActor> obstacleActors) : base(
+            WavesRecordEntryType.Information)
         {
             _map = map;
             _randomSeed = randomSeed;
             _maxTurns = maxTurns;
+            _startTime = TimestampHelper.GetSimplifiedUTCTimestamp();
             _navalActors = navalActors;
+            _waveActors = waveActors;
+            _obstacleActors = obstacleActors;
+            _extraText = extraText;
         }
 
         public override void PerformEntry()
@@ -134,9 +80,12 @@ namespace Core.Recorder
 
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new WavesGameInfoRecordEntryJson(
-                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Information), turn,
-                timeStamp, _map, _randomSeed, _maxTurns, _navalActors));
+            var json = JsonConvert.SerializeObject(new WavesGameInfoRecordEntryJson(
+                    WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Information), turn,
+                    timeStamp, _startTime, _extraText, _map, _randomSeed, _maxTurns, _navalActors, _waveActors,
+                    _obstacleActors),
+                GetJsonSerializerSettings());
+            return json;
         }
     }
 }

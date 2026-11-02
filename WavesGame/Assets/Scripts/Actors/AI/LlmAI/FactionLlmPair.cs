@@ -1,5 +1,12 @@
+/*
+ * Copyright (c) 2026 Yvens R Serpa [https://github.com/YvensFaos/]
+ *
+ * This work is licensed under the Creative Commons Attribution 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+ * or see the LICENSE file in the root directory of this repository.
+ */
+
 using System;
-using System.Collections.Generic;
 using FALLA;
 using NaughtyAttributes;
 using UnityEngine;
@@ -10,7 +17,7 @@ namespace Actors.AI.LlmAI
     [Serializable]
     public class FactionLlmPair : Pair<Faction, LlmModelPairSo>
     {
-        [SerializeField, ReadOnly] private LlmCallerObject caller;
+        [SerializeField, ReadOnly] private LlmSingleCallerObject llmSingleCaller;
         [SerializeField] private bool matchModel;
         [SerializeField] private LlmPromptSo promptSo;
 
@@ -22,27 +29,12 @@ namespace Actors.AI.LlmAI
         {
         }
 
-        public void SetCaller(List<LlmCallerObject> callers)
+        public void SetCaller(LlmSingleCallerObject llmSingleCallerObject)
         {
-            var llmType = Two.modelPair.One;
-            if (llmType == LlmType.Custom) return;
-            var llmModel = Two.modelPair.Two;
-            caller = callers.Find(call =>
-            {
-                if (matchModel)
-                {
-                    return call.GetLlmType().Equals(llmType) && call.GetLlmModel().Equals(llmModel);
-                }
-
-                return call.GetLlmType().Equals(llmType);
-            });
-            if (!string.IsNullOrEmpty(llmModel))
-            {
-                Caller.LoadModel(llmModel);
-            }
+            llmSingleCaller = llmSingleCallerObject;
         }
 
-        public LlmCallerObject Caller => caller;
+        public LlmSingleCallerObject LlmSingleCaller => llmSingleCaller;
 
         public AIBaseShip AIBaseShipPrefab => aiBaseShipPrefab;
 

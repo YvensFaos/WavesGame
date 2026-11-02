@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using Actors;
-using Core.Recorder;
 using DG.Tweening;
 using Grid;
 using NaughtyAttributes;
@@ -97,9 +96,18 @@ namespace Core
         public void MoveToIndex(Vector2Int newIndex, bool animate = true)
         {
             if (_movingAnimation) return;
+            _movingAnimation = false;
             if (newIndex.x == index.x && newIndex.y == index.y) return;
-            var validPosition = GridManager.GetSingleton().CheckGridPosition(newIndex, out var gridUnit);
-            if (!validPosition) InvalidPosition();
+
+            if (!GridManager.TryToGetSingleton(out var gridManager)) return;
+
+            var validPosition = gridManager.CheckGridPosition(newIndex, out var gridUnit);
+            if (!validPosition)
+            {
+                _movingAnimation = false;
+                InvalidPosition();
+            }
+
             _movingAnimation = true;
             if (animate)
             {
@@ -142,8 +150,12 @@ namespace Core
                 case NavalActorType.Player:
                 {
                     ShowWalkablePathForUnit();
-                    var isCurrentTurnPlayer = LevelController.GetSingleton().IsCurrentActor(_selectedActor);
-                    navalShipOptionsPanel.ShowOptions(isCurrentTurnPlayer);
+
+                    GameController.TryToUseGameController(gameController =>
+                    {
+                        var isCurrentTurnPlayer = gameController.IsCurrentActor(_selectedActor);
+                        navalShipOptionsPanel.ShowOptions(isCurrentTurnPlayer);
+                    });
                 }
                     break;
                 case NavalActorType.Enemy:
@@ -270,19 +282,10 @@ namespace Core
                     DebugUtils.DebugLogMsg($"Act upon {targetActor.name}!", DebugUtils.DebugType.Verbose);
 
                     var damage = navalShip.CalculateDamage();
-                    if (WavesRecorder.TryToGetSingleton(out var wavesRecorder))
-                    {
-                        var attackRecordEntry = new AttackRecordEntry
-                        (_selectedActor.gameObject.name, targetActor.GetUnit().Index(), targetActor.name,
-                            damage, LevelController.GetSingleton().GetTurn(),
-                            LevelController.GetSingleton().GetTimeStamp());
-                        if (targetActor is WaveActor)
-                        {
-                            attackRecordEntry.AppendComment($"Attacked a wave");
-                        }
 
-                        wavesRecorder.RecordNewEntry(attackRecordEntry);
-                    }
+                    var attackedWave = targetActor is WaveActor;
+                    var reasoning = attackedWave ? "Attacked a wave" : "Regular attack";
+                    navalShip.RecordAttack(targetActor, gridUnit, damage, reasoning);
 
                     targetActor.TakeDamage(damage);
                     attackHappened = true;
@@ -361,7 +364,10 @@ namespace Core
         public void ResetWalkableUnits()
         {
             if (_walkableUnits == null) return;
-            _walkableUnits.ForEach(unit => { unit.HideVisuals(); });
+            _walkableUnits.ForEach(unit => { if(unit != null)
+            {
+                unit.HideVisuals();
+            } });
             _walkableUnits = null;
         }
 
@@ -377,7 +383,13 @@ namespace Core
             _stateMachine.FinishStateMachine();
             RemoveControllerCallbacks();
         }
+        
+        public void ForceResetCursor() 
+        {
+            _stateMachine.ForceResetCursor();
+        }
 
+        public bool MovingAnimation() => _movingAnimation;
         public Vector2Int GetIndex() => index;
         public NavalActor GetSelectedActor() => _selectedActor;
         public bool IsActive() => _active;

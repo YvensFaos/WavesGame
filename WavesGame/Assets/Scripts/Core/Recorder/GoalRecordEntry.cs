@@ -7,6 +7,7 @@
  */
 
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UUtils;
 
@@ -28,12 +29,12 @@ namespace Core.Recorder
     {
         private readonly string _goalMessage;
 
-        public GoalRecordEntry(LevelGoal levelGoal) : base(WavesRecordEntryType.Goal, -1, 0)
+        public GoalRecordEntry(LevelGoal levelGoal) : base(WavesRecordEntryType.Goal)
         {
             _goalMessage = LevelGoalTypeExtension.LevelGoalTypeToString(levelGoal.Type());
         }
 
-        private GoalRecordEntry(string levelGoalMessage) : base(WavesRecordEntryType.Goal, -1, 0)
+        private GoalRecordEntry(string levelGoalMessage) : base(WavesRecordEntryType.Goal)
         {
             _goalMessage = levelGoalMessage;
         }
@@ -42,15 +43,15 @@ namespace Core.Recorder
         {
             if (!LevelController.TryToGetSingleton(out var levelController)) return;
             //TODO does not handle specific type variables such as targets and number of turns to survive
-            levelController.GetLevelGoal().SetTypeViaString(_goalMessage);
-            DebugUtils.DebugLogMsg($"Level goal changed to: {_goalMessage}.", DebugUtils.DebugType.Temporary);
+            // levelController.GetLevelGoal().SetTypeViaString(_goalMessage);
+            // DebugUtils.DebugLogMsg($"Level goal changed to: {_goalMessage}.", DebugUtils.DebugType.Temporary);
         }
 
         protected override string ToJson()
         {
-            return JsonUtility.ToJson(new GoalRecordEntryJson(
+            return JsonConvert.SerializeObject(new GoalRecordEntryJson(
                 WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(WavesRecordEntryType.Goal), turn, timeStamp,
-                _goalMessage));
+                _goalMessage), GetJsonSerializerSettings());
         }
 
         /// TODO change this to read the entry from a JSON.

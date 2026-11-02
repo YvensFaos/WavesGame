@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
+  m_Name: ShortPromptA
+  m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
+  prompt: "WavesST. You = @faction@. Enemies = @enemy_factions@.\nYour ship @self_status@
+    at (@self_x@,@self_y@).\nEnemies: @grid_overview_enemies@\nWaves: @grid_overview_waves@\n\n\u2694\uFE0F
+    Attack is valid ONLY at exactly 2 tiles away.\nOnly enemy ships (\U0001F6A2)
+    count for victory. Waves (~>) and neutrals (\U0001F3AF) can be attacked but do
+    not help you win.\n\n\u2694\uFE0F ATTACK NOW (no move needed; attack the first
+    tile on the line):\n@current_attack_positions@\n\nMOVEMENT BUDGET\nYou may move
+    up to 3 tiles per turn, split between \"movement\" and \"move_after_attack\".\nEvery
+    tile you enter must be on the SAFE list.\nThe SAFE list already includes every
+    tile reachable within 3 moves of your current position, so any valid retreat
+    tile is already in it.\n\nMOVE + ATTACK PAIRS (move to X, then attack Y):\n@attack_enabling_tiles@\n\n\u2713
+    SAFE MOVE TILES:\n@safe_movement_positions@\n\n\u274C DO NOT MOVE HERE (waves
+    or blocked):\n@blocked_movement_positions@\n\nRULES\n1. If ATTACK NOW contains
+    a line whose chain hits an enemy ship (\U0001F6A2): attack that line's first
+    tile, do not move.\n2. Else if MOVE + ATTACK PAIRS is not empty: pick one pair.
+    Prefer pairs whose attack hits an enemy ship.\n3. Else: move to a SAFE tile closer
+    to the nearest enemy, attack = [-1,-1].\n4. Never move to a tile not on the SAFE
+    list.\n5. If you attacked, use your remaining movement points to retreat to a
+    SAFE tile.\n\nReply JSON only:\n{\"reasoning\": \"brief\", \"movement\": [x1,
+    y1], \"attack\": [x2, y2], \"move_after_attack\": [x3, y3]}"
+  includeEmptySpaces: 0
