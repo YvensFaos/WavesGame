@@ -10,6 +10,7 @@ SCHEMA_VERSION = "1.0.0"
 import json
 import argparse
 import statistics
+import re
 from collections import defaultdict, Counter
 from datetime import datetime
 
@@ -221,6 +222,17 @@ def summarise(events):
         "final_turn": 0,
         "battle_duration": 0,
 
+        # Session / extraText
+        "extra_text_raw": None,
+        "session_tag": None,  # from "player[session]" in extraText
+
+        # Turn-level tracking
+        "turns_log": [],  # [{turn, real_ts_iso, battle_ts}, ...]
+        "turn_inputs": {},  # see comment below
+        "turn_summaries": [],  # per-turn structured dicts (JSONL-ready)
+        "turn_durations_s": {},  # {turn: wall-clock seconds}
+        "human_metrics": {},  # {faction: aggregate stats}
+
         "start_time_iso": None,
         "final_time_iso": None,
         "real_duration_s": None,
@@ -324,7 +336,20 @@ def summarise(events):
             summary["maxTurns"] = ev.get("maxTurns")
             summary["start_time_iso"] = ev.get("startTime")
             summary["extraText"] = ev.get("extraText")
-            summary["player_id"] = (ev.get("extraText") or "").strip() or None
+            raw_extra = (ev.get("extraText") or "").strip()
+            summary["extra_text_raw"] = raw_extra or None
+            if raw_extra:
+                # Format: player[sessionTag]  (or just player)
+                m = re.match(r"^(?P<player>[^\[]+)\[(?P<session>[^\]]+)\]", raw_extra)
+                if m:
+                    summary["player_id"] = m.group("player").strip() or None
+                    summary["session_tag"] = m.group("session").strip() or None
+                else:
+                    summary["player_id"] = raw_extra
+                    summary["session_tag"] = None
+            else:
+                summary["player_id"] = None
+                summary["session_tag"] = None
             summary["session_id"] = ev.get("startTime")
 
             summary["waves"] = [
@@ -372,6 +397,11 @@ def summarise(events):
             rt = ev.get("realTimestamp")
             if rt:
                 summary["turn_real_timestamps"].append((ev.get("turn"), rt))
+            summary["turns_log"].append({
+                "turn": ev.get("turn"),
+                "real_ts_iso": rt,
+                "battle_ts": ev.get("timeStamp"),
+            })
         # ------------------------------------------------------------------
         elif et == "OVER":
             summary["winner"] = (ev.get("winningFaction") or "").strip()
@@ -393,7 +423,7 @@ def summarise(events):
                 a["input_counts"][action] += 1
                 summary["input_counts_by_actor"][actor_id] += 1
 
-            # --- Context faction: which unit is currently "active" at input time ---
+            # ---- Context faction ----
             context_faction = faction
             if not context_faction and actor_id:
                 actor = summary["actors"].get(actor_id)
@@ -407,17 +437,76 @@ def summarise(events):
                 if len(combatant_factions) == 1:
                     context_faction = next(iter(combatant_factions))
 
-            # --- Human faction(s) in this battle ---
+            # ---- Human faction(s) ----
             human_factions = {
                 a.get("faction") for a in summary["actors"].values()
                 if a.get("kind") == "Human" and a.get("faction")
             }
-
             human_faction = None
             if context_faction in human_factions:
                 human_faction = context_faction
             elif len(human_factions) == 1:
                 human_faction = next(iter(human_factions))
+
+            # ---- is_off_turn MUST come before the per-turn block ----
+            is_off_turn = (
+                    human_faction is not None
+                    and context_faction is not None
+                    and context_faction not in human_factions
+            )
+
+            # ---- Per-turn input tracking ----
+            turn_num = ev.get("turn")
+            battle_ts = ev.get("timeStamp")
+            if turn_num is not None:
+                if turn_num not in summary["turn_inputs"]:
+                    summary["turn_inputs"][turn_num] = {
+                        "count": 0,
+                        "by_action": Counter(),
+                        "by_faction": Counter(),
+                        "first_battle_ts": None,
+                        "last_battle_ts": None,
+                        "action_times": [],
+                        "human_commits_by_faction": defaultdict(list),
+                    }
+                ti = summary["turn_inputs"][turn_num]
+                ti["count"] += 1
+                ti["by_action"][action] += 1
+                if faction:
+                    ti["by_faction"][faction] += 1
+                if battle_ts is not None:
+                    if ti["first_battle_ts"] is None or battle_ts < ti["first_battle_ts"]:
+                        ti["first_battle_ts"] = battle_ts
+                    if ti["last_battle_ts"] is None or battle_ts > ti["last_battle_ts"]:
+                        ti["last_battle_ts"] = battle_ts
+                if t is not None:
+                    ti["action_times"].append(t)
+
+                if (action == "Interact" and phase == "Performed"
+                        and t is not None
+                        and human_faction is not None
+                        and not is_off_turn):
+                    ti["human_commits_by_faction"][human_faction].append(t)
+
+            # ---- Commit events (off-turn vs on-turn) ----
+            if action == "Interact" and phase == "Performed" and t is not None:
+                if human_faction is not None:
+                    if is_off_turn:
+                        summary["human_off_turn_commits"].append({
+                            "human_faction": human_faction,
+                            "context_faction": context_faction,
+                            "actor_id": actor_id,
+                            "turn": ev.get("turn"),
+                            "t": t,
+                        })
+                    else:
+                        summary["human_commit_times"][human_faction].append(t)
+
+            if t is not None:
+                if summary["input_first_time"] is None or t < summary["input_first_time"]:
+                    summary["input_first_time"] = t
+                if summary["input_last_time"] is None or t > summary["input_last_time"]:
+                    summary["input_last_time"] = t
 
             # Off-turn = human pressing keys while a non-human unit is active
             is_off_turn = (
@@ -655,6 +744,118 @@ def summarise(events):
         summary["input_wallclock_span"] = (
             summary["input_last_time"] - summary["input_first_time"]
         )
+
+    # ----- Turn-level metrics -----
+    turns_sorted = [t for t in summary["turns_log"] if t.get("real_ts_iso")]
+
+    # Wall-clock durations between consecutive TURN events (last turn uses final_time_iso)
+    turn_durations_s = {}
+    for i, cur in enumerate(turns_sorted):
+        if i + 1 < len(turns_sorted):
+            next_iso = turns_sorted[i + 1]["real_ts_iso"]
+        else:
+            next_iso = summary.get("final_time_iso")
+        cur_dt = parse_iso_utc(cur["real_ts_iso"])
+        next_dt = parse_iso_utc(next_iso) if next_iso else None
+        if cur_dt and next_dt:
+            turn_durations_s[cur["turn"]] = (next_dt - cur_dt).total_seconds()
+    summary["turn_durations_s"] = turn_durations_s
+
+    # Per-turn structured summaries
+    turn_summaries = []
+    for cur in turns_sorted:
+        turn_num = cur["turn"]
+        turn_bt = cur.get("battle_ts")
+        ti = summary["turn_inputs"].get(turn_num, {})
+
+        first_delta = (
+            ti["first_battle_ts"] - turn_bt
+            if ti.get("first_battle_ts") is not None and turn_bt is not None
+            else None
+        )
+        last_delta = (
+            ti["last_battle_ts"] - turn_bt
+            if ti.get("last_battle_ts") is not None and turn_bt is not None
+            else None
+        )
+
+        action_times = ti.get("action_times") or []
+        gaps = [action_times[i + 1] - action_times[i]
+                for i in range(len(action_times) - 1)]
+
+        human_commits = {}
+        for fac, times in (ti.get("human_commits_by_faction") or {}).items():
+            if not times:
+                continue
+            commit_gaps = [times[i + 1] - times[i] for i in range(len(times) - 1)]
+            human_commits[fac] = {
+                "count": len(times),
+                "first_s": times[0],
+                "last_s": times[-1],
+                "span_s": (times[-1] - times[0]) if len(times) > 1 else 0.0,
+                "mean_gap_s": statistics.fmean(commit_gaps) if commit_gaps else 0.0,
+                "max_gap_s": max(commit_gaps) if commit_gaps else 0.0,
+            }
+
+        turn_summaries.append({
+            "turn": turn_num,
+            "wallclock_duration_s": turn_durations_s.get(turn_num),
+            "input_count": ti.get("count", 0),
+            "input_by_action": dict(ti.get("by_action") or {}),
+            "input_by_faction": dict(ti.get("by_faction") or {}),
+            "first_input_battle_delta": first_delta,
+            "last_input_battle_delta": last_delta,
+            "input_action_gaps_mean_s": statistics.fmean(gaps) if gaps else None,
+            "input_action_gaps_max_s": max(gaps) if gaps else None,
+            "human_commits": human_commits,
+        })
+
+    summary["turn_summaries"] = turn_summaries
+
+    # Aggregate human metrics per faction
+    human_metrics = {}
+    for fac, times in summary.get("human_commit_times", {}).items():
+        # Collect all turns this faction acted in
+        fac_turn_inputs = []
+        fac_turn_commits = []
+        fac_turn_durations = []
+        all_commit_gaps = []
+
+        for ts in turn_summaries:
+            fac_inputs = (ts["input_by_faction"] or {}).get(fac, 0)
+            fac_turn_inputs.append(fac_inputs)
+
+            if ts.get("wallclock_duration_s") is not None:
+                fac_turn_durations.append(ts["wallclock_duration_s"])
+
+            hc = ts["human_commits"].get(fac)
+            if not hc:
+                continue
+            fac_turn_commits.append(hc["count"])
+
+            raw = summary["turn_inputs"].get(ts["turn"], {}).get(
+                "human_commits_by_faction", {}
+            ).get(fac, [])
+            if len(raw) > 1:
+                all_commit_gaps.extend(
+                    raw[i + 1] - raw[i] for i in range(len(raw) - 1)
+                )
+
+        human_metrics[fac] = {
+            "total_turns_observed": len(turn_summaries),
+            "turns_with_commits": len(fac_turn_commits),
+            "total_commits": sum(fac_turn_commits),
+            "total_inputs": sum(fac_turn_inputs),
+            "mean_inputs_per_turn": statistics.fmean(fac_turn_inputs) if fac_turn_inputs else 0.0,
+            "max_inputs_per_turn": max(fac_turn_inputs) if fac_turn_inputs else 0,
+            "mean_commits_per_turn": statistics.fmean(fac_turn_commits) if fac_turn_commits else 0.0,
+            "mean_turn_duration_s": statistics.fmean(fac_turn_durations) if fac_turn_durations else 0.0,
+            "mean_commit_gap_s": statistics.fmean(all_commit_gaps) if all_commit_gaps else 0.0,
+            "max_commit_gap_s": max(all_commit_gaps) if all_commit_gaps else 0.0,
+            "commit_gap_count": len(all_commit_gaps),
+        }
+
+    summary["human_metrics"] = human_metrics
 
     # Battle duration
     if summary["first_timestamp"] is not None:

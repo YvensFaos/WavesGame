@@ -93,6 +93,11 @@ def human_records(battles):
                 1 for c in (s.get("human_off_turn_commits") or [])
                 if c.get("human_faction") == human_side
             ),
+            "extra_text_raw": s.get("extra_text_raw"),
+            "session_tag": s.get("session_tag"),
+            "human_metrics": (s.get("human_metrics") or {}).get(human_side, {}),
+            "turn_summaries": s.get("turn_summaries") or [],
+            "turn_durations_s": s.get("turn_durations_s") or {},
         })
     return out
 
@@ -329,6 +334,85 @@ def view_overview(battles, records):
             for s, l in sorted(variant_pairs.items())
         )
         print(f"  AU variants:          {pretty}")
+    print()
+
+def view_human_turns(records):
+    print("=" * 100)
+    print("HUMAN TURN-LEVEL METRICS (per battle, aggregated per player)")
+    print("=" * 100)
+
+    buckets = defaultdict(lambda: {
+        "turns": 0, "commits": 0,
+        "durations": [], "inputs": [], "commit_gaps": [],
+    })
+
+    for r in records:
+        pid = r.get("player_id") or "(unknown)"
+        m   = r.get("human_metrics") or {}
+        if not m:
+            continue
+        b = buckets[pid]
+        b["turns"]   += m.get("total_turns_observed", 0)
+        b["commits"] += m.get("total_commits", 0)
+        if m.get("mean_turn_duration_s"):
+            b["durations"].append(m["mean_turn_duration_s"])
+        if m.get("mean_inputs_per_turn"):
+            b["inputs"].append(m["mean_inputs_per_turn"])
+        if m.get("mean_commit_gap_s"):
+            b["commit_gaps"].append(m["mean_commit_gap_s"])
+
+    rows = []
+    for pid, b in buckets.items():
+        rows.append([
+            pid,
+            b["turns"],
+            b["commits"],
+            f"{statistics.fmean(b['durations']):.1f}"   if b["durations"]   else "—",
+            f"{statistics.fmean(b['inputs']):.1f}"      if b["inputs"]      else "—",
+            f"{statistics.fmean(b['commit_gaps']):.2f}" if b["commit_gaps"] else "—",
+        ])
+    rows.sort(key=lambda r: r[0])
+    fmt_table(
+        ["player_id", "turns", "commits",
+         "mean turn (s)", "mean in/turn", "mean commit gap (s)"],
+        rows,
+        aligns=["<", ">", ">", ">", ">", ">"],
+    )
+    print()
+
+
+def view_human_per_battle(records):
+    """One row per human battle, showing the per-turn breakdown."""
+    print("=" * 110)
+    print("PER-TURN BREAKDOWN (one line per turn, human-side only)")
+    print("=" * 110)
+
+    for r in records:
+        ts_list = r.get("turn_summaries") or []
+        if not ts_list:
+            continue
+        human = r.get("human_side") or "?"
+        print(f"\n[{r.get('player_id') or '?'} | {r.get('session_tag') or '?'} | "
+              f"{r.get('map') or '?'} | {human}]  "
+              f"opp={r.get('opponent_variant') or r.get('opponent_model') or '?'}")
+        rows = []
+        for ts in ts_list:
+            hc = (ts.get("human_commits") or {}).get(human, {})
+            rows.append([
+                ts["turn"],
+                ts.get("input_count", 0),
+                f"{ts['wallclock_duration_s']:.1f}"
+                    if ts.get("wallclock_duration_s") is not None else "—",
+                hc.get("count", 0),
+                f"{hc['mean_gap_s']:.2f}" if hc else "—",
+                f"{hc['max_gap_s']:.2f}"  if hc else "—",
+                ts.get("first_input_battle_delta") if ts.get("first_input_battle_delta") is not None else "—",
+            ])
+        fmt_table(
+            ["turn", "inputs", "duration (s)", "commits", "mean gap (s)", "max gap (s)", "1st input Δbt"],
+            rows,
+            aligns=[">", ">", ">", ">", ">", ">", ">"],
+        )
     print()
 
 def view_humans(records):
@@ -838,6 +922,8 @@ VIEWS = {
     "humans": view_humans,
     "human-vs-au": view_human_vs_au,
     "levels": view_levels,
+    "human-turns": view_human_turns,
+    "human-battles": view_human_per_battle,
 }
 
 def main():
@@ -856,6 +942,7 @@ def main():
                          "for multiple, e.g. --gene CA or --gene CA,MD.")
     ap.add_argument("--player", help="Filter by player_id (extraText).")
     ap.add_argument("--matchup", help="Filter by matchup_type.")
+    ap.add_argument("--session", help="Filter by session_tag (from extraText).")
 
     args = ap.parse_args()
 
@@ -877,6 +964,10 @@ def main():
     if args.matchup:
         human_recs = [r for r in human_recs if r.get("matchup_type") == args.matchup]
 
+    if args.session:
+        human_recs = [r for r in human_recs
+                      if r.get("session_tag") == args.session]
+
     if args.model:
         records = [r for r in records if r["model"] == args.model]
     if args.prompt:
@@ -893,7 +984,7 @@ def main():
             and wanted & set(r["opponent_variant"].split(";"))
         ]
 
-    human_views = {"humans", "human-vs-au", "levels"}
+    human_views = {"humans", "human-vs-au", "levels", "human-turns", "human-battles"}
 
     if args.view:
         if args.view in human_views:
@@ -915,6 +1006,8 @@ def main():
             view_humans(human_recs)
             view_human_vs_au(human_recs)
             view_levels(human_recs)
+            view_human_turns(human_recs)
+            view_human_per_battle(human_recs)
 
 if __name__ == "__main__":
     main()

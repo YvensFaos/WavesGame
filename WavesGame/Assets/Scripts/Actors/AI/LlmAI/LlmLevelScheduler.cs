@@ -15,7 +15,6 @@ using FALLA;
 using Grid;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UUtils;
 
 namespace Actors.AI.LlmAI
@@ -39,7 +38,7 @@ namespace Actors.AI.LlmAI
 
         public void BeginNewLevel()
         {
-            callers = FindObjectsByType<LlmListCallerObject>(FindObjectsSortMode.None).ToList();
+            callers = FindObjectsByType<LlmListCallerObject>().ToList();
         }
 
         public bool CheckValidLevel()
