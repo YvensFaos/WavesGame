@@ -98,6 +98,9 @@ def human_records(battles):
             "human_metrics": (s.get("human_metrics") or {}).get(human_side, {}),
             "turn_summaries": s.get("turn_summaries") or [],
             "turn_durations_s": s.get("turn_durations_s") or {},
+            "turn_setup_snapshots": {
+                int(k): v for k, v in (s.get("turn_setup_snapshots") or {}).items()
+            },
         })
     return out
 
@@ -336,6 +339,139 @@ def view_overview(battles, records):
         print(f"  AU variants:          {pretty}")
     print()
 
+def view_hard_turns(records, turn_filter=None, ignore_turns=None,
+                    max_gap_ratio=2.5, min_duration_s=45):
+    """
+    Print ASCII snapshots of the board *before* each flagged turn.
+
+    A turn is flagged if:
+      - max_gap / mean_gap > max_gap_ratio   (a deliberate pause mid-turn), or
+      - wallclock duration > min_duration_s  (a long turn overall).
+
+    The snapshot is the last SCNR that fired before the turn's TURN event —
+    i.e. the board state the player was looking at when the turn began.
+    """
+    ignore_turns = ignore_turns or set()
+    print("=" * 110)
+    print("HARD-TURN SETUPS (ASCII board, state at start of the turn)")
+    print("=" * 110)
+    print(f"  Flag: max_gap / mean_gap > {max_gap_ratio}   OR   duration > {min_duration_s}s")
+    if turn_filter is not None:
+        print(f"  Showing only turn {turn_filter}")
+    if ignore_turns:
+        print(f"  Ignoring turns: {sorted(ignore_turns)}")
+    print()
+
+    battles_scanned = 0
+    total_flagged = 0
+
+    for r in records:
+        ts_list = r.get("turn_summaries") or []
+        setup_by_turn = r.get("turn_setup_snapshots") or {}
+        if not ts_list:
+            continue
+        human = r.get("human_side") or "?"
+        battles_scanned += 1
+
+        flagged = []
+        for ts in ts_list:
+            turn_n = ts.get("turn")
+            if turn_n in ignore_turns:
+                continue
+            if turn_filter is not None and turn_n != turn_filter:
+                continue
+            hc = (ts.get("human_commits") or {}).get(human)
+            if not hc:
+                continue
+            mean_g = hc.get("mean_gap_s") or 0.0
+            max_g  = hc.get("max_gap_s")  or 0.0
+            dur    = ts.get("wallclock_duration_s") or 0.0
+            if dur == 0.0:          # end-of-game filler turn
+                continue
+            ratio = (max_g / mean_g) if mean_g > 0 else 0.0
+            if ratio > max_gap_ratio or dur > min_duration_s:
+                flagged.append({
+                    "turn":           turn_n,
+                    "duration_s":     dur,
+                    "mean_gap_s":     mean_g,
+                    "max_gap_s":      max_g,
+                    "max_gap_ratio":  ratio,
+                    "inputs":         ts.get("input_count", 0),
+                    "commits":        hc["count"],
+                })
+
+        if not flagged:
+            continue
+        total_flagged += len(flagged)
+
+        header = (
+            f"[{r.get('player_id') or '?'} | {r.get('session_tag') or '?'} | "
+            f"{r.get('map') or '?'} | {human}]  "
+            f"opp={r.get('opponent_variant') or r.get('opponent_model') or '?'}"
+        )
+        print(header)
+        print("-" * len(header))
+
+        for f in flagged:
+            setup = setup_by_turn.get(f["turn"])
+            print(
+                f"  Turn {f['turn']}  "
+                f"dur={f['duration_s']:.1f}s  "
+                f"max/mean={f['max_gap_ratio']:.1f}x  "
+                f"inputs={f['inputs']}  commits={f['commits']}"
+            )
+            if not setup:
+                print("    (no SCNR snapshot available)")
+                print()
+                continue
+            for row in setup:
+                print(f"    {row}")
+            print()
+
+        print()
+
+    print(f"Scanned {battles_scanned} battles, flagged {total_flagged} turns.")
+    print()
+
+
+def view_hard_turns_quiet(records, ignore_turns=None, **_):
+    """List flagged turns without printing boards (fast scan)."""
+    print("=" * 110)
+    print("HARD TURNS — SUMMARY ONLY")
+    print("=" * 110)
+    if ignore_turns:
+        print(f"  Ignoring turns: {sorted(ignore_turns)}")
+    for r in records:
+        ts_list = r.get("turn_summaries") or []
+        if not ts_list:
+            continue
+        human = r.get("human_side") or "?"
+        flagged = []
+        for ts in ts_list:
+            turn_n = ts.get("turn")
+            if turn_n in ignore_turns:
+                continue
+            hc = (ts.get("human_commits") or {}).get(human)
+            if not hc:
+                continue
+            mean_g = hc.get("mean_gap_s") or 0.0
+            max_g  = hc.get("max_gap_s")  or 0.0
+            dur    = ts.get("wallclock_duration_s") or 0.0
+            if dur == 0.0:
+                continue
+            ratio = (max_g / mean_g) if mean_g > 0 else 0.0
+            if ratio > 2.5 or dur > 45:
+                flagged.append((ts["turn"], dur, ratio))
+        if not flagged:
+            continue
+        turns_str = ", ".join(
+            f"t{t}({d:.0f}s,{r:.1f}x)" for t, d, r in flagged
+        )
+        print(f"  [{r.get('map') or '?'} | {human} | "
+              f"opp={r.get('opponent_variant') or r.get('opponent_model') or '?'}]  "
+              f"{turns_str}")
+    print()
+
 def view_human_turns(records):
     print("=" * 100)
     print("HUMAN TURN-LEVEL METRICS (per battle, aggregated per player)")
@@ -416,29 +552,30 @@ def view_human_per_battle(records):
     print()
 
 def view_humans(records):
-    """Per-player win rates — the human equivalent of 'wins' view."""
-    print("=" * 78)
-    print("HUMAN RESULTS BY PLAYER")
-    print("=" * 78)
+    print("=" * 90)
+    print("HUMAN RESULTS BY PLAYER × SESSION")
+    print("=" * 90)
     buckets = defaultdict(lambda: {"w": 0, "l": 0, "d": 0})
     for r in records:
-        pid = r.get("player_id") or "(unknown)"
+        pid  = r.get("player_id") or "(unknown)"
+        sess = r.get("session_tag") or "—"
+        key = (pid, sess)
         if r["is_draw"]:
-            buckets[pid]["d"] += 1
+            buckets[key]["d"] += 1
         elif r["won"]:
-            buckets[pid]["w"] += 1
+            buckets[key]["w"] += 1
         else:
-            buckets[pid]["l"] += 1
+            buckets[key]["l"] += 1
 
     rows = []
-    for pid, b in buckets.items():
+    for (pid, sess), b in buckets.items():
         total = b["w"] + b["l"] + b["d"]
-        rows.append([pid, b["w"], b["l"], b["d"], total,
+        rows.append([pid, sess, b["w"], b["l"], b["d"], total,
                      pct(b["w"], total), f"[{fmt_ci(b['w'], total)}]"])
-    rows.sort(key=lambda r: (-r[1], r[0]))
+    rows.sort(key=lambda r: (-r[2], r[0], r[1]))
     fmt_table(
-        ["player_id", "W", "L", "D", "Total", "Win%", "95% CI"],
-        rows, aligns=["<", ">", ">", ">", ">", ">", "<"],
+        ["player_id", "session", "W", "L", "D", "Total", "Win%", "95% CI"],
+        rows, aligns=["<", "<", ">", ">", ">", ">", ">", "<"],
     )
     print()
 
@@ -924,7 +1061,12 @@ VIEWS = {
     "levels": view_levels,
     "human-turns": view_human_turns,
     "human-battles": view_human_per_battle,
+    "hard-turns": view_hard_turns,
+    "hard-turns-summary": view_hard_turns_quiet,
 }
+
+def _parse_turn_list(value):
+    return [int(v.strip()) for v in value.split(",") if v.strip()]
 
 def main():
     ap = argparse.ArgumentParser(description="Summarise a compiled battles JSONL.")
@@ -943,8 +1085,17 @@ def main():
     ap.add_argument("--player", help="Filter by player_id (extraText).")
     ap.add_argument("--matchup", help="Filter by matchup_type.")
     ap.add_argument("--session", help="Filter by session_tag (from extraText).")
+    ap.add_argument("--turn", type=int,
+                    help="For --view hard-turns: show only this turn.")
+    ap.add_argument("--ignore-turn", type=_parse_turn_list, action="append",
+                    default=[], metavar="N[,N...]",
+                    help="Skip these turn numbers (repeatable; commas allowed). "
+                         "Applies to --view hard-turns and --view hard-turns-summary.")
 
     args = ap.parse_args()
+
+    # Flatten [ [1,2], [3] ] -> {1, 2, 3}
+    ignore_turns = {n for group in args.ignore_turn for n in group}
 
     battles = load_battles(args.jsonl)
     if not battles:
@@ -984,10 +1135,18 @@ def main():
             and wanted & set(r["opponent_variant"].split(";"))
         ]
 
-    human_views = {"humans", "human-vs-au", "levels", "human-turns", "human-battles"}
+    human_views = {
+        "humans", "human-vs-au", "levels",
+        "human-turns", "human-battles",
+        "hard-turns-summary",
+    }
 
     if args.view:
-        if args.view in human_views:
+        if args.view == "hard-turns":
+            view_hard_turns(human_recs, turn_filter=args.turn, ignore_turns=ignore_turns)
+        elif args.view == "hard-turns-summary":
+            view_hard_turns_quiet(human_recs, ignore_turns=ignore_turns)
+        elif args.view in human_views:
             VIEWS[args.view](human_recs)
         elif args.view == "overview":
             view_overview(battles, records)
@@ -1007,7 +1166,6 @@ def main():
             view_human_vs_au(human_recs)
             view_levels(human_recs)
             view_human_turns(human_recs)
-            view_human_per_battle(human_recs)
 
 if __name__ == "__main__":
     main()

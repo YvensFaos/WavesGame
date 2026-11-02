@@ -226,6 +226,10 @@ def summarise(events):
         "extra_text_raw": None,
         "session_tag": None,  # from "player[session]" in extraText
 
+        # Scenario / turn snapshots
+        "scenario_snapshots": [],  # [{turn, timeStamp, overview}]
+        "turn_setup_snapshots": {},  # {turn_number: [ascii rows]} — state *before* the turn
+
         # Turn-level tracking
         "turns_log": [],  # [{turn, real_ts_iso, battle_ts}, ...]
         "turn_inputs": {},  # see comment below
@@ -310,6 +314,8 @@ def summarise(events):
 
     last_attacker_by_target = {}   # target_id -> (attacker_id, faction, turn)
     wave_kill_victims = set()      # victims whose death came via PPGT
+    last_scnr_overview = None
+    turn_to_setup_snapshot = {}
 
     for ev in events:
         et = ev.get("eventType")
@@ -402,6 +408,23 @@ def summarise(events):
                 "real_ts_iso": rt,
                 "battle_ts": ev.get("timeStamp"),
             })
+            # The state at this instant IS the setup for this turn.
+            turn_n = ev.get("turn")
+            if turn_n is not None and last_scnr_overview is not None:
+                turn_to_setup_snapshot[turn_n] = last_scnr_overview
+        # ------------------------------------------------------------------
+        elif et == "SCNR":
+            overview = ev.get("scenarioOverview")
+            if overview:
+                summary["scenario_snapshots"].append({
+                    "turn": ev.get("turn"),
+                    "timeStamp": ev.get("timeStamp"),
+                    "overview": overview,
+                })
+                last_scnr_overview = overview
+                # The very first SCNR is the initial board — the setup for turn 0.
+                if 0 not in turn_to_setup_snapshot:
+                    turn_to_setup_snapshot[0] = overview
         # ------------------------------------------------------------------
         elif et == "OVER":
             summary["winner"] = (ev.get("winningFaction") or "").strip()
@@ -507,13 +530,6 @@ def summarise(events):
                     summary["input_first_time"] = t
                 if summary["input_last_time"] is None or t > summary["input_last_time"]:
                     summary["input_last_time"] = t
-
-            # Off-turn = human pressing keys while a non-human unit is active
-            is_off_turn = (
-                    human_faction is not None
-                    and context_faction is not None
-                    and context_faction not in human_factions
-            )
 
             # --- Commit events ---
             if action == "Interact" and phase == "Performed" and t is not None:
@@ -1123,7 +1139,7 @@ def summarise(events):
             break
     if summary["llm_side"] and summary["winner_side"]:
         summary["llm_won"] = (summary["llm_side"] == summary["winner_side"])
-
+    summary["turn_setup_snapshots"] = turn_to_setup_snapshot
     return summary
 
 
@@ -1462,6 +1478,7 @@ def summary_to_jsonl(summary, source_file=None, lean=False):
     if lean:
         s.pop("actors", None)
         s.pop("kills", None)
+        s.pop("scenario_snapshots", None)
     payload = {
         "schema_version": SCHEMA_VERSION,
         "source_file": source_file,
