@@ -80,6 +80,14 @@ def human_records(battles):
         my_deaths = (s.get("deaths_by_faction") or {}).get(my_side, 0)
         survival_rate = ((my_ships - my_deaths) / my_ships) if my_ships else 0.0
 
+        # Turn of first kill by my side (None if no kills)
+        kills_list = s.get("kills") or []
+        my_kill_turns = [
+            k["turn"] for k in kills_list
+            if k.get("killer_faction") == my_side and k.get("turn") is not None
+        ]
+        turns_to_first_kill = min(my_kill_turns) if my_kill_turns else None
+
         out.append({
             "source": b.get("source_file"),
             "map": s.get("map"),
@@ -130,7 +138,8 @@ def human_records(battles):
             "combat_score": combat_score,
             "damage_efficiency": damage_efficiency,
             "kill_ratio": kill_ratio,
-            "survival_rate": survival_rate
+            "survival_rate": survival_rate,
+            "turns_to_first_kill": turns_to_first_kill,
         })
     return out
 
@@ -182,6 +191,14 @@ def llm_records(battles):
         my_deaths = (s.get("deaths_by_faction") or {}).get(my_side, 0)
         survival_rate = ((my_ships - my_deaths) / my_ships) if my_ships else 0.0
 
+        # Turn of first kill by my side (None if no kills)
+        kills_list = s.get("kills") or []
+        my_kill_turns = [
+            k["turn"] for k in kills_list
+            if k.get("killer_faction") == my_side and k.get("turn") is not None
+        ]
+        turns_to_first_kill = min(my_kill_turns) if my_kill_turns else None
+
         out.append({
             "source": b.get("source_file"),
             "map": s.get("map"),
@@ -222,7 +239,8 @@ def llm_records(battles):
             "combat_score": combat_score,
             "damage_efficiency": damage_efficiency,
             "kill_ratio": kill_ratio,
-            "survival_rate": survival_rate
+            "survival_rate": survival_rate,
+            "turns_to_first_kill": turns_to_first_kill,
         })
     return out
 
@@ -341,6 +359,19 @@ def wilson_interval(n, wins, z=1.96):
     half = (z * math.sqrt((p * (1 - p) + z * z / (4 * n)) / n)) / denom
     return (max(0.0, centre - half), min(1.0, centre + half))
 
+def pearson_r(xs, ys):
+    """Pearson correlation coefficient. Returns None if degenerate."""
+    n = len(xs)
+    if n < 3 or len(ys) != n:
+        return None
+    mx = statistics.fmean(xs)
+    my = statistics.fmean(ys)
+    num = sum((x - mx) * (y - my) for x, y in zip(xs, ys))
+    denom = math.sqrt(
+        sum((x - mx) ** 2 for x in xs) *
+        sum((y - my) ** 2 for y in ys)
+    )
+    return (num / denom) if denom > 0 else None
 
 def fmt_ci(wins, total):
     """Format a Wilson CI as 'lo-hi' in percentage points, e.g. '30.4-59.3'."""
@@ -348,6 +379,77 @@ def fmt_ci(wins, total):
         return "—"
     lo, hi = wilson_interval(total, wins)
     return f"{lo * 100:.1f}-{hi * 100:.1f}"
+
+
+def _empty_quality_bucket():
+    return {
+        "n": 0, "w": 0, "l": 0, "d": 0,
+        "combat": [], "dmg_eff": [], "kill_ratio": [],
+        "survival": [], "ttfk": [],
+    }
+
+
+def _aggregate_quality(records, key_fn):
+    """Group records by key_fn; accumulate quality metrics into per-key buckets."""
+    buckets = defaultdict(_empty_quality_bucket)
+    for r in records:
+        key = key_fn(r)
+        b = buckets[key]
+        b["n"] += 1
+        if r.get("is_draw"):
+            b["d"] += 1
+        elif r.get("won"):
+            b["w"] += 1
+        else:
+            b["l"] += 1
+        for src_key, dst_key in [
+            ("combat_score",        "combat"),
+            ("damage_efficiency",   "dmg_eff"),
+            ("kill_ratio",          "kill_ratio"),
+            ("survival_rate",       "survival"),
+            ("turns_to_first_kill", "ttfk"),
+        ]:
+            v = r.get(src_key)
+            if v is not None:
+                b[dst_key].append(v)
+    return buckets
+
+
+def _summarize_quality_bucket(b):
+    """Reduce a bucket to a flat dict of scalar metrics."""
+    def _m(key):
+        return statistics.fmean(b[key]) if b[key] else None
+    return {
+        "n": b["n"], "w": b["w"], "l": b["l"], "d": b["d"],
+        "win_pct": (100 * b["w"] / b["n"]) if b["n"] else 0.0,
+        "combat":     _m("combat"),
+        "dmg_eff":    _m("dmg_eff"),
+        "kill_ratio": _m("kill_ratio"),
+        "survival":   _m("survival"),
+        "ttfk":       _m("ttfk"),
+    }
+
+
+def _quality_row(prefix_cols, s):
+    """Format a summary dict into a table row."""
+    return list(prefix_cols) + [
+        s["n"],
+        f"{s['w']}/{s['n']} ({s['win_pct']:.0f}%)",
+        f"{s['combat']:.2f}"     if s["combat"]     is not None else "—",
+        f"{s['dmg_eff']:.2f}"    if s["dmg_eff"]    is not None else "—",
+        f"{s['kill_ratio']:.2f}" if s["kill_ratio"] is not None else "—",
+        f"{s['survival']:.2f}"   if s["survival"]   is not None else "—",
+        f"{s['ttfk']:.1f}"       if s["ttfk"]       is not None else "—",
+    ]
+
+
+def _print_quality_legend():
+    print("  combat    = damage dealt / total enemy HP    (1.0 = wiped enemy)")
+    print("  dmgEff    = damage dealt / (dealt + taken)   (0.5 = even trade, 1.0 = flawless)")
+    print("  killRt    = kills / (kills + deaths)         (0.5 = even, 1.0 = flawless)")
+    print("  survive   = fraction of your starting ships still alive at end")
+    print("  ttfk      = mean turn of first kill (in turn units)")
+    print()
 
 def classify_turn(ts, human_side,
                   snap_dur=20.0, snap_gap=2.0,
@@ -1161,6 +1263,30 @@ def view_deliberation_vs_outcome(records, **kw):
         ])
 
     rows.sort(key=lambda r: -float(r[3].split("(")[-1].rstrip("%)") or 0))
+
+    # ---- Pearson correlations across sessions ----
+    metrics = []
+    for player, b in buckets.items():
+        active = (b["snap"] + b["considered"]
+                  + b["deliberate"] + b["no_action"])
+        delib_pct = (100 * b["deliberate"] / active) if active else 0.0
+        win_pct   = (100 * b["wins"] / b["battles"]) if b["battles"] else 0.0
+        metrics.append({
+            "delib_pct":  delib_pct,
+            "win_pct":    win_pct,
+            "combat":     statistics.fmean(b["combat"])     if b["combat"]     else None,
+            "dmg_eff":    statistics.fmean(b["dmg_eff"])    if b["dmg_eff"]    else None,
+            "kill_ratio": statistics.fmean(b["kill_ratio"]) if b["kill_ratio"] else None,
+        })
+
+    def _corr(key):
+        pairs = [(m["delib_pct"], m[key]) for m in metrics
+                 if m[key] is not None]
+        if len(pairs) < 3:
+            return None
+        xs = [p[0] for p in pairs]
+        ys = [p[1] for p in pairs]
+        return pearson_r(xs, ys), len(pairs)
     fmt_table(
         ["player", "cohort", "opponents", "W/total",
          "turns", "mean dur", "delib%", "commits",
@@ -1168,6 +1294,24 @@ def view_deliberation_vs_outcome(records, **kw):
         rows,
         aligns=["<", "<", "<", "<", ">", ">", ">", ">", ">", ">", ">"],
     )
+    print()
+
+    print("Pearson r  (deliberation% vs outcome, across sessions):")
+    print("  |r| > 0.70 → strong;  > 0.50 → moderate;  < 0.30 → no clear relationship")
+    for key, label in [
+        ("win_pct", "win%"),
+        ("combat", "combat"),
+        ("dmg_eff", "dmgEff"),
+        ("kill_ratio", "killRt"),
+    ]:
+        result = _corr(key)
+        if not result:
+            print(f"  delib% vs {label:<8}  —  (too few sessions)")
+            continue
+        r, n = result
+        strength = "strong" if abs(r) > 0.7 else ("moderate" if abs(r) > 0.5 else "weak/none")
+        sign = "+" if r >= 0 else "−"
+        print(f"  delib% vs {label:<8}  r = {sign}{abs(r):.3f}  (n={n}, {strength})")
     print()
 
 def view_battle_lengths(records):
@@ -1308,55 +1452,133 @@ def view_level_opponent_matrix(records, **kw):
     print()
 
 def view_quality(records, group_by="variant"):
-    """Aggregate quality metrics per opponent variant (or per cohort)."""
+    """Aggregate quality metrics per variant / cohort / model."""
     print("=" * 110)
     print(f"QUALITY METRICS BY {group_by.upper()}  (win/loss-independent skill)")
     print("=" * 110)
-    print("  combat    = damage dealt / total enemy HP    (1.0 = wiped enemy)")
-    print("  dmgEff    = damage dealt / (dealt + taken)   (0.5 = even trade, 1.0 = flawless)")
-    print("  killRt    = kills / (kills + deaths)         (0.5 = even, 1.0 = flawless)")
-    print("  These measures let you compare a 55% win-rate LLM to a 55% win-rate")
-    print("  human even if their W/L patterns differ.")
-    print("  survive   = fraction of your starting ships still alive at end")
-    print("              (1.0 = flawless, 0.0 = wiped out)")
+    _print_quality_legend()
+
+    def key_fn(r):
+        if group_by == "variant":
+            return r.get("opponent_variant") or "?"
+        if group_by == "cohort":
+            return r.get("player_id") or "?"
+        if group_by == "model":
+            return r.get("model") or "?"
+        return "?"
+
+    buckets = _aggregate_quality(records, key_fn)
+    rows = [
+        _quality_row([key], _summarize_quality_bucket(b))
+        for key, b in sorted(buckets.items())
+    ]
+    fmt_table(
+        [group_by, "n", "W%", "combat", "dmgEff", "killRt", "survive", "ttfk"],
+        rows,
+        aligns=["<", ">", ">", ">", ">", ">", ">", ">"],
+    )
     print()
 
-    buckets = defaultdict(lambda: {
-        "n": 0, "w": 0, "l": 0, "d": 0,
-        "combat": [], "dmg_eff": [], "kill_ratio": [],
-        "survival": [],
-    })
-    for r in records:
-        key = (r.get("opponent_variant") or "?") if group_by == "variant" \
-              else (r.get("player_id") or "?")
-        b = buckets[key]
-        b["n"] += 1
-        if r["is_draw"]:      b["d"] += 1
-        elif r["won"]:        b["w"] += 1
-        else:                 b["l"] += 1
-        if r.get("combat_score") is not None:
-            b["combat"].append(r["combat_score"])
-        if r.get("damage_efficiency") is not None:
-            b["dmg_eff"].append(r["damage_efficiency"])
-        if r.get("kill_ratio") is not None:
-            b["kill_ratio"].append(r["kill_ratio"])
-        b["survival"].append(r["survival_rate"])
+def view_quality_llm_by_model(records, **kw):
+    """LLM quality per (variant, model) — which model does best against which AI."""
+    print("=" * 120)
+    print("LLM QUALITY BY (VARIANT × MODEL)")
+    print("=" * 120)
+    _print_quality_legend()
+
+    def key_fn(r):
+        return (r.get("opponent_variant") or "?",
+                r.get("model") or "?")
+
+    buckets = _aggregate_quality(records, key_fn)
+    rows = []
+    for (variant, model), b in sorted(buckets.items()):
+        s = _summarize_quality_bucket(b)
+        rows.append(_quality_row([variant, model], s))
+
+    fmt_table(
+        ["variant", "model", "n", "W%", "combat", "dmgEff",
+         "killRt", "survive", "ttfk"],
+        rows,
+        aligns=["<", "<", ">", ">", ">", ">", ">", ">", ">"],
+    )
+    print()
+
+    # Per-model aggregates (collapse variant) for a quick summary
+    print("Per-model totals (all variants collapsed):")
+    model_buckets = _aggregate_quality(
+        records, lambda r: r.get("model") or "?"
+    )
+    rows = [
+        _quality_row([m], _summarize_quality_bucket(b))
+        for m, b in sorted(model_buckets.items())
+    ]
+    fmt_table(
+        ["model", "n", "W%", "combat", "dmgEff", "killRt", "survive", "ttfk"],
+        rows,
+        aligns=["<", ">", ">", ">", ">", ">", ">", ">"],
+    )
+    print()
+
+def view_quality_comparison(human_recs, llm_recs, **kw):
+    """Side-by-side human vs LLM quality, per variant."""
+    print("=" * 120)
+    print("QUALITY COMPARISON:  HUMANS vs LLMs  (per opponent variant)")
+    print("=" * 120)
+    _print_quality_legend()
+    print("  Δ = LLM − Human. Negative Δ means the LLM performed worse.")
+    print()
+
+    h_buckets = _aggregate_quality(
+        human_recs, lambda r: r.get("opponent_variant") or "?"
+    )
+    l_buckets = _aggregate_quality(
+        llm_recs, lambda r: r.get("opponent_variant") or "?"
+    )
+
+    variants = sorted(set(h_buckets) | set(l_buckets))
+
+    def _fmt_delta(a, b, decimals, pct=False):
+        if a is None or b is None:
+            return "—"
+        d = b - a
+        if pct:
+            sign = "+" if d >= 0 else "−"
+            return f"{sign}{abs(d):.{decimals}f}pp"
+        sign = "+" if d >= 0 else "−"
+        return f"{sign}{abs(d):.{decimals}f}"
 
     rows = []
-    for key, b in sorted(buckets.items()):
-        win_pct = (100 * b["w"] / b["n"]) if b["n"] else 0
+    for variant in variants:
+        h = _summarize_quality_bucket(h_buckets.get(variant, _empty_quality_bucket()))
+        l = _summarize_quality_bucket(l_buckets.get(variant, _empty_quality_bucket()))
+
         rows.append([
-            key, b["n"],
-            f"{b['w']}/{b['n']} ({win_pct:.0f}%)",
-            f"{statistics.fmean(b['combat']):.2f}"     if b["combat"]     else "—",
-            f"{statistics.fmean(b['dmg_eff']):.2f}"    if b["dmg_eff"]    else "—",
-            f"{statistics.fmean(b['kill_ratio']):.2f}" if b["kill_ratio"] else "—",
-            f"{statistics.fmean(b['survival']):.2f}" if b["survival"] else "—",
+            variant, "n",
+            str(h["n"]) if h["n"] else "—",
+            str(l["n"]) if l["n"] else "—",
+            f"+{l['n'] - h['n']}" if h["n"] and l["n"] else "—",
         ])
+        rows.append([
+            variant, "W%",
+            f"{h['win_pct']:.0f}%" if h["n"] else "—",
+            f"{l['win_pct']:.0f}%" if l["n"] else "—",
+            _fmt_delta(h["win_pct"] if h["n"] else None,
+                       l["win_pct"] if l["n"] else None, 1, pct=True),
+        ])
+        for metric in ["combat", "dmg_eff", "kill_ratio", "survival", "ttfk"]:
+            rows.append([
+                variant, metric,
+                f"{h[metric]:.2f}" if h[metric] is not None else "—",
+                f"{l[metric]:.2f}" if l[metric] is not None else "—",
+                _fmt_delta(h[metric], l[metric], 2),
+            ])
+        rows.append(["", "", "", "", ""])  # spacer
+
     fmt_table(
-        [group_by, "n", "W%", "combat", "dmgEff", "killRt", "survive"],
+        ["variant", "metric", "human", "LLM", "Δ"],
         rows,
-        aligns=["<", ">", ">", ">", ">", ">", ">"],
+        aligns=["<", "<", ">", ">", ">"],
     )
     print()
 
@@ -1449,6 +1671,13 @@ VIEWS.update({
     "quality":                 view_quality,          # by variant
     "quality-by-cohort":       lambda r, **kw: view_quality(r, group_by="cohort"),
 })
+VIEWS.update({
+    "quality-llm": view_quality,   # not in human_views → dispatches llm_records
+})
+VIEWS.update({
+    "quality-llm-by-model": view_quality_llm_by_model,
+})
+VIEWS["quality-comparison"] = lambda *a, **kw: None  # dispatched specially in main()
 
 def _parse_turn_list(value):
     return [int(v.strip()) for v in value.split(",") if v.strip()]
@@ -1540,7 +1769,9 @@ def main():
     }
 
     if args.view:
-        if args.view == "hard-turns":
+        if args.view == "quality-comparison":
+            view_quality_comparison(human_recs, records)
+        elif args.view == "hard-turns":
             view_hard_turns(
                 human_recs,
                 turn_filter=args.turn,
@@ -1565,6 +1796,7 @@ def main():
         else:
             VIEWS[args.view](records)
     else:
+        # ---- default bundle ----
         view_overview(battles, records)
         view_wins_by_model(records)
         view_wins_by_model_and_opponent(records)
@@ -1572,12 +1804,13 @@ def main():
         view_battle_lengths(records)
         view_matchups(records)
         view_decisions(records)
-        # Human-facing views (only if there's human data)
         if human_recs:
             view_humans(human_recs)
             view_human_vs_au(human_recs)
             view_levels(human_recs)
             view_human_turns(human_recs)
+            view_quality_comparison(human_recs, records)
+            view_quality_llm_by_model(records)
 
 if __name__ == "__main__":
     main()
