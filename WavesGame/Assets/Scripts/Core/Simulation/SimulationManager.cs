@@ -273,6 +273,16 @@ namespace Core.Simulation
             simulations.Add(simulation);
         }
 
+        public void RandomizeSimulations()
+        {
+            RandomHelper<Simulation>.ShuffleList(ref simulations);
+        }
+
+        public void ClearSimulations()
+        {
+            simulations.Clear();
+        }
+
         public void InterruptSimulation()
         {
             DebugUtils.DebugLogMsg($"Simulation was interrupted!", DebugUtils.DebugType.System);

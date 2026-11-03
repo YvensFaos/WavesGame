@@ -17,6 +17,7 @@ namespace Core.Simulation.Editor
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
+            var simulationManager = (SimulationManager)target;
 
             if (GUILayout.Button("Add simulations from folder..."))
             {
@@ -26,7 +27,6 @@ namespace Core.Simulation.Editor
                 var relative = "Assets" + path[Application.dataPath.Length..];
                 var guids = AssetDatabase.FindAssets("t:Simulation", new[] { relative });
 
-                var simulationManager = (SimulationManager)target;
                 Undo.RecordObject(simulationManager, "Add simulations");
                 foreach (var guid in guids)
                 {
@@ -37,6 +37,16 @@ namespace Core.Simulation.Editor
                 }
 
                 EditorUtility.SetDirty(simulationManager);
+            }
+
+            if (GUILayout.Button("Randomise simulations"))
+            {
+                simulationManager.RandomizeSimulations();
+            }
+
+            if (GUILayout.Button("Clear simulations"))
+            {
+                simulationManager.ClearSimulations();
             }
         }
     }
