@@ -80,6 +80,18 @@ def human_records(battles):
         my_deaths = (s.get("deaths_by_faction") or {}).get(my_side, 0)
         survival_rate = ((my_ships - my_deaths) / my_ships) if my_ships else 0.0
 
+        # --- activity / validity metrics ---
+        ft = max(1, s.get("final_turn") or 1)
+        attacks_total  = (s.get("attacks_by_faction")  or {}).get(my_side, 0)
+        commands_total = (s.get("commands_by_faction") or {}).get(my_side, 0)
+        invalid_inner  = (s.get("invalid_by_faction")  or {}).get(my_side, {}) or {}
+        invalid_count  = sum(invalid_inner.values())
+
+        attacks_per_turn = attacks_total / ft
+        invalid_rate     = (
+            invalid_count / max(1, commands_total + invalid_count)
+        )
+
         # Turn of first kill by my side (None if no kills)
         kills_list = s.get("kills") or []
         my_kill_turns = [
@@ -139,6 +151,10 @@ def human_records(battles):
             "damage_efficiency": damage_efficiency,
             "kill_ratio": kill_ratio,
             "survival_rate": survival_rate,
+            "attacks_total": attacks_total,
+            "commands_total": commands_total,
+            "attacks_per_turn": attacks_per_turn,
+            "invalid_rate": invalid_rate,
             "turns_to_first_kill": turns_to_first_kill,
         })
     return out
@@ -191,6 +207,18 @@ def llm_records(battles):
         my_deaths = (s.get("deaths_by_faction") or {}).get(my_side, 0)
         survival_rate = ((my_ships - my_deaths) / my_ships) if my_ships else 0.0
 
+        # --- activity / validity metrics ---
+        ft = max(1, s.get("final_turn") or 1)
+        attacks_total  = (s.get("attacks_by_faction")  or {}).get(my_side, 0)
+        commands_total = (s.get("commands_by_faction") or {}).get(my_side, 0)
+        invalid_inner  = (s.get("invalid_by_faction")  or {}).get(my_side, {}) or {}
+        invalid_count  = sum(invalid_inner.values())
+
+        attacks_per_turn = attacks_total / ft
+        invalid_rate     = (
+            invalid_count / max(1, commands_total + invalid_count)
+        )
+
         # Turn of first kill by my side (None if no kills)
         kills_list = s.get("kills") or []
         my_kill_turns = [
@@ -240,6 +268,10 @@ def llm_records(battles):
             "damage_efficiency": damage_efficiency,
             "kill_ratio": kill_ratio,
             "survival_rate": survival_rate,
+            "attacks_total": attacks_total,
+            "commands_total": commands_total,
+            "attacks_per_turn": attacks_per_turn,
+            "invalid_rate": invalid_rate,
             "turns_to_first_kill": turns_to_first_kill,
         })
     return out
@@ -380,53 +412,55 @@ def fmt_ci(wins, total):
     lo, hi = wilson_interval(total, wins)
     return f"{lo * 100:.1f}-{hi * 100:.1f}"
 
-
 def _empty_quality_bucket():
     return {
         "n": 0, "w": 0, "l": 0, "d": 0,
         "combat": [], "dmg_eff": [], "kill_ratio": [],
         "survival": [], "ttfk": [],
+        "attacks_per_turn": [], "invalid_rate": [],
+        "response_ms": [],
     }
 
 
 def _aggregate_quality(records, key_fn):
-    """Group records by key_fn; accumulate quality metrics into per-key buckets."""
     buckets = defaultdict(_empty_quality_bucket)
     for r in records:
         key = key_fn(r)
         b = buckets[key]
         b["n"] += 1
-        if r.get("is_draw"):
-            b["d"] += 1
-        elif r.get("won"):
-            b["w"] += 1
-        else:
-            b["l"] += 1
-        for src_key, dst_key in [
+        if r.get("is_draw"):      b["d"] += 1
+        elif r.get("won"):        b["w"] += 1
+        else:                     b["l"] += 1
+        for src, dst in [
             ("combat_score",        "combat"),
             ("damage_efficiency",   "dmg_eff"),
             ("kill_ratio",          "kill_ratio"),
             ("survival_rate",       "survival"),
             ("turns_to_first_kill", "ttfk"),
+            ("attacks_per_turn",    "attacks_per_turn"),
+            ("invalid_rate",        "invalid_rate"),
+            ("response_mean",       "response_ms"),
         ]:
-            v = r.get(src_key)
+            v = r.get(src)
             if v is not None:
-                b[dst_key].append(v)
+                b[dst].append(v)
     return buckets
 
 
 def _summarize_quality_bucket(b):
-    """Reduce a bucket to a flat dict of scalar metrics."""
     def _m(key):
         return statistics.fmean(b[key]) if b[key] else None
     return {
         "n": b["n"], "w": b["w"], "l": b["l"], "d": b["d"],
         "win_pct": (100 * b["w"] / b["n"]) if b["n"] else 0.0,
-        "combat":     _m("combat"),
-        "dmg_eff":    _m("dmg_eff"),
-        "kill_ratio": _m("kill_ratio"),
-        "survival":   _m("survival"),
-        "ttfk":       _m("ttfk"),
+        "combat":           _m("combat"),
+        "dmg_eff":          _m("dmg_eff"),
+        "kill_ratio":       _m("kill_ratio"),
+        "survival":         _m("survival"),
+        "ttfk":             _m("ttfk"),
+        "attacks_per_turn": _m("attacks_per_turn"),
+        "invalid_rate":     _m("invalid_rate"),
+        "response_ms":      _m("response_ms"),
     }
 
 
@@ -450,6 +484,70 @@ def _print_quality_legend():
     print("  survive   = fraction of your starting ships still alive at end")
     print("  ttfk      = mean turn of first kill (in turn units)")
     print()
+
+def _quality_index(s):
+    """Composite quality score in [0, 1]. Higher is better."""
+    win     = (s.get("win_pct") or 0) / 100.0
+    combat  = s.get("combat")   or 0
+    survive = s.get("survival") or 0
+    dmg     = s.get("dmg_eff")  or 0
+    kill    = s.get("kill_ratio") or 0
+
+    dmg_norm  = max(0.0, (dmg  - 0.25) / 0.75)
+    kill_norm = max(0.0, (kill - 0.25) / 0.75)
+
+    return (
+        0.35  * win
+      + 0.20  * combat
+      + 0.20  * survive
+      + 0.125 * dmg_norm
+      + 0.125 * kill_norm
+    )
+
+
+def _latency_band(mean_ms):
+    if mean_ms is None:
+        return "UNKNOWN"
+    s = mean_ms / 1000.0
+    if s < 2.0:   return "INSTANT"
+    if s < 5.0:   return "FAST"
+    if s < 15.0:  return "MODERATE"
+    if s < 30.0:  return "SLOW"
+    return "CRAWLING"
+
+
+def _tier_from_ratio(ratio):
+    if ratio >= 1.02: return "ABOVE HUMAN"
+    if ratio >= 0.90: return "HUMAN-EQUIV"
+    if ratio >= 0.75: return "COMPETITIVE"
+    if ratio >= 0.50: return "WEAK"
+    return "BROKEN"
+
+
+def _apply_gates(s, base_tier):
+    """Return (final_tier, [reasons]) after validity gates."""
+    reasons = []
+    inv = s.get("invalid_rate")     or 0
+    cmb = s.get("combat")           or 0
+    apt = s.get("attacks_per_turn") or 0
+    if inv > 0.30:
+        reasons.append(f"invalid {inv*100:.0f}%")
+    if cmb < 0.65:
+        reasons.append(f"combat {cmb:.2f}")
+    if apt < 0.25:
+        reasons.append(f"atk/turn {apt:.2f}")
+    if reasons:
+        return ("BROKEN", reasons)
+    return (base_tier, [])
+
+
+def _apply_latency_cap(tier, band):
+    """Return (capped_tier, capped?) after applying the latency rule."""
+    if band == "CRAWLING" and tier in ("ABOVE HUMAN", "HUMAN-EQUIV", "COMPETITIVE"):
+        return ("WEAK", True)
+    if band == "SLOW" and tier in ("ABOVE HUMAN", "HUMAN-EQUIV"):
+        return ("COMPETITIVE", True)
+    return (tier, False)
 
 def classify_turn(ts, human_side,
                   snap_dur=20.0, snap_gap=2.0,
@@ -1148,7 +1246,7 @@ def view_response_times(records):
           "(between p05 and p95); removes both tails.")
     print()
 
-def view_raw(records):
+def view_raw(records, full_name=False):
     print("=" * 110)
     print("RAW BATTLE RECORDS (LLM side)")
     print("=" * 110)
@@ -1158,8 +1256,9 @@ def view_raw(records):
         result = "D" if r["is_draw"] else ("W" if r["won"] else "L")
 
         src = r["source"] or ""
-        if len(src) > 42:
+        if not full_name and len(src) > 42:
             src = src[:39] + "..."
+        # (when full_name=True, leave src untouched)
 
         rows.append([
             src,
@@ -1536,7 +1635,9 @@ def view_quality_comparison(human_recs, llm_recs, **kw):
         llm_recs, lambda r: r.get("opponent_variant") or "?"
     )
 
-    variants = sorted(set(h_buckets) | set(l_buckets))
+    variants = [v for v in sorted(set(h_buckets) | set(l_buckets))
+                if h_buckets.get(v, {}).get("n", 0) > 0
+                and l_buckets.get(v, {}).get("n", 0) > 0]
 
     def _fmt_delta(a, b, decimals, pct=False):
         if a is None or b is None:
@@ -1611,6 +1712,153 @@ def view_sides(records):
     print("Green-LLM = LLM plays Green, AU plays Red.")
     print()
 
+def view_model_ranking(llm_recs, human_recs):
+    print("=" * 140)
+    print("MODEL RANKING vs HUMAN BASELINE")
+    print("=" * 140)
+
+    # Human reference (HA + MD only — AG has no LLM data)
+    h_buckets = _aggregate_quality(
+        human_recs, lambda r: r.get("opponent_variant") or "?"
+    )
+    h_rows = []
+    for variant in ("HA", "MD"):
+        if variant in h_buckets:
+            h_rows.append(_summarize_quality_bucket(h_buckets[variant]))
+    if not h_rows:
+        print("  (no human baseline data — aborting)")
+        return
+
+    def _combine(rows):
+        n = sum(r["n"] for r in rows)
+        w = sum(r["w"] for r in rows)
+        c = statistics.fmean([r["combat"]   for r in rows if r["combat"]   is not None]) if any(r["combat"]   is not None for r in rows) else None
+        s = statistics.fmean([r["survival"] for r in rows if r["survival"] is not None]) if any(r["survival"] is not None for r in rows) else None
+        d = statistics.fmean([r["dmg_eff"]  for r in rows if r["dmg_eff"]  is not None]) if any(r["dmg_eff"]  is not None for r in rows) else None
+        k = statistics.fmean([r["kill_ratio"] for r in rows if r["kill_ratio"] is not None]) if any(r["kill_ratio"] is not None for r in rows) else None
+        return {
+            "n": n, "w": w,
+            "win_pct": (100 * w / n) if n else 0.0,
+            "combat": c, "survival": s, "dmg_eff": d, "kill_ratio": k,
+        }
+
+    h_comb = _combine(h_rows)
+    h_qi   = _quality_index(h_comb)
+
+    print(f"  Human baseline (HA+MD):  "
+          f"{h_comb['w']}/{h_comb['n']} = {h_comb['win_pct']:.0f}%   "
+          f"combat={h_comb['combat']:.2f}  survive={h_comb['survival']:.2f}  "
+          f"dmgEff={h_comb['dmg_eff']:.2f}  killRt={h_comb['kill_ratio']:.2f}")
+    print(f"  Human Quality Index:     {h_qi:.3f}")
+    print()
+
+    print("  Tiers (relative to human QI; see gates and latency cap below):")
+    print("    ABOVE HUMAN  QI/h >= 1.02")
+    print("    HUMAN-EQUIV  QI/h >= 0.90")
+    print("    COMPETITIVE  QI/h >= 0.75")
+    print("    WEAK         QI/h >= 0.50")
+    print("    BROKEN       QI/h <  0.50  OR  gate triggered")
+    print("    Gates:       invalid_rate > 30%, combat < 0.65, attacks/turn < 0.25")
+    print("    Latency cap: SLOW -> ≤ COMPETITIVE;  CRAWLING -> ≤ WEAK")
+    print()
+
+    m_buckets = _aggregate_quality(
+        llm_recs, lambda r: r.get("model") or "?"
+    )
+
+    rows = []
+    for model, b in m_buckets.items():
+        s = _summarize_quality_bucket(b)
+        if s["n"] == 0:
+            continue
+        qi     = _quality_index(s)
+        ratio  = qi / h_qi if h_qi > 0 else 0
+        base   = _tier_from_ratio(ratio)
+        gated, reasons = _apply_gates(s, base)
+        band   = _latency_band(s.get("response_ms"))
+        final, capped = _apply_latency_cap(gated, band)
+
+        tier_str = final
+        if capped:
+            tier_str += f" (capped from {gated})"
+        if reasons:
+            tier_str = f"BROKEN [{'; '.join(reasons)}]"
+
+        rows.append([
+            model,
+            s["n"],
+            f"{s['win_pct']:.0f}%",
+            f"{qi:.2f}",
+            f"{ratio:.2f}",
+            tier_str,
+            band,
+            f"{s['combat']:.2f}"     if s["combat"]           is not None else "—",
+            f"{s['dmg_eff']:.2f}"    if s["dmg_eff"]          is not None else "—",
+            f"{s['kill_ratio']:.2f}" if s["kill_ratio"]       is not None else "—",
+            f"{s['survival']:.2f}"   if s["survival"]         is not None else "—",
+            f"{s['attacks_per_turn']:.2f}" if s["attacks_per_turn"] is not None else "—",
+            f"{s['invalid_rate']*100:.0f}%" if s["invalid_rate"] is not None else "—",
+            f"{s['ttfk']:.1f}"       if s["ttfk"]             is not None else "—",
+        ])
+
+    rows.sort(key=lambda r: -float(r[3]))
+    fmt_table(
+        ["model", "n", "W%", "QI", "QI/h", "tier", "latency",
+         "combat", "dmgEff", "killRt", "survive", "atk/t", "inv%", "ttfk"],
+        rows,
+        aligns=["<", ">", ">", ">", ">", "<", "<",
+                ">", ">", ">", ">", ">", ">", ">"],
+    )
+    print()
+
+def view_tier_summary(llm_recs, human_recs):
+    """One line per model: tier + latency band. The figure for the abstract."""
+    print("=" * 100)
+    print("TIER SUMMARY  (one line per model)")
+    print("=" * 100)
+
+    h_buckets = _aggregate_quality(
+        human_recs, lambda r: r.get("opponent_variant") or "?"
+    )
+    h_rows = [ _summarize_quality_bucket(h_buckets[v])
+               for v in ("HA", "MD") if v in h_buckets ]
+    if not h_rows:
+        print("  (no human baseline)")
+        return
+
+    n = sum(r["n"] for r in h_rows)
+    w = sum(r["w"] for r in h_rows)
+    h_comb = {
+        "win_pct":  (100 * w / n) if n else 0.0,
+        "combat":   statistics.fmean([r["combat"]   for r in h_rows if r["combat"]   is not None]) if any(r["combat"]   is not None for r in h_rows) else None,
+        "survival": statistics.fmean([r["survival"] for r in h_rows if r["survival"] is not None]) if any(r["survival"] is not None for r in h_rows) else None,
+        "dmg_eff":  statistics.fmean([r["dmg_eff"]  for r in h_rows if r["dmg_eff"]  is not None]) if any(r["dmg_eff"]  is not None for r in h_rows) else None,
+        "kill_ratio": statistics.fmean([r["kill_ratio"] for r in h_rows if r["kill_ratio"] is not None]) if any(r["kill_ratio"] is not None for r in h_rows) else None,
+    }
+    h_qi = _quality_index(h_comb)
+
+    m_buckets = _aggregate_quality(
+        llm_recs, lambda r: r.get("model") or "?"
+    )
+    tiers = defaultdict(list)
+    for model, b in m_buckets.items():
+        s = _summarize_quality_bucket(b)
+        if s["n"] == 0:
+            continue
+        qi    = _quality_index(s)
+        ratio = qi / h_qi if h_qi > 0 else 0
+        base  = _tier_from_ratio(ratio)
+        gated, _ = _apply_gates(s, base)
+        band  = _latency_band(s.get("response_ms"))
+        final, _ = _apply_latency_cap(gated, band)
+        tiers[final].append(f"{model} ({s['win_pct']:.0f}%, {band})")
+
+    order = ["ABOVE HUMAN", "HUMAN-EQUIV", "COMPETITIVE", "WEAK", "BROKEN"]
+    for t in order:
+        if t in tiers:
+            print(f"  {t:<14}  {', '.join(tiers[t])}")
+    print()
+
 def view_decisions(records):
     """How the LLM did per decision type — placeholder for future use."""
     print("=" * 70)
@@ -1645,39 +1893,20 @@ def view_decisions(records):
 # Main
 # ---------------------------------------------------------------------------
 
-VIEWS = {
-    "overview": view_overview,
-    "wins": view_wins_by_model,
-    "wins-vs": view_wins_by_model_and_opponent,
-    "times": view_response_times,
-    "lengths": view_battle_lengths,
-    "matchups": view_matchups,
-    "decisions": view_decisions,
-    "variants": view_variants,
-    "sides": view_sides,
-    "side-results": view_side_results,
-    "raw": view_raw,
-    "humans": view_humans,
-    "human-vs-au": view_human_vs_au,
-    "levels": view_levels,
-    "human-turns": view_human_turns,
-    "human-battles": view_human_per_battle,
-    "hard-turns": view_hard_turns,
-    "hard-turns-summary": view_hard_turns_quiet,
-}
+VIEWS = {"overview": view_overview, "wins": view_wins_by_model, "wins-vs": view_wins_by_model_and_opponent,
+         "times": view_response_times, "lengths": view_battle_lengths, "matchups": view_matchups,
+         "decisions": view_decisions, "variants": view_variants, "sides": view_sides, "side-results": view_side_results,
+         "raw": view_raw, "humans": view_humans, "human-vs-au": view_human_vs_au, "levels": view_levels,
+         "human-turns": view_human_turns, "human-battles": view_human_per_battle, "hard-turns": view_hard_turns,
+         "hard-turns-summary": view_hard_turns_quiet, "view-model-ranking": view_model_ranking,
+         "deliberation-vs-outcome": view_deliberation_vs_outcome, "level-opponent-matrix": view_level_opponent_matrix,
+         "quality": view_quality, "quality-by-cohort": lambda r, **kw: view_quality(r, group_by="cohort"),
+         "quality-llm": view_quality, "quality-llm-by-model": view_quality_llm_by_model,
+         "quality-comparison": lambda *a, **kw: None}
 VIEWS.update({
-    "deliberation-vs-outcome": view_deliberation_vs_outcome,
-    "level-opponent-matrix":   view_level_opponent_matrix,
-    "quality":                 view_quality,          # by variant
-    "quality-by-cohort":       lambda r, **kw: view_quality(r, group_by="cohort"),
+    "tier-summary":  None,   # handled specially (needs both rec lists)
+    "model-ranking": None,   # handled specially
 })
-VIEWS.update({
-    "quality-llm": view_quality,   # not in human_views → dispatches llm_records
-})
-VIEWS.update({
-    "quality-llm-by-model": view_quality_llm_by_model,
-})
-VIEWS["quality-comparison"] = lambda *a, **kw: None  # dispatched specially in main()
 
 def _parse_turn_list(value):
     return [int(v.strip()) for v in value.split(",") if v.strip()]
@@ -1690,6 +1919,9 @@ def main():
     ap.add_argument("--map", help="Filter to a single map.")
     ap.add_argument("--model", help="Filter to a single LLM model.")
     ap.add_argument("--prompt", help="Filter to a single prompt.")
+    ap.add_argument("--full-file-name", action="store_true",
+                    help="For --view raw: print the full source filename "
+                         "(no truncation). Useful for identifying corrupted logs.")
     ap.add_argument("--exclude-draws", action="store_true",
                     help="Drop draw records before aggregating.")
     ap.add_argument("--source", help="Filter by source filename (substring).")
@@ -1759,6 +1991,10 @@ def main():
             and wanted & set(r["opponent_variant"].split(";"))
         ]
 
+    # Drop truncated/corrupt logs automatically
+    records = [r for r in records if (r.get("final_turn") or 0) >= 1]
+    human_recs = [r for r in human_recs if (r.get("final_turn") or 0) >= 1]
+
     human_views = {
         "humans", "human-vs-au", "levels",
         "human-turns", "human-battles", "hard-turns-summary",
@@ -1771,6 +2007,12 @@ def main():
     if args.view:
         if args.view == "quality-comparison":
             view_quality_comparison(human_recs, records)
+        elif args.view == "model-ranking":
+            view_model_ranking(records, human_recs)
+        elif args.view == "tier-summary":
+            view_tier_summary(records, human_recs)
+        elif args.view == "raw":
+            view_raw(records, full_name=args.full_file_name)
         elif args.view == "hard-turns":
             view_hard_turns(
                 human_recs,
@@ -1796,7 +2038,6 @@ def main():
         else:
             VIEWS[args.view](records)
     else:
-        # ---- default bundle ----
         view_overview(battles, records)
         view_wins_by_model(records)
         view_wins_by_model_and_opponent(records)
@@ -1804,13 +2045,16 @@ def main():
         view_battle_lengths(records)
         view_matchups(records)
         view_decisions(records)
+        view_quality_llm_by_model(records)
+        view_model_ranking(records, human_recs)
         if human_recs:
             view_humans(human_recs)
             view_human_vs_au(human_recs)
             view_levels(human_recs)
             view_human_turns(human_recs)
             view_quality_comparison(human_recs, records)
-            view_quality_llm_by_model(records)
+            view_model_ranking(records, human_recs)
+            view_tier_summary(records, human_recs)
 
 if __name__ == "__main__":
     main()
