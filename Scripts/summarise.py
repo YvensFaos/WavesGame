@@ -151,6 +151,10 @@ def human_records(battles):
             "damage_efficiency": damage_efficiency,
             "kill_ratio": kill_ratio,
             "survival_rate": survival_rate,
+            "distinct_targets": (s.get("distinct_targets_by_faction") or {}).get(my_side, 0),
+            "attacks_per_target": (s.get("attacks_per_target_by_faction") or {}).get(my_side, 0.0),
+            "top_target_share": (s.get("top_target_share_by_faction") or {}).get(my_side, 0.0),
+            "enemy_attacks": (s.get("enemy_attacks_by_faction") or {}).get(my_side, 0),
             "attacks_total": attacks_total,
             "commands_total": commands_total,
             "attacks_per_turn": attacks_per_turn,
@@ -268,6 +272,10 @@ def llm_records(battles):
             "damage_efficiency": damage_efficiency,
             "kill_ratio": kill_ratio,
             "survival_rate": survival_rate,
+            "distinct_targets": (s.get("distinct_targets_by_faction") or {}).get(my_side, 0),
+            "attacks_per_target": (s.get("attacks_per_target_by_faction") or {}).get(my_side, 0.0),
+            "top_target_share": (s.get("top_target_share_by_faction") or {}).get(my_side, 0.0),
+            "enemy_attacks": (s.get("enemy_attacks_by_faction") or {}).get(my_side, 0),
             "attacks_total": attacks_total,
             "commands_total": commands_total,
             "attacks_per_turn": attacks_per_turn,
@@ -419,6 +427,7 @@ def _empty_quality_bucket():
         "survival": [], "ttfk": [],
         "attacks_per_turn": [], "invalid_rate": [],
         "response_ms": [],
+        "attacks_per_target": [], "top_target_share": [], "distinct_targets": [],
     }
 
 
@@ -440,6 +449,9 @@ def _aggregate_quality(records, key_fn):
             ("attacks_per_turn",    "attacks_per_turn"),
             ("invalid_rate",        "invalid_rate"),
             ("response_mean",       "response_ms"),
+            ("attacks_per_target", "attacks_per_target"),
+            ("top_target_share", "top_target_share"),
+            ("distinct_targets", "distinct_targets"),
         ]:
             v = r.get(src)
             if v is not None:
@@ -461,6 +473,9 @@ def _summarize_quality_bucket(b):
         "attacks_per_turn": _m("attacks_per_turn"),
         "invalid_rate":     _m("invalid_rate"),
         "response_ms":      _m("response_ms"),
+        "attacks_per_target": _m("attacks_per_target"),
+        "top_target_share": _m("top_target_share"),
+        "distinct_targets": _m("distinct_targets"),
     }
 
 
@@ -1888,6 +1903,58 @@ def view_decisions(records):
     fmt_table(["win_reason", "count"], rows, aligns=["<", ">"])
     print()
 
+def view_focus(records, group_by="model", **kw):
+    """Focus-fire metrics: does the model concentrate attacks or spread them?"""
+    print("=" * 100)
+    print(f"FOCUS-FIRE METRICS BY {group_by.upper()}")
+    print("=" * 100)
+    print("  distinct  = number of different enemy targets attacked (union across ships)")
+    print("  atk/tgt   = enemy attacks / distinct_targets   (higher = more focused)")
+    print("  top share = fraction of attacks on the most-attacked enemy")
+    print("              0.33 = even across 3;  1.0 = all attacks on one")
+    print("  Excludes attacks on self, allies, waves, and neutral Targets.")
+    print()
+
+    def _key(r):
+        if group_by == "model":
+            return r.get("model") or r.get("player_id") or "?"
+        if group_by == "variant":
+            return r.get("opponent_variant") or "?"
+        if group_by == "cohort":
+            return r.get("player_id") or "?"
+        return "?"
+
+    buckets = defaultdict(lambda: {
+        "n": 0,
+        "attacks_per_target": [], "top_target_share": [],
+        "distinct_targets": [], "enemy_attacks": [],
+    })
+    for r in records:
+        b = buckets[_key(r)]
+        b["n"] += 1
+        for k in ("attacks_per_target", "top_target_share",
+                  "distinct_targets", "enemy_attacks"):
+            v = r.get(k)
+            if v is not None:
+                b[k].append(v)
+
+    rows = []
+    for key, b in sorted(buckets.items()):
+        rows.append([
+            key,
+            b["n"],
+            f"{statistics.fmean(b['enemy_attacks']):.1f}"      if b["enemy_attacks"]      else "—",
+            f"{statistics.fmean(b['distinct_targets']):.1f}"   if b["distinct_targets"]   else "—",
+            f"{statistics.fmean(b['attacks_per_target']):.2f}" if b["attacks_per_target"] else "—",
+            f"{statistics.fmean(b['top_target_share']):.2f}"   if b["top_target_share"]   else "—",
+        ])
+    fmt_table(
+        [group_by, "n", "enemy atks", "distinct", "atk/tgt", "top share"],
+        rows,
+        aligns=["<", ">", ">", ">", ">", ">"],
+    )
+    print()
+
 
 # ---------------------------------------------------------------------------
 # Main
@@ -1906,6 +1973,9 @@ VIEWS = {"overview": view_overview, "wins": view_wins_by_model, "wins-vs": view_
 VIEWS.update({
     "tier-summary":  None,   # handled specially (needs both rec lists)
     "model-ranking": None,   # handled specially
+    "focus":         view_focus,
+    "focus-variant": lambda r, **kw: view_focus(r, group_by="variant"),
+    "focus-cohort":  lambda r, **kw: view_focus(r, group_by="cohort"),
 })
 
 def _parse_turn_list(value):
@@ -2046,7 +2116,6 @@ def main():
         view_matchups(records)
         view_decisions(records)
         view_quality_llm_by_model(records)
-        view_model_ranking(records, human_recs)
         if human_recs:
             view_humans(human_recs)
             view_human_vs_au(human_recs)

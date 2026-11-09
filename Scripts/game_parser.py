@@ -168,6 +168,9 @@ def new_actor(name, faction=None, health=None, pos=None, meta=None):
         "moves_failed": 0,
         "attacks_attempted": 0,
         "attacks_failed": 0,
+        "attack_targets": set(),
+        "attack_target_counts": Counter(),  # per-target attack count for concentration
+        "enemy_attacks": 0,
 
         # NEW: per-actor input telemetry
         "input_counts": Counter(),
@@ -604,13 +607,22 @@ def summarise(events):
                 a["damage_dealt"] += damage
 
                 if target_id:
+                    target = summary["actors"].get(target_id)
+                    a["attack_targets"].add(target_id)
+                    is_self = (target_id == actor_id)
+                    is_friendly = (target and faction and target.get("faction") == faction)
+                    is_wave = target_id.startswith("Wave")
+                    is_neutral = (target and target.get("faction") == "Neutral")
+                    if not (is_self or is_friendly or is_wave or is_neutral):
+                        a["enemy_attacks"] += 1
+                        a["attack_targets"].add(target_id)
+                        a["attack_target_counts"][target_id] += 1
                     # Friendly-fire check
                     if target_id == actor_id:
                         a["self_damage_attacks"] += 1
                         if faction:
                             summary["self_damage_by_faction"][faction] += 1
                     else:
-                        target = summary["actors"].get(target_id)
                         if target and faction and target.get("faction") == faction:
                             a["friendly_fire_attacks"] += 1
                             if faction:
@@ -889,6 +901,15 @@ def summarise(events):
     for a in summary["actors"].values():
         if a.get("faction") and kind_is_combatant(a.get("kind")):
             sizes[a["faction"]] += 1
+        a["distinct_targets"] = len(a.get("attack_targets", set()))
+        a["attacks_per_target"] = (
+                a["enemy_attacks"] / max(1, a["distinct_targets"])
+        ) if a["distinct_targets"] > 0 else 0.0
+        counts = a.get("attack_target_counts") or Counter()
+        total = sum(counts.values())
+        a["top_target_share"] = (
+                counts.most_common(1)[0][1] / total
+        ) if total > 0 else 0.0
     summary["fleet_sizes"] = dict(sizes)
     if sizes:
         counts = sorted(sizes.values(), reverse=True)
@@ -944,11 +965,28 @@ def summarise(events):
     # Structured model/prompt per faction (mirrors matchup_label, but parseable).
     faction_models = {}
     faction_prompts = {}
+    distinct_targets_by_faction = {}
+    attacks_per_target_by_faction = {}
+    top_target_share_by_faction = {}
+    enemy_attacks_by_faction = {}
     for fac in sizes:
         fac_actors = [
             a for a in summary["actors"].values()
             if a.get("faction") == fac and kind_is_combatant(a.get("kind"))
         ]
+        fac_target_counts = Counter()
+        fac_total = 0
+        for a in fac_actors:
+            for tgt, cnt in (a.get("attack_target_counts") or {}).items():
+                fac_target_counts[tgt] += cnt
+                fac_total += cnt
+        distinct = len(fac_target_counts)
+        distinct_targets_by_faction[fac] = distinct
+        enemy_attacks_by_faction[fac] = fac_total
+        attacks_per_target_by_faction[fac] = (fac_total / max(1, distinct)) if distinct else 0.0
+        top_target_share_by_faction[fac] = (
+                fac_target_counts.most_common(1)[0][1] / fac_total
+        ) if fac_total else 0.0
         models = sorted({
             a.get("llm_model") or a.get("machine_brain") or a.get("ship_data")
             for a in fac_actors
@@ -961,6 +999,11 @@ def summarise(events):
         faction_prompts[fac] = ";".join(prompts) if prompts else None
     summary["faction_models"] = faction_models
     summary["faction_prompts"] = faction_prompts
+    summary["distinct_targets_by_faction"] = distinct_targets_by_faction
+    summary["attacks_per_target_by_faction"] = attacks_per_target_by_faction
+    summary["top_target_share_by_faction"] = top_target_share_by_faction
+    summary["enemy_attacks_by_faction"] = enemy_attacks_by_faction
+
     # Per-faction AU variant info. Prefers explicit genesData fields;
     # falls back to the actor name's 3rd segment for old logs.
     faction_variants = {}         # short form, e.g. "RU", "MD", "AG"
