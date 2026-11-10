@@ -23,7 +23,8 @@ namespace Core.Recorder
             List<WaveActor> waveActors, List<ObstacleActor> obstacleActors, string recordingIdentifier)
         {
             StartRecording(recordingIdentifier);
-            RecordNewEntry(new WavesGameInfoEntry(map, randomSeed, maxTurns, extraText, ships, waveActors,
+            RecordNewEntry(new WavesGameInfoEntry(map, randomSeed, maxTurns, GameManager.GetSingleton().GetSessionUid(),
+                extraText, ships, waveActors,
                 obstacleActors));
         }
 
