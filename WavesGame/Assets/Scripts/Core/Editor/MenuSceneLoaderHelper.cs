@@ -36,10 +36,10 @@ namespace Core.Editor
         [MenuItem("Scenes/Load Main Menu")]
         public static void LoadMainMenuScene()
         {
-            var guids = AssetDatabase.FindAssets($"t:Scene MainMenu");
+            var guids = AssetDatabase.FindAssets($"t:Scene MenuScene");
             if (guids.Length == 0)
             {
-                DebugUtils.DebugLogErrorMsg($"Scene MainMenu not found in the project. Check the name.");
+                DebugUtils.DebugLogErrorMsg($"Scene MenuScene not found in the project. Check the name.");
                 return;
             }
 
