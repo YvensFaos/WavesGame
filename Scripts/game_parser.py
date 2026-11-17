@@ -287,6 +287,7 @@ def summarise(events):
         "deaths_by_faction": Counter(),
         "commands_by_faction": Counter(),
         "invalid_by_faction": defaultdict(Counter),
+        "attacks_per_kill_by_faction": {},  # NEW
 
         # NEW: friendly-fire / wave-by-faction
         "friendly_fire_by_faction": Counter(),
@@ -969,6 +970,7 @@ def summarise(events):
     attacks_per_target_by_faction = {}
     top_target_share_by_faction = {}
     enemy_attacks_by_faction = {}
+
     for fac in sizes:
         fac_actors = [
             a for a in summary["actors"].values()
@@ -1003,6 +1005,18 @@ def summarise(events):
     summary["attacks_per_target_by_faction"] = attacks_per_target_by_faction
     summary["top_target_share_by_faction"] = top_target_share_by_faction
     summary["enemy_attacks_by_faction"] = enemy_attacks_by_faction
+
+    # Per-faction attack efficiency: enemy attacks per kill.
+    # None when the faction never killed anything (divide-by-zero guard).
+    attacks_per_kill_by_faction = {}
+    for fac in sizes:
+        kills_fac = summary["kills_by_faction"].get(fac, 0)
+        atks_fac  = enemy_attacks_by_faction.get(fac, 0)
+        attacks_per_kill_by_faction[fac] = (
+            atks_fac / kills_fac
+        ) if kills_fac > 0 else None
+
+    summary["attacks_per_kill_by_faction"] = attacks_per_kill_by_faction
 
     # Per-faction AU variant info. Prefers explicit genesData fields;
     # falls back to the actor name's 3rd segment for old logs.

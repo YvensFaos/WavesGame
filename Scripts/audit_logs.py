@@ -40,6 +40,19 @@ def _get_model(s):
         return None
     return (s.get("faction_models") or {}).get(llm)
 
+def _has_variant(s, variants):
+    """True if any faction in the battle used one of the given variants."""
+    if not variants:
+        return False
+    wanted = set(variants)
+    fv = s.get("faction_variants") or {}
+    for v in fv.values():
+        if not v:
+            continue
+        used = {x.strip() for x in v.split(";") if x.strip()}
+        if wanted & used:
+            return True
+    return False
 
 def load_records(path):
     out = []
@@ -134,19 +147,29 @@ def report(records):
 
 # ---------- filter ----------
 
-def filter_records(records, keep_prompts, exclude_models=None, drop_zero_turn=True):
-    exclude_set = set(exclude_models or [])
+def filter_records(records, keep_prompts, exclude_models=None,
+                   exclude_variants=None, drop_zero_turn=True):
+    exclude_set    = set(exclude_models or [])
+    exclude_var_set = set(exclude_variants or [])
     kept, dropped = [], []
     for r in records:
         s = r["summary"]
         if drop_zero_turn and (s.get("final_turn") or 0) < 1:
-            dropped.append(r); continue
+            dropped.append(r)
+            continue
+        # Variant check runs for BOTH human and LLM records
+        if exclude_var_set and _has_variant(s, exclude_var_set):
+            dropped.append(r)
+            continue
         if _is_human_battle(s):
-            kept.append(r); continue
+            kept.append(r)
+            continue
         if keep_prompts and _get_prompt(s) not in keep_prompts:
-            dropped.append(r); continue
+            dropped.append(r)
+            continue
         if _get_model(s) in exclude_set:
-            dropped.append(r); continue
+            dropped.append(r)
+            continue
         kept.append(r)
     return kept, dropped
 
@@ -182,6 +205,10 @@ def main():
                     help="Write source_file names of dropped records to this file")
     ap.add_argument("--exclude-model", nargs="*", default=[],
                     help="Drop records from these models entirely.")
+    ap.add_argument("--exclude-variant", nargs="*", default=[],
+                    help="Drop battles in which any faction used these AU "
+                         "variants (e.g. AG). Applies to human and LLM records.")
+
     args = ap.parse_args()
 
     records = load_records(args.jsonl)
@@ -196,6 +223,7 @@ def main():
         kept, dropped = filter_records(
             records, keep_set,
             exclude_models=args.exclude_model,
+            exclude_variants=args.exclude_variant,
             drop_zero_turn=not args.keep_zero_turn,
         )
         print(f"  Filter summary: kept {len(kept)}, dropped {len(dropped)}")

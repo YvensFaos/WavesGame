@@ -155,6 +155,7 @@ def human_records(battles):
             "attacks_per_target": (s.get("attacks_per_target_by_faction") or {}).get(my_side, 0.0),
             "top_target_share": (s.get("top_target_share_by_faction") or {}).get(my_side, 0.0),
             "enemy_attacks": (s.get("enemy_attacks_by_faction") or {}).get(my_side, 0),
+            "attacks_per_kill": (s.get("attacks_per_kill_by_faction") or {}).get(my_side, None),
             "attacks_total": attacks_total,
             "commands_total": commands_total,
             "attacks_per_turn": attacks_per_turn,
@@ -276,6 +277,7 @@ def llm_records(battles):
             "attacks_per_target": (s.get("attacks_per_target_by_faction") or {}).get(my_side, 0.0),
             "top_target_share": (s.get("top_target_share_by_faction") or {}).get(my_side, 0.0),
             "enemy_attacks": (s.get("enemy_attacks_by_faction") or {}).get(my_side, 0),
+            "attacks_per_kill": (s.get("attacks_per_kill_by_faction") or {}).get(my_side, None),
             "attacks_total": attacks_total,
             "commands_total": commands_total,
             "attacks_per_turn": attacks_per_turn,
@@ -427,7 +429,7 @@ def _empty_quality_bucket():
         "survival": [], "ttfk": [],
         "attacks_per_turn": [], "invalid_rate": [],
         "response_ms": [],
-        "attacks_per_target": [], "top_target_share": [], "distinct_targets": [],
+        "attacks_per_target": [], "top_target_share": [], "distinct_targets": [],"attacks_per_kill": [],
     }
 
 
@@ -452,6 +454,7 @@ def _aggregate_quality(records, key_fn):
             ("attacks_per_target", "attacks_per_target"),
             ("top_target_share", "top_target_share"),
             ("distinct_targets", "distinct_targets"),
+            ("attacks_per_kill", "attacks_per_kill"),
         ]:
             v = r.get(src)
             if v is not None:
@@ -476,6 +479,7 @@ def _summarize_quality_bucket(b):
         "attacks_per_target": _m("attacks_per_target"),
         "top_target_share": _m("top_target_share"),
         "distinct_targets": _m("distinct_targets"),
+        "attacks_per_kill": _m("attacks_per_kill"),
     }
 
 
@@ -900,6 +904,150 @@ def view_human_turns(records,
         print(f"  Overall mean turn = {statistics.fmean(grand_durations):.1f}s")
     print()
 
+def view_human_quality(records, exclude_variants=("AG",), **kw):
+    """Per-player Quality Index and distribution stats.
+
+    Uses the same QI and the same variant set (HA+MD) as view_model_ranking,
+    so each player's QI is directly comparable to the model tiers. Excluding
+    AG means htest-cohort players show n=4 (only their MD battles count) —
+    the point of this view is comparable QI across testers, not coverage.
+
+    Prints:
+      - per-player QI table (best first)
+      - distribution stats (min/p25/median/mean/p75/max/IQR/range)
+      - the two possible denominators (mean vs median) and the QI each tier needs
+      - a per-cohort summary so you can see the old vs new testers at a glance
+    """
+    print("=" * 130)
+    print("HUMAN QUALITY BY INDIVIDUAL PLAYER")
+    print("=" * 130)
+    _print_quality_legend()
+    print("  QI = 0.35×win%  +  0.20×combat  +  0.20×survive")
+    print("       +  0.125×max(0,(dmgEff-0.25)/0.75)  +  0.125×max(0,(killRt-0.25)/0.75)")
+    if exclude_variants:
+        print(f"  Variants included: all except {', '.join(exclude_variants)}")
+        print("    (AG excluded so per-player QI is comparable to the HA+MD model ranking)")
+    print()
+
+    filtered = [r for r in records
+                if (r.get("opponent_variant") or "?") not in exclude_variants]
+
+    if not filtered:
+        print("  (no records after variant filter — aborting)")
+        return
+
+    buckets = _aggregate_quality(
+        filtered, lambda r: r.get("session_tag") or "(unknown)"
+    )
+
+    # Cohort (player_id) per session_tag — first occurrence wins
+    cohort_of = {}
+    for r in filtered:
+        sess = r.get("session_tag") or "(unknown)"
+        if sess not in cohort_of:
+            cohort_of[sess] = r.get("player_id") or "?"
+
+    rows_data = []
+    for sess, b in buckets.items():
+        s = _summarize_quality_bucket(b)
+        if s["n"] == 0:
+            continue
+        rows_data.append({
+            "session": sess,
+            "cohort":  cohort_of.get(sess, "?"),
+            "s":       s,
+            "qi":      _quality_index(s),
+        })
+
+    rows_data.sort(key=lambda d: -d["qi"])
+
+    rows = []
+    for d in rows_data:
+        s = d["s"]
+        rows.append([
+            d["session"],
+            d["cohort"],
+            s["n"],
+            f"{s['win_pct']:.0f}%",
+            f"{d['qi']:.3f}",
+            f"{s['combat']:.2f}"     if s["combat"]     is not None else "—",
+            f"{s['dmg_eff']:.2f}"    if s["dmg_eff"]    is not None else "—",
+            f"{s['kill_ratio']:.2f}" if s["kill_ratio"] is not None else "—",
+            f"{s['survival']:.2f}"   if s["survival"]   is not None else "—",
+            f"{s['ttfk']:.1f}"       if s["ttfk"]       is not None else "—",
+        ])
+
+    fmt_table(
+        ["session", "cohort", "n", "W%", "QI",
+         "combat", "dmgEff", "killRt", "survive", "ttfk"],
+        rows,
+        aligns=["<", "<", ">", ">", ">", ">", ">", ">", ">", ">"],
+    )
+    print()
+
+    # ---- Distribution statistics ----
+    qis = sorted(d["qi"] for d in rows_data)
+    n_players = len(qis)
+    if n_players == 0:
+        return
+
+    mean_qi   = statistics.fmean(qis)
+    median_qi = statistics.median(qis)
+    p25 = qis[max(0, int(round(0.25 * (n_players - 1))))]
+    p75 = qis[min(n_players - 1, int(round(0.75 * (n_players - 1))))]
+    iqr = p75 - p25
+
+    print("QI distribution across players:")
+    print(f"  n players   = {n_players}")
+    print(f"  min         = {qis[0]:.3f}   ({rows_data[-1]['session']})")
+    print(f"  p25         = {p25:.3f}")
+    print(f"  median      = {median_qi:.3f}")
+    print(f"  mean        = {mean_qi:.3f}")
+    print(f"  p75         = {p75:.3f}")
+    print(f"  max         = {qis[-1]:.3f}   ({rows_data[0]['session']})")
+    print(f"  IQR         = {iqr:.3f}   (p75 − p25)")
+    print(f"  range       = {qis[-1] - qis[0]:.3f}")
+    print()
+
+    # ---- Impact on tier denominators ----
+    print("Impact on tier denominators (QI/h thresholds):")
+    print(f"  mean-based   (current ranking) :  {mean_qi:.3f}")
+    print(f"  median-based (candidate)       :  {median_qi:.3f}")
+    print()
+    print("  QI a model needs to reach each tier, under each baseline:")
+    print(f"    {'tier':<14} {'mean-baseline':>16} {'median-baseline':>18}")
+    for tier, ratio in [
+        ("ABOVE HUMAN", 1.02),
+        ("HUMAN-EQUIV", 0.90),
+        ("COMPETITIVE", 0.75),
+        ("WEAK",        0.50),
+    ]:
+        print(f"    {tier:<14} {ratio * mean_qi:>16.3f} {ratio * median_qi:>18.3f}")
+    print()
+
+    # ---- Per-cohort summary ----
+    print("Per-cohort QI summary:")
+    cohort_buckets = defaultdict(list)
+    for d in rows_data:
+        cohort_buckets[d["cohort"]].append(d["qi"])
+
+    cohort_rows = []
+    for cohort, cq in sorted(cohort_buckets.items()):
+        cq.sort()
+        cohort_rows.append([
+            cohort,
+            len(cq),
+            f"{statistics.fmean(cq):.3f}",
+            f"{statistics.median(cq):.3f}",
+            f"{cq[0]:.3f}",
+            f"{cq[-1]:.3f}",
+        ])
+    fmt_table(
+        ["cohort", "n", "mean QI", "median QI", "min QI", "max QI"],
+        cohort_rows,
+        aligns=["<", ">", ">", ">", ">", ">"],
+    )
+    print()
 
 def view_human_per_battle(records):
     """One row per human battle, showing the per-turn breakdown."""
@@ -1565,6 +1713,64 @@ def view_level_opponent_matrix(records, **kw):
     fmt_table(headers, rows, aligns=["<"] + [">"] * len(variants))
     print()
 
+def view_cell_matrix(records, human_records=None, **kw):
+    """Per-model battle counts in each (level × variant) cell.
+
+    The 'square' check: at n=64 per model every cell should be 16.
+    Cells below the target are the ones the next batch should fill.
+    """
+    print("=" * 120)
+    print("CELL MATRIX  (battle counts by level × variant)")
+    print("=" * 120)
+    print("  Columns: B=BaseBattlegroundScene, S=SmallArenaScene")
+    print("  Below-target cells (<16) are marked with *")
+    print()
+
+    target = kw.get("target_cell", 16)
+
+    def _bucket(rs, key_fn):
+        out = defaultdict(lambda: defaultdict(int))
+        for r in rs:
+            key = key_fn(r)
+            level = r.get("map") or "?"
+            variant = r.get("opponent_variant") or "?"
+            out[key][(level, variant)] += 1
+        return out
+
+    llm = _bucket(records, lambda r: r.get("model") or "?")
+
+    levels = ["BaseBattlegroundScene", "SmallArenaScene"]
+    variants = ["HA", "MD"]
+
+    def _row(label, cells):
+        row = [label]
+        total = 0
+        for lvl in levels:
+            for var in variants:
+                n = cells.get((lvl, var), 0)
+                cell = f"{n}*" if 0 < n < target else str(n)
+                row.append(cell)
+                total += n
+        row.append(str(total))
+        row.append(f"{total}/{len(levels)*len(variants)*target}")
+        return row
+
+    rows = [_row(m, cells) for m, cells in sorted(llm.items())]
+
+    if human_records is not None:
+        h_cells = _bucket(human_records, lambda r: "HUMAN (all players)")
+        for m, cells in sorted(h_cells.items()):
+            rows.append(_row(m, cells))
+
+    fmt_table(
+        ["model", "B-HA", "B-MD", "S-HA", "S-MD", "Total", "Progress"],
+        rows,
+        aligns=["<", ">", ">", ">", ">", ">", "<"],
+    )
+    print()
+    print(f"  target per cell = {target}  (n={target*4} per model)")
+    print()
+
 def view_quality(records, group_by="variant"):
     """Aggregate quality metrics per variant / cohort / model."""
     print("=" * 110)
@@ -1903,15 +2109,84 @@ def view_decisions(records):
     fmt_table(["win_reason", "count"], rows, aligns=["<", ">"])
     print()
 
+def view_human_player_matrix(records, **kw):
+    """Per-player win/loss matrix by opponent variant."""
+    print("=" * 110)
+    print("HUMAN PERFORMANCE BY PLAYER × OPPONENT VARIANT")
+    print("=" * 110)
+    print("  Cell format:  wins / battles  (win%)")
+    print("  — = no battles recorded in that cell (different cohorts tested different variant sets)")
+    print()
+
+    players = defaultdict(lambda: defaultdict(lambda: {"w": 0, "l": 0, "d": 0}))
+    cohorts = {}
+    totals  = defaultdict(lambda: {"w": 0, "l": 0, "d": 0})
+
+    for r in records:
+        player  = r.get("session_tag") or "(unknown)"
+        cohort  = r.get("player_id")   or "?"
+        variant = r.get("opponent_variant") or "?"
+        cohorts[player] = cohort
+
+        b = players[player][variant]
+        if r.get("is_draw"):      b["d"] += 1
+        elif r.get("won"):        b["w"] += 1
+        else:                     b["l"] += 1
+
+        t = totals[variant]
+        if r.get("is_draw"):      t["d"] += 1
+        elif r.get("won"):        t["w"] += 1
+        else:                     t["l"] += 1
+
+    variants = sorted({v for p in players.values() for v in p.keys()})
+
+    rows = []
+    for player in sorted(players.keys(), key=lambda p: (cohorts.get(p, ""), p)):
+        row = [player, cohorts[player]]
+        w_sum = l_sum = d_sum = 0
+        for v in variants:
+            b = players[player].get(v)
+            if not b:
+                row.append("—")
+                continue
+            n = b["w"] + b["l"] + b["d"]
+            row.append(f"{b['w']}/{n} ({100*b['w']/n:.0f}%)")
+            w_sum += b["w"]; l_sum += b["l"]; d_sum += b["d"]
+        n_sum = w_sum + l_sum + d_sum
+        row.append(f"{w_sum}/{n_sum} ({100*w_sum/n_sum:.0f}%)" if n_sum else "—")
+        row.append(f"[{fmt_ci(w_sum, n_sum)}]" if n_sum else "—")
+        rows.append(row)
+
+    footer = ["TOTAL", ""]
+    for v in variants:
+        t = totals[v]
+        n = t["w"] + t["l"] + t["d"]
+        footer.append(f"{t['w']}/{n} ({100*t['w']/n:.0f}%)" if n else "—")
+    w_all = sum(t["w"] for t in totals.values())
+    n_all = sum(t["w"] + t["l"] + t["d"] for t in totals.values())
+    footer.append(f"{w_all}/{n_all} ({100*w_all/n_all:.0f}%)" if n_all else "—")
+    footer.append(f"[{fmt_ci(w_all, n_all)}]" if n_all else "—")
+    rows.append(footer)
+
+    fmt_table(
+        ["player", "cohort"] + variants + ["Total", "95% CI"],
+        rows,
+        aligns=["<", "<"] + [">"] * len(variants) + [">", "<"],
+    )
+    print()
+
 def view_focus(records, group_by="model", **kw):
-    """Focus-fire metrics: does the model concentrate attacks or spread them?"""
-    print("=" * 100)
-    print(f"FOCUS-FIRE METRICS BY {group_by.upper()}")
-    print("=" * 100)
+    """Focus-fire and attack-efficiency metrics."""
+    print("=" * 110)
+    print(f"FOCUS-FIRE & EFFICIENCY METRICS BY {group_by.upper()}")
+    print("=" * 110)
     print("  distinct  = number of different enemy targets attacked (union across ships)")
     print("  atk/tgt   = enemy attacks / distinct_targets   (higher = more focused)")
     print("  top share = fraction of attacks on the most-attacked enemy")
     print("              0.33 = even across 3;  1.0 = all attacks on one")
+    print("  kills     = mean kills per battle")
+    print("  atk/kill  = enemy attacks per kill   (3.0 = baseline, > 4.0 = wasted)")
+    print("              — = never killed anything")
     print("  Excludes attacks on self, allies, waves, and neutral Targets.")
     print()
 
@@ -1928,12 +2203,14 @@ def view_focus(records, group_by="model", **kw):
         "n": 0,
         "attacks_per_target": [], "top_target_share": [],
         "distinct_targets": [], "enemy_attacks": [],
+        "kills": [], "attacks_per_kill": [],
     })
     for r in records:
         b = buckets[_key(r)]
         b["n"] += 1
         for k in ("attacks_per_target", "top_target_share",
-                  "distinct_targets", "enemy_attacks"):
+                  "distinct_targets", "enemy_attacks",
+                  "kills", "attacks_per_kill"):
             v = r.get(k)
             if v is not None:
                 b[k].append(v)
@@ -1947,11 +2224,14 @@ def view_focus(records, group_by="model", **kw):
             f"{statistics.fmean(b['distinct_targets']):.1f}"   if b["distinct_targets"]   else "—",
             f"{statistics.fmean(b['attacks_per_target']):.2f}" if b["attacks_per_target"] else "—",
             f"{statistics.fmean(b['top_target_share']):.2f}"   if b["top_target_share"]   else "—",
+            f"{statistics.fmean(b['kills']):.2f}"              if b["kills"]              else "—",
+            f"{statistics.fmean(b['attacks_per_kill']):.2f}"   if b["attacks_per_kill"]   else "—",
         ])
     fmt_table(
-        [group_by, "n", "enemy atks", "distinct", "atk/tgt", "top share"],
+        [group_by, "n", "enemy atks", "distinct", "atk/tgt",
+         "top share", "kills", "atk/kill"],
         rows,
-        aligns=["<", ">", ">", ">", ">", ">"],
+        aligns=["<", ">", ">", ">", ">", ">", ">", ">"],
     )
     print()
 
@@ -1969,13 +2249,15 @@ VIEWS = {"overview": view_overview, "wins": view_wins_by_model, "wins-vs": view_
          "deliberation-vs-outcome": view_deliberation_vs_outcome, "level-opponent-matrix": view_level_opponent_matrix,
          "quality": view_quality, "quality-by-cohort": lambda r, **kw: view_quality(r, group_by="cohort"),
          "quality-llm": view_quality, "quality-llm-by-model": view_quality_llm_by_model,
-         "quality-comparison": lambda *a, **kw: None}
+         "quality-comparison": lambda *a, **kw: None, "human-players": view_human_player_matrix}
 VIEWS.update({
     "tier-summary":  None,   # handled specially (needs both rec lists)
     "model-ranking": None,   # handled specially
     "focus":         view_focus,
     "focus-variant": lambda r, **kw: view_focus(r, group_by="variant"),
     "focus-cohort":  lambda r, **kw: view_focus(r, group_by="cohort"),
+    "human-quality": view_human_quality,
+    "cell-matrix": None,   # special-dispatch: needs both lists
 })
 
 def _parse_turn_list(value):
@@ -1998,7 +2280,9 @@ def main():
     ap.add_argument("--gene",
                     help="Filter by AU variant short name(s), comma-separated "
                          "for multiple, e.g. --gene CA or --gene CA,MD.")
-    ap.add_argument("--player", help="Filter by player_id (extraText).")
+    ap.add_argument("--player", nargs="+",
+                    help="Filter by player_id (extraText). Multiple allowed, "
+                         "e.g. --player htests2 htest3")
     ap.add_argument("--matchup", help="Filter by matchup_type.")
     ap.add_argument("--session", help="Filter by session_tag (from extraText).")
     ap.add_argument("--turn", type=int,
@@ -2017,6 +2301,8 @@ def main():
                     help="Deliberate turn: min max-gap in seconds (default 10).")
     ap.add_argument("--delib-ratio", type=float, default=2.5,
                     help="Deliberate turn: min max/mean gap ratio (default 2.5).")
+    ap.add_argument("--target-cell", type=int, default=16,
+                    help="For --view cell-matrix: target count per cell (default 16).")
 
     args = ap.parse_args()
 
@@ -2037,7 +2323,9 @@ def main():
 
     human_recs = human_records(battles)
     if args.player:
-        human_recs = [r for r in human_recs if r.get("player_id") == args.player]
+        wanted = set(args.player)
+        human_recs = [r for r in human_recs
+                      if r.get("player_id") in wanted]
     if args.matchup:
         human_recs = [r for r in human_recs if r.get("matchup_type") == args.matchup]
 
@@ -2063,7 +2351,9 @@ def main():
 
     # Drop truncated/corrupt logs automatically
     records = [r for r in records if (r.get("final_turn") or 0) >= 1]
+    records = [r for r in records if r.get("winner_side") is not None or r.get("is_draw")]
     human_recs = [r for r in human_recs if (r.get("final_turn") or 0) >= 1]
+    human_recs = [r for r in human_recs if r.get("winner_side") is not None or r.get("is_draw")]
 
     human_views = {
         "humans", "human-vs-au", "levels",
@@ -2072,11 +2362,16 @@ def main():
         "level-opponent-matrix",
         "quality",
         "quality-by-cohort",
+        "human-players",
+        "human-quality"
     }
 
     if args.view:
         if args.view == "quality-comparison":
             view_quality_comparison(human_recs, records)
+        elif args.view == "cell-matrix":
+            view_cell_matrix(records, human_recs,
+                             target_cell=args.target_cell)
         elif args.view == "model-ranking":
             view_model_ranking(records, human_recs)
         elif args.view == "tier-summary":
