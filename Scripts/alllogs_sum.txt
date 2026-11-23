@@ -1,0 +1,314 @@
+======================================================================
+OVERVIEW
+======================================================================
+  Total battles:        1292
+  Battles with LLM:     1210
+  Decisive (LLM):       1210
+  Draws (LLM):          0
+  Maps:                 BaseBattlegroundScene, SmallArenaScene
+  Scenario shapes:      2v2, 3v3
+  Models:               claude-haiku-5-5, claude-sonnet-5-5, deepseek-chat, gemini-3.5-flash, gemini-3.8-flash, gemma4:e4b, gpt-5.4-mini, gpt-5.6, gpt-6.1-terra, gpt-oss:20b, llama3.1:8b, ministral-3:8b, mistral-small3.2:24b, phi3, phi4
+  Prompts:              ShortPromptA
+  AU variants:          HA(HyperAggressiveGenes), MD(MediumGenes)
+
+======================================================================
+WINS BY MODEL (LLM side only)
+======================================================================
+  model                 W   L   D  Total  Win%   95% CI     
+  --------------------  --  --  -  -----  -----  -----------
+  gpt-6.1-terra         65  15  0     80  81.2%  [71.3-88.3]
+  gemini-3.5-flash      62  18  0     80  77.5%  [67.2-85.3]
+  gemini-3.8-flash      62  18  0     80  77.5%  [67.2-85.3]
+  gpt-5.6               57  27  0     84  67.9%  [57.3-76.9]
+  claude-haiku-5-5      56  24  0     80  70.0%  [59.2-78.9]
+  claude-sonnet-5-5     54  26  0     80  67.5%  [56.6-76.8]
+  gpt-oss:20b           49  31  0     80  61.2%  [50.3-71.2]
+  deepseek-chat         45  39  0     84  53.6%  [43.0-63.8]
+  phi4                  44  36  0     80  55.0%  [44.1-65.4]
+  mistral-small3.2:24b  39  41  0     80  48.8%  [38.1-59.5]
+  gemma4:e4b            37  43  0     80  46.2%  [35.7-57.1]
+  ministral-3:8b        31  51  0     82  37.8%  [28.1-48.6]
+  gpt-5.4-mini          20  60  0     80  25.0%  [16.8-35.5]
+  llama3.1:8b            9  71  0     80  11.2%  [6.0-20.0] 
+  phi3                   1  79  0     80   1.2%  [0.2-6.7]  
+
+======================================================================
+WINS BY MODEL × OPPONENT
+======================================================================
+  model                 opponent  W   L   D  Total  Win%   95% CI     
+  --------------------  --------  --  --  -  -----  -----  -----------
+  claude-haiku-5-5      AU        56  24  0     80  70.0%  [59.2-78.9]
+  claude-sonnet-5-5     AU        54  26  0     80  67.5%  [56.6-76.8]
+  deepseek-chat         AU        45  39  0     84  53.6%  [43.0-63.8]
+  gemini-3.5-flash      AU        62  18  0     80  77.5%  [67.2-85.3]
+  gemini-3.8-flash      AU        62  18  0     80  77.5%  [67.2-85.3]
+  gemma4:e4b            AU        37  43  0     80  46.2%  [35.7-57.1]
+  gpt-5.4-mini          AU        20  60  0     80  25.0%  [16.8-35.5]
+  gpt-5.6               AU        57  27  0     84  67.9%  [57.3-76.9]
+  gpt-6.1-terra         AU        65  15  0     80  81.2%  [71.3-88.3]
+  gpt-oss:20b           AU        49  31  0     80  61.2%  [50.3-71.2]
+  llama3.1:8b           AU         9  71  0     80  11.2%  [6.0-20.0] 
+  ministral-3:8b        AU        31  51  0     82  37.8%  [28.1-48.6]
+  mistral-small3.2:24b  AU        39  41  0     80  48.8%  [38.1-59.5]
+  phi3                  AU         1  79  0     80   1.2%  [0.2-6.7]  
+  phi4                  AU        44  36  0     80  55.0%  [44.1-65.4]
+
+====================================================================================================
+RESPONSE TIMES BY MODEL (ms) — with P95 and trimmed stats
+====================================================================================================
+  model                 n     min   mean   p95    max     trim mean  trim n  median  stdev  mid 90 m
+  --------------------  ----  ----  -----  -----  ------  ---------  ------  ------  -----  --------
+  claude-haiku-5-5       729   986   3240   4622    6430       3140     692    3248    832      3229
+  claude-sonnet-5-5      798  1553   3361   5116    8358       3237     758    3336   1092      3317
+  deepseek-chat          719   761   1251   1628    5479       1216     683    1220    272      1235
+  gemini-3.5-flash       776  3064   7736  12068   26474       7316     737    7138   2655      7490
+  gemini-3.8-flash       801  4378  11823  22688   40869      10960     761   10392   5501     11279
+  gemma4:e4b             678  3283  20571  48419  104306      18599     644    9379  16805     19404
+  gpt-5.4-mini           668  1104   1764   2376    4484       1687     634    1676    447      1711
+  gpt-5.6                857  1815   4235   7400   20943       3970     814    3792   1739      4066
+  gpt-6.1-terra          971  1755   3983   7102   17462       3703     922    3548   1648      3783
+  gpt-oss:20b            747  2632  16918  35348   48105      15680     709   15555   8797     16302
+  llama3.1:8b            954   700   3165   7038   10029       2931     906    1654   2378      3045
+  ministral-3:8b         722  1912   9192  15393   34184       8733     685   10662   4660      9093
+  mistral-small3.2:24b   726  3034   5570   6980   15283       5417     689    5398   1023      5489
+  phi3                  1113   745   2935   5850   41357       2526    1057    1856   3278      2610
+  phi4                   723  3586  14110  38253   69708      12482     686    9042  11752     12930
+
+p95        = 95th percentile of all calls for that model (ms).
+trim mean  = mean of the bottom 95% (outliers above p95 excluded).
+trim n     = number of calls used for the trimmed stats.
+median     = 50th percentile (P50); robust to outliers.
+stdev      = population standard deviation of all calls; inflated by load-time spikes.
+mid 90 m   = mean of the middle 90% of calls (between p05 and p95); removes both tails.
+
+======================================================================
+BATTLE LENGTHS BY MODEL
+======================================================================
+  model                 n   mean turns  min  max  mean ticks
+  --------------------  --  ----------  ---  ---  ----------
+  claude-haiku-5-5      80         5.6    3   10         183
+  claude-sonnet-5-5     80         5.9    3   11         205
+  deepseek-chat         84         5.5    3    9         168
+  gemini-3.5-flash      80         5.4    4    8         235
+  gemini-3.8-flash      80         5.6    3    9         281
+  gemma4:e4b            80         5.2    3   10         330
+  gpt-5.4-mini          80         5.8    3   13         176
+  gpt-5.6               84         6.1    3   11         216
+  gpt-6.1-terra         80         7.9    3   24         268
+  gpt-oss:20b           80         5.4    3    9         336
+  llama3.1:8b           80        10.0    3   85         235
+  ministral-3:8b        82         5.7    4   11         232
+  mistral-small3.2:24b  80         5.7    4   11         208
+  phi3                  80        11.7    3   52         300
+  phi4                  80         6.4    3   19         297
+
+======================================================================
+MATCHUP TYPES
+======================================================================
+  matchup    Total  LLM W  LLM L  Draws  LLM Win%
+  ---------  -----  -----  -----  -----  --------
+  AU_vs_LLM   1210    631    579      0     52.1%
+
+======================================================================
+DECISION REASON BREAKDOWN
+======================================================================
+  win_reason   count
+  -----------  -----
+  elimination   1210
+
+========================================================================================================================
+LLM QUALITY BY (VARIANT × MODEL)
+========================================================================================================================
+  combat    = damage dealt / total enemy HP    (1.0 = wiped enemy)
+  dmgEff    = damage dealt / (dealt + taken)   (0.5 = even trade, 1.0 = flawless)
+  killRt    = kills / (kills + deaths)         (0.5 = even, 1.0 = flawless)
+  survive   = fraction of your starting ships still alive at end
+  ttfk      = mean turn of first kill (in turn units)
+
+  variant  model                 n   W%           combat  dmgEff  killRt  survive  ttfk
+  -------  --------------------  --  -----------  ------  ------  ------  -------  ----
+  HA       claude-haiku-5-5      40  21/40 (52%)    0.97    0.50    0.50     0.25   1.3
+  HA       claude-sonnet-5-5     40  18/40 (45%)    0.95    0.49    0.52     0.22   0.8
+  HA       deepseek-chat         44  15/44 (34%)    0.93    0.45    0.45     0.17   1.2
+  HA       gemini-3.5-flash      40  26/40 (65%)    0.99    0.54    0.61     0.35   1.0
+  HA       gemini-3.8-flash      40  28/40 (70%)    0.98    0.53    0.64     0.37   0.6
+  HA       gemma4:e4b            40  10/40 (25%)    0.89    0.43    0.34     0.12   1.6
+  HA       gpt-5.4-mini          40   5/40 (12%)    0.79    0.38    0.34     0.06   0.5
+  HA       gpt-5.6               40  20/40 (50%)    0.94    0.50    0.55     0.29   0.9
+  HA       gpt-6.1-terra         40  29/40 (72%)    0.98    0.54    0.65     0.40   0.9
+  HA       gpt-oss:20b           40  18/40 (45%)    0.94    0.48    0.47     0.23   1.4
+  HA       llama3.1:8b           40    3/40 (8%)    0.67    0.33    0.19     0.03   1.7
+  HA       ministral-3:8b        42   7/42 (17%)    0.86    0.41    0.28     0.08   1.7
+  HA       mistral-small3.2:24b  40  15/40 (38%)    0.89    0.46    0.41     0.21   1.7
+  HA       phi3                  40    0/40 (0%)    0.39    0.20    0.16     0.00   1.2
+  HA       phi4                  40  12/40 (30%)    0.87    0.43    0.37     0.13   1.0
+  MD       claude-haiku-5-5      40  35/40 (88%)    1.00    0.61    0.75     0.62   1.4
+  MD       claude-sonnet-5-5     40  36/40 (90%)    0.98    0.58    0.75     0.64   0.8
+  MD       deepseek-chat         40  30/40 (75%)    0.98    0.55    0.64     0.42   1.2
+  MD       gemini-3.5-flash      40  36/40 (90%)    1.00    0.61    0.82     0.71   0.9
+  MD       gemini-3.8-flash      40  34/40 (85%)    0.97    0.60    0.77     0.65   0.8
+  MD       gemma4:e4b            40  27/40 (68%)    0.96    0.53    0.55     0.36   1.5
+  MD       gpt-5.4-mini          40  15/40 (38%)    0.91    0.47    0.51     0.22   1.1
+  MD       gpt-5.6               44  37/44 (84%)    0.99    0.59    0.74     0.61   1.0
+  MD       gpt-6.1-terra         40  36/40 (90%)    0.98    0.61    0.79     0.65   0.9
+  MD       gpt-oss:20b           40  31/40 (78%)    0.98    0.57    0.71     0.53   1.2
+  MD       llama3.1:8b           40   6/40 (15%)    0.79    0.38    0.32     0.07   2.2
+  MD       ministral-3:8b        40  24/40 (60%)    0.98    0.54    0.59     0.41   1.8
+  MD       mistral-small3.2:24b  40  24/40 (60%)    0.96    0.52    0.56     0.40   1.9
+  MD       phi3                  40    1/40 (2%)    0.51    0.26    0.23     0.01   1.8
+  MD       phi4                  40  32/40 (80%)    0.99    0.57    0.67     0.47   1.6
+
+Per-model totals (all variants collapsed):
+  model                 n   W%           combat  dmgEff  killRt  survive  ttfk
+  --------------------  --  -----------  ------  ------  ------  -------  ----
+  claude-haiku-5-5      80  56/80 (70%)    0.98    0.55    0.63     0.43   1.3
+  claude-sonnet-5-5     80  54/80 (68%)    0.96    0.54    0.63     0.43   0.8
+  deepseek-chat         84  45/84 (54%)    0.95    0.50    0.54     0.29   1.2
+  gemini-3.5-flash      80  62/80 (78%)    1.00    0.57    0.71     0.53   0.9
+  gemini-3.8-flash      80  62/80 (78%)    0.98    0.56    0.70     0.51   0.7
+  gemma4:e4b            80  37/80 (46%)    0.93    0.48    0.44     0.24   1.5
+  gpt-5.4-mini          80  20/80 (25%)    0.85    0.42    0.43     0.14   0.8
+  gpt-5.6               84  57/84 (68%)    0.97    0.55    0.65     0.46   1.0
+  gpt-6.1-terra         80  65/80 (81%)    0.98    0.58    0.72     0.53   0.9
+  gpt-oss:20b           80  49/80 (61%)    0.96    0.52    0.59     0.38   1.3
+  llama3.1:8b           80   9/80 (11%)    0.73    0.36    0.25     0.05   2.0
+  ministral-3:8b        82  31/82 (38%)    0.92    0.47    0.43     0.24   1.8
+  mistral-small3.2:24b  80  39/80 (49%)    0.93    0.49    0.49     0.30   1.8
+  phi3                  80    1/80 (1%)    0.45    0.23    0.20     0.00   1.6
+  phi4                  80  44/80 (55%)    0.93    0.50    0.52     0.30   1.4
+
+==========================================================================================
+HUMAN RESULTS BY PLAYER × SESSION
+==========================================================================================
+  player_id  session     W  L  D  Total  Win%    95% CI      
+  ---------  ----------  -  -  -  -----  ------  ------------
+  htest3     ac91214b0a  8  0  0      8  100.0%  [67.6-100.0]
+  htest3     1b1ef059b3  7  1  0      8   87.5%  [52.9-97.8] 
+  htests2    a8eece3671  7  1  0      8   87.5%  [52.9-97.8] 
+  htests2    f0b27b08e7  7  1  0      8   87.5%  [52.9-97.8] 
+  htests4    exe46ecf15  7  1  0      8   87.5%  [52.9-97.8] 
+  htests2    ef3a77b5ba  6  2  0      8   75.0%  [40.9-92.9] 
+  htests4    b8fa6da905  6  2  0      8   75.0%  [40.9-92.9] 
+  htests2    g6c2a2b78f  5  3  0      8   62.5%  [30.6-86.3] 
+  htests4    t24437eb5e  5  3  0      8   62.5%  [30.6-86.3] 
+  htest3     ce3ea06933  4  4  0      8   50.0%  [21.5-78.5] 
+
+============================================================================================
+HUMAN WIN% BY OPPONENT TYPE (AU variant / LLM model / scenario)
+============================================================================================
+  opponent  variant  model         W   L   D  Total  Win%   95% CI     
+  --------  -------  ------------  --  --  -  -----  -----  -----------
+  AU        HA       C[RankDecay]  25  15  0     40  62.5%  [47.0-75.8]
+  AU        MD       C[RankDecay]  37   3  0     40  92.5%  [80.1-97.4]
+
+================================================================================================
+PER-LEVEL COMPLETION & DURATION
+================================================================================================
+  level                  n   W   L   D  Win%   mean s  mean turn
+  ---------------------  --  --  --  -  -----  ------  ---------
+  BaseBattlegroundScene  40  34   6  0  85.0%   390.0        7.2
+  SmallArenaScene        40  28  12  0  70.0%   187.1        5.9
+
+==================================================================================================================================
+HUMAN TURN-LEVEL METRICS (per player / session)
+==================================================================================================================================
+
+Turn classification:
+  filler      duration == 0s (engine end-of-game turn; no human actions)
+  no_action   duration > 0s but no human commits
+  snap        duration < 20s  AND  max commit gap < 2s
+              -> fast/obvious state, low deliberation
+  considered  neither snap nor deliberate (normal deliberation)
+  deliberate  duration > 45s  OR  max gap > 10s  OR  max/mean gap ratio > 2.5x
+              -> likely a hard decision moment
+  delib%      = deliberate / (snap + considered + deliberate + no_action),
+                i.e. fraction of *active* turns that were hard
+
+  player_id  session     turns  snap  cons  delib  no_act  filler  delib%  commits  mean dur (s)  mean in/turn  mean gap (s)
+  ---------  ----------  -----  ----  ----  -----  ------  ------  ------  -------  ------------  ------------  ------------
+  htest3     1b1ef059b3     41     0     8     33       0       0     80%      544          63.2          35.0          4.40
+  htest3     ac91214b0a     36     6     9     21       0       0     58%      473          38.2          39.8          2.48
+  htest3     ce3ea06933     45     0    19     25       1       0     56%      477          47.6          31.7          3.80
+  htests2    a8eece3671     29     4     8     16       1       0     55%      407          35.3          35.1          1.92
+  htests2    ef3a77b5ba     29     2     7     19       1       0     66%      427          45.8          43.7          2.21
+  htests2    f0b27b08e7     32     2     9     20       1       0     62%      465          34.4          36.8          1.84
+  htests2    g6c2a2b78f     79     6    31     40       2       0     51%      757          35.4          27.2          2.83
+  htests4    b8fa6da905     29     2     2     23       2       0     79%      418          47.7          45.7          2.74
+  htests4    exe46ecf15     34     1    13     19       1       0     56%      442          40.1          34.6          2.23
+  htests4    t24437eb5e     30     1     4     22       3       0     73%      414          61.9          90.6          3.53
+
+  TOTAL  turns=384  snap=24  cons=110  delib=238  no_act=12  filler=0  delib%=62%  commits=4824
+  Overall mean turn = 44.2s
+
+========================================================================================================================
+QUALITY COMPARISON:  HUMANS vs LLMs  (per opponent variant)
+========================================================================================================================
+  combat    = damage dealt / total enemy HP    (1.0 = wiped enemy)
+  dmgEff    = damage dealt / (dealt + taken)   (0.5 = even trade, 1.0 = flawless)
+  killRt    = kills / (kills + deaths)         (0.5 = even, 1.0 = flawless)
+  survive   = fraction of your starting ships still alive at end
+  ttfk      = mean turn of first kill (in turn units)
+
+  Δ = LLM − Human. Negative Δ means the LLM performed worse.
+
+  variant  metric      human  LLM   Δ      
+  -------  ----------  -----  ----  -------
+  HA       n              40   606     +566
+  HA       W%            62%   37%  −25.0pp
+  HA       combat       0.98  0.87    −0.11
+  HA       dmg_eff      0.53  0.44    −0.09
+  HA       kill_ratio   0.56  0.43    −0.13
+  HA       survival     0.34  0.19    −0.15
+  HA       ttfk         1.21  1.13    −0.08
+                                           
+  MD       n              40   604     +564
+  MD       W%            92%   67%  −25.6pp
+  MD       combat       1.00  0.93    −0.07
+  MD       dmg_eff      0.63  0.53    −0.09
+  MD       kill_ratio   0.79  0.63    −0.16
+  MD       survival     0.67  0.45    −0.22
+  MD       ttfk         1.82  1.31    −0.52
+                                           
+
+============================================================================================================================================
+MODEL RANKING vs HUMAN BASELINE
+============================================================================================================================================
+  Human baseline (HA+MD):  62/80 = 78%   combat=0.99  survive=0.51  dmgEff=0.58  killRt=0.67
+  Human Quality Index:     0.696
+
+  Tiers (relative to human QI; see gates and latency cap below):
+    ABOVE HUMAN  QI/h >= 1.02
+    HUMAN-EQUIV  QI/h >= 0.90
+    COMPETITIVE  QI/h >= 0.75
+    WEAK         QI/h >= 0.50
+    BROKEN       QI/h <  0.50  OR  gate triggered
+    Gates:       invalid_rate > 30%, combat < 0.65, attacks/turn < 0.25
+    Latency cap: SLOW -> ≤ COMPETITIVE;  CRAWLING -> ≤ WEAK
+
+  model                 n   W%   QI    QI/h  tier                               latency   combat  dmgEff  killRt  survive  atk/t  inv%  ttfk
+  --------------------  --  ---  ----  ----  ---------------------------------  --------  ------  ------  ------  -------  -----  ----  ----
+  gpt-6.1-terra         80  81%  0.72  1.03  ABOVE HUMAN                        FAST        0.98    0.58    0.72     0.53   1.58    4%   0.9
+  gemini-3.5-flash      80  78%  0.71  1.02  HUMAN-EQUIV                        MODERATE    1.00    0.57    0.71     0.53   1.46    9%   0.9
+  gemini-3.8-flash      80  78%  0.70  1.00  HUMAN-EQUIV                        MODERATE    0.98    0.56    0.70     0.51   1.68    3%   0.7
+  gpt-5.6               84  68%  0.64  0.92  HUMAN-EQUIV                        FAST        0.97    0.55    0.65     0.46   1.62   13%   1.0
+  claude-haiku-5-5      80  70%  0.64  0.92  HUMAN-EQUIV                        FAST        0.98    0.55    0.63     0.43   1.41    9%   1.3
+  claude-sonnet-5-5     80  68%  0.63  0.90  HUMAN-EQUIV                        FAST        0.96    0.54    0.63     0.43   1.46    7%   0.8
+  gpt-oss:20b           80  61%  0.59  0.84  COMPETITIVE                        SLOW        0.96    0.52    0.59     0.38   1.34   12%   1.3
+  deepseek-chat         84  54%  0.53  0.75  COMPETITIVE                        INSTANT     0.95    0.50    0.54     0.29   1.24   20%   1.2
+  phi4                  80  55%  0.53  0.75  COMPETITIVE                        MODERATE    0.93    0.50    0.52     0.30   1.35   20%   1.4
+  mistral-small3.2:24b  80  49%  0.50  0.71  WEAK                               MODERATE    0.93    0.49    0.49     0.30   1.29   16%   1.8
+  gemma4:e4b            80  46%  0.47  0.67  WEAK                               SLOW        0.93    0.48    0.44     0.24   1.24   28%   1.5
+  ministral-3:8b        82  38%  0.43  0.62  WEAK                               MODERATE    0.92    0.47    0.43     0.24   1.09   27%   1.8
+  gpt-5.4-mini          80  25%  0.34  0.50  BROKEN                             INSTANT     0.85    0.42    0.43     0.14   1.14   17%   0.8
+  llama3.1:8b           80  11%  0.21  0.31  BROKEN [invalid 34%]               FAST        0.73    0.36    0.25     0.05   0.72   34%   2.0
+  phi3                  80   1%  0.09  0.14  BROKEN [invalid 37%; combat 0.45]  FAST        0.45    0.23    0.20     0.00   0.76   37%   1.6
+
+====================================================================================================
+TIER SUMMARY  (one line per model)
+====================================================================================================
+  ABOVE HUMAN     gpt-6.1-terra (81%, FAST)
+  HUMAN-EQUIV     gpt-5.6 (68%, FAST), claude-sonnet-5-5 (68%, FAST), gemini-3.5-flash (78%, MODERATE), gemini-3.8-flash (78%, MODERATE), claude-haiku-5-5 (70%, FAST)
+  COMPETITIVE     deepseek-chat (54%, INSTANT), phi4 (55%, MODERATE), gpt-oss:20b (61%, SLOW)
+  WEAK            ministral-3:8b (38%, MODERATE), gemma4:e4b (46%, SLOW), mistral-small3.2:24b (49%, MODERATE)
+  BROKEN          gpt-5.4-mini (25%, INSTANT), llama3.1:8b (11%, FAST), phi3 (1%, FAST)
+
