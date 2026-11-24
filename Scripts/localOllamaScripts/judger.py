@@ -192,9 +192,8 @@ def main():
         if judgment.get("verdict") == "OK":
             judged += 1
         else:
-            errors += 1
-            if not args.quiet:
-                print(f"  -> {judgment.get('verdict')}: {judgment.get('error', '')[:120]}")
+            errors += 1  # always print judge errors, even in --quiet
+            print(f"  -> {judgment.get('verdict')}: {judgment.get('error', '')[:120]}")
 
     pairwise_results = []
     if args.pairwise:

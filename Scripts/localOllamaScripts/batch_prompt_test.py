@@ -13,6 +13,9 @@ Usage:
     python batch_prompt_test.py 192.168.1.50 11434 llama3.1:8b,phi4,gemma4:e4b prompt.txt
     python batch_prompt_test.py 10.0.0.2 11434 models.txt prompts_folder --save-jsonl runs.jsonl
 
+Giving the host means the second argument must be the numeric port; otherwise
+the first argument is the models list and the default host is used.
+
 Model names must match `ollama list` exactly, including the tag (e.g. gemma4:e4b, llama3.1:8b).
 """
 
@@ -31,14 +34,10 @@ def parse_args():
     ap = argparse.ArgumentParser(
         description="Batch-test prompts against several Ollama models with validation."
     )
-    ap.add_argument("ip", nargs="?", default="192.168.2.62",
-                    help="Ollama server IP address or hostname (default: 192.168.2.62).")
-    ap.add_argument("port", type=int, nargs="?", default=11434,
-                    help="Ollama server port (default: 11434).")
-    ap.add_argument("models",
-                    help="Comma-separated model names, or a file with one model per line.")
-    ap.add_argument("prompts", nargs="+",
-                    help="Prompt files and/or folders (folders: all .txt files).")
+    ap.add_argument("pos", nargs="+", metavar="ARG",
+                    help="[ip port] models prompts... (omit ip+port for the default "
+                         "192.168.2.62:11434; when the host is given, ARG2 must be "
+                         "the numeric port).")
     ap.add_argument("--system", metavar="FILE", help="File with a system prompt.")
     ap.add_argument("--temperature", type=float, help="Sampling temperature.")
     ap.add_argument("--timeout", type=float, default=300.0,
@@ -58,7 +57,7 @@ def parse_args():
 def load_models(spec):
     if os.path.isfile(spec):
         with open(spec, encoding="utf-8") as f:
-            return [line.strip() for line in f if line.strip()]
+            return [line.strip() for line in f if line.strip() and not line.strip().startswith("#")]
     return [m.strip() for m in spec.split(",") if m.strip()]
 
 
@@ -155,8 +154,20 @@ def run_one(args, model, prompt_name, prompt_text, warmup_done):
 
 def main():
     args = parse_args()
-    models = load_models(args.models)
-    prompts = load_prompts(args.prompts)
+    # Disambiguate: "ip port models prompts..." vs "models prompts...".
+    # If the second positional is numeric, the first two are host and port.
+    if len(args.pos) >= 2 and args.pos[1].isdigit():
+        if len(args.pos) < 3:
+            print("ERROR: host/port given but no models or prompts.", file=sys.stderr)
+            return 1
+        ip, port, models_spec, prompt_args = (args.pos[0], int(args.pos[1]),
+                                               args.pos[2], args.pos[3:])
+    else:
+        ip, port, models_spec, prompt_args = ("192.168.2.62", 11434,
+                                               args.pos[0], args.pos[1:])
+    args.ip, args.port = ip, port
+    models = load_models(models_spec)
+    prompts = load_prompts(prompt_args)
 
     if not models:
         print("ERROR: no models given.", file=sys.stderr)
@@ -166,7 +177,7 @@ def main():
         return 1
 
     print(f"Batch run: {len(models)} models x {len(prompts)} prompts "
-          f"({len(models) * len(prompts)} runs) -> {args.ip}:{args.port}")
+          f"({len(models) * len(prompts)} runs) -> {ip}:{port}")
 
     records = []
     for model in models:
@@ -183,7 +194,7 @@ def main():
 
     print()
     print("=" * 96)
-    print(f"RESULTS ({os.path.basename(args.models) if os.path.isfile(args.models) else args.models})")
+    print(f"RESULTS ({os.path.basename(models_spec) if os.path.isfile(models_spec) else models_spec})")
     print("=" * 96)
     hdr = (f"  {'model':<28} {'prompt':<24} {'prompt_tok':>10} "
            f"{'out_tok':>8} {'gen_s':>7} {'wall_s':>7}  verdict")

@@ -12,6 +12,8 @@ Usage:
     python ollama_prompt_test.py 10.0.0.2 11434 gemma4:e4b prompt.txt --stream
     python ollama_prompt_test.py localhost 11434 phi4 prompt.txt --validate
 
+Giving the host means the second argument must be the numeric port.
+
 Model names must match `ollama list` exactly, including the tag (e.g. gemma4:e4b, llama3.1:8b).
 """
 
@@ -44,14 +46,10 @@ def parse_args():
     ap = argparse.ArgumentParser(
         description="Send a prompt file to an Ollama model and print answer + stats."
     )
-    ap.add_argument("ip", nargs="?", default="192.168.2.62",
-                    help="Ollama server IP address or hostname (default: 192.168.2.62).")
-    ap.add_argument("port", type=int, nargs="?", default=11434,
-                    help="Ollama server port (default: 11434).")
-    ap.add_argument("model",
-                    help="Model name as known to Ollama (e.g. llama3.1:8b).")
-    ap.add_argument("prompt_file",
-                    help="Path to a text file whose contents are the prompt.")
+    ap.add_argument("pos", nargs="+", metavar="ARG",
+                    help="[ip port] model prompt_file (omit ip+port for the default "
+                         "192.168.2.62:11434; when the host is given, ARG2 must be "
+                         "the numeric port).")
     ap.add_argument("--system", metavar="FILE",
                     help="Optional file with a system prompt.")
     ap.add_argument("--temperature", type=float,
@@ -157,7 +155,17 @@ def print_stats(resp, wall_s):
 
 def main():
     args = parse_args()
-    prompt = read_file(args.prompt_file, "prompt")
+    if len(args.pos) >= 3 and args.pos[1].isdigit():
+        args.ip, args.port = args.pos[0], int(args.pos[1])
+        args.model, prompt_path = args.pos[2], args.pos[3]
+    elif len(args.pos) == 2 and not args.pos[1].isdigit():
+        args.ip, args.port = "192.168.2.62", 11434
+        args.model, prompt_path = args.pos[0], args.pos[1]
+    else:
+        print("ERROR: expected [ip port] model prompt_file or model prompt_file.",
+              file=sys.stderr)
+        return 1
+    prompt = read_file(prompt_path, "prompt")
     system_text = read_file(args.system, "system") if args.system else None
     payload = build_payload(args, prompt, system_text)
     url = f"http://{args.ip}:{args.port}/api/generate"
