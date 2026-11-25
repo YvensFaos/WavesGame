@@ -31,7 +31,8 @@ Settings schema:
 (defaults to the prompt filename), "axes" (free-form labels carried into
 every record), "repeat" and "temperature" overrides. Several prompts may
 share one check file (same decision state, different prompt variants).
-"output" is the jsonl to append records to (same as --save-jsonl).
+"output" is the jsonl records are written to (overwrite; same as --save-jsonl,
+use --append to add instead).
 
 Validation is against the ENGINE answer key, never against the prompt's own
 lists. Extra metrics: option conformance (did the model pick from the
@@ -364,6 +365,29 @@ def validate_from_ptnf(check, answer):
 
     attackable = pairs_of(check.get("attackable_positions")
                           or check.get("attackablePositions"))
+    known_ships = {}
+    for s in check.get("ships", []):
+        try:
+            known_ships[(int(s["position"][0]), int(s["position"][1]))] = s
+        except (TypeError, ValueError, KeyError, IndexError):
+            continue
+    actor_faction = check.get("faction")
+
+    def target_note(attack_pos):
+        """Both-check: distance rule AND a real target (when ships are known)."""
+        ship = known_ships.get(attack_pos)
+        if ship is not None:
+            label = ship.get("id") or "ship"
+            if ship.get("faction") and ship["faction"] != actor_faction:
+                return (f"VERIFIED ATTACK: hits enemy {label} "
+                        f"(hp {ship.get('hp')}) at {attack_pos}")
+            return (f"ALLY FIRE: legal attack on ally {label} "
+                    f"(hp {ship.get('hp')}) at {attack_pos}")
+        if known_ships:
+            return (f"no ship at {attack_pos} given the known "
+                    f"{len(known_ships)} PTNF ships")
+        return "target itself not verified: no ships in the check"
+
     if attack is None:
         issues.append("no attack declared")
         if attackable and movement == origin:
@@ -371,7 +395,8 @@ def validate_from_ptnf(check, answer):
                           f"from {origin}")
     elif attackable and movement == origin:
         if attack in attackable:
-            issues.append("valid attack: in the PTNF attackable positions")
+            issues.append("valid attack: in the PTNF attackable positions; "
+                          + target_note(attack))
         else:
             return "INVALID_ATTACK", [
                 f"attack {attack} is not in the PTNF attackable positions "
@@ -382,9 +407,11 @@ def validate_from_ptnf(check, answer):
             return "INVALID_ATTACK", [
                 f"cannot attack your own tile {movement}"]
         if dist == atk_dist:
+            if known_ships and attack not in known_ships:
+                return "INVALID_ATTACK", [
+                    f"ILLEGAL TARGET: nothing at {attack} — " + target_note(attack)]
             issues.append(f"attack at {attack} is at the legal distance "
-                          f"{atk_dist} from {movement} (target itself not "
-                          f"verified: attackablePositions was empty)")
+                          f"{atk_dist} from {movement}; " + target_note(attack))
         elif dist == 1:
             return "INVALID_ATTACK", [
                 f"DEAD ZONE: {attack} is adjacent to {movement}; only "
@@ -668,7 +695,10 @@ def parse_args():
     ap.add_argument("--warmup", action="store_true",
                     help="Send a tiny request per model first to exclude load time.")
     ap.add_argument("--save-jsonl", metavar="FILE",
-                    help="Append one JSON record per run to this file.")
+                    help="Write one JSON record per run to this file "
+                         "(overwrite; use --append to add to it).")
+    ap.add_argument("--append", action="store_true",
+                    help="Append to the output file instead of overwriting it.")
     ap.add_argument("--validate-only", action="store_true",
                     help="Do not call Ollama; validate --answer against --key.")
     ap.add_argument("--answer", metavar="JSON",
@@ -895,26 +925,55 @@ def main():
               f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
               f"{round(100 * oka / len(rs), 1):>7}%")
 
+    print()
+    print("=" * 70)
+    print("PROMPT OVERVIEW (all models collapsed)")
+    print("=" * 70)
+    print(f"  {'run':<26} {'models':>6} {'n':>4} {'OK-act':>7} {'OK-pas':>7} "
+          f"{'inv':>4} {'err':>4} {'valid%':>7} {'active%':>8}")
+    print("  " + "-" * 90)
+    for run, _, _ in prepared:
+        rs = [r for r in records if r["run"] == run["name"]]
+        if not rs:
+            continue
+        oka = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "active")
+        okp = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "passive")
+        inv = sum(1 for r in rs if r["verdict"].startswith("INVALID"))
+        err = len(rs) - oka - okp - inv
+        print(f"  {run['name'][:25]:<26} {len({r['model'] for r in rs}):>6} "
+              f"{len(rs):>4} {oka:>7} {okp:>7} {inv:>4} {err:>4} "
+              f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
+              f"{round(100 * oka / len(rs), 1):>7}%")
+
     ally_hits = sum(1 for r in records
                     if any("ALLY FIRE" in i for i in r.get("issues", [])))
     wave_tiles = sum(1 for r in records
                      if any("WAVE tile" in i for i in r.get("issues", [])))
     verified_hits = sum(1 for r in records
-                        if any("valid attack on" in i for i in r.get("issues", [])))
+                        if any("VERIFIED ATTACK" in i or "valid attack on" in i
+                               for i in r.get("issues", [])))
     unverified_hits = sum(1 for r in records
                           if any("not verified" in i for i in r.get("issues", [])))
+    ally_shot = sum(1 for r in records
+                    if any("ALLY FIRE" in i for i in r.get("issues", [])))
     print()
     print(f"  ally-fire answers: {ally_hits}   wave-tile destinations: "
           f"{wave_tiles}")
-    print(f"  attacks verified against a board: {verified_hits}   "
-          f"attacks rule-legal but target unverified: {unverified_hits}")
+    print(f"  attacks valid AND on a verified target: {verified_hits}   "
+          f"rule-legal but target unverified: {unverified_hits}   "
+          f"friendly-fire attacks: {ally_shot}")
 
     out_file = args.save_jsonl or (settings or {}).get("output")
     if out_file:
-        with open(out_file, "a", encoding="utf-8") as f:
+        mode = "a" if args.append else "w"
+        with open(out_file, mode, encoding="utf-8") as f:
             for r in records:
                 f.write(json.dumps(r) + "\n")
-        print(f"\nSaved {len(records)} records to {out_file}")
+        print(f"\n{'Appended' if args.append else 'Wrote'} {len(records)} "
+              f"records to {out_file} "
+              f"({'append' if args.append else 'overwrite'} mode)")
 
     ok = sum(1 for r in records if r["verdict"] == "OK")
     return 0 if ok == len(records) else 1

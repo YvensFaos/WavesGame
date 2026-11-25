@@ -66,6 +66,19 @@ namespace Core
                 ApplicationHelper.RestartLevel();
             }
         }
+        
+        public void OnSkipLevel(InputAction.CallbackContext context)
+        {
+            DebugUtils.DebugLogMsg(
+                $"On Skip Level called. S[{context.started}] P[{context.performed}] C[{context.canceled}]",
+                DebugUtils.DebugType.Verbose);
+            if (!context.performed) return;
+            if (!GameManager.GetSingleton().GetSettings().allowSkipLevel) return;
+            if (GameController.TryToGetSingleton(out var gameController))
+            {
+                gameController.SkipController();
+            }
+        }
 
         public void OnForceResetCursor(InputAction.CallbackContext context)
         {

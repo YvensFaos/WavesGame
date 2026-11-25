@@ -168,6 +168,7 @@ namespace Core
         }
 
         public abstract void ResetController();
+        public abstract void SkipController();
 
         public LevelGoal GetLevelGoal() => levelGoal;
         public int GetRandomSeed() => randomSeed;

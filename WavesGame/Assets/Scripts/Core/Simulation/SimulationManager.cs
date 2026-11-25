@@ -41,6 +41,7 @@ namespace Core.Simulation
 
         private WavesRecorder _wavesRecorder;
         private bool _resetSimulation;
+        private bool _simulationSkipped;
         private Coroutine _simulationHandle;
         private SimulationController _simulationController;
 
@@ -73,9 +74,16 @@ namespace Core.Simulation
                 for (var i = 1; i <= iterations; i++)
                 {
                     yield return RunSimulation(i, simulation);
-                    if (!_resetSimulation) continue;
-                    --i;
-                    _resetSimulation = false;
+                    if (_simulationSkipped)
+                    {
+                        ++i;
+                        _simulationSkipped = false;
+                    }
+                    else if (_resetSimulation)
+                    {
+                        --i;
+                        _resetSimulation = false;
+                    }
                 }
 
                 ++internalCounter;
@@ -200,9 +208,19 @@ namespace Core.Simulation
             yield return new WaitUntil(() => !_simulationController.IsRunningSimulation());
 
             var wasInterrupted = _simulationController.WasInterrupted();
-            DebugUtils.DebugLogMsg(wasInterrupted ? $"Simulation completed!" : $"Simulation interrupted!",
-                DebugUtils.DebugType.System);
+            var wasSkipped = _simulationController.WasSkipped();
+            if (wasSkipped)
+            {
+                DebugUtils.DebugLogMsg("Simulation Skipped!", DebugUtils.DebugType.System);
+            }
+            else
+            {
+                DebugUtils.DebugLogMsg(wasInterrupted ? $"Simulation completed!" : $"Simulation interrupted!",
+                    DebugUtils.DebugType.System);
+            }
+
             _resetSimulation = wasInterrupted;
+            _simulationSkipped = wasSkipped;
 
             var outcome = _simulationController.Outcome;
             var winningString = "";
@@ -290,6 +308,13 @@ namespace Core.Simulation
             _simulationController?.StopSimulation();
         }
 
+        public void SkipSimulation()
+        {
+            DebugUtils.DebugLogMsg($"Simulation was skipped!", DebugUtils.DebugType.System);
+            StopCoroutine(_simulationHandle);
+            _simulationController?.SkipSimulation();
+        }
+
         private static List<NavalShip> InitializePlaceHoldersForFactionAndType(Faction faction,
             PlayerTypeBaseSo playerType,
             List<PlaceholderActor> placeHolders, HashSet<Faction> factionsHash)
@@ -311,10 +336,10 @@ namespace Core.Simulation
                 playerType.InitializeType(navalShip, factionsHash);
 
                 navalShips.Add(navalShip);
-                
+
                 //Apply placeholder controls to override the base navalShip settings
                 placeHolder.ProcessNavalShip(navalShip);
-                
+
                 DebugUtils.DebugLogMsg($"Naval Ship Added: {navalShip.name}", DebugUtils.DebugType.System);
                 Destroy(placeHolder.gameObject);
             }

@@ -12,25 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89ac9b32d19465c8a6cd64ced4e709b, type: 3}
   m_Name: Prompt_B
   m_EditorClassIdentifier: Assembly-CSharp::Actors.AI.LlmAI.LlmPromptSo
-  prompt: "WavesST. You = @faction@. Enemies = @enemy_factions@.\nYour ship @self_status@
-    at (@self_x@,@self_y@).\nEnemies: @grid_overview_enemies@\nAllies: @grid_overview_allies@\nWaves:
-    @grid_overview_waves@\n\n\u2694\uFE0F Attack is valid ONLY at exactly 2 tiles
-    away (Manhattan distance: orthogonal steps; a diagonal counts as 2 steps).\nThe
-    tile right next to you (1 step) is a dead zone: it can never be attacked.\nOnly
-    enemy ships (\U0001F6A2) count for victory. Waves (~>) and neutrals (\U0001F3AF)
-    can be attacked but do not help you win.\n\n\u2694\uFE0F ATTACK NOW (no move
-    needed; attack the first tile on the line):\n@current_attack_positions@\n\nMOVEMENT
-    BUDGET\nYou may move up to 3 tiles per turn, split between \"movement\" and \"move_after_attack\".\nEvery
-    tile you enter must be on the SAFE list.\nThe SAFE list already includes every
-    tile reachable within 3 moves of your current position, so any valid retreat
-    tile is already in it.\n\nMOVE + ATTACK PAIRS (move to X, then attack Y):\n@attack_enabling_tiles@\n\n\u2713
-    SAFE MOVE TILES:\n@safe_movement_positions@\n\n\u274C DO NOT MOVE HERE (waves
-    or blocked):\n@blocked_movement_positions@\n\nRULES\n1. If ATTACK NOW contains
-    a line whose chain hits an enemy ship (\U0001F6A2): attack that line's first
-    tile, do not move.\n2. Else if MOVE + ATTACK PAIRS is not empty: pick one pair.
-    Prefer pairs whose attack hits an enemy ship.\n3. Else: move to a SAFE tile closer
-    to the nearest enemy, attack = [-1,-1].\n4. Never move to a tile not on the SAFE
-    list.\n5. If you attacked, use your remaining movement points to retreat to a
-    SAFE tile.\n\nReply JSON only:\n{\"reasoning\": \"brief\", \"movement\": [x1,
-    y1], \"attack\": [x2, y2], \"move_after_attack\": [x3, y3]}"
+  prompt: "You are an AI player controlling a ship in WavesST, a turn-based naval
+    strategy game. Your faction is `@faction@`. The enemy factions are [`@enemy_factions@`].\n\n---\n\n##
+    GAME MECHANICS & STRATEGIC PRIORITY\n\n**Primary Objective: WIN. This is achieved
+    by destroying ALL enemy ships.**\nStatistical analysis shows the path to victory
+    is **PRECISION, NOT MOBILITY**. Your core directives are:\n\n1.  **TARGET PRIORITIZATION
+    IS PARAMOUNT**: Consistently selecting and hitting enemies is the #1 driver of
+    success.\n2.  **MOVE WITH INTENT, NOT EXCESS**: Every movement must serve a clear
+    tactical goal: getting into optimal attack range or avoiding immediate danger.
+    Wandering reduces win rate.\n3.  **LEVERAGE WAVES FOR ADVANTAGE**: A wave tile
+    can extend an attack by one tile in the direction its arrow points to. It is
+    a weapon, not just an obstacle \u2014 but it can also damage your allies if misused.\n4. 
+    **MOVE AND ATTACK**: After you move, you **can and should** attack if a valid
+    enemy target comes into range. When choosing where to move, first check if moving
+    there will put any enemies within your attack range (`@attack_range@` tiles)
+    and outside your offset (`@attack_offset@` tiles). If it will, that is often
+    the best move. Failing to attack an enemy that is in your range often leaves
+    you vulnerable to their counter-attack.\n\n---\n\n## TACTICAL RULES & DECISION
+    FLOW\n\n**A. ATTACK PHASE (Your First Priority)**\n- **Can you attack a VALID
+    target RIGHT NOW?**\n    - **VALID TARGETS:** `Enemy Ship` or `Neutral Target
+    (\U0001F3AF)`. Attacking `Ally Ship` is an illegal, game-losing mistake; attacking
+    `Empty Tile` wastes your attack.\n    - **RANGE:** Target must be at Manhattan
+    distance exactly `@attack_range@` from you (count orthogonal steps only; a diagonal
+    step counts as 2). Tiles at distance `@attack_offset@` or closer are a dead zone
+    and cannot be attacked.\n    *Example:* If you are at position (10,9) and your
+    offset is 1 and range is 2, then you can attack positions: (10,11),(11,10),(9,10),(12,9),(8,9),(9,8),(11,8),(10,7).\n-
+    **Wave-Propagation Tactic:** Attacking a `Wave` tile (`~^`, `~V`, `~<`, `~>`)
+    damages the wave tile and then propagates the attack **one tile in the direction
+    the wave arrow points**. The propagated hit damages whatever is on that next
+    tile \u2014 enemy, ally, neutral, or obstacle. The wave does **not** let you
+    choose an arbitrary target beyond it; the direction is fixed by the arrow. So
+    a wave attack only reaches an enemy if that enemy is exactly one tile beyond
+    the wave in its arrow direction, and you can hit the wave tile itself. **Warning:**
+    if an ally is one tile beyond the wave in its arrow direction, the propagation
+    will damage your ally. Attacking a wave with no enemy beyond it usually wastes
+    your attack.\n\n**B. MOVEMENT PHASE (Only if attacking now is impossible or ineffective)**\n-
+    **Purpose:** Move **only** to achieve one of these goals:\n    1.  **Close Distance:**
+    To get a priority enemy into your attack range.\n    2.  **Line Up Shot:** To
+    position yourself to use a wave for an extended attack next turn.\n    3.  **Evade
+    Danger:** To move away from clusters of enemies or dangerous wave paths.\n- **Path
+    Validation:** Movement is tile-by-tile. Your path **MUST NOT** cross a Wave tile
+    (causes early stop) or a blocked tile (Ship), even if your final destination
+    is otherwise reachable. Use the provided safe/risky position lists.\n\n---\n\n##
+    CURRENT STATE & ANALYSIS\n\n- **Your Ship:** `@self_status@` at (`@self_x@`,
+    `@self_y@`)\n- **Enemy Status:** `@grid_overview_enemies@`\n- **Ally Status:**
+    `@grid_overview_allies@`\n- **Wave Analysis:** `@grid_overview_waves@`\n\n---\n\n##
+    AVAILABLE ACTIONS & VALIDATION\n\n### 1. Attack Options (Evaluate First)\n**Immediate
+    Targets:** `@current_attack_positions@`\n\n### 2. Movement Options (Evaluate
+    Second)\n**Safe Move-To Positions:** `@safe_movement_positions@`\n**Move + Attack
+    (move to X, allows attacking Y):** \n`@attack_enabling_tiles@`\n**Risky/Hazardous
+    Positions Close to You:** \n - *Waves*`@wave_movement_positions@` \n - *Blocked*
+    `@blocked_movement_positions@`\n\n---\n\n## STRATEGIC DECISION CHECKLIST (BEFORE
+    RESPONDING)\n\n1.  **Movement Justification:** Does my chosen `\"movement\"`
+    directly enable a future high-probability attack or avoid a major threat? **If
+    not, consider [-1, -1].**\n2.  **Target Analysis:** From my chosen `\"movement\"`,
+    which targets can I hit based on the `\"Enemy Status\"` list? Consider the attack
+    range and offset to calculate your attack area.\n3.  **Target Selection:** Is
+    my chosen `\"attack\"` coordinate a confirmed `Enemy`, `Target`, or a `Wave`
+    whose one-tile propagation lands on an enemy? **If unsure, attack = [-1, -1].**\n4. 
+    **Wave Utilization:** Have I checked if a wave can amplify my attack range this
+    turn or next? Remember the propagation direction is fixed by the wave's arrow.\n\n---\n\n##
+    RESPONSE FORMAT\n**CRITICAL:** Output **ONLY** a valid JSON object. No other
+    text.\n```json\n{\n  \"reasoning\": \"Concise tactic, e.g., 'Wave-extended attack
+    on low-health enemy'\",\n  \"movement\": [x1, y1],\n  \"attack\": [x2, y2],\n 
+    \"move_after_attack\": [x3, y3]\n}"
   includeEmptySpaces: 0

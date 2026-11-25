@@ -36,7 +36,8 @@ namespace Core.Simulation
         private Faction _winningFaction;
         private bool _runningSimulation;
         private bool _interrupt;
-
+        private bool _skip;
+        
         public void Initialize(SimulationManager simulationManager,
             Dictionary<Faction, List<NavalShip>> navalShipsDictionary)
         {
@@ -255,6 +256,14 @@ namespace Core.Simulation
             _runningSimulation = false;
         }
 
+        public override void SkipController()
+        {
+            DebugUtils.DebugLogMsg("Skipping controller", DebugUtils.DebugType.System);
+            StopCoroutine(controllerCoroutine);
+            _simulationManager.SkipSimulation();
+            _runningSimulation = false;
+        }
+
         public void AddSimulationInfo(string simulationInfo, string versusInfo)
         {
             simulationText.text = $"{levelGoal.GetLevelMessage()}\n\n{simulationInfo}";
@@ -268,9 +277,17 @@ namespace Core.Simulation
             _interrupt = true;
         }
 
+        public void SkipSimulation()
+        {
+            _runningSimulation = false;
+            running = false;
+            _skip = true;
+        }
+
         public bool IsRunningSimulation() => _runningSimulation;
 
         public bool WasInterrupted() => _interrupt;
+        public bool WasSkipped() => _skip;
 
         // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
         public SimulationOutcome Outcome => _outcome;
