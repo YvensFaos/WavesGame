@@ -130,6 +130,7 @@ namespace Actors.AI.LlmAI
                 return isNotSelf && (isAlly || isAIAlly || isLlmAiAlly);
             });
             
+            
             template = ReplaceTagWithText(template, "grid_overview_allies",
                 ListGridToString(llmAINavalShip, alliesOnTheGrid, templatePrompt.includeEmptySpaces));
 
@@ -146,8 +147,23 @@ namespace Actors.AI.LlmAI
 
 
             if (!GameManager.GetSingleton().GetSettings().logPromptGeneratorInfo || !WavesRecorder.TryToGetSingleton(out var recorder)) return template;
+            var alliesOnGridActors = alliesOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<NavalActor>()
+                .ToList();
+            var enemiesOnTheGridActors = enemiesOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<NavalActor>().ToList();
+
+            var targetsOnTheGrid = grid.FindAll(gridUnit =>
+            {
+                var actor = gridUnit.GetActor();
+                var isTarget = actor is NavalTarget;
+                return isTarget;
+            });
+            var targetsOnGridActors = targetsOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<NavalActor>().ToList();
+            
             var promptGeneratorEntry = new PromptGeneratorEntry(llmAINavalShip.name, llmAINavalShip.GetUnit().Index(), 
-                walkableUnits, currentAttackableActors, enemiesOnTheGrid, selfFaction);
+                walkableUnits, currentAttackableActors, alliesOnGridActors, enemiesOnTheGridActors, targetsOnGridActors, selfFaction);
             recorder.RecordNewEntry(promptGeneratorEntry);
 
             return template;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actors;
 using Grid;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -12,11 +13,14 @@ namespace Core.Recorder
         [SerializeField] public SimpleVector2Int selfPosition;
         [SerializeField] public List<SimpleVector2Int> movementPositions;
         [SerializeField] public List<SimpleVector2Int> attackablePositions;
-        [SerializeField] public List<SimpleVector2Int> enemyPositions;
+        [SerializeField] public List<NavalActorShortEntryJson> alliesList;
+        [SerializeField] public List<NavalActorShortEntryJson> enemiesList;
+        [SerializeField] public List<NavalActorShortEntryJson> targetsList;
 
         public PromptGeneratorEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
             Vector2Int selfPosition,
-            List<Vector2Int> movements, List<Vector2Int> attackables, List<Vector2Int> enemies)
+            List<Vector2Int> movements, List<Vector2Int> attackables, List<NavalActor> allies, List<NavalActor> enemies,
+            List<NavalActor> targets)
             : base(actorId, faction, eventType, turn, timeStamp, "")
         {
             this.selfPosition = new SimpleVector2Int(selfPosition);
@@ -24,8 +28,13 @@ namespace Core.Recorder
             movements.ForEach(x => movementPositions.Add(new SimpleVector2Int(x.x, x.y)));
             attackablePositions = new List<SimpleVector2Int>();
             attackables.ForEach(x => attackablePositions.Add(new SimpleVector2Int(x.x, x.y)));
-            enemyPositions = new List<SimpleVector2Int>();
-            enemies.ForEach(x => enemyPositions.Add(new SimpleVector2Int(x.x, x.y)));
+
+            alliesList = new List<NavalActorShortEntryJson>();
+            allies.ForEach(navalActor => { alliesList.Add(new NavalActorShortEntryJson(navalActor)); });
+            enemiesList = new List<NavalActorShortEntryJson>();
+            enemies.ForEach(navalActor => { enemiesList.Add(new NavalActorShortEntryJson(navalActor)); });
+            targetsList = new List<NavalActorShortEntryJson>();
+            targets.ForEach(navalActor => { targetsList.Add(new NavalActorShortEntryJson(navalActor)); });
         }
     }
 
@@ -34,11 +43,14 @@ namespace Core.Recorder
         private readonly Vector2Int _selfPosition;
         private readonly List<Vector2Int> _movementPositions;
         private readonly List<Vector2Int> _attackablePositions;
-        private readonly List<Vector2Int> _enemyPositions;
+        private readonly List<NavalActor> _allies;
+        private readonly List<NavalActor> _enemies;
+        private readonly List<NavalActor> _targets;
 
         public PromptGeneratorEntry(string actorId,
             Vector2Int position, List<GridUnit> movementGridPosition,
-            List<GridActor> attackableGridPosition, List<GridUnit> enemyGridPosition, 
+            List<GridActor> attackableGridPosition, List<NavalActor> alliesOnGrid, List<NavalActor> enemiesOnGrid,
+            List<NavalActor> targetsOnGrid,
             Faction faction) : base(actorId, faction, WavesRecordEntryType.PromptInfo)
         {
             _selfPosition = position;
@@ -46,8 +58,9 @@ namespace Core.Recorder
             movementGridPosition.ForEach(gridUnit => { _movementPositions.Add(gridUnit.Index()); });
             _attackablePositions = new List<Vector2Int>();
             attackableGridPosition.ForEach(gridActor => { _attackablePositions.Add(gridActor.GetUnit().Index()); });
-            _enemyPositions =  new List<Vector2Int>();
-            enemyGridPosition.ForEach(gridActor => { _enemyPositions.Add(gridActor.Index()); });
+            _allies = alliesOnGrid;
+            _enemies = enemiesOnGrid;
+            _targets = targetsOnGrid;
         }
 
         public override void PerformEntry()
@@ -59,8 +72,9 @@ namespace Core.Recorder
         protected override string ToJson()
         {
             return JsonConvert.SerializeObject(new PromptGeneratorEntryJson(ActorID, Faction,
-                WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp,
-                _selfPosition, _movementPositions, _attackablePositions, _enemyPositions), GetJsonSerializerSettings());
+                    WavesRecordEntryTypeExtensions.WavesRecordEntryTypeToString(eventType), turn, timeStamp,
+                    _selfPosition, _movementPositions, _attackablePositions, _allies, _enemies, _targets),
+                GetJsonSerializerSettings());
         }
     }
 }
