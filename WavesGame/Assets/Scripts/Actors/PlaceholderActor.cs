@@ -19,6 +19,8 @@ namespace Actors
         [SerializeField] private int order;
         [SerializeField] private Faction placeholderFaction;
         [SerializeField] private SpriteRenderer placeholderRenderer;
+        [SerializeField] private bool overrideCurrentHealth;
+        [SerializeField, ShowIf("overrideCurrentHealth")] private int currentHealth;
 
         [Button("Update Color")]
         private void UpdateSpriteColorToFactionColor()
@@ -36,6 +38,14 @@ namespace Actors
             return placeholderFaction.Equals(other.PlaceholderFaction)
                 ? order.CompareTo(other.Order)
                 : string.Compare(placeholderFaction.name, other.PlaceholderFaction.name, StringComparison.Ordinal);
+        }
+
+        public void ProcessNavalShip(NavalShip navalShip)
+        {
+            if (overrideCurrentHealth)
+            {
+                navalShip.OverrideCurrentHealth(currentHealth);
+            }
         }
     }
 }

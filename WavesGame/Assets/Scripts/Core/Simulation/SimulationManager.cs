@@ -311,6 +311,10 @@ namespace Core.Simulation
                 playerType.InitializeType(navalShip, factionsHash);
 
                 navalShips.Add(navalShip);
+                
+                //Apply placeholder controls to override the base navalShip settings
+                placeHolder.ProcessNavalShip(navalShip);
+                
                 DebugUtils.DebugLogMsg($"Naval Ship Added: {navalShip.name}", DebugUtils.DebugType.System);
                 Destroy(placeHolder.gameObject);
             }
