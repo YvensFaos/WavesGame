@@ -1,0 +1,34 @@
+{
+  "host": "192.168.2.62",
+  "port": 11434,
+  "models": [
+    "llama3.1:8b",
+    "phi4"
+  ],
+  "prompt_pairs": [
+    {
+      "prompt": "promptA.txt",
+      "check": "check-0.json"
+    },
+    {
+      "prompt": "promptB.txt",
+      "check": "check-0.json"
+    },
+    {
+      "prompt": "promptB-no-list.txt",
+      "check": "check-0.json"
+    },
+    {
+      "prompt": "promptC.txt",
+      "check": "check-0.json"
+    },
+    {
+      "prompt": "promptC-no-list.txt",
+      "check": "check-0.json"
+    }
+  ],
+  "repeat": 5,
+  "output": "results-0.jsonl",
+  "timeout": 500,
+  "temperature": 0.2
+}
