@@ -527,6 +527,13 @@ def enumerate_answer_key(grid, actor_pos, own_symbol, enemy_symbol):
         if kind:
             attackable[(x, y)] = kind
 
+    # waves are not blockers but they are legal attack targets: attacking
+    # one propagates the hit one tile behind the wave
+    for y in range(height):
+        for x, ch in enumerate(grid[height - 1 - y]):
+            if ch in WAVE_SYMBOLS and (x, y) != start:
+                attackable[(x, y)] = "wave"
+
     moves = []
     for pos in sorted(dist, key=lambda p: (dist[p], p[0], p[1])):
         x, y = pos
@@ -623,6 +630,7 @@ def state_report(rows, info, turn_arg, hint, as_json):
             atk["name"] = short_name(owner) if owner else (
                 "obstacle" if atk["kind"] == "obstacle"
                 else "target" if atk["kind"] == "target"
+                else "wave" if atk["kind"] == "wave"
                 else "unidentified ship")
             if owner:
                 atk["hp"] = snap["hp"].get(owner)
@@ -676,6 +684,8 @@ def state_report(rows, info, turn_arg, hint, as_json):
             f"{a['name']}" + (f" hp {a['hp']}" if "hp" in a else "")
             + f" at ({a['position'][0]},{a['position'][1]})"
             + (" (wasted shot)" if a["kind"] == "obstacle" else "")
+            + (" (wave shot; hits one tile behind the wave)"
+               if a["kind"] == "wave" else "")
             + (" (ALLY: friendly fire)" if a["kind"] == "ally" else "")
             for a in m["attacks"]) or "-- no attack possible"
         print(f"  ({pos[0]},{pos[1]}){stay}  {m['steps']}/3 steps: {heads}{wave}")

@@ -26,5 +26,6 @@ namespace Core
         public bool debugCursorInformation = false;
         public bool alwaysIgnoreWaves = false;
         public bool alwaysHitByWaves = false;
+        public bool logPromptGeneratorInfo = false;
     }
 }

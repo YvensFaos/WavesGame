@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using Core.Recorder;
 using Grid;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace Actors.AI.LlmAI
             var template = templatePrompt.prompt;
             var selfFaction = llmAINavalShip.GetFaction();
             var faction = selfFaction.ToString();
+
             template = ReplaceTagWithText(template, "faction", faction);
             template = ReplaceTagWithText(template, "enemy_factions", ListEnemyFactions(enemyFactions));
             var shipData = llmAINavalShip.ShipData;
@@ -141,6 +143,12 @@ namespace Actors.AI.LlmAI
 
             template = ReplaceTagWithText(template, "grid_overview_symbolic",
                 ListSymbolicGridToString(llmAINavalShip, grid));
+
+
+            if (!GameManager.GetSingleton().GetSettings().logPromptGeneratorInfo || !WavesRecorder.TryToGetSingleton(out var recorder)) return template;
+            var promptGeneratorEntry = new PromptGeneratorEntry(llmAINavalShip.name, llmAINavalShip.GetUnit().Index(), 
+                walkableUnits, currentAttackableActors, selfFaction);
+            recorder.RecordNewEntry(promptGeneratorEntry);
 
             return template;
         }

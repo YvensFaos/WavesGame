@@ -14,7 +14,8 @@ Waves:
 (10, 11) = ~^
 
 
-⚔️ Attack is valid ONLY at exactly 2 tiles away.
+⚔️ Attack is valid ONLY at exactly 2 tiles away (Manhattan distance: orthogonal steps; a diagonal counts as 2 steps).
+The tile right next to you (1 step) is a dead zone: it can never be attacked.
 Only enemy ships (🚢) count for victory. Waves (~>) and neutrals (🎯) can be attacked but do not help you win.
 
 ⚔️ ATTACK NOW (no move needed; attack the first tile on the line):

@@ -15,9 +15,11 @@ MonoBehaviour:
   prompt: "WavesST. You = @faction@. Enemies = @enemy_factions@.\nYour ship @self_status@
     at (@self_x@,@self_y@).\nEnemies: @grid_overview_enemies@\nAllies: @grid_overview_allies@\nWaves:
     @grid_overview_waves@\n\n\u2694\uFE0F Attack is valid ONLY at exactly 2 tiles
-    away.\nOnly enemy ships (\U0001F6A2) count for victory. Waves (~>) and neutrals
-    (\U0001F3AF) can be attacked but do not help you win.\n\n\u2694\uFE0F ATTACK
-    NOW (no move needed; attack the first tile on the line):\n@current_attack_positions@\n\nMOVEMENT
+    away (Manhattan distance: orthogonal steps; a diagonal counts as 2 steps).\nThe
+    tile right next to you (1 step) is a dead zone: it can never be attacked.\nOnly
+    enemy ships (\U0001F6A2) count for victory. Waves (~>) and neutrals (\U0001F3AF)
+    can be attacked but do not help you win.\n\n\u2694\uFE0F ATTACK NOW (no move
+    needed; attack the first tile on the line):\n@current_attack_positions@\n\nMOVEMENT
     BUDGET\nYou may move up to 3 tiles per turn, split between \"movement\" and \"move_after_attack\".\nEvery
     tile you enter must be on the SAFE list.\nThe SAFE list already includes every
     tile reachable within 3 moves of your current position, so any valid retreat

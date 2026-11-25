@@ -57,11 +57,10 @@ The SAFE list already includes every tile reachable within 3 moves of your curre
 
 RULES
 1. If ATTACK NOW contains a line whose chain hits an enemy ship (🚢): attack that line's first tile, do not move.
-2. Else if MOVE + ATTACK PAIRS is not empty: pick one pair. Prefer pairs whose attack hits an enemy ship.
-3. Else: move to a SAFE tile closer to the nearest enemy, attack = [-1,-1].
-4. Never move to a tile not on the SAFE list.
-5. If you attacked, use your remaining movement points to retreat to a SAFE tile.
-6. If you are unsure whether an attack is valid, attack = [-1,-1].
+2. Else: move to a SAFE tile closer to the nearest enemy, attack = [-1,-1].
+3. Never move to a tile not on the SAFE list.
+4. If you attacked, use your remaining movement points to retreat to a SAFE tile.
+5. If you are unsure whether an attack is valid, attack = [-1,-1].
 
 Reply JSON only, no other text:
 {"reasoning": "concise tactic, e.g. 'Wave-extended attack on low-health enemy'", "movement": [x1, y1], "attack": [x2, y2], "move_after_attack": [x3, y3]}

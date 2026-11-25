@@ -27,6 +27,7 @@ namespace Core.Recorder
         Propagation,
         InvalidAttempt,
         Input,
+        PromptInfo,
         Turn
     }
 
@@ -52,6 +53,7 @@ namespace Core.Recorder
                 WavesRecordEntryType.ScenarioState => "SCNR",
                 WavesRecordEntryType.Propagation => "PPGT",
                 WavesRecordEntryType.StepFX => "STFX",
+                WavesRecordEntryType.PromptInfo => "PTNF",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
