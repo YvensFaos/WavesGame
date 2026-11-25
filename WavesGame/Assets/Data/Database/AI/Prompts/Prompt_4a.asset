@@ -55,11 +55,12 @@ MonoBehaviour:
     (causes early stop) or a blocked tile (Ship), even if your final destination
     is otherwise reachable. Use the provided safe/risky position lists.\n\n---\n\n##
     CURRENT STATE & ANALYSIS\n\n- **Your Ship:** `@self_status@` at (`@self_x@`,
-    `@self_y@`)\n- **Enemy Status:** `@grid_overview_enemies@`\n- **Wave Analysis:**
-    `@grid_overview_waves@`\n\n---\n\n## AVAILABLE ACTIONS & VALIDATION\n\n### 1.
-    Attack Options (Evaluate First)\n**Immediate Targets:** `@current_attack_positions@`\n\n###
-    2. Movement Options (Evaluate Second)\n**Safe Move-To Positions:** `@safe_movement_positions@`\n**Move
-    + Attack (move to X, allows attacking Y):** \n`@attack_enabling_tiles@`\n**Risky/Hazardous
+    `@self_y@`)\n- **Enemy Status:** `@grid_overview_enemies@`\n- **Ally Status:**
+    `@grid_overview_allies@`\n- **Wave Analysis:** `@grid_overview_waves@`\n\n---\n\n##
+    AVAILABLE ACTIONS & VALIDATION\n\n### 1. Attack Options (Evaluate First)\n**Immediate
+    Targets:** `@current_attack_positions@`\n\n### 2. Movement Options (Evaluate
+    Second)\n**Safe Move-To Positions:** `@safe_movement_positions@`\n**Move + Attack
+    (move to X, allows attacking Y):** \n`@attack_enabling_tiles@`\n**Risky/Hazardous
     Positions Close to You:** \n - *Waves*`@wave_movement_positions@` \n - *Blocked*
     `@blocked_movement_positions@`\n\n---\n\n## STRATEGIC DECISION CHECKLIST (BEFORE
     RESPONDING)\n\n1.  **Movement Justification:** Does my chosen `\"movement\"`
