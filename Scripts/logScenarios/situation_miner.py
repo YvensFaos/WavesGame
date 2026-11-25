@@ -18,7 +18,14 @@ reproduce the scenario in the game and export its PTNF:
 Usage:
   python3 situation_miner.py battle1.txt
   python3 situation_miner.py battle1.txt battle2.txt --top 25 --detail 5
-  python3 situation_miner.py battle1.txt --actor lune
+  python3 situation_miner.py battle1.txt --actor luana
+  python3 situation_miner.py battle1.txt --no-color     # plain ASCII (piping)
+  python3 situation_miner.py battle1.txt --color        # force colours
+
+Output is coloured when stdout is a terminal (iTerm or any ANSI console):
+Red ships in red, Green ships in green, the actor highlighted, waves cyan,
+obstacles dim grey, targets yellow. Piped/redirected output stays plain
+unless --color is forced.
 
 "Interesting" (highest score) means: the option space gives genuinely
 different outcomes. Low score means the state is solvable by echoing the
@@ -69,9 +76,23 @@ def parse_args():
                     help="Full state blocks for the top N picks (default 5).")
     ap.add_argument("--actor", help="Only decisions of actors matching this "
                                     "(case-insensitive substring).")
+    ap.add_argument("--color", action="store_true",
+                    help="Force ANSI colours even when output is piped.")
+    ap.add_argument("--no-color", action="store_true",
+                    help="Plain ASCII, no ANSI colours.")
     ap.add_argument("--quiet", action="store_true",
                     help="Only the ranked list, no detail blocks.")
     return ap.parse_args()
+
+
+USE_COLOR = False
+
+
+def paint(text, code):
+    """ANSI-paint text (iTerm/console) or return it unchanged."""
+    if not USE_COLOR or not text:
+        return text
+    return f"\033[{code}m{text}\033[0m"
 
 
 # ------------------------------------------------------- log reading / state
@@ -410,20 +431,64 @@ def detail_block(entry, rank):
     print(f"  log      : {entry['log']}")
     print(f"  inspect  : python3 battle_replay.py {entry['log']} "
           f"--state {entry['turn']} '{entry['actor']}'")
+    # readable labels: A,B,C for Red ships, 1,2,3 for Green ships
+    def pos_key(s):
+        return (s["position"][1], s["position"][0])
+    reds = sorted([s for s in entry["ships"] if s["faction"] == "Red"],
+                  key=pos_key)
+    greens = sorted([s for s in entry["ships"] if s["faction"] == "Green"],
+                    key=pos_key)
+    LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    DIGITS = "1234567890"
+    labels = {}
+    for i, s in enumerate(reds):
+        labels[tuple(s["position"])] = LETTERS[i] if i < len(LETTERS) else "?"
+    for i, s in enumerate(greens):
+        labels[tuple(s["position"])] = DIGITS[i] if i < len(DIGITS) else "?"
+    actor = (entry["pos"][0], entry["pos"][1])
+
     g = [row[:] for row in entry["board"]]
-    fx, fy = entry["pos"]
-    g[len(g) - 1 - fy][fx] = "*"
+    height, width = len(g), len(g[0]) if g else 0
+    RED_CODE = "1;31"          # bold red letters
+    GREEN_CODE = "1;32"        # bold green digits
+    ACTOR_CODE = "1;4;33;44"   # bold underline yellow on blue
+    WAVE_CODE = "36"
+    OBSTACLE_CODE = "90"
+    TARGET_CODE = "33"
+    for row_i, row in enumerate(g):
+        y = height - 1 - row_i
+        for x in range(min(width, len(row))):
+            lab = labels.get((x, y))
+            if lab:
+                code = RED_CODE if (x, y) in {tuple(s["position"]) for s in reds} \
+                    else GREEN_CODE
+                if (x, y) == actor:
+                    code = ACTOR_CODE
+                row[x] = paint(lab, code)
+            elif row[x] in WAVE_SYMBOLS:
+                row[x] = paint(row[x], WAVE_CODE)
+            elif row[x] == OBSTACLE_SYMBOL:
+                row[x] = paint(row[x], OBSTACLE_CODE)
+            elif row[x] == TARGET_SYMBOL:
+                row[x] = paint(row[x], TARGET_CODE)
     print("  " + "-" * 66)
-    print(f"  board (* = {short_name(entry['actor'])}):")
+    print(f"  board (letters = Red, digits = Green, "
+          f"actor is {labels.get(actor, '?')} at {actor}):")
     print("  " + "-" * 66)
     for row in grid_to_rows(g):
         print(f"  {row}")
     ships = entry["ships"]
-    print("  ships:")
-    for s in sorted(ships, key=lambda s: (s["position"][0], s["position"][1])):
-        print(f"    ({s['position'][0]:>2},{s['position'][1]:>2})  "
+    print("  ships (letters = Red, digits = Green; Red first, then Green):")
+    for s in reds + greens:
+        lab = labels.get(tuple(s["position"]), "?")
+        is_red = s["faction"] == "Red"
+        code = RED_CODE if is_red else GREEN_CODE
+        if tuple(s["position"]) == actor:
+            code = ACTOR_CODE
+        mark = "   <- ACTOR (this decision)" if tuple(s["position"]) == actor else ""
+        print(f"    {paint(lab, code):>2}  ({s['position'][0]:>2},{s['position'][1]:>2})  "
               f"[{s['faction']:<5}] hp {s['hp'] if s['hp'] is not None else '?':<3} "
-              f" {short_name(s['id'])}")
+              f" {short_name(s['id'])}{mark}")
     if entry["targets"]:
         print("  neutral targets:")
         for x, y in entry["targets"]:
@@ -441,6 +506,8 @@ def detail_block(entry, rank):
 
 def main():
     args = parse_args()
+    global USE_COLOR
+    USE_COLOR = (not args.no_color) and (args.color or sys.stdout.isatty())
     entries = []
     for path in args.logs:
         n_before = len(entries)

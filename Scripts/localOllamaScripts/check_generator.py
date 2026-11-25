@@ -120,6 +120,25 @@ def first_of(ptnf, *keys):
     return []
 
 
+def as_objects(raw):
+    """wavesList / obstaclesList entries -> [{"id":..., "position":[x,y],
+    "direction": optional}] without breaking on missing fields."""
+    out = []
+    for e in raw or []:
+        if not isinstance(e, dict):
+            continue
+        pos = e.get("position")
+        if not isinstance(pos, dict) or "x" not in pos or "y" not in pos:
+            continue
+        entry = {"id": e.get("actorId") or e.get("id") or e.get("name")
+                 or "object",
+                 "position": [int(pos["x"]), int(pos["y"])]}
+        if e.get("direction"):
+            entry["direction"] = e["direction"]
+        out.append(entry)
+    return out
+
+
 def main():
     args = parse_args()
     ptnf = load_ptnf(args.ptnf)
@@ -153,6 +172,8 @@ def main():
              + as_ships(first_of(ptnf, "alliesList", "allyPositions"),
                         own_faction, skip_id=ptnf.get("actorId"), origin=origin))
     targets = as_ships(ptnf.get("targetsList"), "Neutral")
+    waves = as_objects(first_of(ptnf, "wavesList", "wavePositions"))
+    obstacles = as_objects(first_of(ptnf, "obstaclesList", "obstaclePositions"))
 
     check = {
         "format": "waves-check-2",
@@ -167,6 +188,8 @@ def main():
         "attackable_positions": attackable_positions,
         "ships": ships,
         "targets": targets,
+        "waves": waves,
+        "obstacles": obstacles,
     }
 
     text = json.dumps(check, indent=args.indent)

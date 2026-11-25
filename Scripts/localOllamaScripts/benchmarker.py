@@ -377,11 +377,25 @@ def validate_from_ptnf(check, answer):
             known_targets[(int(t["position"][0]), int(t["position"][1]))] = t
         except (TypeError, ValueError, KeyError, IndexError):
             continue
+    known_waves = {}
+    for w in check.get("waves", []):
+        try:
+            known_waves[(int(w["position"][0]), int(w["position"][1]))] = w
+        except (TypeError, ValueError, KeyError, IndexError):
+            continue
+    known_obstacles = {}
+    for o in check.get("obstacles", []):
+        try:
+            known_obstacles[(int(o["position"][0]), int(o["position"][1]))] = o
+        except (TypeError, ValueError, KeyError, IndexError):
+            continue
+    known_any = bool(known_ships or known_targets
+                     or known_waves or known_obstacles)
     actor_faction = check.get("faction")
 
     def target_note(attack_pos):
-        """Both-check: distance rule AND a real target (when ships/targets
-        are known)."""
+        """Target validation, separate from the rule check: what does the
+        attack actually hit, given what the PTNF lists?"""
         ship = known_ships.get(attack_pos)
         if ship is not None:
             label = ship.get("id") or "ship"
@@ -395,51 +409,46 @@ def validate_from_ptnf(check, answer):
             return (f"attack on neutral target {tgt.get('id')} "
                     f"(hp {tgt.get('hp')}) at {attack_pos} "
                     f"(wasted on a neutral)")
-        if known_ships or known_targets:
-            return (f"no attackable object at {attack_pos} given the known "
-                    f"{len(known_ships)} PTNF ships and "
-                    f"{len(known_targets)} targets")
-        return "target itself not verified: no ships or targets in the check"
+        wave = known_waves.get(attack_pos)
+        if wave is not None:
+            return (f"attack on wave {wave.get('direction') or ''} at "
+                    f"{attack_pos} (legal; the hit propagates one tile "
+                    f"behind the wave)")
+        if attack_pos in known_obstacles:
+            return (f"attack on the obstacle at {attack_pos} "
+                    f"(no effect, wasted)")
+        if known_any:
+            return (f"no target: {attack_pos} is empty water "
+                    f"(nothing in the PTNF lists is there)")
+        return "target itself not verified: empty PTNF lists in the check"
 
     if attack is None:
         issues.append("no attack declared")
         if attackable and movement == origin:
             issues.append(f"NOTE: {len(attackable)} valid attack(s) existed "
                           f"from {origin}")
-    elif attackable and movement == origin:
-        if attack in attackable:
-            issues.append("valid attack: in the PTNF attackable positions; "
-                          + target_note(attack))
-        else:
-            dist = manhattan(origin, attack)
-            why = ("DEAD ZONE: it is adjacent (distance 1)" if dist == 1
-                   else f"Manhattan distance {dist} (only exactly "
-                        f"{atk_dist} is legal)" if dist != atk_dist
-                   else "nothing attackable there")
-            return "INVALID_ATTACK", [
-                f"attack {attack} is not in the PTNF attackable positions "
-                f"({sorted(attackable)}) — {why}"]
     else:
+        # attack-RULE validation: distance from the moved position
         dist = manhattan(movement, attack)
         if dist == 0:
             return "INVALID_ATTACK", [
                 f"cannot attack your own tile {movement}"]
-        if dist == atk_dist:
-            if (known_ships or known_targets) \
-                    and attack not in known_ships and attack not in known_targets:
-                return "INVALID_ATTACK", [
-                    f"ILLEGAL TARGET: nothing at {attack} — "
-                    + target_note(attack)]
-            issues.append(f"attack at {attack} is at the legal distance "
-                          f"{atk_dist} from {movement}; " + target_note(attack))
-        elif dist == 1:
+        if dist == 1:
             return "INVALID_ATTACK", [
                 f"DEAD ZONE: {attack} is adjacent to {movement}; only "
                 f"exactly {atk_dist} can be attacked"]
-        else:
+        if dist != atk_dist:
             return "INVALID_ATTACK", [
                 f"OUT OF RANGE: {attack} is at Manhattan distance {dist} "
                 f"from {movement} (only exactly {atk_dist} is legal)"]
+        # rule satisfied: the attack is valid no matter what is there.
+        # attack-TARGET validation goes into the issues below.
+        issues.append(f"attack rule satisfied: {attack} is exactly "
+                      f"{atk_dist} from {movement}; " + target_note(attack))
+        if attackable and movement == origin and attack not in attackable:
+            issues.append(f"NOTE: {attack} is not in the PTNF "
+                          f"attackable_positions (engine list answered only "
+                          f"for the origin); judged by the rule above")
     return "OK", issues
 
 
@@ -980,13 +989,22 @@ def main():
                     if any("ALLY FIRE" in i for i in r.get("issues", [])))
     neutral_hits = sum(1 for r in records
                        if any("neutral target" in i for i in r.get("issues", [])))
+    wave_hits = sum(1 for r in records
+                     if any("attack on wave" in i for i in r.get("issues", [])))
+    obstacle_hits = sum(1 for r in records
+                        if any("attack on the obstacle" in i
+                               for i in r.get("issues", [])))
+    empty_hits = sum(1 for r in records
+                     if any("empty water" in i for i in r.get("issues", [])))
     print()
     print(f"  ally-fire answers: {ally_hits}   wave-tile destinations: "
           f"{wave_tiles}")
-    print(f"  attacks valid AND on a verified target: {verified_hits}   "
-          f"rule-legal but target unverified: {unverified_hits}   "
-          f"friendly-fire attacks: {ally_shot}   "
-          f"neutral-target attacks: {neutral_hits}")
+    print(f"  attack-RULE valid answers: {verified_hits + neutral_hits + ally_shot + wave_hits + obstacle_hits + empty_hits + unverified_hits}")
+    print(f"    attack-TARGET breakdown —  on enemies: {verified_hits}   "
+          f"on waves: {wave_hits}   on neutral targets: {neutral_hits}   "
+          f"on obstacles: {obstacle_hits}")
+    print(f"    on empty water: {empty_hits}   "
+          f"friendly fire: {ally_shot}   target unverifiable: {unverified_hits}")
 
     out_file = args.save_jsonl or (settings or {}).get("output")
     if out_file:
