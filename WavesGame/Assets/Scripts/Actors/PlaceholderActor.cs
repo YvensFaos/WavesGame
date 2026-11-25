@@ -20,12 +20,20 @@ namespace Actors
         [SerializeField] private Faction placeholderFaction;
         [SerializeField] private SpriteRenderer placeholderRenderer;
         [SerializeField] private bool overrideCurrentHealth;
-        [SerializeField, ShowIf("overrideCurrentHealth")] private int currentHealth;
+
+        [SerializeField, ShowIf("overrideCurrentHealth")]
+        private int currentHealth;
 
         [Button("Update Color")]
         private void UpdateSpriteColorToFactionColor()
         {
             placeholderRenderer.color = placeholderFaction.factionColor;
+        }
+
+        [Button("Snap to Grid")]
+        private void SnapToGrid()
+        {
+            transform.position = new Vector3(SnapHalf(transform.position.x), SnapHalf(transform.position.y), 0.0f);
         }
 
         public int Order => order;
@@ -47,5 +55,7 @@ namespace Actors
                 navalShip.OverrideCurrentHealth(currentHealth);
             }
         }
+        
+        private static float SnapHalf(float v) => Mathf.Round(v - 0.5f) + 0.5f;
     }
 }
