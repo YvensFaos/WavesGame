@@ -437,7 +437,16 @@ namespace Actors.AI.LlmAI
                             jumpLine = true;
                             dataAdded = true;
                             break;
-                        case AIBaseShip aiBaseShip:
+                        case PlayerShip playerShip:
+                        {
+                            var opposingFaction = !selfFaction.Equals(playerShip.GetFaction());
+                            var factionText = opposingFaction ? $"Enemy {playerShip.GetFaction()}" : "Ally";
+                            text += $"{index} = {GetNavalShipLine(playerShip, factionText)}";
+                            jumpLine = true;
+                            dataAdded = true;
+                        }
+                            break;
+                    case AIBaseShip aiBaseShip:
                         {
                             var opposingFaction = !selfFaction.Equals(aiBaseShip.GetFaction());
                             var factionText = opposingFaction ? $"Enemy {aiBaseShip.GetFaction()}" : "Ally";
