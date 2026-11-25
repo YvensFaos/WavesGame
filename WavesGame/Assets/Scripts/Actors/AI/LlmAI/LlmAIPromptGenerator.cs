@@ -147,7 +147,7 @@ namespace Actors.AI.LlmAI
 
             if (!GameManager.GetSingleton().GetSettings().logPromptGeneratorInfo || !WavesRecorder.TryToGetSingleton(out var recorder)) return template;
             var promptGeneratorEntry = new PromptGeneratorEntry(llmAINavalShip.name, llmAINavalShip.GetUnit().Index(), 
-                walkableUnits, currentAttackableActors, selfFaction);
+                walkableUnits, currentAttackableActors, enemiesOnTheGrid, selfFaction);
             recorder.RecordNewEntry(promptGeneratorEntry);
 
             return template;
