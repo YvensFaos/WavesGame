@@ -371,10 +371,17 @@ def validate_from_ptnf(check, answer):
             known_ships[(int(s["position"][0]), int(s["position"][1]))] = s
         except (TypeError, ValueError, KeyError, IndexError):
             continue
+    known_targets = {}
+    for t in check.get("targets", []):
+        try:
+            known_targets[(int(t["position"][0]), int(t["position"][1]))] = t
+        except (TypeError, ValueError, KeyError, IndexError):
+            continue
     actor_faction = check.get("faction")
 
     def target_note(attack_pos):
-        """Both-check: distance rule AND a real target (when ships are known)."""
+        """Both-check: distance rule AND a real target (when ships/targets
+        are known)."""
         ship = known_ships.get(attack_pos)
         if ship is not None:
             label = ship.get("id") or "ship"
@@ -383,10 +390,16 @@ def validate_from_ptnf(check, answer):
                         f"(hp {ship.get('hp')}) at {attack_pos}")
             return (f"ALLY FIRE: legal attack on ally {label} "
                     f"(hp {ship.get('hp')}) at {attack_pos}")
-        if known_ships:
-            return (f"no ship at {attack_pos} given the known "
-                    f"{len(known_ships)} PTNF ships")
-        return "target itself not verified: no ships in the check"
+        tgt = known_targets.get(attack_pos)
+        if tgt is not None:
+            return (f"attack on neutral target {tgt.get('id')} "
+                    f"(hp {tgt.get('hp')}) at {attack_pos} "
+                    f"(wasted on a neutral)")
+        if known_ships or known_targets:
+            return (f"no attackable object at {attack_pos} given the known "
+                    f"{len(known_ships)} PTNF ships and "
+                    f"{len(known_targets)} targets")
+        return "target itself not verified: no ships or targets in the check"
 
     if attack is None:
         issues.append("no attack declared")
@@ -398,18 +411,25 @@ def validate_from_ptnf(check, answer):
             issues.append("valid attack: in the PTNF attackable positions; "
                           + target_note(attack))
         else:
+            dist = manhattan(origin, attack)
+            why = ("DEAD ZONE: it is adjacent (distance 1)" if dist == 1
+                   else f"Manhattan distance {dist} (only exactly "
+                        f"{atk_dist} is legal)" if dist != atk_dist
+                   else "nothing attackable there")
             return "INVALID_ATTACK", [
                 f"attack {attack} is not in the PTNF attackable positions "
-                f"({sorted(attackable)})"]
+                f"({sorted(attackable)}) — {why}"]
     else:
         dist = manhattan(movement, attack)
         if dist == 0:
             return "INVALID_ATTACK", [
                 f"cannot attack your own tile {movement}"]
         if dist == atk_dist:
-            if known_ships and attack not in known_ships:
+            if (known_ships or known_targets) \
+                    and attack not in known_ships and attack not in known_targets:
                 return "INVALID_ATTACK", [
-                    f"ILLEGAL TARGET: nothing at {attack} — " + target_note(attack)]
+                    f"ILLEGAL TARGET: nothing at {attack} — "
+                    + target_note(attack)]
             issues.append(f"attack at {attack} is at the legal distance "
                           f"{atk_dist} from {movement}; " + target_note(attack))
         elif dist == 1:
@@ -958,12 +978,15 @@ def main():
                           if any("not verified" in i for i in r.get("issues", [])))
     ally_shot = sum(1 for r in records
                     if any("ALLY FIRE" in i for i in r.get("issues", [])))
+    neutral_hits = sum(1 for r in records
+                       if any("neutral target" in i for i in r.get("issues", [])))
     print()
     print(f"  ally-fire answers: {ally_hits}   wave-tile destinations: "
           f"{wave_tiles}")
     print(f"  attacks valid AND on a verified target: {verified_hits}   "
           f"rule-legal but target unverified: {unverified_hits}   "
-          f"friendly-fire attacks: {ally_shot}")
+          f"friendly-fire attacks: {ally_shot}   "
+          f"neutral-target attacks: {neutral_hits}")
 
     out_file = args.save_jsonl or (settings or {}).get("output")
     if out_file:

@@ -74,3 +74,6 @@ RULES
 3. Else: move to a SAFE tile closer to the nearest enemy, attack = [-1,-1].
 4. Never move to a tile not on the SAFE list.
 5. If you attacked, use your remaining movement points to retreat to a SAFE tile.
+
+Reply JSON only:
+{"reasoning": "brief", "movement": [x1, y1], "attack": [x2, y2], "move_after_attack": [x3, y3]}

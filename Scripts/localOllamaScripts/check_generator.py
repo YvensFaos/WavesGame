@@ -14,16 +14,22 @@ The PTNF line (logged by the game at an actor's decision point) looks like:
   {"eventType":"PTNF","selfPosition":{"x":7,"y":6},
    "movementPositions":[{"x":7,"y":6}, ...],
    "attackablePositions":[...],
+   "enemyPositions":[{"actorId":"AU|Audo Mc F.|HA|Red|4",
+                      "position":{"x":8,"y":10},"currentHealth":15}, ...],
+   "allyPositions":[{"actorId":"LLM|...|Green|2",
+                     "position":{"x":8,"y":5},"currentHealth":15}, ...],
    "actorId":"LLM|Ollama|llama3.1:8b|Luana D.|Green|1",
    "faction":"Green","turn":0,"timeStamp":3}
 
 Output: a waves-check-2 JSON keeping the PTNF fields plus movement_positions
-(the valid movement destinations, engine-computed) and attackable_positions
-(the valid attacks from the current position). The benchmarker then checks:
+(the valid movement destinations, engine-computed), attackable_positions
+(the valid attacks from the current position), and ships (enemy + ally
+positions with health, so the benchmarker can verify that an attack hits a
+real target and later score target choice). The benchmarker then checks:
 movement must be in movement_positions; move_after_attack must fit the
 remaining budget; the attack is checked against attackable_positions when
 the actor stayed, otherwise by the attack rule (exactly Manhattan distance
-2, distance 1 is a dead zone).
+2, distance 1 is a dead zone) AND against the ships list.
 
 You can hand-edit the output afterwards to add a "human" block.
 """
@@ -80,6 +86,40 @@ def as_pairs(raw):
     return out
 
 
+def as_ships(raw, default_faction=None, skip_id=None, origin=None):
+    """[{"name"/"actorId":..., "position":{"x":..,"y":..},
+    "currentHealth":.., "faction":..}] -> [{"id":..., "faction":...,
+    "hp":..., "position":[x, y]}]. Entries without a position are skipped;
+    the actor itself is skipped."""
+    out = []
+    for e in raw or []:
+        if not isinstance(e, dict):
+            continue
+        pos = e.get("position")
+        if not isinstance(pos, dict) or "x" not in pos or "y" not in pos:
+            continue
+        ship_id = e.get("actorId") or e.get("id") or e.get("name")
+        if ship_id is None:
+            continue
+        if skip_id is not None and ship_id == skip_id:
+            continue
+        if origin is not None and [pos["x"], pos["y"]] == list(origin):
+            continue
+        hp = e.get("currentHealth", e.get("hp", e.get("health")))
+        out.append({"id": ship_id,
+                    "faction": e.get("faction") or default_faction,
+                    "hp": hp,
+                    "position": [int(pos["x"]), int(pos["y"])]})
+    return out
+
+
+def first_of(ptnf, *keys):
+    for k in keys:
+        if ptnf.get(k):
+            return ptnf[k]
+    return []
+
+
 def main():
     args = parse_args()
     ptnf = load_ptnf(args.ptnf)
@@ -104,19 +144,29 @@ def main():
         print("WARNING: movementPositions did not include the actor's own tile; "
               "added it as a legal stay.", file=sys.stderr)
 
+    own_faction = ptnf.get("faction") or \
+        (str(ptnf.get("actorId", "")).split("|")[-2]
+         if str(ptnf.get("actorId", "")).count("|") >= 2 else None)
+    enemy_faction = "Red" if own_faction == "Green" else "Green"
+    ships = (as_ships(first_of(ptnf, "enemiesList", "enemyPositions"),
+                      enemy_faction, skip_id=ptnf.get("actorId"), origin=origin)
+             + as_ships(first_of(ptnf, "alliesList", "allyPositions"),
+                        own_faction, skip_id=ptnf.get("actorId"), origin=origin))
+    targets = as_ships(ptnf.get("targetsList"), "Neutral")
+
     check = {
         "format": "waves-check-2",
         "turn": ptnf.get("turn"),
         "timeStamp": ptnf.get("timeStamp"),
         "actor": ptnf.get("actorId"),
-        "faction": ptnf.get("faction") or
-            (str(ptnf.get("actorId", "")).split("|")[-2]
-             if str(ptnf.get("actorId", "")).count("|") >= 2 else None),
+        "faction": ptnf.get("faction") or own_faction,
         "position": origin,
         "budget": MOVEMENT_BUDGET,
         "attack_distance": ATTACK_RANGE,
         "movement_positions": movement_positions,
         "attackable_positions": attackable_positions,
+        "ships": ships,
+        "targets": targets,
     }
 
     text = json.dumps(check, indent=args.indent)
