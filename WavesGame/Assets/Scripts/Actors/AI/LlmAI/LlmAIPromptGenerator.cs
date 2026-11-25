@@ -163,8 +163,8 @@ namespace Actors.AI.LlmAI
             var targetsOnGridActors = targetsOnTheGrid.Select(unit => unit.GetActor())
                 .OfType<NavalActor>().ToList();
 
-            var wavesOnTheGridActors = targetsOnTheGrid.Select(unit => unit.GetActor())
-                .OfType<NavalActor>().ToList();
+            var wavesOnTheGridActors = wavesOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<WaveActor>().ToList();
 
             var promptGeneratorEntry = new PromptGeneratorEntry(llmAINavalShip.name, llmAINavalShip.GetUnit().Index(),
                 walkableUnits, currentAttackableActors, alliesOnGridActors, enemiesOnTheGridActors, targetsOnGridActors,

@@ -21,7 +21,7 @@ namespace Core.Recorder
         public PromptGeneratorEntryJson(string actorId, string faction, string eventType, int turn, long timeStamp,
             Vector2Int selfPosition,
             List<Vector2Int> movements, List<Vector2Int> attackables, List<NavalActor> allies, List<NavalActor> enemies,
-            List<NavalActor> targets, List<NavalActor> waves)
+            List<NavalActor> targets, List<WaveActor> waves)
             : base(actorId, faction, eventType, turn, timeStamp, "")
         {
             this.selfPosition = new SimpleVector2Int(selfPosition);
@@ -37,7 +37,7 @@ namespace Core.Recorder
             targetsList = new List<NavalActorShortEntryJson>();
             targets.ForEach(navalActor => { targetsList.Add(new NavalActorShortEntryJson(navalActor)); });
             wavesList = new List<NavalActorShortEntryJson>();
-            waves.ForEach(navalActor => { wavesList.Add(new NavalActorShortEntryJson(navalActor)); });
+            waves.ForEach(waveActor => { wavesList.Add(new NavalActorShortEntryJson(waveActor)); });
         }
     }
 
@@ -49,12 +49,12 @@ namespace Core.Recorder
         private readonly List<NavalActor> _allies;
         private readonly List<NavalActor> _enemies;
         private readonly List<NavalActor> _targets;
-        private readonly List<NavalActor> _waves;
+        private readonly List<WaveActor> _waves;
 
         public PromptGeneratorEntry(string actorId,
             Vector2Int position, List<GridUnit> movementGridPosition,
             List<GridActor> attackableGridPosition, List<NavalActor> alliesOnGrid, List<NavalActor> enemiesOnGrid,
-            List<NavalActor> targetsOnGrid, List<NavalActor> wavesOnGrid,
+            List<NavalActor> targetsOnGrid, List<WaveActor> wavesOnGrid,
             Faction faction) : base(actorId, faction, WavesRecordEntryType.PromptInfo)
         {
             _selfPosition = position;

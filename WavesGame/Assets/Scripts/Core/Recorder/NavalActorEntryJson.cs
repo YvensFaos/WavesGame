@@ -103,6 +103,16 @@ namespace Core.Recorder
             faction = navalShip.GetFaction().ToString();
             isHumanControlled = navalShip.HumanControlled;
         }
+        
+        public NavalActorShortEntryJson(WaveActor waveActor)
+        {
+            name = waveActor.name;
+            currentHealth = waveActor.GetCurrentHealth();
+            var gridUnit = waveActor.GetUnit();
+            position = gridUnit != null ? new SimpleVector2Int(gridUnit.Index()) : new SimpleVector2Int(-1, -1);
+            faction = Faction.GetNeutralFaction().name;
+            isHumanControlled = false;
+        }
     }
 
     [Serializable]
