@@ -263,11 +263,15 @@ def as_pos(value):
 
 
 def validate_answer(key, answer):
-    """Engine-truth validation. Returns (verdict, issues list).
+    """Engine-truth validation. Returns (verdict, issues, parts).
     Dispatches: waves-check-2 PTNF check ('movement_positions') -> list +
     attack-rule check; waves-check-1 state (with 'board') -> recomputed
     geometry; legacy key with 'moves' only -> validated against that list.
-    Verdicts: OK, INVALID_JSON, INVALID_MOVE, INVALID_ATTACK."""
+    Verdicts: OK, INVALID_JSON, INVALID_MOVE, INVALID_ATTACK.
+    parts = {'move': bool, 'attack': bool|None, 'retreat': bool|None};
+    None = component not exercised ([-1,-1] etc.), always a legal choice.
+    Move, attack and retreat are judged independently, so a failed
+    retreat still earns move+attack credit in the component breakdown."""
     fmt = key.get("format")
     if fmt == "waves-check-2" \
             or "movement_positions" in key or "movementPositions" in key:
@@ -312,21 +316,34 @@ def describe_hit(kind, target):
 
 def validate_from_ptnf(check, answer):
     """waves-check-2 PTNF check, no board needed.
+    Components are validated SEPARATELY, each on its own merit:
     - movement: must be in the engine's movement_positions list
-      (or within the budget rule if the check carries no list)
-    - move_after_attack: must fit the remaining shared budget
-    - attack: against attackable_positions when the actor stayed put;
-      otherwise by the attack rule re-derived from where it moved to
+      (or within the budget rule if the check carries no list);
+      [-1,-1] counts as staying at the origin and is valid
+    - move_after_attack: must fit the remaining shared budget;
+      [-1,-1] / not declared is valid
+    - attack: judged by the attack rule re-derived from where it moved
       (exactly Manhattan distance attack_distance; distance 1 is a dead
-      zone). The target tile itself cannot be verified without a board."""
+      zone); [-1,-1] / not declared is valid
+    Returns (verdict, issues, parts) where parts is
+    {'move': bool, 'attack': bool|None, 'retreat': bool|None}; None means
+    the component was not exercised ([-1,-1]), which is a legal choice.
+    The overall verdict keeps the classical precedence
+    INVALID_JSON > INVALID_MOVE (movement or retreat) > INVALID_ATTACK,
+    so totals stay comparable with earlier rounds; parts carry the
+    finer-grain credit."""
     try:
         parsed = json.loads(answer)
     except (TypeError, json.JSONDecodeError) as exc:
-        return "INVALID_JSON", [f"unparseable JSON: {exc}"]
+        return "INVALID_JSON", [f"unparseable JSON: {exc}"], None
     if not isinstance(parsed, dict):
-        return "INVALID_JSON", ["answer is not a JSON object"]
+        return "INVALID_JSON", ["answer is not a JSON object"], None
 
-    issues = []
+    parts = {"move": True, "attack": None, "retreat": None}
+    move_issues = []
+    maa_issues = []
+    attack_issues = []
+    notes = []
     origin = tuple(check["position"])
     budget = check.get("budget", BUDGET)
     atk_dist = check.get("attack_distance", ATTACK_DISTANCE)
@@ -334,34 +351,40 @@ def validate_from_ptnf(check, answer):
     attack = as_pos(parsed.get("attack"))
     maa = as_pos(parsed.get("move_after_attack"))
     if "BAD" in (movement, attack, maa):
-        return "INVALID_JSON", ["movement/attack/move_after_attack is not [x, y]"]
+        return "INVALID_JSON", \
+            ["movement/attack/move_after_attack is not [x, y]"], None
     if movement is None:
         movement = origin
 
     legal_moves = movement_list(check)
     if legal_moves:
         if movement not in legal_moves:
-            return "INVALID_MOVE", [
+            parts["move"] = False
+            move_issues.append(
                 f"movement {movement} is not in the PTNF movement list "
-                f"({len(legal_moves)} legal destinations from {origin})"]
+                f"({len(legal_moves)} legal destinations from {origin})")
     elif movement != origin and manhattan(origin, movement) > budget:
-        return "INVALID_MOVE", [
+        parts["move"] = False
+        move_issues.append(
             f"movement {movement} is {manhattan(origin, movement)} steps "
-            f"from {origin}, beyond the {budget}-step budget"]
+            f"from {origin}, beyond the {budget}-step budget")
 
     steps = manhattan(origin, movement)   # approximation, shortest path
     remaining = budget - steps
     if not legal_moves:
-        issues.append("check has no movement_positions list: the movement "
-                      "was judged by the budget rule alone")
+        notes.append("check has no movement_positions list: the movement "
+                     "was judged by the budget rule alone")
 
-    if maa not in (None, movement):
-        need = manhattan(movement, maa)
+    if maa is not None:
+        need = 0 if maa == movement else manhattan(movement, maa)
         if need > remaining:
-            return "INVALID_MOVE", [
+            parts["retreat"] = False
+            maa_issues.append(
                 f"move_after_attack {maa} needs {need} steps but only "
                 f"{remaining} remain of the shared {budget}-step budget "
-                f"({steps} used to move to {movement})"]
+                f"({steps} used to move to {movement})")
+        else:
+            parts["retreat"] = True
 
     attackable = pairs_of(check.get("attackable_positions")
                           or check.get("attackablePositions"))
@@ -423,44 +446,57 @@ def validate_from_ptnf(check, answer):
         return "target itself not verified: empty PTNF lists in the check"
 
     if attack is None:
-        issues.append("no attack declared")
+        notes.append("no attack declared")
         if attackable and movement == origin:
-            issues.append(f"NOTE: {len(attackable)} valid attack(s) existed "
-                          f"from {origin}")
+            notes.append(f"NOTE: {len(attackable)} valid attack(s) existed "
+                         f"from {origin}")
     else:
         # attack-RULE validation: distance from the moved position
         dist = manhattan(movement, attack)
         if dist == 0:
-            return "INVALID_ATTACK", [
-                f"cannot attack your own tile {movement}"]
-        if dist == 1:
-            return "INVALID_ATTACK", [
+            parts["attack"] = False
+            attack_issues.append(f"cannot attack your own tile {movement}")
+        elif dist == 1:
+            parts["attack"] = False
+            attack_issues.append(
                 f"DEAD ZONE: {attack} is adjacent to {movement}; only "
-                f"exactly {atk_dist} can be attacked"]
-        if dist != atk_dist:
-            return "INVALID_ATTACK", [
+                f"exactly {atk_dist} can be attacked")
+        elif dist != atk_dist:
+            parts["attack"] = False
+            attack_issues.append(
                 f"OUT OF RANGE: {attack} is at Manhattan distance {dist} "
-                f"from {movement} (only exactly {atk_dist} is legal)"]
-        # rule satisfied: the attack is valid no matter what is there.
-        # attack-TARGET validation goes into the issues below.
-        issues.append(f"attack rule satisfied: {attack} is exactly "
-                      f"{atk_dist} from {movement}; " + target_note(attack))
-        if attackable and movement == origin and attack not in attackable:
-            issues.append(f"NOTE: {attack} is not in the PTNF "
-                          f"attackable_positions (engine list answered only "
-                          f"for the origin); judged by the rule above")
-    return "OK", issues
+                f"from {movement} (only exactly {atk_dist} is legal)")
+        else:
+            # rule satisfied: the attack is valid no matter what is there.
+            # attack-TARGET validation goes into the notes below.
+            parts["attack"] = True
+            notes.append(f"attack rule satisfied: {attack} is exactly "
+                         f"{atk_dist} from {movement}; " + target_note(attack))
+            if attackable and movement == origin and attack not in attackable:
+                notes.append(
+                    f"NOTE: {attack} is not in the PTNF "
+                    f"attackable_positions (engine list answered only "
+                    f"for the origin); judged by the rule above")
+
+    issues = move_issues + maa_issues + attack_issues + notes
+    if parts["move"] is False or parts["retreat"] is False:
+        return "INVALID_MOVE", issues, parts
+    if parts["attack"] is False:
+        return "INVALID_ATTACK", issues, parts
+    return "OK", issues, parts
 
 
 def validate_from_state(check, answer):
-    """Recompute reachability and attack validity from the board."""
+    """Recompute reachability and attack validity from the board.
+    Same component parts as validate_from_ptnf; verdicts unchanged."""
     issues = []
+    parts = {"move": True, "attack": None, "retreat": None}
     try:
         parsed = json.loads(answer)
     except (TypeError, json.JSONDecodeError) as exc:
-        return "INVALID_JSON", [f"unparseable JSON: {exc}"]
+        return "INVALID_JSON", [f"unparseable JSON: {exc}"], None
     if not isinstance(parsed, dict):
-        return "INVALID_JSON", ["answer is not a JSON object"]
+        return "INVALID_JSON", ["answer is not a JSON object"], None
 
     grid = [list(row) for row in check["board"]]
     ships = {(s["position"][0], s["position"][1]): s for s in check.get("ships", [])}
@@ -475,15 +511,16 @@ def validate_from_state(check, answer):
     attack = as_pos(parsed.get("attack"))
     maa = as_pos(parsed.get("move_after_attack"))
     if "BAD" in (movement, attack, maa):
-        return "INVALID_JSON", ["movement/attack/move_after_attack is not [x, y]"]
+        return "INVALID_JSON", ["movement/attack/move_after_attack is not [x, y]"], None
     if movement is None:
         movement = origin
 
     reach = reachable_tiles(grid, ships, origin, budget)
     if movement not in reach:
+        parts["move"] = False
         return "INVALID_MOVE", [
             f"movement {movement} not reachable within {budget} steps "
-            f"from {origin} (recomputed from the check board)"]
+            f"from {origin} (recomputed from the check board)"], parts
     steps = reach[movement]
 
     if tile_at(grid, movement) in WAVE_CHARS:
@@ -496,11 +533,13 @@ def validate_from_state(check, answer):
         dist = manhattan(movement, attack)
         kind = attack_kind_at(grid, ships, attack, actor_faction)
         if dist == atk_dist and kind:
+            parts["attack"] = True
             issues.append(describe_hit(kind, {
                 "id": ships[attack].get("id") if attack in ships else kind,
                 "hp": ships[attack].get("hp") if attack in ships else None,
                 "pos": attack}))
         else:
+            parts["attack"] = False
             reason = (f"DEAD ZONE: {attack} is adjacent (distance 1) "
                       f"to the attacker" if dist == 1 else
                       f"OUT OF RANGE: {attack} is at Manhattan distance {dist} "
@@ -508,43 +547,49 @@ def validate_from_state(check, answer):
                       f"ILLEGAL TARGET: nothing attackable at {attack} "
                       f"(empty or own tile)" if not kind else
                       f"wrong distance {dist} from a {kind}")
-            return "INVALID_ATTACK", [f"attack {attack} from {movement}: {reason}"]
+            return "INVALID_ATTACK", [f"attack {attack} from {movement}: {reason}"], parts
 
     if maa not in (None, movement):
         remaining = budget - steps
         retreat = reachable_tiles(grid, ships, movement, remaining)
         if maa not in retreat:
+            parts["retreat"] = False
             issues.append(f"move_after_attack {maa} is NOT reachable with the "
                           f"{remaining} remaining step(s)")
-        elif tile_at(grid, maa) in WAVE_CHARS:
-            issues.append(f"NOTE: move_after_attack {maa} is a wave tile")
-    return "OK", issues
+        else:
+            parts["retreat"] = True
+            if tile_at(grid, maa) in WAVE_CHARS:
+                issues.append(f"NOTE: move_after_attack {maa} is a wave tile")
+    return "OK", issues, parts
 
 
 def validate_from_moves(key, answer):
-    """Legacy path: validate against the precomputed 'moves' list."""
+    """Legacy path: validate against the precomputed 'moves' list.
+    Same component parts as validate_from_ptnf; verdicts unchanged."""
     issues = []
+    parts = {"move": True, "attack": None, "retreat": None}
     try:
         parsed = json.loads(answer)
     except (TypeError, json.JSONDecodeError) as exc:
-        return "INVALID_JSON", [f"unparseable JSON: {exc}"]
+        return "INVALID_JSON", [f"unparseable JSON: {exc}"], None
     if not isinstance(parsed, dict):
-        return "INVALID_JSON", ["answer is not a JSON object"]
+        return "INVALID_JSON", ["answer is not a JSON object"], None
 
     origin = tuple(key["position"])
     movement = as_pos(parsed.get("movement"))
     attack = as_pos(parsed.get("attack"))
     maa = as_pos(parsed.get("move_after_attack"))
     if "BAD" in (movement, attack, maa):
-        return "INVALID_JSON", ["movement/attack/move_after_attack is not [x, y]"]
+        return "INVALID_JSON", ["movement/attack/move_after_attack is not [x, y]"], None
     if movement is None:
         movement = origin
 
     moves = {tuple(m["position"]): m for m in key["moves"]}
     if movement not in moves:
+        parts["move"] = False
         return "INVALID_MOVE", [
             f"movement {movement} not reachable within {BUDGET} steps "
-            f"from {origin} (engine answer key)"]
+            f"from {origin} (engine answer key)"], parts
     entry = moves[movement]
     if entry.get("wave_tile"):
         issues.append(f"destination {movement} is a WAVE tile "
@@ -559,8 +604,10 @@ def validate_from_moves(key, answer):
         valid_attacks = {tuple(a["position"]): a for a in entry["attacks"]}
         if attack in valid_attacks:
             hit = valid_attacks[attack]
+            parts["attack"] = True
             issues.append(describe_hit(hit.get("kind"), hit))
         else:
+            parts["attack"] = False
             dist = manhattan(movement, attack)
             reason = (f"DEAD ZONE: {attack} is at distance {dist} "
                       f"(adjacent tiles cannot be attacked)"
@@ -570,15 +617,18 @@ def validate_from_moves(key, answer):
                       if dist > ATTACK_DISTANCE else
                       f"illegal target at {attack} "
                       f"(no enemy/ally/target/obstacle there)")
-            return "INVALID_ATTACK", [f"attack {attack} from {movement}: {reason}"]
+            return "INVALID_ATTACK", [f"attack {attack} from {movement}: {reason}"], parts
 
     if maa not in (None, movement):
         remaining = BUDGET - entry["steps"]
         dist = manhattan(movement, maa)
         if dist > remaining:
+            parts["retreat"] = False
             issues.append(f"NOTE: move_after_attack {maa} needs {dist} steps "
                           f"but only {remaining} remain (engine may refuse)")
-    return "OK", issues
+        else:
+            parts["retreat"] = True
+    return "OK", issues, parts
 
 
 def conformance(prompt_text, movement, attack):
@@ -641,7 +691,7 @@ def human_section(key, args_prog="  "):
         answer = json.dumps({"movement": mv or [-1, -1],
                              "attack": atk or [-1, -1],
                              "move_after_attack": maa or [-1, -1]})
-        verdict, issues = validate_answer(key, answer)
+        verdict, issues, _ = validate_answer(key, answer)
         note = "; ".join(issues) if issues else "clean"
         extra = f"  ({h['note']})" if h.get("note") else ""
         lines.append(f"{args_prog}{name}: move {mv or origin} attack {atk} "
@@ -749,11 +799,21 @@ def main():
         key = load_key(args.key)
         if key is None:
             return 1
-        verdict, issues = validate_answer(key, args.answer)
+        verdict, issues, parts = validate_answer(key, args.answer)
         print("=" * 70)
         print(f"VALIDATION (key actor at {tuple(key['position'])})")
         print("=" * 70)
         print(f"verdict: {verdict}")
+
+        def comp(flag):
+            if flag is None:
+                return "not exercised ([-1,-1]: valid)"
+            return "ok" if flag else "INVALID"
+        if parts is not None:
+            print(f"components (judged separately): "
+                  f"move {comp(parts.get('move'))} | "
+                  f"attack {comp(parts.get('attack'))} | "
+                  f"retreat {comp(parts.get('retreat'))}")
         for issue in issues:
             print(f"  - {issue}")
         if key.get("human"):
@@ -848,9 +908,10 @@ def main():
                 record["answer"] = answer
 
                 if answer is not None and result["verdict"] in ("OK",):
-                    verdict, issues = validate_answer(key, answer)
+                    verdict, issues, parts = validate_answer(key, answer)
                     record["verdict"] = verdict
                     record["issues"] = issues
+                    record["parts"] = parts
                     if verdict == "OK":
                         record["ok_kind"] = (
                             "passive" if any("no attack declared" in i
@@ -953,6 +1014,39 @@ def main():
               f"{oka:>10} {okp:>10} {inv:>8} {err:>4} "
               f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
               f"{round(100 * oka / len(rs), 1):>7}%")
+
+    print()
+    print("=" * 70)
+    print("COMPONENT BREAKDOWN (move / attack / retreat judged separately)")
+    print("=" * 70)
+    print("  [-1,-1] is a legal no-op for every field. Attack and retreat are")
+    print("  scored among the answers that actually declared them; 'val'")
+    print("  counts the answers that could be parsed and validated at all.")
+    print(f"  {'model':<24} {'val':>5} {'move ok':>8} {'move%':>7} "
+          f"{'attack ok/decl':>16} {'retreat ok/decl':>17}")
+    print("  " + "-" * 92)
+    for model in models + ["(all models)"]:
+        pool = [r for r in records if r["model"] == model] \
+            if model != "(all models)" else records
+        rs = [r for r in pool if r.get("parts")]
+        if not rs:
+            continue
+        n_val = len(rs)
+        move_ok = sum(1 for r in rs if r["parts"].get("move"))
+        atk = [r for r in rs if r["parts"].get("attack") is not None]
+        ret = [r for r in rs if r["parts"].get("retreat") is not None]
+        atk_ok = sum(1 for r in atk if r["parts"]["attack"])
+        ret_ok = sum(1 for r in ret if r["parts"]["retreat"])
+        atk_txt = f"{atk_ok}/{len(atk)} ({round(100 * atk_ok / len(atk), 1)}%)" \
+            if atk else "none declared"
+        ret_txt = f"{ret_ok}/{len(ret)} ({round(100 * ret_ok / len(ret), 1)}%)" \
+            if ret else "none declared"
+        print(f"  {model:<24} {n_val:>5} {move_ok:>8} "
+              f"{round(100 * move_ok / n_val, 1):>6}% "
+              f"{atk_txt:>16} {ret_txt:>17}")
+    print("  NOTE: an answer with a valid move + valid attack but a failed")
+    print("  retreat counts as INVALID_MOVE overall, yet here it earns move")
+    print("  and attack component credit.")
 
     print()
     print("=" * 70)
