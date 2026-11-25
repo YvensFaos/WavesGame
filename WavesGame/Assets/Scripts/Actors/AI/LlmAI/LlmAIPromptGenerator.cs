@@ -106,7 +106,7 @@ namespace Actors.AI.LlmAI
 
             template = ReplaceTagWithText(template, "grid_overview",
                 ListGridToString(llmAINavalShip, grid, templatePrompt.includeEmptySpaces));
-
+            
             var enemiesOnTheGrid = grid.FindAll(gridUnit =>
             {
                 var actor = gridUnit.GetActor();
@@ -117,6 +117,19 @@ namespace Actors.AI.LlmAI
             });
             template = ReplaceTagWithText(template, "grid_overview_enemies",
                 ListGridToString(llmAINavalShip, enemiesOnTheGrid, templatePrompt.includeEmptySpaces));
+            
+            var alliesOnTheGrid = grid.FindAll(gridUnit =>
+            {
+                var actor = gridUnit.GetActor();
+                var isNotSelf = actor is not null && !actor.Equals(llmAINavalShip);
+                var isAlly = actor is NavalShip navalShip && navalShip.GetFaction() == selfFaction;
+                var isAIAlly = actor is AINavalShip aiNavalShip && aiNavalShip.GetFaction() == selfFaction;
+                var isLlmAiAlly = actor is LlmAINavalShip llmAI && llmAI.GetFaction() == selfFaction;
+                return isNotSelf && (isAlly || isAIAlly || isLlmAiAlly);
+            });
+            
+            template = ReplaceTagWithText(template, "grid_overview_allies",
+                ListGridToString(llmAINavalShip, alliesOnTheGrid, templatePrompt.includeEmptySpaces));
 
             var wavesOnTheGrid = grid.FindAll(gridUnit =>
             {
