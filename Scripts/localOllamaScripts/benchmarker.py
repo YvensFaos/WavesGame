@@ -792,6 +792,10 @@ def main():
                     verdict, issues = validate_answer(key, answer)
                     record["verdict"] = verdict
                     record["issues"] = issues
+                    if verdict == "OK":
+                        record["ok_kind"] = (
+                            "passive" if any("no attack declared" in i
+                                             for i in issues) else "active")
                     try:
                         parsed = json.loads(answer)
                         movement = parsed.get("movement")
@@ -836,14 +840,17 @@ def main():
             note = "; ".join(r.get("issues", []))[:60] or "clean"
             if r.get("human_match"):
                 note = f"matches human: {','.join(r['human_match'])} | {note}"
-            print(f"  {r['model']:<28} {r['verdict']:<16} {note}")
+            shown = r["verdict"]
+            if shown == "OK":
+                shown = "OK-" + r.get("ok_kind", "active")
+            print(f"  {r['model']:<28} {shown:<16} {note}")
 
     print()
     print("=" * 70)
     print("SUMMARY BY MODEL x RUN")
     print("=" * 70)
     print(f"  {'model':<24} {'run':<26} "
-          f"{'OK':>4} {'DEADZONE/RANGE':>14} {'MOVE':>5} {'JSON':>5} {'ERR':>4}")
+          f"{'OKa':>4} {'OKp':>4} {'DEAD/RANGE':>10} {'MOVE':>5} {'JSON':>5} {'ERR':>4}")
     print("  " + "-" * 96)
     for model in models:
         for run, _, _ in prepared:
@@ -851,7 +858,10 @@ def main():
                   if r["model"] == model and r["run"] == run["name"]]
             if not rs:
                 continue
-            ok = sum(1 for r in rs if r["verdict"] == "OK")
+            oka = sum(1 for r in rs if r["verdict"] == "OK"
+                      and r.get("ok_kind") == "active")
+            okp = sum(1 for r in rs if r["verdict"] == "OK"
+                      and r.get("ok_kind") == "passive")
             bad_atk = sum(1 for r in rs if r["verdict"] == "INVALID_ATTACK")
             bad_mv = sum(1 for r in rs if r["verdict"] == "INVALID_MOVE")
             bad_js = sum(1 for r in rs if r["verdict"] == "INVALID_JSON")
@@ -859,14 +869,45 @@ def main():
                       if r["verdict"] in ("TIMEOUT", "MODEL_ERROR",
                                           "SERVER_DOWN"))
             print(f"  {model:<24} {run['name'][:25]:<26} "
-                  f"{ok:>4} {bad_atk:>14} {bad_mv:>5} {bad_js:>5} {err:>4}")
+                  f"{oka:>4} {okp:>4} {bad_atk:>10} {bad_mv:>5} {bad_js:>5} "
+                  f"{err:>4}")
+
+    print()
+    print("=" * 70)
+    print("TOTALS BY MODEL (all runs collapsed)")
+    print("=" * 70)
+    print(f"  {'model':<24} {'runs':>5} {'n':>4} "
+          f"{'OK-active':>10} {'OK-passive':>10} {'invalid':>8} {'err':>4} "
+          f"{'valid%':>7} {'active%':>8}")
+    print("  " + "-" * 90)
+    for model in models:
+        rs = [r for r in records if r["model"] == model]
+        if not rs:
+            continue
+        oka = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "active")
+        okp = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "passive")
+        inv = sum(1 for r in rs if r["verdict"].startswith("INVALID"))
+        err = len(rs) - oka - okp - inv
+        print(f"  {model:<24} {len({r['run'] for r in rs}):>5} {len(rs):>4} "
+              f"{oka:>10} {okp:>10} {inv:>8} {err:>4} "
+              f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
+              f"{round(100 * oka / len(rs), 1):>7}%")
 
     ally_hits = sum(1 for r in records
                     if any("ALLY FIRE" in i for i in r.get("issues", [])))
     wave_tiles = sum(1 for r in records
                      if any("WAVE tile" in i for i in r.get("issues", [])))
+    verified_hits = sum(1 for r in records
+                        if any("valid attack on" in i for i in r.get("issues", [])))
+    unverified_hits = sum(1 for r in records
+                          if any("not verified" in i for i in r.get("issues", [])))
     print()
-    print(f"  ally-fire answers: {ally_hits}   wave-tile destinations: {wave_tiles}")
+    print(f"  ally-fire answers: {ally_hits}   wave-tile destinations: "
+          f"{wave_tiles}")
+    print(f"  attacks verified against a board: {verified_hits}   "
+          f"attacks rule-legal but target unverified: {unverified_hits}")
 
     out_file = args.save_jsonl or (settings or {}).get("output")
     if out_file:
