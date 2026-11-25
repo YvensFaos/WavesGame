@@ -1,0 +1,39 @@
+{
+  "host": "192.168.2.62",
+  "port": 11434,
+  "models": [
+    "granite4.2:30b",
+    "gpt-oss:20b",
+    "llama3.1:8b",
+    "mistral-small3.2:24b",
+    "ministral-3:8b",
+    "phi3",
+    "phi4"
+  ],
+  "prompt_pairs": [
+    {
+      "prompt": "promptA-3.txt",
+      "check": "check-3.json"
+    },
+    {
+      "prompt": "promptB-3.txt",
+      "check": "check-3.json"
+    },
+    {
+      "prompt": "promptB-no-list-3.txt",
+      "check": "check-3.json"
+    },
+    {
+      "prompt": "promptC-3.txt",
+      "check": "check-3.json"
+    },
+    {
+      "prompt": "promptC-no-list-3.txt",
+      "check": "check-3.json"
+    }
+  ],
+  "repeat": 5,
+  "output": "results-3.jsonl",
+  "timeout": 500,
+  "temperature": 0.2
+}

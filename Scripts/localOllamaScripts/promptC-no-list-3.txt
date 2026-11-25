@@ -1,0 +1,69 @@
+WavesST — turn-based naval strategy. You are an AI player controlling a ship in this game. You = Green. Enemies = Red.
+Your ship [LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=1. at (9,8).
+Enemies: 
+(8, 7) = 🚢 Enemy Red health:15/15
+(9, 10) = 🚢 Enemy Red health:8/15
+(11, 10) = 🚢 Enemy Red health:15/15
+
+Allies: 
+(7, 6) = 🚢 Lune el O. Ally health:15/15
+(11, 7) = 🚢 Maria D. Ally health:15/15
+
+Waves: 
+(9, 7) = ~V
+(10, 11) = ~^
+
+
+⚔️ Attack is valid ONLY at exactly 2 tiles away (Manhattan distance — a diagonal step counts as 2). Tiles at 1 tile or closer are a dead zone: they cannot be attacked.
+Only enemy ships (🚢) count for victory. Waves (~) and neutrals (🎯) can be attacked but do not help you win. Attacking an ally ship is a game-losing mistake.
+Wave tiles (~^, ~V, ~<, ~>) are weapons, not just obstacles: attacking a wave propagates the hit one tile in the arrow's direction — hitting whatever stands there, enemy or ally. A wave attack only helps you if an enemy sits exactly one tile beyond the wave in its arrow direction.
+
+CORE PRIORITY: consistently selecting and hitting enemies is the #1 driver of success. Move with intent: every movement must get a target into range, set up a wave shot, or avoid danger. Failing to attack an enemy that is in your range leaves you vulnerable to their counter-attack.
+
+⚔️ ATTACK NOW (no move needed; attack the first tile on the line):
+
+(8, 7) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Enemy Red health:15/15
+(9, 10) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|4 Enemy Red health:8/15
+
+
+
+MOVEMENT BUDGET
+You may move up to 3 tiles per turn, split between "movement" and "move_after_attack".
+Every tile you enter must be on the SAFE list.
+The SAFE list already includes every tile reachable within 3 moves of your current position, so any valid retreat tile is already in it.
+
+✓ SAFE MOVE TILES:
+
+(9, 9)
+(10, 8)
+(8, 8)
+(10, 9)
+(8, 9)
+(9, 6)
+(10, 7)
+(11, 8)
+(7, 8)
+(10, 10)
+(11, 9)
+(8, 10)
+(7, 9)
+(9, 5)
+(10, 6)
+(8, 6)
+(12, 8)
+(6, 8)
+
+
+
+❌ DO NOT MOVE HERE (waves or blocked):
+[Nothing]
+
+RULES
+1. If ATTACK NOW contains a line whose chain hits an enemy ship (🚢): attack that line's first tile, do not move.
+2. Else: move to a SAFE tile closer to the nearest enemy, attack = [-1,-1].
+3. Never move to a tile not on the SAFE list.
+4. If you attacked, use your remaining movement points to retreat to a SAFE tile.
+5. If you are unsure whether an attack is valid, attack = [-1,-1].
+
+Reply JSON only, no other text:
+{"reasoning": "concise tactic, e.g. 'Wave-extended attack on low-health enemy'", "movement": [x1, y1], "attack": [x2, y2], "move_after_attack": [x3, y3]}
