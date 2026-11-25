@@ -278,7 +278,7 @@ namespace Core
         /// <summary>
         /// Used to force a finish level screen for Player Level Recording.
         /// </summary>
-        public void ForceFinishLevel()
+        private void ForceFinishLevel()
         {
             _finishedLevel = true;
             StopCoroutine(controllerCoroutine);
@@ -326,6 +326,20 @@ namespace Core
             }
 
             ApplicationHelper.RestartLevel();
+        }
+
+        public override void SkipController()
+        {
+            DebugUtils.DebugLogMsg($"Level was skipped!", DebugUtils.DebugType.System);
+
+            if (_recorder != null)
+            {
+                _recorder.RecordNewEntry(new EndGameRecordEntry("Level skipped by player.", null, false));
+                DebugUtils.DebugLogMsg("Recording complete.", DebugUtils.DebugType.System);
+                _recorder.Stop();
+            }
+
+            ForceFinishLevel();
         }
     }
 }

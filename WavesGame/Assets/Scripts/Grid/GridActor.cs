@@ -26,6 +26,7 @@ namespace Grid
         [SerializeField] protected bool destructible = true;
         [SerializeField] protected bool blockGridUnit;
         [SerializeField] protected bool hasStepEffect;
+        [SerializeField] protected bool overwrittenHealth;
 
         protected bool markedForDeath;
 
@@ -36,7 +37,10 @@ namespace Grid
             var gridUnit = GetUnit();
             transform.position = gridUnit.transform.position;
             gridUnit.AddActor(this);
-            currentHealth = maxHealth;
+            if (!overwrittenHealth)
+            {
+                currentHealth = maxHealth;
+            }
         }
 
         public virtual bool TakeDamage(int damage)
@@ -114,6 +118,12 @@ namespace Grid
         public void SetUnit(GridUnit unit) => currentUnit = unit;
         public int GetMaxHealth() => maxHealth;
         public int GetCurrentHealth() => currentHealth;
+
+        public virtual void OverrideCurrentHealth(int newCurrentHealth)
+        {
+            currentHealth = newCurrentHealth;
+            overwrittenHealth = true;
+        }
 
         public float GetHealthRatio()
         {

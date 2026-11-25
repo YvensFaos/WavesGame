@@ -34,11 +34,15 @@ Statistical analysis shows the path to victory is **PRECISION, NOT MOBILITY**. Y
 
 ## CURRENT STATE & ANALYSIS
 
-- **Your Ship:** `[LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=15.` at (`7`, `6`)
+- **Your Ship:** `[LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=1.` at (`9`, `8`)
 - **Enemy Status:** `
-(7, 12) = 🚢 Kimahri Mc F. Enemy Red health:15/15
-(12, 12) = 🚢 Mateo D. Enemy Red health:15/15
-(10, 13) = 🚢 Maria Mc F. Enemy Red health:15/15
+(8, 7) = 🚢 Enemy Red health:15/15
+(9, 10) = 🚢 Enemy Red health:8/15
+(11, 10) = 🚢 Enemy Red health:15/15
+`
+- **Ally Status:** `
+(7, 6) = 🚢 Lune el O. Ally health:15/15
+(11, 7) = 🚢 Maria D. Ally health:15/15
 `
 - **Wave Analysis:** `
 (9, 7) = ~V
@@ -50,42 +54,54 @@ Statistical analysis shows the path to victory is **PRECISION, NOT MOBILITY**. Y
 ## AVAILABLE ACTIONS & VALIDATION
 
 ### 1. Attack Options (Evaluate First)
-**Immediate Targets:** `[Nothing]`
+**Immediate Targets:** `
+(8, 7) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Enemy Red health:15/15
+(9, 10) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|4 Enemy Red health:8/15
+
+`
 
 ### 2. Movement Options (Evaluate Second)
 **Safe Move-To Positions:** `
-(7, 5)
-(8, 6)
-(6, 6)
-(7, 4)
-(8, 5)
-(6, 5)
-(8, 7)
-(9, 6)
-(6, 7)
-(5, 6)
-(7, 3)
-(8, 4)
-(6, 4)
-(5, 5)
+(9, 9)
+(10, 8)
 (8, 8)
+(10, 9)
+(8, 9)
+(9, 6)
+(10, 7)
+(11, 8)
+(7, 8)
+(10, 10)
+(11, 9)
+(8, 10)
+(7, 9)
+(9, 5)
 (10, 6)
+(8, 6)
+(12, 8)
 (6, 8)
-(5, 7)
-(4, 6)
 
 `
 **Move + Attack (move to X, allows attacking Y):** 
-`move (7, 5) → attacks (7, 7) obstacle [no effect]
-move (8, 6) → attacks (7, 7) obstacle [no effect], attacks (9, 7) ~V [Nothing]
-move (6, 6) → attacks (7, 7) obstacle [no effect]
-move (8, 8) → attacks (7, 7) obstacle [no effect], attacks (7, 9) 🎯 health:5/5
-, attacks (9, 7) ~V [Nothing]
+`move (9, 8) → attacks (8, 7) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:15/15, attacks (9, 10) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|4 Red health:8/15
+move (9, 9) → attacks (9, 7) ~V [Nothing]
 move (9, 7) → attacks (7, 7) obstacle [no effect]
-move (10, 6) → attacks (9, 7) ~V [Nothing]
-move (6, 8) → attacks (7, 7) obstacle [no effect], attacks (7, 9) 🎯 health:5/5
+move (10, 8) → attacks (9, 7) ~V [Nothing]
+move (8, 8) → attacks (7, 7) obstacle [no effect], attacks (9, 7) ~V [Nothing]
+move (10, 9) → attacks (9, 10) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|4 Red health:8/15, attacks (10, 11) ~^ [Nothing], attacks (11, 10) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|6 Red health:15/15, attacks (12, 9) 🎯 health:5/5
 
-move (5, 7) → attacks (7, 7) obstacle [no effect]
+move (8, 9) → attacks (8, 7) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:15/15, attacks (9, 10) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|4 Red health:8/15
+move (9, 6) → attacks (8, 7) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:15/15
+move (10, 7) → attacks (8, 7) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:15/15, attacks (12, 7) obstacle [no effect]
+move (11, 8) → attacks (11, 10) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|6 Red health:15/15, attacks (12, 7) obstacle [no effect], attacks (12, 9) 🎯 health:5/5
+
+move (7, 8) → attacks (8, 7) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:15/15
+move (8, 10) → attacks (7, 11) obstacle [no effect]
+move (7, 9) → attacks (7, 7) obstacle [no effect], attacks (7, 11) obstacle [no effect]
+move (9, 5) → attacks (9, 7) ~V [Nothing]
+move (10, 6) → attacks (9, 7) ~V [Nothing]
+move (8, 6) → attacks (7, 7) obstacle [no effect], attacks (9, 7) ~V [Nothing]
+move (6, 8) → attacks (7, 7) obstacle [no effect]
 `
 **Risky/Hazardous Positions Close to You:** 
  - *Waves*`

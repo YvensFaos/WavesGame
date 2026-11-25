@@ -1,10 +1,11 @@
 WavesST — turn-based naval strategy. You are an AI player controlling a ship in this game. You = Green. Enemies = Red.
-Your ship [LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=15. at (7,6).
+Your ship [LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=15. at (11,5).
 Enemies: 
-(7, 12) = 🚢 Kimahri Mc F. Enemy Red health:15/15
-(12, 12) = 🚢 Mateo D. Enemy Red health:15/15
-(10, 13) = 🚢 Maria Mc F. Enemy Red health:15/15
+(10, 5) = 🚢 Enemy Red health:1/15
+(10, 6) = 🚢 Enemy Red health:15/15
+(8, 7) = 🚢 Enemy Red health:7/15
 
+Allies: Nothing
 Waves: 
 (9, 7) = ~V
 (10, 11) = ~^
@@ -17,7 +18,10 @@ Wave tiles (~^, ~V, ~<, ~>) are weapons, not just obstacles: attacking a wave pr
 CORE PRIORITY: consistently selecting and hitting enemies is the #1 driver of success. Move with intent: every movement must get a target into range, set up a wave shot, or avoid danger. Failing to attack an enemy that is in your range leaves you vulnerable to their counter-attack.
 
 ⚔️ ATTACK NOW (no move needed; attack the first tile on the line):
-[Nothing]
+
+(10, 6) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|1 Enemy Red health:15/15
+
+
 
 MOVEMENT BUDGET
 You may move up to 3 tiles per turn, split between "movement" and "move_after_attack".
@@ -27,39 +31,41 @@ The SAFE list already includes every tile reachable within 3 moves of your curre
 MOVE + ATTACK PAIRS (move to X, then attack Y):
 These pairs are pre-computed and authoritative — the listed attacks are the ONLY valid attacks from each position. You do not need to calculate attack geometry yourself.
 
-move (7, 5) → attacks (7, 7) obstacle [no effect]
-move (8, 6) → attacks (7, 7) obstacle [no effect], attacks (9, 7) ~V [Nothing]
-move (6, 6) → attacks (7, 7) obstacle [no effect]
-move (8, 8) → attacks (7, 7) obstacle [no effect], attacks (7, 9) 🎯 health:5/5
-, attacks (9, 7) ~V [Nothing]
-move (9, 7) → attacks (7, 7) obstacle [no effect]
-move (10, 6) → attacks (9, 7) ~V [Nothing]
-move (6, 8) → attacks (7, 7) obstacle [no effect], attacks (7, 9) 🎯 health:5/5
+move (11, 5) → attacks (10, 6) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|1 Red health:15/15
+move (11, 6) → attacks (10, 5) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:1/15, attacks (12, 7) obstacle [no effect]
+move (11, 4) → attacks (10, 5) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:1/15
+move (12, 5) → attacks (10, 5) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:1/15, attacks (12, 7) obstacle [no effect]
+move (11, 7) → attacks (9, 7) ~V [Nothing], attacks (10, 6) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|1 Red health:15/15
+move (12, 6) → attacks (10, 6) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|1 Red health:15/15
+move (10, 4) → attacks (10, 6) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|1 Red health:15/15
+move (11, 8) → attacks (12, 7) obstacle [no effect], attacks (12, 9) 🎯 health:5/5
 
-move (5, 7) → attacks (7, 7) obstacle [no effect]
+move (10, 7) → attacks (8, 7) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|3 Red health:7/15, attacks (10, 5) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:1/15, attacks (12, 7) obstacle [no effect]
+move (13, 6) → attacks (12, 7) obstacle [no effect]
+move (10, 3) → attacks (10, 5) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:1/15
+move (9, 4) → attacks (10, 5) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:1/15
 
 
 ✓ SAFE MOVE TILES:
 
-(7, 5)
-(8, 6)
-(6, 6)
-(7, 4)
-(8, 5)
-(6, 5)
-(8, 7)
-(9, 6)
-(6, 7)
-(5, 6)
-(7, 3)
-(8, 4)
-(6, 4)
-(5, 5)
-(8, 8)
-(10, 6)
-(6, 8)
-(5, 7)
-(4, 6)
+(11, 6)
+(11, 4)
+(12, 5)
+(11, 7)
+(12, 6)
+(11, 3)
+(12, 4)
+(10, 4)
+(13, 5)
+(11, 8)
+(10, 7)
+(13, 6)
+(11, 2)
+(12, 3)
+(10, 3)
+(13, 4)
+(9, 4)
+(14, 5)
 
 
 

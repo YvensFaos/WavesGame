@@ -76,14 +76,20 @@ def parse_prompt(prompt_text):
                          + FORBIDDEN_MARKERS):
         p["attack_now"].extend(_coords(line))
 
+    last_move = None
     for line in _section(prompt_text, PAIRS_MARKERS,
                          SAFE_MARKERS + FORBIDDEN_MARKERS + LATER_SECTIONS):
-        m = re.match(r"\s*move\s*`?\(`?(\d+)`?`?,\s*`?(\d+)`?`?\)\s*→\s*(.+)", line)
-        if not m:
+        m = re.match(r"\s*`?move\s*`?\(`?(\d+)`?`?,\s*`?(\d+)`?`?\)\s*→\s*(.+)", line)
+        if m:
+            last_move = (int(m.group(1)), int(m.group(2)))
+            attacks_text = m.group(3)
+        elif last_move is not None and "attacks" in line:
+            # wrapped continuation line: ", attacks (9, 7) ~V [Nothing]"
+            attacks_text = line
+        else:
             continue
-        move_tile = (int(m.group(1)), int(m.group(2)))
-        attacks = _coords(m.group(3))
-        p["pairs"][move_tile] = p["pairs"].get(move_tile, []) + attacks
+        attacks = _coords(attacks_text)
+        p["pairs"][last_move] = p["pairs"].get(last_move, []) + attacks
 
     for line in _section(prompt_text, SAFE_MARKERS,
                          PAIRS_MARKERS + FORBIDDEN_MARKERS + LATER_SECTIONS):

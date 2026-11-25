@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using Core.Recorder;
 using Grid;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace Actors.AI.LlmAI
             var template = templatePrompt.prompt;
             var selfFaction = llmAINavalShip.GetFaction();
             var faction = selfFaction.ToString();
+
             template = ReplaceTagWithText(template, "faction", faction);
             template = ReplaceTagWithText(template, "enemy_factions", ListEnemyFactions(enemyFactions));
             var shipData = llmAINavalShip.ShipData;
@@ -118,6 +120,20 @@ namespace Actors.AI.LlmAI
             template = ReplaceTagWithText(template, "grid_overview_enemies",
                 ListGridToString(llmAINavalShip, enemiesOnTheGrid, templatePrompt.includeEmptySpaces));
 
+            var alliesOnTheGrid = grid.FindAll(gridUnit =>
+            {
+                var actor = gridUnit.GetActor();
+                var isNotSelf = actor is not null && !actor.Equals(llmAINavalShip);
+                var isAlly = actor is NavalShip navalShip && navalShip.GetFaction() == selfFaction;
+                var isAIAlly = actor is AINavalShip aiNavalShip && aiNavalShip.GetFaction() == selfFaction;
+                var isLlmAiAlly = actor is LlmAINavalShip llmAI && llmAI.GetFaction() == selfFaction;
+                return isNotSelf && (isAlly || isAIAlly || isLlmAiAlly);
+            });
+
+
+            template = ReplaceTagWithText(template, "grid_overview_allies",
+                ListGridToString(llmAINavalShip, alliesOnTheGrid, templatePrompt.includeEmptySpaces));
+
             var wavesOnTheGrid = grid.FindAll(gridUnit =>
             {
                 var actor = gridUnit.GetActor();
@@ -128,6 +144,32 @@ namespace Actors.AI.LlmAI
 
             template = ReplaceTagWithText(template, "grid_overview_symbolic",
                 ListSymbolicGridToString(llmAINavalShip, grid));
+
+
+            if (!GameManager.GetSingleton().GetSettings().logPromptGeneratorInfo ||
+                !WavesRecorder.TryToGetSingleton(out var recorder)) return template;
+            var alliesOnGridActors = alliesOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<NavalActor>()
+                .ToList();
+            var enemiesOnTheGridActors = enemiesOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<NavalActor>().ToList();
+
+            var targetsOnTheGrid = grid.FindAll(gridUnit =>
+            {
+                var actor = gridUnit.GetActor();
+                var isTarget = actor is NavalTarget;
+                return isTarget;
+            });
+            var targetsOnGridActors = targetsOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<NavalActor>().ToList();
+
+            var wavesOnTheGridActors = wavesOnTheGrid.Select(unit => unit.GetActor())
+                .OfType<WaveActor>().ToList();
+
+            var promptGeneratorEntry = new PromptGeneratorEntry(llmAINavalShip.name, llmAINavalShip.GetUnit().Index(),
+                walkableUnits, currentAttackableActors, alliesOnGridActors, enemiesOnTheGridActors, targetsOnGridActors,
+                wavesOnTheGridActors, selfFaction);
+            recorder.RecordNewEntry(promptGeneratorEntry);
 
             return template;
         }
@@ -274,7 +316,7 @@ namespace Actors.AI.LlmAI
                 else
                 {
                     symbolicText +=
-                        $"🚢 {factionText} health:{otherNavalShip.GetCurrentHealth()}/{otherNavalShip.GetMaxHealth()}";
+                        $"🚢 {factionText} health:{otherNavalShip.GetCurrentHealth()}/{otherNavalShip.GetMaxHealth()}\r\n";
                 }
 
                 return symbolicText;
@@ -436,6 +478,15 @@ namespace Actors.AI.LlmAI
                             text += $"{index} = {GetTargetLine(navalTarget)}{separator}";
                             jumpLine = true;
                             dataAdded = true;
+                            break;
+                        case PlayerShip playerShip:
+                        {
+                            var opposingFaction = !selfFaction.Equals(playerShip.GetFaction());
+                            var factionText = opposingFaction ? $"Enemy {playerShip.GetFaction()}" : "Ally";
+                            text += $"{index} = {GetNavalShipLine(playerShip, factionText)}";
+                            jumpLine = true;
+                            dataAdded = true;
+                        }
                             break;
                         case AIBaseShip aiBaseShip:
                         {

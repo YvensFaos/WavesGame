@@ -63,8 +63,7 @@ namespace Actors
                     RecordDeath();
                 }
 
-                var ratio = GetHealthRatio();
-                healthBar.SetFillFactor(ratio, 1 - ratio);
+                UpdateHealthBar();
                 AnimateDamage();
             }
             else
@@ -75,12 +74,23 @@ namespace Actors
             return destroyed;
         }
 
+        private void UpdateHealthBar()
+        {
+            var ratio = GetHealthRatio();
+            healthBar.SetFillFactor(ratio, 1 - ratio);
+        }
+
+        public override void OverrideCurrentHealth(int newCurrentHealth)
+        {
+            base.OverrideCurrentHealth(newCurrentHealth);
+            UpdateHealthBar();
+        }
+
         public void TakeDirectDamage(int damage)
         {
             damage = ClampDamage(damage);
             base.TakeDamage(damage);
-            var ratio = GetHealthRatio();
-            healthBar.SetFillFactor(ratio, 1 - ratio);
+            UpdateHealthBar();
         }
 
         private int ClampDamage(int damage)
