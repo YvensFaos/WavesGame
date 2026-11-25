@@ -274,7 +274,7 @@ namespace Actors.AI.LlmAI
                 else
                 {
                     symbolicText +=
-                        $"🚢 {factionText} health:{otherNavalShip.GetCurrentHealth()}/{otherNavalShip.GetMaxHealth()}";
+                        $"🚢 {factionText} health:{otherNavalShip.GetCurrentHealth()}/{otherNavalShip.GetMaxHealth()}\r\n";
                 }
 
                 return symbolicText;
