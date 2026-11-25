@@ -319,9 +319,24 @@ def render_turn_actions(events, turn_no, rows=None):
                 print(f"  INVALID ({vtype}): {who} "
                       f"(currently at {coord(cur) if cur else '?'}) "
                       + (", ".join(bits) if bits else "unspecified action"))
-            if e.get("reasoning"):
-                print(wrap_text(e.get("reasoning")))
-                print(f"    reasoning-raw field from log: {e.get('reasoning', '')}")
+            # flush the pending decision block so a pure invalid decision
+            # (stay + failed attack, like a dead-zone attack) also shows
+            # the model's reasoning and CMMD, not just MOVE/ATTK flows
+            resn_p = resn_by_actor.pop(actor, None)
+            cmmd_p = cmmd_by_actor.pop(actor, None)
+            reasoning = (resn_p or {}).get("reasoning") or e.get("reasoning")
+            if reasoning:
+                if resn_p:
+                    print(f"  LLM {who} - reasoning "
+                          f"({resn_p.get('responseTime', '?')} ms response time):")
+                print(wrap_text(reasoning))
+                print(f"    reasoning-raw field from log: {reasoning}")
+            if cmmd_p:
+                mv, at, maa = (cmmd_p.get("movement") or {},
+                              cmmd_p.get("attack") or {},
+                              cmmd_p.get("moveAfterAttack") or {})
+                print(f"  CMMD: movement={coord(mv)} attack={coord(at)} "
+                      f"moveAfterAttack={coord(maa)}")
         else:
             continue
 
