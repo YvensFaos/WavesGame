@@ -1,13 +1,13 @@
 WavesST. You = Green. Enemies = Red.
-Your ship [LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=15. at (7,6).
+Your ship [LLM|Ollama|llama3.1:8b|Jeroen A.|Green|1]; faction=Green; currentHealth=15. at (7,6).
 Enemies: 
-(8, 10) = 🚢 Enemy Red health:15/15
-(11, 10) = 🚢 Enemy Red health:15/15
-(9, 11) = 🚢 Enemy Red health:15/15
+(7, 12) = 🚢 Enemy Red health:15/15
+(12, 12) = 🚢 Enemy Red health:15/15
+(10, 13) = 🚢 Enemy Red health:15/15
 
 Allies: 
-(9, 6) = 🚢 Maria D. Ally health:15/15
-(12, 6) = 🚢 Lune el O. Ally health:15/15
+(9, 5) = 🚢 Max X. Ally health:15/15
+(12, 6) = 🚢 Rikku R. Ally health:15/15
 
 Waves: 
 (9, 7) = ~V
@@ -28,12 +28,12 @@ The SAFE list already includes every tile reachable within 3 moves of your curre
 
 MOVE + ATTACK PAIRS (move to X, then attack Y):
 move (7, 5) → attacks (7, 7) obstacle [no effect]
-move (8, 6) → attacks (7, 7) obstacle [no effect], attacks (9, 7) ~V chain (9, 6):[🚢 Maria D. Ally health:15/15],
+move (8, 6) → attacks (7, 7) obstacle [no effect], attacks (9, 7) ~V [Nothing]
 move (6, 6) → attacks (7, 7) obstacle [no effect]
-move (9, 5) → attacks (9, 7) ~V chain (9, 6):[🚢 Maria D. Ally health:15/15],
 move (8, 8) → attacks (7, 7) obstacle [no effect], attacks (7, 9) 🎯 health:5/5
-, attacks (8, 10) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|3 Red health:15/15, attacks (9, 7) ~V chain (9, 6):[🚢 Maria D. Ally health:15/15],
+, attacks (9, 7) ~V [Nothing]
 move (9, 7) → attacks (7, 7) obstacle [no effect]
+move (10, 6) → attacks (9, 7) ~V [Nothing]
 move (6, 8) → attacks (7, 7) obstacle [no effect], attacks (7, 9) 🎯 health:5/5
 
 move (5, 7) → attacks (7, 7) obstacle [no effect]
@@ -48,14 +48,15 @@ move (5, 7) → attacks (7, 7) obstacle [no effect]
 (8, 5)
 (6, 5)
 (8, 7)
+(9, 6)
 (6, 7)
 (5, 6)
 (7, 3)
 (8, 4)
 (6, 4)
-(9, 5)
 (5, 5)
 (8, 8)
+(10, 6)
 (6, 8)
 (5, 7)
 (4, 6)

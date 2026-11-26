@@ -748,6 +748,284 @@ def run_one(host, port, model, prompt_text, run, timeout):
 # -------------------------------------------------------------------- main
 
 
+
+def wilson(k, n, z=1.959964):
+    """Wilson score interval for a binomial proportion, in percent.
+    Returns (lo, hi); (0, 0) for n == 0."""
+    if n == 0:
+        return (0.0, 0.0)
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (100 * max(0.0, c - h), 100 * min(1.0, c + h))
+
+
+def print_wci_view(records, models, runs_view):
+    """valid% and active% with Wilson 95% CI, per model and per prompt."""
+    print()
+    print("=" * 70)
+    print("WILSON 95% CI — valid% and active% (per model, then per prompt)")
+    print("=" * 70)
+
+    def row(label, rs):
+        if not rs:
+            return
+        n = len(rs)
+        k = sum(1 for r in rs if r["verdict"] == "OK")
+        ka = sum(1 for r in rs if r["verdict"] == "OK"
+                 and r.get("ok_kind") == "active")
+        lo, hi = wilson(k, n)
+        alo, ahi = wilson(ka, n)
+        print(f"  {label[:25]:<26}{n:>5} {100 * k / n:>6.1f}% "
+              f"[{lo:>4.1f}, {hi:>4.1f}] {100 * ka / n:>6.1f}% "
+              f"[{alo:>4.1f}, {ahi:>4.1f}]")
+
+    print(f"  {'model / prompt':<26} {'n':>4} {'valid%':>8} {'WCI 95%':>13}"
+          f" {'active%':>8} {'WCI 95%':>13}")
+    print("  " + "-" * 92)
+    for model in models:
+        row(model, [r for r in records if r["model"] == model])
+    print("  " + "-" * 92)
+    for name, _ in runs_view:
+        row(name, [r for r in records if r["run"] == name])
+    print("  " + "-" * 92)
+    row("(all)", records)
+
+
+def print_action_profile(records, models):
+    """How many declared moves / attacks / retreats per model, and what the
+    attacks hit. Declarations come from the stored answers; parts carry
+    the same on newer records. [-1,-1] / absent = not declared (legal)."""
+    no_op = (None, [-1, -1], ("-1", "-1"), [])
+
+    def profile(rs):
+        prof = {"n": len(rs), "moved": 0, "stayed": 0, "unparsed": 0,
+                "attacks": 0, "retreats": 0, "enemy": 0, "wave": 0,
+                "neutral": 0, "obstacle": 0, "empty": 0, "ally": 0}
+        for r in rs:
+            parts = r.get("parts") or {}
+            moved = None
+            atk_decl = maa_decl = None
+            try:
+                parsed = json.loads(r.get("answer") or "")
+                moved = parsed.get("movement") not in no_op
+                atk_decl = parsed.get("attack") not in no_op
+                maa_decl = parsed.get("move_after_attack") not in no_op
+            except (TypeError, json.JSONDecodeError):
+                prof["unparsed"] += 1
+                moved = None
+                atk_decl = None if parts.get("attack") is None \
+                    else parts.get("attack") is not None
+                maa_decl = None if parts.get("retreat") is None \
+                    else parts.get("retreat") is not None
+            if moved is True:
+                prof["moved"] += 1
+            elif moved is False:
+                prof["stayed"] += 1
+            if atk_decl:
+                prof["attacks"] += 1
+            if maa_decl:
+                prof["retreats"] += 1
+            issues = r.get("issues", [])
+            if any("VERIFIED ATTACK" in i or "valid attack on" in i
+                   for i in issues):
+                prof["enemy"] += 1
+            if any("attack on wave" in i for i in issues):
+                prof["wave"] += 1
+            if any("neutral target" in i for i in issues):
+                prof["neutral"] += 1
+            if any("attack on the obstacle" in i for i in issues):
+                prof["obstacle"] += 1
+            if any("empty water" in i for i in issues):
+                prof["empty"] += 1
+            if any("ALLY FIRE" in i for i in issues):
+                prof["ally"] += 1
+        return prof
+
+    print()
+    print("=" * 70)
+    print("ACTION PROFILE (declared actions from the stored answers)")
+    print("=" * 70)
+    print("  moved/stayed count declarations; attacks are any attack tile")
+    print("  declared, hit columns are rule-valid attacks by target kind.")
+    print(f"  {'model':<24} {'n':>4} {'moved':>6} {'stayed':>7} {'atk':>5} "
+          f"{'maa':>5} | {'enemy':>6} {'wave':>5} {'neutr':>6} "
+          f"{'obst':>5} {'empty':>6} {'ally':>5}")
+    print("  " + "-" * 96)
+    for model in models + ["(all models)"]:
+        rs = [r for r in records if r["model"] == model] \
+            if model != "(all models)" else records
+        if not rs:
+            continue
+        p = profile(rs)
+        print(f"  {model:<24} {p['n']:>4} {p['moved']:>6} {p['stayed']:>7} "
+              f"{p['attacks']:>5} {p['retreats']:>5} | {p['enemy']:>6} "
+              f"{p['wave']:>5} {p['neutral']:>6} {p['obstacle']:>5} "
+              f"{p['empty']:>6} {p['ally']:>5}")
+
+
+def print_report(records, models, runs_view):
+    """All report views over a records list. Used both after a live benchmark run and by --report FILE (no Ollama needed).
+    runs_view is a list of (run name, axes) pairs in benchmark order. """
+    print()
+    print("=" * 70)
+    print("RESULTS BY RUN")
+    print("=" * 70)
+    for name, axes in runs_view:
+        name = name
+        print(f"\n  {name}   axes={json.dumps(axes or {})}")
+        print(f"  {'model':<28} {'verdict':<16} summary")
+        print("  " + "-" * 66)
+        for r in [r for r in records if r["run"] == name]:
+            note = "; ".join(r.get("issues", []))[:60] or "clean"
+            if r.get("human_match"):
+                note = f"matches human: {','.join(r['human_match'])} | {note}"
+            shown = r["verdict"]
+            if shown == "OK":
+                shown = "OK-" + r.get("ok_kind", "active")
+            print(f"  {r['model']:<28} {shown:<16} {note}")
+
+    print()
+    print("=" * 70)
+    print("SUMMARY BY MODEL x RUN")
+    print("=" * 70)
+    print(f"  {'model':<24} {'run':<26} "
+          f"{'OKa':>4} {'OKp':>4} {'DEAD/RANGE':>10} {'MOVE':>5} {'JSON':>5} {'ERR':>4}")
+    print("  " + "-" * 96)
+    for model in models:
+        for name, axes in runs_view:
+            rs = [r for r in records
+                  if r["model"] == model and r["run"] == name]
+            if not rs:
+                continue
+            oka = sum(1 for r in rs if r["verdict"] == "OK"
+                      and r.get("ok_kind") == "active")
+            okp = sum(1 for r in rs if r["verdict"] == "OK"
+                      and r.get("ok_kind") == "passive")
+            bad_atk = sum(1 for r in rs if r["verdict"] == "INVALID_ATTACK")
+            bad_mv = sum(1 for r in rs if r["verdict"] == "INVALID_MOVE")
+            bad_js = sum(1 for r in rs if r["verdict"] == "INVALID_JSON")
+            err = sum(1 for r in rs
+                      if r["verdict"] in ("TIMEOUT", "MODEL_ERROR",
+                                          "SERVER_DOWN"))
+            print(f"  {model:<24} {name[:25]:<26} "
+                  f"{oka:>4} {okp:>4} {bad_atk:>10} {bad_mv:>5} {bad_js:>5} "
+                  f"{err:>4}")
+
+    print()
+    print("=" * 70)
+    print("TOTALS BY MODEL (all runs collapsed)")
+    print("=" * 70)
+    print(f"  {'model':<24} {'runs':>5} {'n':>4} "
+          f"{'OK-active':>10} {'OK-passive':>10} {'invalid':>8} {'err':>4} "
+          f"{'valid%':>7} {'active%':>8}")
+    print("  " + "-" * 90)
+    for model in models:
+        rs = [r for r in records if r["model"] == model]
+        if not rs:
+            continue
+        oka = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "active")
+        okp = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "passive")
+        inv = sum(1 for r in rs if r["verdict"].startswith("INVALID"))
+        err = len(rs) - oka - okp - inv
+        print(f"  {model:<24} {len({r['run'] for r in rs}):>5} {len(rs):>4} "
+              f"{oka:>10} {okp:>10} {inv:>8} {err:>4} "
+              f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
+              f"{round(100 * oka / len(rs), 1):>7}%")
+
+    print()
+    print("=" * 70)
+    print("COMPONENT BREAKDOWN (move / attack / retreat judged separately)")
+    print("=" * 70)
+    print("  [-1,-1] is a legal no-op for every field. Attack and retreat are")
+    print("  scored among the answers that actually declared them; 'val'")
+    print("  counts the answers that could be parsed and validated at all.")
+    print(f"  {'model':<24} {'val':>5} {'move ok':>8} {'move%':>7} "
+          f"{'attack ok/decl':>16} {'retreat ok/decl':>17}")
+    print("  " + "-" * 92)
+    for model in models + ["(all models)"]:
+        pool = [r for r in records if r["model"] == model] \
+            if model != "(all models)" else records
+        rs = [r for r in pool if r.get("parts")]
+        if not rs:
+            continue
+        n_val = len(rs)
+        move_ok = sum(1 for r in rs if r["parts"].get("move"))
+        atk = [r for r in rs if r["parts"].get("attack") is not None]
+        ret = [r for r in rs if r["parts"].get("retreat") is not None]
+        atk_ok = sum(1 for r in atk if r["parts"]["attack"])
+        ret_ok = sum(1 for r in ret if r["parts"]["retreat"])
+        atk_txt = f"{atk_ok}/{len(atk)} ({round(100 * atk_ok / len(atk), 1)}%)" \
+            if atk else "none declared"
+        ret_txt = f"{ret_ok}/{len(ret)} ({round(100 * ret_ok / len(ret), 1)}%)" \
+            if ret else "none declared"
+        print(f"  {model:<24} {n_val:>5} {move_ok:>8} "
+              f"{round(100 * move_ok / n_val, 1):>6}% "
+              f"{atk_txt:>16} {ret_txt:>17}")
+    print("  NOTE: an answer with a valid move + valid attack but a failed")
+    print("  retreat counts as INVALID_MOVE overall, yet here it earns move")
+    print("  and attack component credit.")
+
+    print()
+    print("=" * 70)
+    print("PROMPT OVERVIEW (all models collapsed)")
+    print("=" * 70)
+    print(f"  {'run':<26} {'models':>6} {'n':>4} {'OK-act':>7} {'OK-pas':>7} "
+          f"{'inv':>4} {'err':>4} {'valid%':>7} {'active%':>8}")
+    print("  " + "-" * 90)
+    for name, axes in runs_view:
+        rs = [r for r in records if r["run"] == name]
+        if not rs:
+            continue
+        oka = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "active")
+        okp = sum(1 for r in rs if r["verdict"] == "OK"
+                  and r.get("ok_kind") == "passive")
+        inv = sum(1 for r in rs if r["verdict"].startswith("INVALID"))
+        err = len(rs) - oka - okp - inv
+        print(f"  {name[:25]:<26} {len({r['model'] for r in rs}):>6} "
+              f"{len(rs):>4} {oka:>7} {okp:>7} {inv:>4} {err:>4} "
+              f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
+              f"{round(100 * oka / len(rs), 1):>7}%")
+
+    ally_hits = sum(1 for r in records
+                    if any("ALLY FIRE" in i for i in r.get("issues", [])))
+    wave_tiles = sum(1 for r in records
+                     if any("WAVE tile" in i for i in r.get("issues", [])))
+    verified_hits = sum(1 for r in records
+                        if any("VERIFIED ATTACK" in i or "valid attack on" in i
+                               for i in r.get("issues", [])))
+    unverified_hits = sum(1 for r in records
+                          if any("not verified" in i for i in r.get("issues", [])))
+    ally_shot = sum(1 for r in records
+                    if any("ALLY FIRE" in i for i in r.get("issues", [])))
+    neutral_hits = sum(1 for r in records
+                       if any("neutral target" in i for i in r.get("issues", [])))
+    wave_hits = sum(1 for r in records
+                     if any("attack on wave" in i for i in r.get("issues", [])))
+    obstacle_hits = sum(1 for r in records
+                        if any("attack on the obstacle" in i
+                               for i in r.get("issues", [])))
+    empty_hits = sum(1 for r in records
+                     if any("empty water" in i for i in r.get("issues", [])))
+    print()
+    print(f"  ally-fire answers: {ally_hits}   wave-tile destinations: "
+          f"{wave_tiles}")
+    print(f"  attack-RULE valid answers: {verified_hits + neutral_hits + ally_shot + wave_hits + obstacle_hits + empty_hits + unverified_hits}")
+    print(f"    attack-TARGET breakdown —  on enemies: {verified_hits}   "
+          f"on waves: {wave_hits}   on neutral targets: {neutral_hits}   "
+          f"on obstacles: {obstacle_hits}")
+    print(f"    on empty water: {empty_hits}   "
+          f"friendly fire: {ally_shot}   target unverifiable: {unverified_hits}")
+
+    print_wci_view(records, models, runs_view)
+
+    print_action_profile(records, models)
+
+
 def parse_args():
     ap = argparse.ArgumentParser(
         description="WavesST prompt benchmarker: settings JSON or CLI, "
@@ -782,6 +1060,10 @@ def parse_args():
                     help="Do not call Ollama; validate --answer against --key.")
     ap.add_argument("--answer", metavar="JSON",
                     help="With --validate-only: the model answer JSON to check.")
+    ap.add_argument("--report", metavar="FILE",
+                    help="Skip Ollama entirely: print every report view "
+                         "(totals, Wilson 95%% CI, components, action "
+                         "profile) from a saved results jsonl file.")
     ap.add_argument("--quiet", action="store_true",
                     help="Print only the summary tables.")
     return ap.parse_args()
@@ -789,6 +1071,28 @@ def parse_args():
 
 def main():
     args = parse_args()
+
+    # ---- report mode --------------------------------------------------------
+    if args.report:
+        try:
+            with open(args.report, encoding="utf-8") as f:
+                records = [json.loads(line) for line in f if line.strip()]
+        except (OSError, json.JSONDecodeError) as exc:
+            print(f"ERROR: cannot read results '{args.report}': {exc}",
+                  file=sys.stderr)
+            return 1
+        models = list(dict.fromkeys(r["model"] for r in records))
+        runs_view = []
+        for r in records:
+            if r.get("run") not in [n for n, _ in runs_view]:
+                runs_view.append((r.get("run", "?"), r.get("axes", {})))
+        print("=" * 70)
+        print(f"REPORT — {args.report}")
+        print(f"{len(records)} records, {len(models)} models, "
+              f"{len(runs_view)} runs")
+        print("=" * 70)
+        print_report(records, models, runs_view)
+        return 0
 
     # ---- offline validation mode -------------------------------------------
     if args.validate_only:
@@ -947,158 +1251,9 @@ def main():
                          if record.get("issues") else ""))
 
     # ---- report -------------------------------------------------------------
-    print()
-    print("=" * 70)
-    print("RESULTS BY RUN")
-    print("=" * 70)
-    for run, _, _ in prepared:
-        name = run["name"]
-        print(f"\n  {name}   axes={json.dumps(run.get('axes', {}))}")
-        print(f"  {'model':<28} {'verdict':<16} summary")
-        print("  " + "-" * 66)
-        for r in [r for r in records if r["run"] == name]:
-            note = "; ".join(r.get("issues", []))[:60] or "clean"
-            if r.get("human_match"):
-                note = f"matches human: {','.join(r['human_match'])} | {note}"
-            shown = r["verdict"]
-            if shown == "OK":
-                shown = "OK-" + r.get("ok_kind", "active")
-            print(f"  {r['model']:<28} {shown:<16} {note}")
-
-    print()
-    print("=" * 70)
-    print("SUMMARY BY MODEL x RUN")
-    print("=" * 70)
-    print(f"  {'model':<24} {'run':<26} "
-          f"{'OKa':>4} {'OKp':>4} {'DEAD/RANGE':>10} {'MOVE':>5} {'JSON':>5} {'ERR':>4}")
-    print("  " + "-" * 96)
-    for model in models:
-        for run, _, _ in prepared:
-            rs = [r for r in records
-                  if r["model"] == model and r["run"] == run["name"]]
-            if not rs:
-                continue
-            oka = sum(1 for r in rs if r["verdict"] == "OK"
-                      and r.get("ok_kind") == "active")
-            okp = sum(1 for r in rs if r["verdict"] == "OK"
-                      and r.get("ok_kind") == "passive")
-            bad_atk = sum(1 for r in rs if r["verdict"] == "INVALID_ATTACK")
-            bad_mv = sum(1 for r in rs if r["verdict"] == "INVALID_MOVE")
-            bad_js = sum(1 for r in rs if r["verdict"] == "INVALID_JSON")
-            err = sum(1 for r in rs
-                      if r["verdict"] in ("TIMEOUT", "MODEL_ERROR",
-                                          "SERVER_DOWN"))
-            print(f"  {model:<24} {run['name'][:25]:<26} "
-                  f"{oka:>4} {okp:>4} {bad_atk:>10} {bad_mv:>5} {bad_js:>5} "
-                  f"{err:>4}")
-
-    print()
-    print("=" * 70)
-    print("TOTALS BY MODEL (all runs collapsed)")
-    print("=" * 70)
-    print(f"  {'model':<24} {'runs':>5} {'n':>4} "
-          f"{'OK-active':>10} {'OK-passive':>10} {'invalid':>8} {'err':>4} "
-          f"{'valid%':>7} {'active%':>8}")
-    print("  " + "-" * 90)
-    for model in models:
-        rs = [r for r in records if r["model"] == model]
-        if not rs:
-            continue
-        oka = sum(1 for r in rs if r["verdict"] == "OK"
-                  and r.get("ok_kind") == "active")
-        okp = sum(1 for r in rs if r["verdict"] == "OK"
-                  and r.get("ok_kind") == "passive")
-        inv = sum(1 for r in rs if r["verdict"].startswith("INVALID"))
-        err = len(rs) - oka - okp - inv
-        print(f"  {model:<24} {len({r['run'] for r in rs}):>5} {len(rs):>4} "
-              f"{oka:>10} {okp:>10} {inv:>8} {err:>4} "
-              f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
-              f"{round(100 * oka / len(rs), 1):>7}%")
-
-    print()
-    print("=" * 70)
-    print("COMPONENT BREAKDOWN (move / attack / retreat judged separately)")
-    print("=" * 70)
-    print("  [-1,-1] is a legal no-op for every field. Attack and retreat are")
-    print("  scored among the answers that actually declared them; 'val'")
-    print("  counts the answers that could be parsed and validated at all.")
-    print(f"  {'model':<24} {'val':>5} {'move ok':>8} {'move%':>7} "
-          f"{'attack ok/decl':>16} {'retreat ok/decl':>17}")
-    print("  " + "-" * 92)
-    for model in models + ["(all models)"]:
-        pool = [r for r in records if r["model"] == model] \
-            if model != "(all models)" else records
-        rs = [r for r in pool if r.get("parts")]
-        if not rs:
-            continue
-        n_val = len(rs)
-        move_ok = sum(1 for r in rs if r["parts"].get("move"))
-        atk = [r for r in rs if r["parts"].get("attack") is not None]
-        ret = [r for r in rs if r["parts"].get("retreat") is not None]
-        atk_ok = sum(1 for r in atk if r["parts"]["attack"])
-        ret_ok = sum(1 for r in ret if r["parts"]["retreat"])
-        atk_txt = f"{atk_ok}/{len(atk)} ({round(100 * atk_ok / len(atk), 1)}%)" \
-            if atk else "none declared"
-        ret_txt = f"{ret_ok}/{len(ret)} ({round(100 * ret_ok / len(ret), 1)}%)" \
-            if ret else "none declared"
-        print(f"  {model:<24} {n_val:>5} {move_ok:>8} "
-              f"{round(100 * move_ok / n_val, 1):>6}% "
-              f"{atk_txt:>16} {ret_txt:>17}")
-    print("  NOTE: an answer with a valid move + valid attack but a failed")
-    print("  retreat counts as INVALID_MOVE overall, yet here it earns move")
-    print("  and attack component credit.")
-
-    print()
-    print("=" * 70)
-    print("PROMPT OVERVIEW (all models collapsed)")
-    print("=" * 70)
-    print(f"  {'run':<26} {'models':>6} {'n':>4} {'OK-act':>7} {'OK-pas':>7} "
-          f"{'inv':>4} {'err':>4} {'valid%':>7} {'active%':>8}")
-    print("  " + "-" * 90)
-    for run, _, _ in prepared:
-        rs = [r for r in records if r["run"] == run["name"]]
-        if not rs:
-            continue
-        oka = sum(1 for r in rs if r["verdict"] == "OK"
-                  and r.get("ok_kind") == "active")
-        okp = sum(1 for r in rs if r["verdict"] == "OK"
-                  and r.get("ok_kind") == "passive")
-        inv = sum(1 for r in rs if r["verdict"].startswith("INVALID"))
-        err = len(rs) - oka - okp - inv
-        print(f"  {run['name'][:25]:<26} {len({r['model'] for r in rs}):>6} "
-              f"{len(rs):>4} {oka:>7} {okp:>7} {inv:>4} {err:>4} "
-              f"{round(100 * (oka + okp) / len(rs), 1):>6}% "
-              f"{round(100 * oka / len(rs), 1):>7}%")
-
-    ally_hits = sum(1 for r in records
-                    if any("ALLY FIRE" in i for i in r.get("issues", [])))
-    wave_tiles = sum(1 for r in records
-                     if any("WAVE tile" in i for i in r.get("issues", [])))
-    verified_hits = sum(1 for r in records
-                        if any("VERIFIED ATTACK" in i or "valid attack on" in i
-                               for i in r.get("issues", [])))
-    unverified_hits = sum(1 for r in records
-                          if any("not verified" in i for i in r.get("issues", [])))
-    ally_shot = sum(1 for r in records
-                    if any("ALLY FIRE" in i for i in r.get("issues", [])))
-    neutral_hits = sum(1 for r in records
-                       if any("neutral target" in i for i in r.get("issues", [])))
-    wave_hits = sum(1 for r in records
-                     if any("attack on wave" in i for i in r.get("issues", [])))
-    obstacle_hits = sum(1 for r in records
-                        if any("attack on the obstacle" in i
-                               for i in r.get("issues", [])))
-    empty_hits = sum(1 for r in records
-                     if any("empty water" in i for i in r.get("issues", [])))
-    print()
-    print(f"  ally-fire answers: {ally_hits}   wave-tile destinations: "
-          f"{wave_tiles}")
-    print(f"  attack-RULE valid answers: {verified_hits + neutral_hits + ally_shot + wave_hits + obstacle_hits + empty_hits + unverified_hits}")
-    print(f"    attack-TARGET breakdown —  on enemies: {verified_hits}   "
-          f"on waves: {wave_hits}   on neutral targets: {neutral_hits}   "
-          f"on obstacles: {obstacle_hits}")
-    print(f"    on empty water: {empty_hits}   "
-          f"friendly fire: {ally_shot}   target unverifiable: {unverified_hits}")
+    print_report(records, models,
+                 [(run["name"], run.get("axes", {}))
+                  for run, _, _ in prepared])
 
     out_file = args.save_jsonl or (settings or {}).get("output")
     if out_file:
