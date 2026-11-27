@@ -1,0 +1,39 @@
+{
+  "host": "192.168.2.62",
+  "port": 11434,
+  "models": [
+    "granite4.2:30b",
+    "gpt-oss:20b",
+    "llama3.1:8b",
+    "mistral-small3.2:24b",
+    "ministral-3:8b",
+    "phi3",
+    "phi4"
+  ],
+  "prompt_pairs": [
+    {
+      "prompt": "promptA.txt",
+      "check": "check.json"
+    },
+    {
+      "prompt": "promptB.txt",
+      "check": "check.json"
+    },
+    {
+      "prompt": "promptB-no-list.txt",
+      "check": "check.json"
+    },
+    {
+      "prompt": "promptC.txt",
+      "check": "check.json"
+    },
+    {
+      "prompt": "promptC-no-list.txt",
+      "check": "check.json"
+    }
+  ],
+  "repeat": 20,
+  "output": "results-Small-Kill-SmallArenaScene-20.jsonl",
+  "timeout": 500,
+  "temperature": 0.2
+}
