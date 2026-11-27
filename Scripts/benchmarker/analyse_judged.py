@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
 analyse_judged.py — aggregate judged JSONL records into a model x prompt
-report: rubric means per dimension, validity rate, token/timing cost, and
-optional pairwise wins.
+report: rubric means per dimension, validity rate, token/timing cost,
+latency statistics (mean/std/min/max) per model x prompt, and optional
+pairwise wins.
 
 Usage:
     python analyse_judged.py <judged.jsonl> [judged_pairwise.jsonl ...]
 """
 
 import json
+import math
 import os
 import sys
 
@@ -18,6 +20,34 @@ DIMENSIONS = ["rule_adherence", "target_quality", "board_awareness",
 
 def mean(values):
     return sum(values) / len(values) if values else None
+
+
+def stdev(values):
+    """Sample standard deviation (n-1). None if fewer than 2 values."""
+    n = len(values)
+    if n < 2:
+        return None
+    m = mean(values)
+    return math.sqrt(sum((v - m) ** 2 for v in values) / (n - 1))
+
+
+def median(values):
+    """Median of a list, or None if empty."""
+    if not values:
+        return None
+    s = sorted(values)
+    n = len(s)
+    mid = n // 2
+    if n % 2:
+        return s[mid]
+    return (s[mid - 1] + s[mid]) / 2
+
+
+def stats(values):
+    """Return (mean, stdev, median, min, max) of a list, or Nones if empty."""
+    if not values:
+        return None, None, None, None, None
+    return mean(values), stdev(values), median(values), min(values), max(values)
 
 
 def fmt(v, nd=2):
@@ -48,7 +78,8 @@ def main():
     # ---- group ALL records (judged or not) per model x prompt
     cells = {}
     for record in records:
-        key = (record.get("model", "?"), record.get("prompt_file", "?"))
+        prompt = record.get("prompt_file") or record.get("run") or "?"
+        key = (record.get("model", "?"), prompt)
         cell = cells.setdefault(key, {"total": 0, "ok": 0, "judged": 0,
                                        "overalls": [], "dims": {d: [] for d in DIMENSIONS},
                                        "out_tokens": [], "gen_times": []})
@@ -89,6 +120,25 @@ def main():
               f"{fmt(mean(c['overalls']), 1):>7} "
               + " ".join(fmt(mean(c['dims'][d]), 1) for d in DIMENSIONS)
               + f" {fmt(mean(c['out_tokens']), 0):>8} {fmt(mean(c['gen_times']), 2):>6}")
+
+    # ---- LATENCY statistics per model x prompt
+    print()
+    print("=" * 100)
+    print(f"LATENCY (s) — generation time per model x prompt "
+          f"(sample stdev, n-1)")
+    print("=" * 100)
+    lat_hdr = (f"  {'model':<26} {'prompt':<22} {'n':>3} "
+               f"{'mean':>7} {'std':>7} {'median':>7} {'min':>7} {'max':>7}")
+    print(lat_hdr)
+    print("  " + "-" * (len(lat_hdr) - 4))
+    for (model, prompt), c in sorted(cells.items()):
+        if not c["gen_times"]:
+            continue
+        m, s, med, lo, hi = stats(c["gen_times"])
+        print(f"  {model:<26} {os.path.basename(prompt):<22} "
+              f"{len(c['gen_times']):>3} "
+              f"{fmt(m, 2):>7} {fmt(s, 2):>7} {fmt(med, 2):>7} {fmt(lo, 2):>7} {fmt(hi, 2):>7}")
+    print("=" * 100)
 
     if pairwise:
         wins, games = {}, {}
