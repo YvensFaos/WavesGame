@@ -68,6 +68,7 @@ BUDGET = 3           # orthogonal steps shared by movement + moveAfterAttack
 ATTACK_DISTANCE = 2  # exact Manhattan distance; 1 is a dead zone
 SHIP_DAMAGE = 7      # damage per attack: an enemy at hp <= SHIP_DAMAGE dies
 ENEMY_FULL_HP = 15   # enemies at full hp; in between = wounded
+ABORT_AFTER = 10     # consecutive unreachable answers before giving up
 
 
 def parse_axes(spec):
@@ -88,6 +89,39 @@ def load_settings(path):
     except (OSError, json.JSONDecodeError) as exc:
         print(f"ERROR: cannot read settings '{path}': {exc}", file=sys.stderr)
         return None
+
+
+def resolve_path(path, base):
+    """Resolve a settings-mentioned input path: as given when it exists or
+    is absolute; otherwise relative to the settings file's own folder.
+    Lets one scenario folder hold config + prompts + checks and be run
+    from anywhere: the config can say just "promptA.txt"."""
+    if not path:
+        return path
+    if os.path.isabs(path) or os.path.exists(path):
+        return path
+    if base:
+        cand = os.path.join(base, path)
+        if os.path.exists(cand):
+            return cand
+    return path
+
+
+def resolve_out(path, base):
+    """Output-file variant of resolve_path. A bare filename (no folder
+    part) goes next to the settings file; a path with a folder part stays
+    as given when that folder exists, else is retried relative to the
+    settings folder."""
+    if not path or not base or os.path.isabs(path):
+        return path
+    if os.sep not in path and "/" not in path:
+        return os.path.join(base, path)
+    if os.path.isdir(os.path.dirname(path) or "."):
+        return path
+    cand = os.path.join(base, path)
+    if os.path.isdir(os.path.dirname(cand) or "."):
+        return cand
+    return path
 
 
 def build_runs(args, settings):
@@ -704,6 +738,21 @@ def human_section(key, args_prog="  "):
 # ------------------------------------------------------------------- ollama
 
 
+def preflight(host, port, timeout=5.0):
+    """Cheap reachability probe before the matrix. Returns None when the
+    Ollama host answers (any HTTP response counts as reachable), else the
+    error text. Failing here beats burning through every attempt with
+    SERVER_DOWN."""
+    try:
+        urllib.request.urlopen(f"http://{host}:{port}/api/tags",
+                               timeout=timeout)
+        return None
+    except urllib.error.HTTPError:
+        return None          # reachable: a server answered with HTTP
+    except Exception as exc:
+        return str(exc)
+
+
 def post_generate(ip, port, payload, timeout):
     url = f"http://{ip}:{port}/api/generate"
     data = json.dumps(payload).encode("utf-8")
@@ -725,12 +774,15 @@ def run_one(host, port, model, prompt_text, run, timeout):
         body, wall_s = post_generate(host, port, payload, timeout)
     except TimeoutError:
         return {"verdict": "TIMEOUT", "issues": []}
-    except urllib.error.URLError as exc:
-        return {"verdict": "SERVER_DOWN", "issues": [str(exc)]}
     except urllib.error.HTTPError as exc:
+        # must come before URLError/OSError: HTTPError is their subclass
         return {"verdict": "MODEL_ERROR",
                 "issues": [f"HTTP {exc.code}: "
                            f"{exc.read().decode('utf-8', 'replace')[:200]}"]}
+    except OSError as exc:
+        # URLError and every network failure: refused, no route, reset,
+        # remote end closed the connection mid-response, timeouts
+        return {"verdict": "SERVER_DOWN", "issues": [str(exc)]}
 
     record = {"verdict": "OK", "issues": [],
               "client_time_s": round(wall_s, 2),
@@ -1235,6 +1287,16 @@ def main():
     if args.validate_only:
         return 0
 
+    problem = preflight(host, port)
+    if problem is not None:
+        print(f"ERROR: Ollama at {host}:{port} is unreachable: {problem}",
+              file=sys.stderr)
+        print("       Not running the benchmark: every request would fail. "
+              "Start the server (OLLAMA_HOST=0.0.0.0 ollama serve) or fix "
+              "host/port in the settings.", file=sys.stderr)
+        return 1
+
+    base = os.path.dirname(os.path.abspath(args.settings)) if args.settings else ""
     models, runs = build_runs(args, settings)
     if models is None:
         return 1
@@ -1246,6 +1308,12 @@ def main():
         print("ERROR: no runs. Use settings 'prompt_pairs' or --prompt/--key.",
               file=sys.stderr)
         return 1
+
+    # paths in the settings may be bare filenames living next to the
+    # config (self-contained scenario folder); resolve them now.
+    for run in runs:
+        run["prompt"] = resolve_path(run["prompt"], base)
+        run["key"] = resolve_path(run["key"], base)
 
     global_repeat = args.repeat or (settings or {}).get("repeat", 1)
 
@@ -1283,6 +1351,7 @@ def main():
 
     records = []
     warmup_done = set()
+    fail_streak = 0
     for model in models:
         for run, prompt_text, key in prepared:
             run_repeat = max(1, run.get("repeat") or global_repeat)
@@ -1301,6 +1370,17 @@ def main():
                     warmup_done.add(model)
 
                 result = run_one(host, port, model, prompt_text, run, timeout)
+                if result["verdict"] == "SERVER_DOWN":
+                    fail_streak += 1
+                    if fail_streak >= ABORT_AFTER:
+                        print(f"ERROR: {fail_streak} consecutive requests "
+                              f"cannot reach {host}:{port}; aborting the "
+                              f"benchmark without writing output (the "
+                              f"server died or the route broke mid-run).",
+                              file=sys.stderr)
+                        return 1
+                else:
+                    fail_streak = 0
                 answer = result.pop("answer", None)
                 record = {"model": model, "run": run["name"],
                           "axes": run.get("axes", {}), "attempt": attempt + 1}
@@ -1352,6 +1432,8 @@ def main():
                   for run, _, _ in prepared])
 
     out_file = args.save_jsonl or (settings or {}).get("output")
+    if out_file:
+        out_file = resolve_out(out_file, base)
     if out_file:
         mode = "a" if args.append else "w"
         with open(out_file, mode, encoding="utf-8") as f:
