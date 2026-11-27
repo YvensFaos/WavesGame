@@ -66,6 +66,8 @@ DEFAULT_HOST = "192.168.2.62"
 DEFAULT_PORT = 11434
 BUDGET = 3           # orthogonal steps shared by movement + moveAfterAttack
 ATTACK_DISTANCE = 2  # exact Manhattan distance; 1 is a dead zone
+SHIP_DAMAGE = 7      # damage per attack: an enemy at hp <= SHIP_DAMAGE dies
+ENEMY_FULL_HP = 15   # enemies at full hp; in between = wounded
 
 
 def parse_axes(spec):
@@ -761,6 +763,79 @@ def wilson(k, n, z=1.959964):
     return (100 * max(0.0, c - h), 100 * min(1.0, c + h))
 
 
+def print_optimality_view(records, models, runs_view):
+    """Decision quality on top of legality: what did the rule-valid attacks
+    actually hit? Classifies every VERIFIED enemy hit by the target's
+    remaining hp: KILLSHOT (hp <= SHIP_DAMAGE, the ship dies this turn),
+    WOUNDED (below full hp but survives), FULL. killshare = killshots /
+    verified enemy hits; kill share taken per prompt shows which prompt
+    variant moves models toward the low-hp target. Works purely from the
+    stored issues, so it is available in --report mode too."""
+    hit_re = re.compile(r"hits enemy .*? \(hp (\d+)\) at \((\d+), (\d+)\)")
+
+    def hits(rs):
+        out = []
+        for r in rs:
+            for i in r.get("issues", []):
+                m = hit_re.search(i)
+                if m:
+                    out.append((int(m.group(1)),
+                                (int(m.group(2)), int(m.group(3)))))
+        return out
+
+    def bucket(hp):
+        if hp <= SHIP_DAMAGE:
+            return "killshot"
+        if hp < ENEMY_FULL_HP:
+            return "wounded"
+        return "full"
+
+    print()
+    print("=" * 70)
+    print("OPTIMALITY (what the legal attacks actually hit)")
+    print("=" * 70)
+    print(f"  killshot = enemy at hp <= {SHIP_DAMAGE} (dies this turn);"
+          " killshare = killshot hits / verified enemy hits.")
+    print("  A model can be 100% valid and still take no killshot.")
+    print(f"  {'model':<24}{'verify':>7}{'kill':>6}{'wound':>7}{'full':>6}"
+          f"{'killshare':>11}{'no enemy hit':>13}")
+    print("  " + "-" * 84)
+    for model in models + ["(all models)"]:
+        pool = [r for r in records if r["model"] == model] \
+            if model != "(all models)" else records
+        if not pool:
+            continue
+        per_record = [hits([r]) for r in pool]
+        hs = [h for rec_hits in per_record for h in rec_hits]
+        kill = sum(1 for hp, _ in hs if bucket(hp) == "killshot")
+        wound = sum(1 for hp, _ in hs if bucket(hp) == "wounded")
+        full = sum(1 for hp, _ in hs if bucket(hp) == "full")
+        share = f"{round(100 * kill / len(hs), 1)}%" if hs else "-"
+        no_hit = sum(1 for rec_hits in per_record if not rec_hits)
+        print(f"  {model:<24}{len(hs):>7}{kill:>6}{wound:>7}{full:>6}"
+              f"{share:>11}{no_hit:>13}")
+
+    print()
+    print("  killshots per prompt  (k = killshot hits, t = verified enemy hits)")
+    print("  '-' = no verified enemy hits at all in that cell (every attack")
+    print("  was invalid, or the model only attacked non-ship or empty tiles)")
+    names = [name for name, _ in runs_view]
+    print(f"  {'model':<24}" + "".join(f"{nm[:13]:>14}" for nm in names))
+    print("  " + "-" * 84)
+    for model in models:
+        cells = []
+        any_data = False
+        for name in names:
+            hs = hits([r for r in records
+                       if r["model"] == model and r["run"] == name])
+            k = sum(1 for hp, _ in hs if bucket(hp) == "killshot")
+            cells.append(f"{k}/{len(hs)}" if hs else "-")
+            if hs:
+                any_data = True
+        if any_data:
+            print(f"  {model:<24}" + "".join(f"{c:>14}" for c in cells))
+
+
 def print_wci_view(records, models, runs_view):
     """valid% and active% with Wilson 95% CI, per model and per prompt."""
     print()
@@ -1023,6 +1098,8 @@ def print_report(records, models, runs_view):
 
     print_wci_view(records, models, runs_view)
 
+    print_optimality_view(records, models, runs_view)
+
     print_action_profile(records, models)
 
 
@@ -1060,10 +1137,13 @@ def parse_args():
                     help="Do not call Ollama; validate --answer against --key.")
     ap.add_argument("--answer", metavar="JSON",
                     help="With --validate-only: the model answer JSON to check.")
-    ap.add_argument("--report", metavar="FILE",
+    ap.add_argument("--report", metavar="FILE", nargs="+",
                     help="Skip Ollama entirely: print every report view "
                          "(totals, Wilson 95%% CI, components, action "
-                         "profile) from a saved results jsonl file.")
+                         "profile) from one or more saved results jsonl "
+                         "files (e.g. per-prompt batches). Records with "
+                         "the same (model, run, attempt) are deduped, "
+                         "later files win.")
     ap.add_argument("--quiet", action="store_true",
                     help="Print only the summary tables.")
     return ap.parse_args()
@@ -1074,22 +1154,38 @@ def main():
 
     # ---- report mode --------------------------------------------------------
     if args.report:
-        try:
-            with open(args.report, encoding="utf-8") as f:
-                records = [json.loads(line) for line in f if line.strip()]
-        except (OSError, json.JSONDecodeError) as exc:
-            print(f"ERROR: cannot read results '{args.report}': {exc}",
-                  file=sys.stderr)
-            return 1
+        records = []
+        seen = {}
+        dupes = 0
+        for path in args.report:
+            try:
+                with open(path, encoding="utf-8") as f:
+                    for line in f:
+                        if not line.strip():
+                            continue
+                        r = json.loads(line)
+                        key = (r.get("model"), r.get("run"), r.get("attempt"))
+                        if key in seen:
+                            records[seen[key]] = r
+                            dupes += 1
+                        else:
+                            seen[key] = len(records)
+                            records.append(r)
+            except (OSError, json.JSONDecodeError) as exc:
+                print(f"ERROR: cannot read results '{path}': {exc}",
+                      file=sys.stderr)
+                return 1
         models = list(dict.fromkeys(r["model"] for r in records))
         runs_view = []
         for r in records:
             if r.get("run") not in [n for n, _ in runs_view]:
                 runs_view.append((r.get("run", "?"), r.get("axes", {})))
         print("=" * 70)
-        print(f"REPORT — {args.report}")
+        print(f"REPORT — {', '.join(args.report)}")
         print(f"{len(records)} records, {len(models)} models, "
-              f"{len(runs_view)} runs")
+              f"{len(runs_view)} runs"
+              + (f" ({dupes} duplicate model/run/attempt records, "
+                 f"later files won)" if dupes else ""))
         print("=" * 70)
         print_report(records, models, runs_view)
         return 0

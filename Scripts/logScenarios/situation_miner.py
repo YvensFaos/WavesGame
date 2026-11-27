@@ -80,6 +80,11 @@ def parse_args():
                     help="Force ANSI colours even when output is piped.")
     ap.add_argument("--no-color", action="store_true",
                     help="Plain ASCII, no ANSI colours.")
+    ap.add_argument("--dedup", type=int, default=1, metavar="N",
+                    help="Keep only the highest-scored event per "
+                         "(log, turn, actor): retries and re-decisions at "
+                         "the same decision point collapse into one. "
+                         "Default 1 (on); pass 0 to turn it off.")
     ap.add_argument("--quiet", action="store_true",
                     help="Only the ranked list, no detail blocks.")
     return ap.parse_args()
@@ -519,10 +524,26 @@ def main():
         return 1
 
     entries.sort(key=lambda e: (-e["score"], str(e["log"]), e["turn"] or 0))
+    dropped = 0
+    if args.dedup:
+        # entries are sorted best-first, so the first hit per
+        # (log, turn, actor) is the highest-scored event at that
+        # decision point; retries / re-decisions collapse into it.
+        best = {}
+        for e in entries:
+            key = (str(e["log"]), e["turn"], str(e["actor"]))
+            if key not in best:
+                best[key] = e
+        dropped = len(entries) - len(best)
+        entries = list(best.values())
 
     print("=" * 70)
     print(f"SITUATION MINING — {len(entries)} decision events from "
           f"{len(args.logs)} log(s)")
+    if dropped:
+        print(f"  (--dedup on: best event per log/turn/actor kept, "
+              f"{dropped} near-duplicate event(s) dropped; "
+              f"--dedup 0 disables)")
     print("=" * 70)
     print(f"  {'rank':>4}  {'score':>5}  {'game state':<44} interesting bits")
     print("  " + "-" * 100)
