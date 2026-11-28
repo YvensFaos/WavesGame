@@ -1,13 +1,15 @@
 WavesST. You = Green. Enemies = Red.
-Your ship [LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=8. at (8,4).
+Your ship [LLM|Ollama|llama3.1:8b|Maria D.|Green|2]; faction=Green; currentHealth=15. at (4,4).
 Enemies: 
-(10, 3) = 🚢 Enemy Red health:1/15
-(8, 6) = 🚢 Enemy Red health:15/15
+(6, 2) = 🚢 Enemy Red health:15/15
+(7, 5) = 🚢 Enemy Red health:1/15
 
-Allies: Nothing
+Allies: 
+(2, 3) = 🚢 Luana D. Ally health:15/15
+
 Waves: 
-(3, 2) = ~<
-(8, 5) = ~>
+(2, 2) = ~^
+(7, 6) = ~V
 
 
 ⚔️ Attack is valid ONLY at exactly 2 tiles away (Manhattan distance: orthogonal steps; a diagonal counts as 2 steps).
@@ -15,12 +17,7 @@ The tile right next to you (1 step) is a dead zone: it can never be attacked.
 Only enemy ships (🚢) count for victory. Waves (~>) and neutrals (🎯) can be attacked but do not help you win.
 
 ⚔️ ATTACK NOW (no move needed; attack the first tile on the line):
-
-(8, 6) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Enemy Red health:15/15
-(9, 5) = 🎯 health:5/5
-
-
-
+[Nothing]
 
 MOVEMENT BUDGET
 You may move up to 3 tiles per turn, split between "movement" and "move_after_attack".
@@ -28,38 +25,45 @@ Every tile you enter must be on the SAFE list.
 The SAFE list already includes every tile reachable within 3 moves of your current position, so any valid retreat tile is already in it.
 
 MOVE + ATTACK PAIRS (move to X, then attack Y):
-move (8, 4) → attacks (8, 6) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:15/15, attacks (9, 5) 🎯 health:5/5
+move (4, 4) → attacks (5, 5) obstacle [no effect], attacks (6, 4) obstacle [no effect]
+move (4, 5) → attacks (2, 5) 🎯 health:5/5
+, attacks (5, 4) obstacle [no effect]
+move (4, 3) → attacks (5, 4) obstacle [no effect], attacks (6, 3) obstacle [no effect]
+move (3, 4) → attacks (2, 5) 🎯 health:5/5
+, attacks (5, 4) obstacle [no effect]
+move (4, 6) → attacks (5, 5) obstacle [no effect]
+move (3, 5) → attacks (5, 5) obstacle [no effect]
+move (4, 2) → attacks (2, 2) ~^ chain (2, 3):[🚢 Luana D. Ally health:15/15],, attacks (6, 2) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|5 Red health:15/15
+move (5, 3) → attacks (5, 5) obstacle [no effect], attacks (6, 2) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|5 Red health:15/15, attacks (6, 4) obstacle [no effect]
+move (3, 3) → attacks (2, 2) ~^ chain (2, 3):[🚢 Luana D. Ally health:15/15],
+move (2, 4) → attacks (2, 2) ~^ chain (2, 3):[🚢 Luana D. Ally health:15/15],
+move (5, 6) → attacks (5, 4) obstacle [no effect], attacks (7, 6) ~V 
+move (3, 6) → attacks (2, 5) 🎯 health:5/5
 
-move (8, 5) → attacks (8, 3) obstacle [no effect]
-move (9, 4) → attacks (8, 3) obstacle [no effect], attacks (8, 5) ~> chain (9, 5):[🎯 health:5/5],, attacks (9, 2) obstacle [no effect], attacks (10, 3) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|3 Red health:1/15
-move (7, 4) → attacks (6, 3) obstacle [no effect], attacks (8, 3) obstacle [no effect], attacks (8, 5) ~> chain (9, 5):[🎯 health:5/5],
-move (7, 5) → attacks (8, 6) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Red health:15/15, attacks (9, 5) 🎯 health:5/5
+move (4, 1) → attacks (2, 1) obstacle [no effect]
+move (5, 2) → attacks (5, 4) obstacle [no effect], attacks (6, 3) obstacle [no effect]
+move (3, 2) → attacks (2, 1) obstacle [no effect]
+move (1, 4) → attacks (2, 5) 🎯 health:5/5
 
-move (9, 3) → attacks (9, 5) 🎯 health:5/5
-
-move (10, 4) → attacks (9, 5) 🎯 health:5/5
-
-move (7, 6) → attacks (8, 5) ~> chain (9, 5):[🎯 health:5/5],
-move (6, 5) → attacks (6, 3) obstacle [no effect], attacks (8, 5) ~> chain (9, 5):[🎯 health:5/5],
-move (10, 5) → attacks (8, 5) ~> chain (9, 5):[🎯 health:5/5],, attacks (10, 3) 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|3 Red health:1/15
-move (7, 2) → attacks (6, 3) obstacle [no effect], attacks (8, 3) obstacle [no effect], attacks (9, 2) obstacle [no effect]
-move (5, 4) → attacks (3, 4) obstacle [no effect], attacks (6, 3) obstacle [no effect]
 
 
 ✓ SAFE MOVE TILES:
 
-(9, 4)
-(7, 4)
-(7, 5)
-(9, 3)
-(10, 4)
-(7, 3)
-(6, 4)
-(7, 6)
-(6, 5)
-(10, 5)
-(7, 2)
-(5, 4)
+(4, 5)
+(4, 3)
+(3, 4)
+(4, 6)
+(3, 5)
+(4, 2)
+(5, 3)
+(3, 3)
+(2, 4)
+(5, 6)
+(3, 6)
+(4, 1)
+(5, 2)
+(3, 2)
+(1, 4)
 
 
 

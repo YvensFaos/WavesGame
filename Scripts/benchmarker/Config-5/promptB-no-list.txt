@@ -34,15 +34,17 @@ Statistical analysis shows the path to victory is **PRECISION, NOT MOBILITY**. Y
 
 ## CURRENT STATE & ANALYSIS
 
-- **Your Ship:** `[LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=8.` at (`8`, `4`)
+- **Your Ship:** `[LLM|Ollama|llama3.1:8b|Maria D.|Green|2]; faction=Green; currentHealth=15.` at (`4`, `4`)
 - **Enemy Status:** `
-(10, 3) = 🚢 Enemy Red health:1/15
-(8, 6) = 🚢 Enemy Red health:15/15
+(6, 2) = 🚢 Enemy Red health:15/15
+(7, 5) = 🚢 Enemy Red health:1/15
 `
-- **Ally Status:** `Nothing`
+- **Ally Status:** `
+(2, 3) = 🚢 Luana D. Ally health:15/15
+`
 - **Wave Analysis:** `
-(3, 2) = ~<
-(8, 5) = ~>
+(2, 2) = ~^
+(7, 6) = ~V
 `
 
 ---
@@ -50,34 +52,29 @@ Statistical analysis shows the path to victory is **PRECISION, NOT MOBILITY**. Y
 ## AVAILABLE ACTIONS & VALIDATION
 
 ### 1. Attack Options (Evaluate First)
-**Immediate Targets:** `
-(8, 6) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Enemy Red health:15/15
-(9, 5) = 🎯 health:5/5
-
-
-`
+**Immediate Targets:** `[Nothing]`
 
 ### 2. Movement Options (Evaluate Second)
 **Safe Move-To Positions:** `
-(9, 4)
-(7, 4)
-(7, 5)
-(9, 3)
-(10, 4)
-(7, 3)
-(6, 4)
-(7, 6)
-(6, 5)
-(10, 5)
-(7, 2)
-(5, 4)
+(4, 5)
+(4, 3)
+(3, 4)
+(4, 6)
+(3, 5)
+(4, 2)
+(5, 3)
+(3, 3)
+(2, 4)
+(5, 6)
+(3, 6)
+(4, 1)
+(5, 2)
+(3, 2)
+(1, 4)
 
 `
 **Risky/Hazardous Positions Close to You:** 
- - *Waves*`
-(8, 5)
-
-` 
+ - *Waves*`Nothing` 
  - *Blocked* `[Nothing]`
 
 ---

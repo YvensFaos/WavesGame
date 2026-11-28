@@ -1,13 +1,15 @@
 WavesST — turn-based naval strategy. You are an AI player controlling a ship in this game. You = Green. Enemies = Red.
-Your ship [LLM|Ollama|llama3.1:8b|Luana D.|Green|1]; faction=Green; currentHealth=8. at (8,4).
+Your ship [LLM|Ollama|llama3.1:8b|Maria D.|Green|2]; faction=Green; currentHealth=15. at (4,4).
 Enemies: 
-(10, 3) = 🚢 Enemy Red health:1/15
-(8, 6) = 🚢 Enemy Red health:15/15
+(6, 2) = 🚢 Enemy Red health:15/15
+(7, 5) = 🚢 Enemy Red health:1/15
 
-Allies: Nothing
+Allies: 
+(2, 3) = 🚢 Luana D. Ally health:15/15
+
 Waves: 
-(3, 2) = ~<
-(8, 5) = ~>
+(2, 2) = ~^
+(7, 6) = ~V
 
 
 ⚔️ Attack is valid ONLY at exactly 2 tiles away (Manhattan distance — a diagonal step counts as 2). Tiles at 1 tile or closer are a dead zone: they cannot be attacked.
@@ -17,12 +19,7 @@ Wave tiles (~^, ~V, ~<, ~>) are weapons, not just obstacles: attacking a wave pr
 CORE PRIORITY: consistently selecting and hitting enemies is the #1 driver of success. Move with intent: every movement must get a target into range, set up a wave shot, or avoid danger. Failing to attack an enemy that is in your range leaves you vulnerable to their counter-attack.
 
 ⚔️ ATTACK NOW (no move needed; attack the first tile on the line):
-
-(8, 6) = 🚢 PlayerSimpleRedBoat Variant(Clone)|Red|2 Enemy Red health:15/15
-(9, 5) = 🎯 health:5/5
-
-
-
+[Nothing]
 
 MOVEMENT BUDGET
 You may move up to 3 tiles per turn, split between "movement" and "move_after_attack".
@@ -31,18 +28,21 @@ The SAFE list already includes every tile reachable within 3 moves of your curre
 
 ✓ SAFE MOVE TILES:
 
-(9, 4)
-(7, 4)
-(7, 5)
-(9, 3)
-(10, 4)
-(7, 3)
-(6, 4)
-(7, 6)
-(6, 5)
-(10, 5)
-(7, 2)
-(5, 4)
+(4, 5)
+(4, 3)
+(3, 4)
+(4, 6)
+(3, 5)
+(4, 2)
+(5, 3)
+(3, 3)
+(2, 4)
+(5, 6)
+(3, 6)
+(4, 1)
+(5, 2)
+(3, 2)
+(1, 4)
 
 
 
