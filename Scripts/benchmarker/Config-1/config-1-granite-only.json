@@ -1,0 +1,33 @@
+{
+  "host": "192.168.2.61",
+  "port": 11434,
+  "models": [
+    "granite4.2:30b"
+  ],
+  "prompt_pairs": [
+    {
+      "prompt": "promptA-1.txt",
+      "check": "check-1.json"
+    },
+    {
+      "prompt": "promptB-1.txt",
+      "check": "check-1.json"
+    },
+    {
+      "prompt": "promptB-no-list-1.txt",
+      "check": "check-1.json"
+    },
+    {
+      "prompt": "promptC-1.txt",
+      "check": "check-1.json"
+    },
+    {
+      "prompt": "promptC-no-list-1.txt",
+      "check": "check-1.json"
+    }
+  ],
+  "repeat": 20,
+  "output": "results-1-20-granite-only.jsonl",
+  "timeout": 500,
+  "temperature": 0.2
+}
