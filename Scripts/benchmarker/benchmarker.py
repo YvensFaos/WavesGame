@@ -15,7 +15,10 @@ Everything can come from a settings JSON, from the command line, or a mix
 Settings schema:
 {
   "host": "192.168.2.62", "port": 11434,
-  "models": ["llama3.1:8b", "phi4"],
+  "models": ["llama3.1:8b",
+             {"name": "qwen3.6:27b", "format": "text"},
+             {"name": "batiai/gemma4-26b:q6", "think": true}],
+  "think": false, "format": "json",
   "prompt_pairs": [
     {"prompt": "promptA.txt", "check": "promptA_check.txt"},
     {"prompt": "promptB.txt", "check": "promptB_check.txt"},
@@ -124,12 +127,38 @@ def resolve_out(path, base):
     return path
 
 
+def normalize_models(raw, settings):
+    """Models may be plain strings or small config objects:
+        ["llama3.1:8b",
+         {"name": "qwen3.6:27b", "format": "text"},
+         {"name": "batiai/gemma4-26b:q6", "think": true}]
+    'think' (default False) is sent to Ollama so thinking-capable models
+    do not burn a reasoning chain unless asked. 'format' (default "json")
+    is the structured-output mode; "text" or null means free-form output
+    (the JSON object is then extracted from the reply). Global settings
+    keys "think" and "format" are the fallback for entries that do not
+    set their own."""
+    if isinstance(raw, str):
+        raw = [m.strip() for m in raw.split(",") if m.strip()]
+    d_think = (settings or {}).get("think", False)
+    d_fmt = (settings or {}).get("format", "json")
+    out = []
+    for m in raw or []:
+        if isinstance(m, str):
+            out.append({"name": m, "think": d_think, "format": d_fmt})
+        else:
+            out.append({"name": m.get("name"),
+                        "think": m.get("think", d_think),
+                        "format": m.get("format", d_fmt)})
+    return [m for m in out if m["name"]]
+
+
 def build_runs(args, settings):
     """Merge settings prompt_pairs with CLI overrides into run dicts."""
     models = args.models or (settings or {}).get("models")
     if isinstance(models, str):
         models = [m.strip() for m in models.split(",") if m.strip()]
-    models = models or []
+    models = normalize_models(models, settings)
 
     runs = []
     if settings:
@@ -296,6 +325,26 @@ def as_pos(value):
         except (TypeError, ValueError):
             return "BAD"
     return "BAD"
+
+
+def extract_json(text):
+    """Full text when it is already JSON; else the outermost {...}
+    substring when that parses (models running without structured output
+    often add prose around the object); else None."""
+    try:
+        json.loads(text)
+        return text
+    except (TypeError, json.JSONDecodeError):
+        pass
+    a, b = text.find("{"), text.rfind("}")
+    if a >= 0 and b > a:
+        cand = text[a:b + 1]
+        try:
+            json.loads(cand)
+            return cand
+        except json.JSONDecodeError:
+            return None
+    return None
 
 
 def validate_answer(key, answer):
@@ -766,25 +815,49 @@ def post_generate(ip, port, payload, timeout):
 
 
 def run_one(host, port, model, prompt_text, run, timeout):
-    payload = {"model": model, "prompt": prompt_text, "stream": False,
-                "format": "json"}
+    """One request. `model` is a model spec dict
+    ({'name': ..., 'think': ..., 'format': ...}, see normalize_models)."""
+    payload = {"model": model["name"], "prompt": prompt_text,
+               "stream": False}
+    if model.get("think") is not None:
+        payload["think"] = bool(model["think"])
+    fmt = model.get("format")
+    if fmt and fmt != "text":
+        payload["format"] = fmt
     if run.get("temperature") is not None:
         payload["options"] = {"temperature": run["temperature"]}
+    extra = {}
     try:
         body, wall_s = post_generate(host, port, payload, timeout)
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", "replace")
+        if (exc.code == 501 and "format" in payload
+                and "structured output" in detail.lower()):
+            # this runner cannot do structured output (e.g. some MLX
+            # builds): retry the exact same request without the format
+            payload.pop("format")
+            extra["format_fallback"] = True
+            try:
+                body, wall_s = post_generate(host, port, payload, timeout)
+            except TimeoutError:
+                return {"verdict": "TIMEOUT", "issues": []}
+            except urllib.error.HTTPError as exc2:
+                return {"verdict": "MODEL_ERROR",
+                        "issues": [f"HTTP {exc2.code}: "
+                                   f"{exc2.read().decode('utf-8', 'replace')[:200]}"]}
+            except OSError as exc2:
+                return {"verdict": "SERVER_DOWN", "issues": [str(exc2)]}
+        else:
+            return {"verdict": "MODEL_ERROR",
+                    "issues": [f"HTTP {exc.code}: {detail[:200]}"]}
     except TimeoutError:
         return {"verdict": "TIMEOUT", "issues": []}
-    except urllib.error.HTTPError as exc:
-        # must come before URLError/OSError: HTTPError is their subclass
-        return {"verdict": "MODEL_ERROR",
-                "issues": [f"HTTP {exc.code}: "
-                           f"{exc.read().decode('utf-8', 'replace')[:200]}"]}
     except OSError as exc:
         # URLError and every network failure: refused, no route, reset,
         # remote end closed the connection mid-response, timeouts
         return {"verdict": "SERVER_DOWN", "issues": [str(exc)]}
 
-    record = {"verdict": "OK", "issues": [],
+    record = {"verdict": "OK", "issues": [], **extra,
               "client_time_s": round(wall_s, 2),
               "prompt_tokens": body.get("prompt_eval_count"),
               "output_tokens": body.get("eval_count")}
@@ -1356,18 +1429,18 @@ def main():
         for run, prompt_text, key in prepared:
             run_repeat = max(1, run.get("repeat") or global_repeat)
             for attempt in range(run_repeat):
-                attempt_id = f"{model} <- {run['name']} #{attempt + 1}"
+                attempt_id = f"{model['name']} <- {run['name']} #{attempt + 1}"
                 if not args.quiet:
                     print(f"[run] {attempt_id} ...", flush=True)
 
-                if args.warmup and model not in warmup_done:
+                if args.warmup and model["name"] not in warmup_done:
                     try:
                         post_generate(host, port,
-                                      {"model": model, "prompt": "Hi",
+                                      {"model": model["name"], "prompt": "Hi",
                                        "stream": False}, 60.0)
                     except Exception:
                         pass
-                    warmup_done.add(model)
+                    warmup_done.add(model["name"])
 
                 result = run_one(host, port, model, prompt_text, run, timeout)
                 if result["verdict"] == "SERVER_DOWN":
@@ -1382,40 +1455,47 @@ def main():
                 else:
                     fail_streak = 0
                 answer = result.pop("answer", None)
-                record = {"model": model, "run": run["name"],
+                record = {"model": model["name"], "run": run["name"],
                           "axes": run.get("axes", {}), "attempt": attempt + 1}
                 record.update(result)
                 record["answer"] = answer
 
                 if answer is not None and result["verdict"] in ("OK",):
-                    verdict, issues, parts = validate_answer(key, answer)
-                    record["verdict"] = verdict
-                    record["issues"] = issues
-                    record["parts"] = parts
-                    if verdict == "OK":
-                        record["ok_kind"] = (
-                            "passive" if any("no attack declared" in i
-                                             for i in issues) else "active")
-                    try:
-                        parsed = json.loads(answer)
-                        movement = parsed.get("movement")
-                        attack = parsed.get("attack")
-                        record["conformance"] = conformance(
-                            prompt_text, movement, attack)
-                    except (TypeError, json.JSONDecodeError):
-                        record["conformance"] = "n/a"
-                    if key.get("human"):
-                        model_choice = canonical_from_answer(
-                            answer, tuple(key["position"]))
-                        record["human_match"] = [
-                            h.get("name", "human") for h in key["human"]
-                            if model_choice is not None
-                            and canonical_choice(
-                                tuple(key["position"]),
-                                as_pos(h.get("movement")) or tuple(key["position"]),
-                                as_pos(h.get("attack")),
-                                as_pos(h.get("move_after_attack"))) == model_choice
-                        ]
+                    checked = extract_json(answer)
+                    if checked is None:
+                        record["verdict"] = "INVALID_JSON"
+                        record["issues"] = ["no JSON object found in the "
+                                            "answer (unstructured output?)"]
+                        record["parts"] = None
+                    else:
+                        verdict, issues, parts = validate_answer(key, checked)
+                        record["verdict"] = verdict
+                        record["issues"] = issues
+                        record["parts"] = parts
+                        if verdict == "OK":
+                            record["ok_kind"] = (
+                                "passive" if any("no attack declared" in i
+                                                 for i in issues) else "active")
+                        try:
+                            parsed = json.loads(checked)
+                            movement = parsed.get("movement")
+                            attack = parsed.get("attack")
+                            record["conformance"] = conformance(
+                                prompt_text, movement, attack)
+                        except (TypeError, json.JSONDecodeError):
+                            record["conformance"] = "n/a"
+                        if key.get("human"):
+                            model_choice = canonical_from_answer(
+                                checked, tuple(key["position"]))
+                            record["human_match"] = [
+                                h.get("name", "human") for h in key["human"]
+                                if model_choice is not None
+                                and canonical_choice(
+                                    tuple(key["position"]),
+                                    as_pos(h.get("movement")) or tuple(key["position"]),
+                                    as_pos(h.get("attack")),
+                                    as_pos(h.get("move_after_attack"))) == model_choice
+                            ]
                 else:
                     record["issues"] = record.get("issues", [])
                 records.append(record)
@@ -1427,7 +1507,7 @@ def main():
                          if record.get("issues") else ""))
 
     # ---- report -------------------------------------------------------------
-    print_report(records, models,
+    print_report(records, [m["name"] for m in models],
                  [(run["name"], run.get("axes", {}))
                   for run, _, _ in prepared])
 

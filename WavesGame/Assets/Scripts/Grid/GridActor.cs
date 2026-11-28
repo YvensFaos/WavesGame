@@ -136,11 +136,19 @@ namespace Grid
         }
 
         public bool IsMarkedForDeath() => markedForDeath;
+        
+        [Button("Snap to Grid")]
+        private void SnapToGrid()
+        {
+            transform.position = new Vector3(SnapHalf(transform.position.x), SnapHalf(transform.position.y), 0.0f);
+        }
 
         public override string ToString()
         {
             return
                 $"{name} -> position=[{currentUnit.Index().x}, {currentUnit.Index().y}]; maxHealth={maxHealth}; currentHealth={currentHealth}; ratio={GetHealthRatio()}; blockGridUnit={blockGridUnit}; hasStepEffect={hasStepEffect}; markedForDeath={markedForDeath}";
         }
+                
+        public static float SnapHalf(float v) => Mathf.Round(v - 0.5f) + 0.5f;
     }
 }

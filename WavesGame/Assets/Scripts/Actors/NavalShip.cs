@@ -329,7 +329,7 @@ namespace Actors
         public int Initiative
         {
             get => initiative;
-            private set => initiative = value;
+            set => initiative = value;
         }
 
         public bool HumanControlled

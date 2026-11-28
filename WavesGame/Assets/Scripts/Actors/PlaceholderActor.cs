@@ -8,6 +8,7 @@
 
 using System;
 using Core;
+using Grid;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -23,6 +24,10 @@ namespace Actors
 
         [SerializeField, ShowIf("overrideCurrentHealth")]
         private int currentHealth;
+        
+        [SerializeField] private bool overrideInitiative;
+        [SerializeField, ShowIf("overrideInitiative")]
+        private int initiative;
 
         [Button("Update Color")]
         private void UpdateSpriteColorToFactionColor()
@@ -33,7 +38,7 @@ namespace Actors
         [Button("Snap to Grid")]
         private void SnapToGrid()
         {
-            transform.position = new Vector3(SnapHalf(transform.position.x), SnapHalf(transform.position.y), 0.0f);
+            transform.position = new Vector3(GridActor.SnapHalf(transform.position.x), GridActor.SnapHalf(transform.position.y), 0.0f);
         }
 
         public int Order => order;
@@ -54,8 +59,11 @@ namespace Actors
             {
                 navalShip.OverrideCurrentHealth(currentHealth);
             }
+
+            if (overrideInitiative)
+            {
+                navalShip.Initiative = initiative;
+            }
         }
-        
-        private static float SnapHalf(float v) => Mathf.Round(v - 0.5f) + 0.5f;
     }
 }

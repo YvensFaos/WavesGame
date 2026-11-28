@@ -2,10 +2,10 @@
   "host": "192.168.2.61",
   "port": 11434,
   "models": [
-    "rafw007/glm-4.7-flash-opencode:latest",
-    "phi4-reasoning:14b-plus-q8_0",
-    "batiai/gemma4-26b:q6",
-    "qwen3.6:27b"
+    {"name": "rafw007/glm-4.7-flash-opencode:latest", "think": false},
+    {"name": "phi4-reasoning:14b-plus-q8_0", "think": false},
+    {"name": "batiai/gemma4-26b:q6", "think": false},
+    {"name": "qwen3.6:27b", "think": false, "format": "text"}
   ],
   "prompt_pairs": [
     {
@@ -29,8 +29,8 @@
       "check": "check.json"
     }
   ],
-  "repeat": 20,
-  "output": "results-Small-Kill-SmallArenaScene-20-other-models.jsonl",
+  "repeat": 3,
+  "output": "results-Small-Kill-SmallArenaScene-3-other-models-fix.jsonl",
   "timeout": 500,
   "temperature": 0.2
 }
