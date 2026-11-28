@@ -334,7 +334,6 @@ namespace Core.Simulation
 
                 //Initialize the naval ship according to its specific player type
                 playerType.InitializeType(navalShip, factionsHash);
-
                 navalShips.Add(navalShip);
 
                 //Apply placeholder controls to override the base navalShip settings
